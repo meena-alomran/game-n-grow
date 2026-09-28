@@ -2,6 +2,7 @@
 
 \usepackage{booktabs}
 \usepackage{tabularx}
+\usepackage{microtype}
 
 \title{Development Plan\\\progname}
 
@@ -22,9 +23,10 @@
 \toprule
 \textbf{Date} & \textbf{Developer(s)} & \textbf{Change}\\
 \midrule
-Sep 26th 2026 & Omar + Meena & Description of changes\\
-Date2 & Name(s) & Description of changes\\
-... & ... & ...\\
+Sep 26th 2026 & Omar + Meena & Section 1-5\\
+Sep 27th 2026 & Meena & Section 6/7/8\\
+Sep 27th 2026 & Marko & Section 9/11/13\\
+Sep 27th 2026 & Omar & Section 10/12/Appendices\\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -131,37 +133,28 @@ for deadlines.}
 
 \section{Expected Technology}
 
-\wss{What programming language or languages do you expect to use?  What external
-libraries?  What frameworks?  What technologies.  Are there major components of
-the implementation that you expect you will implement, despite the existence of
-libraries that provide the required functionality.  For projects with machine
-learning, will you use pre-trained models, or be training your own model?  }
+Our team will use a pre-packaged game engine, namely Godot, as the bedrock of our project implementation. Godot is a free and open-source game engine that has a very lenient learning curve via a Pythonic language (GD Script) made specifically for game development. It is also cross-platform, allowing for enhanced accessibility as the project can run on multiple devices.
 
-\wss{The implementation decisions can, and likely will, change over the course
-of the project.  The initial documentation should be written in an abstract way;
-it should be agnostic of the implementation choices, unless the implementation
-choices are project constraints.  However, recording our initial thoughts on
-implementation helps understand the challenge level and feasibility of a
-project.  It may also help with early identification of areas where project
-members will need to augment their training.}
+\par\medskip
 
-Topics to discuss include the following:
+\noindent AssetLib, Godot's native asset library, enables us to choose assets and add-ons such as: objects \& frameworks instead of creating everything from scratch. Godot Unit Testing (GUT) is a unit testing framework that serves as a quick method for creating and executing unit tests.
 
-\begin{itemize}
-\item Specific programming language
-\item Specific libraries
-\item Pre-trained models
-\item Specific linter tool (if appropriate)
-\item Specific unit testing framework
-\item Investigation of code coverage measuring tools
-\item Specific plans for Continuous Integration (CI), or an explanation that CI
-  is not being done
-\item Specific performance measuring tools (like Valgrind), if
-  appropriate
-\item Tools you will likely be using?
-\end{itemize}
+\par\medskip
 
-\wss{git, GitHub and GitHub projects should be part of your technology.}
+\noindent For frontend purposes, we will largely be using Godot's built-in GUI system, which allows for the creation of user interfaces with minimal code. However, we may use the TauPlot add-on for complex data visualization instead of creating our own math system.
+
+\par\medskip
+
+\noindent For backend purposes, we are looking at Godotbase as a bridge between our UI layer and potentially our Supabase database layer. Godotbase permits very easy integration with Supabase, while Supabase has strong features for authentication, database management and storage. 
+
+\par\medskip
+
+\noindent SonarQube is a code quality tool that we may use to double as both a linter and a code coverage measuring tool. It is compatible with Godot and can be used to analyze our codebase for potential bugs, vulnerabilities, and code smells.
+
+\par\medskip
+
+\noindent Our plan for Continuous Integration (CI) is to use GitHub Actions, which is a CI/CD platform that allows us to automate our build, test, and deployment processes. It is integrated with GitHub, making it easy to set up and manage.
+
 
 \section{Use of AI and LLMs}
 
@@ -180,58 +173,42 @@ Topics to discuss include the following:
 
 \section{Coding Standard}
 
-\wss{What coding standard will you adopt?}
+The official GDScript style guide will be followed for all code written in GDScript. This includes things such as naming conventions, code element ordering, and other best practices. The team will also follow industry standard coding habits such as writing clear and concise comments, using meaningful variable and function names, and adhering to the principles of clean code.
+
+\par\medskip
+
+\noindent The official style guide can be found at \url{https://docs.godotengine.org/en/stable/getting_started/scripting/gdscript/gdscript_styleguide.html}.
+
 
 \newpage{}
 
 \section{Appendix --- Generative AI Use Disclosure}
 
-\wss{ChatGPT (version 5) was used to brainstorm ideas for the template for this disclose section.}
 
-\wss{This section is about the use of AI to write this document, not your
-planned use of AI for your project.  You discuss that topic in one of the
-sections in the body of this report.}
 
 \subsection{AI Tools Used}
 
-\wss{Give the name of the AI tool(s) used and the version.}
+Claude's Sonnet 5 model.
 
 \subsection{How and Where Used}
 
-\wss{Explain what the tool(s) were used for.  Examples include: brainstorming,
-explaining a technical concept, reviewing the document, generating or modifying
-text, generating or modifying diagrams, identifying errors or omissions or
-inconsistencies.}
+Sonnet was used to learn some of the quirks of LaTeX and fix errors associated with it. This includes the bullet point structure in the Team Member Roles section and paragraphs in the PoC Demo Plan.
 
-\wss{For each of the uses, identify which parts of the document were affected.}
-
-\wss{You do not need to report every interaction, but you should disclose the 
-uses that materially contributed to your work}
 
 \subsection{Verification of AI-Generated Content}
 
-\wss{\begin{itemize}
-    \item Describe how the team checked AI-generated or AI-assisted material
-    before including it in the document.
-    \item In particular, verify factual claims, technical assertions,
-    requirements, calculations, references, and other information for which an
-    AI system may produce incorrect or fabricated results.
-    \item \textbf{The team is responsible for the accuracy, completeness,
-consistency, and appropriateness of the submitted document, regardless of
-whether material was generated by a human or an AI system.}
-\end{itemize}}
+AI-Generated content was not used in this document. The usage was limited to learning about LaTeX and fixing associated errors.
 
 \newpage{}
 
 \section*{Appendix --- Reflection}
-
-\wss{Not required for CAS 741}
 
 \input{../Reflection.text}
 
 \begin{enumerate}
     \item Why is it important to create a development plan prior to starting the
     project?
+
     \item In your opinion, what are the advantages and disadvantages of using
     CI/CD?
     \item What disagreements did your group have in this deliverable, if any,
@@ -242,74 +219,64 @@ whether material was generated by a human or an AI system.}
 
 \section*{Appendix --- Team Charter}
 
-\wss{borrows from
-\href{https://engineering.up.edu/industry_partnerships/files/team-charter.pdf}
-{University of Portland Team Charter}}
-
 \subsection*{External Goals}
 
-\wss{What are your team's external goals for this project? These are not the
-goals related to the functionality or quality fo the project.  These are the
-goals on what the team wishes to achieve with the project.  Potential goals are
-to win a prize at the Capstone EXPO, or to have something to talk about in
-interviews, or to get an A+, etc.}
+Our team has an aligned set of goals for this project. We want to create a project that has a real positive impact on people's lives, especially a marginalized group such as autistic individuals, because our aim is to use our acquired skills to leave the world a better place than we found it. 
+
+\par \medskip
+
+\noindent Secondary priorities include winning a department podium award (1st, 2nd, or 3rd place) at the Capstone EXPO, and showcasing a complex project that we can be proud of to potential employers.
 
 \subsection*{Attendance}
 
 \subsubsection*{Expectations}
 
-\wss{What are your team's expectations regarding meeting attendance (being on
-time, leaving early, missing meetings, etc.)?}
+\noindent Punctuality and attendance is expected and required for all team members. If a team member is unable to attend a meeting, they must notify the team at least 30 minutes in advance. If a team member is late to a meeting, they must notify the team as soon as possible. If a team member needs to leave a meeting early, they must notify the team prior to the meeting if possible. If a team member is unable to attend multiple meetings in a row, they must provid a valid reason for their absence.
+
 
 \subsubsection*{Acceptable Excuse}
 
-\wss{What constitutes an acceptable excuse for missing a meeting or a deadline?
-What types of excuses will not be considered acceptable?}
+For deadlines, only critical emergencies can function as an excuse for missing them. This is because the team member should notify other team members as soon as they think they might not be able to meet a deadline, so the team has time to find a solution and distribute the outstanding work.
+
+\par \medskip
+
+\noindent For one-time meeting absences, a team member reserves the right to keep their reason for absence private. However, a repeated absence requires a reason for absence and must constitute a reasonable excuse by the rest of the team that deterred them from attending.
 
 \subsubsection*{In Case of Emergency}
 
-\wss{What process will team members follow if they have an emergency and cannot
-attend a team meeting or complete their individual work promised for a team
-deliverable?}
+Team members are expected to notify the team as soon as possible if they have an emergency so the team can redistribute their work accordingly. If appropriate, the team member should brief the team on the current status of their work, allowing others to pick up where they left off more smoothly.
 
 \subsection*{Accountability and Teamwork}
 
 \subsubsection*{Quality} 
 
-\wss{What are your team's expectations regarding the quality
-of team members' preparation for team meetings and the quality of the
-deliverables that members bring to the team?}
+\noindent Team members should be prepared to discuss their work and progress at each meeting. The meeting chair's agenda along with the Kanban board will reflect the current status of deliverables and work items; each team member is expected to provide updates regarding issued assigned to them. 
 
+\par\medskip
+
+\noindent The quality of deliverables should be strong with a focus on efficiency and clean code. Technical debt is natural and expected, but must be explicitly documented and addressed in a timely manner. Shortcuts and workarounds are only acceptable if they do not degrade the quality of the codebase, or if they are temporary solutions that will be addressed in the near future.
 \subsubsection*{Attitude}
 
-\wss{What are your team's expectations regarding team members' ideas,
-interactions with the team, cooperation, attitudes, and anything else regarding
-team member contributions?  Do you want to introduce a code of conduct?  Do you
-want a conflict resolution plan?  Can adopt existing codes of conduct.}
+\noindent We expect all team members to exhibit openness to others' ideas no matter what their own ideas, in the name of respect and collaboration. Cooperation and positive attitudes are an expection, and any team member who acts otherwise will be addressed by the team to ensure everyone feels comfortable. 
 
+\par\medskip
+
+\noindent For conflicts, it is expected to be resolved between the concerned parties. Polite communication is imperative. If a conflict still remains unresolved, the team members may utilize one or more other team members as mediators to aid in the conflict resolution. The team may then elect to take a vote or bring the issue to the TA or instructor.
 \subsubsection*{Stay on Track}
 
-\wss{What methods will be used to keep the team on track? How will your team
-ensure that members contribute as expected to the team and that the team
-performs as expected? How will your team reward members who do well and manage
-members whose performance is below expectations?  What are the consequences for
-someone not contributing their fair share?}
+The team has a meeting chair and project manager that together manage the team's progress; they will have the ability to tell if the team is off track. For team members, it is expected that they will complete their work in a timely manner and at a high level. For team members who are struggling to complete their work, the environment should be supportive enough to allow them to ask for help and guidance from other team members. Team members not contributing their fair share will be addressed by the team in a kind manner and encouraged to contribute proportionately if they are able to. If the problem persists, the team may elect to bring the issue to the TA or instructor.
 
-\wss{You may wish to use the project management metrics collected for the TA and
-instructor for this.}
+\par \medskip
 
-\wss{You can set target metrics for attendance, commits, etc.  What are the
-consequences if someone doesn't hit their targets?  Do they need to bring the
-coffee to the next team meeting?  Does the team need to make an appointment with
-their TA, or the instructor?  Are there incentives for reaching targets early?}
+\noindent Meeting attendance and amount of lines of code committed to the repository will be monitorted by team members as a metric for contribution. The consequences of not doing proportionate work relative to others will be addressed internally, with empathy, before it becomes a persistent issue. However, a pattern of not contributing will be brought to the attention of the TA and/or instructor. Team members performing particularly well may be rewarded with priase and retain the right to choose what tasks they prefer to do in the following sprint or deliverable.
+
 
 \subsubsection*{Team Building}
 
-\wss{How will you build team cohesion (fun time, group rituals, etc.)? }
+Our team is already well-acquainted with each other, so we already spend fun time together outside of the project and have a good rapport with respect and trust. We will continue to build team cohesion with activities such as eating meals together, playing games, and celebrating milestones. 
 
 \subsubsection*{Decision Making} 
 
-\wss{How will you make decisions in your group? Consensus?  Vote? How will you
-handle disagreements? }
+Decisions are made after each group member has spoken their opinion. It is important that each member feel valued and genuinely heard, not figuratively. Options will be discussed until a consensus is reached. Ideally, decisions are unanimous, but quick decisions may have to be taken with a majority vote.
 
 \end{document}
