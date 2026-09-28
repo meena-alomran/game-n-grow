@@ -2,6 +2,7 @@
 
 \usepackage{tabularx}
 \usepackage{booktabs}
+\usepackage{placeins}
 
 \title{Problem Statement and Goals\\\progname}
 
@@ -82,7 +83,44 @@ outside the activities.
 
 
 \subsection{Inputs and Outputs}
+The system will use information about the learner's selected objectives,
+preferences, and activity responses to provide individualized practice and
+contextualized results. Table~\ref{TblInputsOutputs} summarizes these inputs and
+outputs.
 
+\begin{table}[htbp]
+\centering
+\caption{High-level inputs and outputs}
+\label{TblInputsOutputs}
+\begin{tabularx}{\textwidth}{@{}XX@{}}
+\toprule
+\textbf{Inputs} & \textbf{Outputs} \\
+\midrule
+Learning objectives selected by the caregiver or educator with consideration
+of learner preferences & Practice activities aligned with the selected
+objectives \\
+\addlinespace
+Learner accessibility preferences and selected challenge and assistance levels
+& An activity experience reflecting the selected configuration \\
+\addlinespace
+Learner responses, attempts, and requests for assistance & Immediate feedback
+and activity-specific performance results \\
+\addlinespace
+Current and previous session outcomes, including the conditions under which
+they occurred & Individual performance histories and comparisons across
+comparable sessions \\
+\addlinespace
+Caregiver or educator observations & Context accompanying recorded outcomes
+and supporting their interpretation \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+The outputs serve two purposes: supporting the learner during practice and
+helping the caregiver or educator make informed decisions about subsequent
+activities.
+
+\FloatBarrier
 
 \subsection{Stakeholders}
 
