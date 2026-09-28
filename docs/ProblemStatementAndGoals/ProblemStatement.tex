@@ -2,6 +2,7 @@
 
 \usepackage{tabularx}
 \usepackage{booktabs}
+\usepackage{placeins}
 
 \title{Problem Statement and Goals\\\progname}
 
@@ -34,18 +35,151 @@ Date2 & Name(s) & Description of changes\\
 
 
 
+This project addresses the need for accessible, individualized skill practice
+that provides autistic learners with meaningful activities and gives caregivers
+and educators interpretable information about their performance.
 
 \subsection{Problem}
 
 
 
-\subsection{Inputs and Outputs}
+Autistic individuals differ in their strengths, communication styles, sensory
+preferences, and support needs. These needs can also change over time.
+Consequently, learning activities must accommodate individual differences rather
+than assume that the same challenge, presentation, or assistance will suit every
+learner. The World Health Organization identifies this diversity and the
+importance of accessible support~\cite{whoAutism}.
 
+For autistic learners seeking support with everyday routines, functional
+communication, or remembering task information, useful practice must balance a
+clear learning purpose with an understandable and engaging experience.
+Caregivers and educators need to select relevant activities, adjust the
+challenge and support provided, and account for the learner's preferences. An
+activity's educational purpose alone does not establish whether an individual
+can comfortably participate in it or wishes to repeat it.
+
+Caregivers and educators also need to understand what changes in activity
+performance mean. A higher score may reflect greater familiarity with a task,
+additional prompting, or reduced difficulty. Without information about these
+conditions, comparisons across sessions can be misleading. Research on the
+planning-assessment game ShopAutiPlan illustrates the value of examining how a
+task is completed alongside whether it is completed. However, interpreting game
+measures as evidence of a broader ability requires validation specific to the
+activity and intended population~\cite{shamhan2026}.
+
+The problem addressed by this project is therefore the need to bring together
+individually appropriate practice, voluntary engagement, and contextualized
+performance information within a manageable caregiver-supported experience. The
+intended deliverable is a unified suite of learning games that allows caregivers
+and educators to configure practice and review a learner's activity history.
+
+The initial scope comprises three activities addressing routine sequencing,
+functional communication, and short-term memory. These activities will provide
+opportunities to practise selected skills and observe performance under
+documented conditions. The project will not diagnose autism, assign an overall
+developmental level, or treat improved game performance as proof of improvement
+outside the activities.
+
+
+
+\subsection{Inputs and Outputs}
+The system will use information about the learner's selected objectives,
+preferences, and activity responses to provide individualized practice and
+contextualized results. Table~\ref{TblInputsOutputs} summarizes these inputs and
+outputs.
+
+\begin{table}[htbp]
+\centering
+\caption{High-level inputs and outputs}
+\label{TblInputsOutputs}
+\begin{tabularx}{\textwidth}{@{}XX@{}}
+\toprule
+\textbf{Inputs} & \textbf{Outputs} \\
+\midrule
+Learning objectives selected by the caregiver or educator with consideration
+of learner preferences & Practice activities aligned with the selected
+objectives \\
+\addlinespace
+Learner accessibility preferences and selected challenge and assistance levels
+& An activity experience reflecting the selected configuration \\
+\addlinespace
+Learner responses, attempts, and requests for assistance & Immediate feedback
+and activity-specific performance results \\
+\addlinespace
+Current and previous session outcomes, including the conditions under which
+they occurred & Individual performance histories and comparisons across
+comparable sessions \\
+\addlinespace
+Caregiver or educator observations & Context accompanying recorded outcomes
+and supporting their interpretation \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+The outputs serve two purposes: supporting the learner during practice and
+helping the caregiver or educator make informed decisions about subsequent
+activities.
+
+\FloatBarrier
 
 \subsection{Stakeholders}
 
+
+\textbf{Autistic learners} are the primary users and beneficiaries. Their
+priorities include relevant activities, understandable instructions, comfortable
+interaction, and the ability to communicate preferences, request assistance, and
+stop participating.
+
+\textbf{Caregivers and educators}, including parents, guardians, support
+workers, and teachers, administer activities and interpret results. They need to
+configure practice without extensive technical knowledge and understand
+performance in the context of the assistance provided.
+
+\textbf{Schools, learning centres, and support organizations} are potential
+adopting organizations. Their interests include compatibility with available
+equipment, manageable staff effort, accessibility, and appropriate handling of
+learner information.
+
+\textbf{Domain advisers}, including special-education professionals,
+communication specialists, and autism researchers, may inform activity selection
+and review the interpretation of results. Their role is advisory; no existing
+partnership is assumed.
+
+Learner perspectives will be considered alongside caregiver and professional
+input. This approach reflects the importance of supported choice and
+communication emphasized by the Autistic Self Advocacy
+Network~\cite{asanChoice}.
+
 \subsection{Environment}
 
+
+The initial target population is autistic children aged six to twelve
+participating with a caregiver or educator. This boundary limits the content and
+evaluation scope; age alone will not determine whether an activity is suitable
+for a particular learner.
+
+The activities will support learners who can make intentional selections among
+visual choices through a supported input method, independently or with
+assistance accessing the controls. Independent reading and spoken responses will
+not be prerequisites. Caregivers may explain or demonstrate instructions, and
+assistance that influences an answer will be distinguished from assistance
+accessing the interface.
+
+Participation needs will be described explicitly rather than through a single
+``high-functioning'' or ``low-functioning'' category. This recognizes that an
+individual's abilities and support needs can differ across tasks and
+settings~\cite{nasSupport}.
+
+The intended settings are homes, schools, and learning centres. The initial
+release will operate through a web browser on supported desktop, laptop, and
+tablet configurations, with internet access available during sessions.
+Interaction will accommodate keyboard, pointer, and touch input within the
+declared supported configurations. Sessions will allow caregiver assistance,
+breaks, and early stopping.
+
+The initial scope excludes specialized input hardware, unsupervised multiplayer
+interaction, clinical assessment, and replacement of an established
+communication aid.
 
 
 \section{Goals}
@@ -166,43 +300,11 @@ opportunities for shared play and interaction. Caregivers or educators
 will be able to select multiplayer activities appropriate to the
 learners' needs and preferences.
 
-\textbf{Success criterion:} At least one game supports two or more
-players in the same session, with each player's actions reflected in
-the shared game state. Players can join, interact through the game's
-supported actions, and leave the session. A supervising caregiver or
-educator can manage participation and end the session.
 
-\subsection{Expand the available practice areas}
-
-Extend the suite with an additional activity addressing a learning
-objective identified through stakeholder consultation. This extension
-would broaden the available practice while preserving the consistency
-of the learner and caregiver experience.
-
-\textbf{Success criterion:} One additional activity satisfies the same
-content-review, personalization, accessibility, and performance-reporting
-criteria as the core activities. Its learning objective and interpretation
-limits are documented, and its engagement results are evaluated
-separately.
 
 \section{Custom Documents (CDs)}
 
-\subsection{Interview Report --- Fall Semester}
 
-This report will summarize interviews with caregivers, educators, and,
-where feasible, autistic individuals to identify learning needs,
-accessibility preferences, and expectations for progress tracking.
-It will explain how the findings inform the project scope and
-requirements, while acknowledging limitations in the perspectives
-represented.
-
-\subsection{Usability Evaluation Report --- Winter Semester}
-
-This report will evaluate how intended users interact with the
-prototype, including caregiver configuration, interpretation of
-performance information, and learner participation in games.
-It will document usability findings, resulting improvements, and
-evaluation limitations, with results linked to the project goals.
 
 
 
