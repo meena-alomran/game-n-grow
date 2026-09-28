@@ -14,11 +14,11 @@
 \input{../Comments.text}
 \input{../Common.text}
 
-
-
 \begin{document}
 
 \maketitle
+
+Table~\ref{TblRevisionHistory} records revisions to this document.
 
 \begin{table}[hp]
 \caption{Revision History} \label{TblRevisionHistory}
@@ -35,16 +35,11 @@ Date2 & Name(s) & Description of changes\\
 
 \section{Problem Statement}
 
-
-
-
 This project addresses the need for accessible, individualized skill practice
 that provides autistic learners with meaningful activities and gives caregivers
 and educators interpretable information about their performance.
 
 \subsection{Problem}
-
-
 
 Autistic individuals differ in their strengths, communication styles, sensory
 preferences, and support needs. These needs can also change over time.
@@ -57,13 +52,15 @@ For autistic learners seeking support with everyday routines, functional
 communication, or remembering task information, useful practice must balance a
 clear learning purpose with an understandable and engaging experience.
 Caregivers and educators need to select relevant activities, adjust the
-diffculty and presentation, and account for the learner's preferences. An
+difficulty and presentation, and account for the learner's preferences. An
 activity's educational purpose alone does not establish whether an individual
 can comfortably participate in it or wishes to repeat it.
 
 Caregivers and educators also need to understand what changes in activity
-performance mean. A higher score may reflect greater familiarity with a task or reduced difficulty. 
-Without information about these conditions, comparisons across sessions can be misleading. Research on the
+performance mean. A higher score may reflect greater familiarity with a task
+or reduced difficulty.
+Without information about these conditions, comparisons across sessions can be
+misleading. Research on the
 planning-assessment game ShopAutiPlan illustrates the value of examining how a
 task is completed alongside whether it is completed. However, interpreting game
 measures as evidence of a broader ability requires validation specific to the
@@ -81,8 +78,6 @@ opportunities to practise selected skills and observe performance under
 documented conditions. The project will not diagnose autism, assign an overall
 developmental level, or treat improved game performance as proof of improvement
 outside the activities.
-
-
 
 \subsection{Inputs and Outputs}
 The system will use information about the learner's selected objectives,
@@ -126,7 +121,6 @@ activities.
 
 \subsection{Stakeholders}
 
-
 \textbf{Autistic learners} are the primary users and beneficiaries. Their
 priorities include relevant activities, understandable instructions, comfortable
 interaction, and the ability to communicate preferences and
@@ -154,8 +148,7 @@ Network~\cite{asanChoice}.
 
 \subsection{Environment}
 
-
-The initial target population is autistic children aged six to twelve
+The initial target population is autistic children aged six to 12
 participating with a caregiver or educator. This boundary limits the content and
 evaluation scope; age alone will not determine whether an activity is suitable
 for a particular learner.
@@ -181,7 +174,6 @@ The initial scope excludes specialized input hardware, unsupervised multiplayer
 interaction, clinical assessment, and replacement of an established
 communication aid.
 
-
 \section{Goals}
 The following five goals define the project's core benefits and the evidence
 needed to demonstrate their achievement. Success will be evaluated through
@@ -190,8 +182,10 @@ users. These evaluations will establish whether the prototype meets its project
 goals; they will not establish clinical effectiveness.
 
 \subsection{Personalize practice to individual learning needs}
+\label{sec:personalize}
 
-Enable caregivers and educators to select an appropriate difficulty level for each learner and activity. Independent configuration across
+Enable caregivers and educators to select an appropriate difficulty level for
+each learner and activity. Independent configuration across
 activities will accommodate differences in a learner's strengths and support
 needs.
 
@@ -212,7 +206,6 @@ session and have a documented connection between their learning objective, task,
 feedback, and performance measures. Each activity's content and interpretation
 limits will be reviewed by a relevant domain adviser, with identified concerns
 addressed before final evaluation.
-
 
 \subsection{Offer an engaging experience that respects learner choice}
 
@@ -249,7 +242,8 @@ combine unrelated results into an overall developmental score.
 
 Allow learners to use the core activities through supported interaction methods
 and sensory settings. Accessibility will address how learners access an
-activity, complementing 2.1's focus on its learning challenge.
+activity, complementing the focus on learning challenge in
+Section~\ref{sec:personalize}.
 
 \textbf{Success criterion:} Every core activity can be completed through each
 declared supported input method, with audio and nonessential motion disabled.
@@ -277,6 +271,10 @@ If intended learners cannot participate, expert review may support design
 improvements, but the learner-engagement goal will remain unverified.
 
 \section{Stretch Goals}
+
+The following extensions will be considered after the core goals are met.
+They expand presentation options and opportunities for shared play.
+
 \subsection{Expand caregiver-controlled customization}
 
 Allow caregivers and educators to further customize the visual
@@ -299,16 +297,17 @@ opportunities for shared play and interaction. Caregivers or educators
 will be able to select multiplayer activities appropriate to the
 learners' needs and preferences.
 
-
-
 \section{Custom Documents (CDs)}
+
+Two custom documents will record user needs and usability findings to support
+project decisions and evaluation.
 
 \subsection{Interview Report --- Fall Semester}
 
 This report will summarize interviews with caregivers, educators, and,
 where feasible, autistic individuals to identify learning needs,
 accessibility preferences, and expectations for progress tracking.
-It will explain how the findings inform the project scope and
+The interview report will explain how the findings inform the project scope and
 requirements, while acknowledging limitations in the perspectives
 represented.
 
@@ -317,157 +316,89 @@ represented.
 This report will evaluate how intended users interact with the
 prototype, including caregiver configuration, interpretation of
 performance information, and learner participation in games.
-It will document usability findings, resulting improvements, and
+The usability evaluation report will document usability findings, resulting
+improvements, and
 evaluation limitations, with results linked to the project goals.
 
 \bibliographystyle{plain}
 \bibliography{ProblemStatement}
 
-
-
-
 \newpage{}
 
 \section*{Appendix --- Reflection}
 
-
-
-\input{../Reflection.text}
+The following responses describe what the team learned while defining the
+problem, selecting goals, and setting the project scope.
 
 \begin{enumerate}
-    \item What went well while writing this deliverable? 
-    One of the most valuable parts of developing this deliverable was that
-    it forced our team to move beyond our initial excitement about the
-    solution and think more carefully about the problem we were actually
-    trying to address. Our original idea was largely centred around
-    creating a customizable suite of games for autistic learners. As we
-    worked through the problem statement, we realized that we needed to
-    understand why existing learning and recreational experiences may not
-    meet the needs of every autistic learner, what meaningful role our
-    application could serve, and what we could reasonably claim about
-    its impact.
-    
-    This process led to several discussions about the language we were
-    using and the assumptions behind it. In particular, we became more
-    conscious of the diversity among autistic individuals. We did not want
-    to design around the assumption that there is one ideal difficulty
-    level, interaction style, or sensory environment.
-    This influenced the way we framed both the problem and our goals.
-    Rather than defining success as making one experience that works for
-    every learner, we began defining success in terms of providing
-    meaningful choices and allowing the experience to be adapted to
-    individual needs.
-    
-    We also think we were successful in separating performance within an
-    activity from broader developmental conclusions. Initially, we wanted
-    to describe the statistics produced by the system as directly
-    measuring a learner's development. Through our research and
-    discussions, we recognized that an improvement in game performance
-    does not necessarily demonstrate an improvement in the underlying
-    ability outside of that game. This distinction ultimately made our
-    goals more precise and helped us define a project that we believe
-    will be both useful and responsible.
-    
-    Finally, establishing measurable success criteria helped turn broad
-    ideas such as ``accessible,'' ``personalized,'' and ``engaging'' into
-    goals that we can eventually evaluate. This was one of the more
-    challenging parts of this deliverable, but it gave us a clearer
-    understanding of what we would actually need to demonstrate by the
-    end of the project rather than relying on subjectivity.
+    \item What went well while writing this deliverable?
+
+    Writing the problem statement helped our team clarify the need behind
+    our proposed suite of games. We examined why existing learning and
+    recreational experiences may not meet every autistic learner's needs,
+    what role our application could serve, and what we could reasonably
+    claim about its impact.
+
+    Discussing learner diversity helped us question the assumption that one
+    difficulty level, interaction style, or sensory environment would suit
+    everyone. We defined success around meaningful choices and adaptation
+    to individual needs. Research and discussion also helped us distinguish
+    game performance from broader developmental outcomes.
+
+    Establishing measurable success criteria turned broad ideas such as
+    ``accessible,'' ``personalized,'' and ``engaging'' into goals we can
+    evaluate. This clarified what we need to demonstrate by the end of the
+    project.
 
     \item What pain points did you experience during this deliverable, and how
     did you resolve them?
-    Our largest challenge was finding the appropriate balance between
-    ambition and responsibility. Autism is a broad spectrum, and the
-    needs, abilities, preferences, and experiences of autistic individuals
-    vary significantly. Early discussions made it easy for the project to
-    expand in many directions at once. We considered numerous
-    developmental areas, several types of games, different visual
-    environments, multiple input methods, extensive caregiver
-    customization, detailed analytics, collaborative activities, and
-    other features. Individually, many of these ideas seemed valuable,
-    but collectively they created a project whose scope would have been
-    difficult to implement and, more importantly, difficult to evaluate
-    properly.
-    
-    Another challenge was deciding what we could responsibly claim the
-    application accomplishes. Because the project is related to learning
-    and development, language such as ``improve,'' ``develop,'' or
-    ``assess'' can imply conclusions that our software alone cannot
-    establish. We resolved this by distinguishing between providing
-    opportunities to practise a skill and demonstrating improvement in
-    that skill outside the application.
-    
-    Defining engagement also presented a challenge. A learner completing
-    an activity does not necessarily mean that they enjoyed it, and
-    spending more time in an activity does not necessarily indicate
-    positive engagement. We therefore chose not to infer enjoyment
-    solely from gameplay statistics. Instead, our current goal explicitly
-    considers accessible learner feedback, voluntary continuation or
-    replay, early stopping, and situations in which feedback cannot be
-    obtained. We also decided to distinguish learner feedback from
-    caregiver observations rather than treating one as a substitute for
-    the other.
-    
-    Finally, determining measurable goals required us to make decisions
-    before every detail of our verification and validation process is
-    known. Rather than leaving the goals vague, we established
-    preliminary acceptance targets while explicitly documenting their
-    limitations. We recognize that these targets may need refinement as
-    our verification and validation planning develops, but establishing
-    them now gives us some concrete criteria against which we can
-    evaluate our progress.
-    
+
+    Our largest challenge was balancing ambition with a scope we could
+    implement and evaluate. Early discussions covered many developmental
+    areas, game types, sensory settings, input methods, and analytics.
+    We narrowed these possibilities to a core set of activities and moved
+    additional features into stretch goals.
+
+    We also had to decide what the application could responsibly claim.
+    Terms such as ``improve,'' ``develop,'' and ``assess'' can suggest
+    outcomes our software alone cannot establish. We therefore framed the
+    project as providing practice opportunities and reporting performance
+    within the activities.
+
+    Defining engagement required more than completion scores or time spent
+    playing. We chose to consider accessible learner feedback, voluntary
+    continuation or replay, early stopping, and unavailable feedback.
+    Caregiver observations will be reported separately so they do not
+    substitute for learners' own perspectives.
+
+    Finally, we needed measurable goals before evaluation procedures were
+    fully defined. We set preliminary acceptance targets and documented
+    their limitations, recognizing that the targets may need refinement
+    during verification and validation planning.
+
     \item How did you and your team adjust the scope of your goals to ensure
     they are suitable for a Capstone project (not overly ambitious but also of
     appropriate complexity for a senior design project)?
-    Our initial concept was considerably broader than the project we
-    have now defined. We originally envisioned a large collection of
-    games that could address many areas of development, support extensive
-    caregiver customization, operate through several visual modes,
-    accommodate numerous control schemes, provide detailed longitudinal
-    analytics, and potentially allow multiple learners to participate
-    collaboratively. While this represented our long-term vision for the
-    application, we recognized that attempting to implement every aspect
-    within our Capstone would likely result in many partially developed
-    features rather than a smaller number of well-designed and
-    meaningfully evaluated ones.
-    
-    We narrowed the scope to three activities addressing routine
-    sequencing, functional communication, and short-term memory. This
-    decision gives us enough variation to investigate whether a common
-    platform can support different forms of practice while still keeping
-    the number of activities manageable. More importantly, limiting the
-    number of core activities gives us time to focus on the aspects we
-    believe distinguish the project: individual configuration,
-    accessibility, meaningful learner choice, contextualized performance
-    information, and caregiver-supported use.
-    
-    We also reconsidered what ``personalization'' should mean within the
-    scope of the project. Rather than attempting to automatically
-    determine what is best for a learner, our current goals emphasize
-    giving caregivers and educators meaningful configuration options
-    while preserving learner choice. This reduces both the technical
-    scope and the risk of the software making unsupported assumptions
-    about an individual's needs.
-    
-    The process of narrowing our scope also changed how we thought about
-    complexity. Initially, we associated a stronger Capstone project
-    with having more features. Through developing this deliverable, we
-    came to recognize that complexity can instead come from designing
-    a smaller system carefully through supporting different users,
-    maintaining accessibility across activities, recording the context
-    behind performance, designing useful configuration mechanisms, and
-    verifying that the resulting information can actually be interpreted
-    correctly. We chose to prioritize depth, validation, and coherence
-    over the number of features implemented.
-    
-    We do expect our scope to continue evolving as we receive feedback
-    from our supervisor, intended users, and TA meetings. However, our
-    current goals establish a project that we believe is technically
-    substantial while still leaving enough time to investigate whether
-    the decisions we make actually serve the people for whom the
-    application is being designed.
-\end{enumerate}  
+
+    We narrowed the core scope to three activities addressing routine
+    sequencing, functional communication, and short-term memory. These
+    activities provide enough variation to investigate a shared platform
+    while leaving time for accessibility, learner choice, configuration,
+    and evaluation.
+
+    We also defined personalization as caregiver and educator configuration
+    rather than automatic decisions about what is best for a learner.
+    This limits technical scope and avoids unsupported assumptions about
+    individual needs.
+
+    Our understanding of complexity shifted from the number of features to
+    the care needed to support different users, maintain accessibility,
+    record performance context, and make results understandable. We chose
+    to prioritize depth and validation over a larger collection of games.
+
+    Feedback from our supervisor, intended users, and Teaching Assistants
+    (TAs) may lead to further scope changes. Our current goals leave room
+    for that feedback while defining a substantial project we can evaluate.
+\end{enumerate}
 
 \end{document}
