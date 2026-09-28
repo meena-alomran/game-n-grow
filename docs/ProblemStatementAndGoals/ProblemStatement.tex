@@ -183,8 +183,122 @@ communication aid.
 
 
 \section{Goals}
+The following five goals define the project's core benefits and the evidence
+needed to demonstrate their achievement. Success will be evaluated through
+software verification, content review, and formative evaluation with intended
+users. These evaluations will establish whether the prototype meets its project
+goals; they will not establish clinical effectiveness.
+
+\subsection{Personalize practice to individual learning needs}
+
+Enable caregivers and educators to select an appropriate challenge and amount of
+assistance for each learner and activity. Independent configuration across
+activities will accommodate differences in a learner's strengths and support
+needs.
+
+\textbf{Success criterion:} Each of the three core activities provides at least
+three meaningful challenge levels and adjustable assistance. At least 80\% of
+participating caregivers or educators can configure an activity for a specified
+learner scenario without developer assistance following a brief introduction.
+
+\subsection{Provide purposeful, repeatable skill practice}
+
+Provide three complete activities addressing routine sequencing, functional
+communication, and short-term memory. Each activity will offer repeated practice
+toward a clearly defined objective, with feedback that helps the learner
+understand the task and their response.
+
+\textbf{Success criterion:} All three activities support a complete practice
+session and have a documented connection between their learning objective, task,
+feedback, and performance measures. Each activity's content and interpretation
+limits will be reviewed by a relevant domain adviser, with identified concerns
+addressed before final evaluation.
+
+
+\subsection{Offer an engaging experience that respects learner choice}
+
+Provide activities that intended learners find enjoyable and are willing to
+participate in, while preserving their ability to pause, decline, or stop.
+Engagement will be evaluated for each activity rather than inferred from
+completion scores or time spent playing.
+
+\textbf{Success criterion:} For each core activity, at least 80\% of
+participating learners who try it provide a positive enjoyment response through
+an accessible feedback method. Evaluation will also report voluntary
+continuation or replay choices, early stopping, and unavailable feedback so that
+the result does not conceal unsuccessful experiences.
+
+Learner feedback and caregiver observations will be reported separately.
+Findings will be limited to the participants and conditions evaluated.
+
+\subsection{Make changes in performance understandable}
+
+Provide caregivers and educators with accurate activity histories that support
+decisions about whether to repeat, simplify, or advance practice. Results will
+identify the challenge and assistance associated with each session so that
+changes can be interpreted in context.
+
+\textbf{Success criterion:} Reported results match expected outcomes across all
+defined verification cases. At least 80\% of participating caregivers or
+educators correctly interpret at least 80\% of representative progress examples,
+including examples involving changes in difficulty or assistance.
+
+The product will report performance within defined activities rather than
+combine unrelated results into an overall developmental score.
+
+\subsection{Support accessible and comfortable participation}
+
+Allow learners to use the core activities through supported interaction methods
+and sensory settings. Accessibility will address how learners access an
+activity, complementing 2.1's focus on its learning challenge.
+
+\textbf{Success criterion:} Every core activity can be completed through each
+declared supported input method, with audio and nonessential motion disabled.
+Learners can pause or end activities, and no essential task depends exclusively
+on precise dragging, sound, or colour.
+
+The interface will undergo review against applicable Web Content Accessibility
+Guidelines criteria and cognitive-accessibility guidance, with the evaluated
+scope and unresolved limitations documented. Familiar presentation and
+configurable interfaces are supported by cognitive-accessibility guidance from
+the World Wide Web Consortium~\cite{w3cPersonalization}.
+
+\subsection*{Evaluation Basis}
+
+The 80\% thresholds are proposed acceptance targets intended to require success
+for a clear majority while exposing unsuccessful experiences. They are not
+clinical benchmarks. Formative evaluation will aim to include at least five
+caregivers or educators and at least five intended learners per activity;
+participant counts and individual outcomes will be reported alongside
+percentages.
+
+Detailed procedures will be specified in the verification and validation plan.
+Participation will depend on recruitment and applicable university requirements.
+If intended learners cannot participate, expert review may support design
+improvements, but the learner-engagement goal will remain unverified.
 
 \section{Stretch Goals}
+\subsection{Expand caregiver-controlled customization}
+
+Allow caregivers and educators to further customize the visual
+presentation of games to match individual learners' needs and
+preferences. Options will include in-game brightness, colour palettes,
+and the amount of decorative detail displayed. This extension will
+provide more control than the basic accessibility settings included
+in the core scope.
+
+\textbf{Success criterion:} A caregiver or educator can adjust and save
+these presentation preferences for an individual learner, and the
+preferences are applied consistently across the core games. Supported
+combinations preserve readable instructions and distinguishable
+interactive elements.
+
+\subsection{Enable multiplayer interaction}
+
+Allow learners to participate in games with other players, creating
+opportunities for shared play and interaction. Caregivers or educators
+will be able to select multiplayer activities appropriate to the
+learners' needs and preferences.
 
 
 
@@ -204,11 +318,138 @@ communication aid.
 
 \begin{enumerate}
     \item What went well while writing this deliverable? 
+    One of the most valuable parts of developing this deliverable was that
+    it forced our team to move beyond our initial excitement about the
+    solution and think more carefully about the problem we were actually
+    trying to address. Our original idea was largely centred around
+    creating a customizable suite of games for autistic learners. As we
+    worked through the problem statement, we realized that we needed to
+    understand why existing learning and recreational experiences may not
+    meet the needs of every autistic learner, what meaningful role our
+    application could serve, and what we could reasonably claim about
+    its impact.
+    
+    This process led to several discussions about the language we were
+    using and the assumptions behind it. In particular, we became more
+    conscious of the diversity among autistic individuals. We did not want
+    to design around the assumption that there is one ideal difficulty
+    level, interaction style, sensory environment, or form of assistance.
+    This influenced the way we framed both the problem and our goals.
+    Rather than defining success as making one experience that works for
+    every learner, we began defining success in terms of providing
+    meaningful choices and allowing the experience to be adapted to
+    individual needs.
+    
+    We also think we were successful in separating performance within an
+    activity from broader developmental conclusions. Initially, we wanted
+    to describe the statistics produced by the system as directly
+    measuring a learner's development. Through our research and
+    discussions, we recognized that an improvement in game performance
+    does not necessarily demonstrate an improvement in the underlying
+    ability outside of that game. This distinction ultimately made our
+    goals more precise and helped us define a project that we believe
+    will be both useful and responsible.
+    
+    Finally, establishing measurable success criteria helped turn broad
+    ideas such as ``accessible,'' ``personalized,'' and ``engaging'' into
+    goals that we can eventually evaluate. This was one of the more
+    challenging parts of this deliverable, but it gave us a clearer
+    understanding of what we would actually need to demonstrate by the
+    end of the project rather than relying on subjectivity.
+
     \item What pain points did you experience during this deliverable, and how
     did you resolve them?
+    Our largest challenge was finding the appropriate balance between
+    ambition and responsibility. Autism is a broad spectrum, and the
+    needs, abilities, preferences, and experiences of autistic individuals
+    vary significantly. Early discussions made it easy for the project to
+    expand in many directions at once. We considered numerous
+    developmental areas, several types of games, different visual
+    environments, multiple input methods, extensive caregiver
+    customization, detailed analytics, collaborative activities, and
+    other features. Individually, many of these ideas seemed valuable,
+    but collectively they created a project whose scope would have been
+    difficult to implement and, more importantly, difficult to evaluate
+    properly.
+    
+    Another challenge was deciding what we could responsibly claim the
+    application accomplishes. Because the project is related to learning
+    and development, language such as ``improve,'' ``develop,'' or
+    ``assess'' can imply conclusions that our software alone cannot
+    establish. We resolved this by distinguishing between providing
+    opportunities to practise a skill and demonstrating improvement in
+    that skill outside the application.
+    
+    Defining engagement also presented a challenge. A learner completing
+    an activity does not necessarily mean that they enjoyed it, and
+    spending more time in an activity does not necessarily indicate
+    positive engagement. We therefore chose not to infer enjoyment
+    solely from gameplay statistics. Instead, our current goal explicitly
+    considers accessible learner feedback, voluntary continuation or
+    replay, early stopping, and situations in which feedback cannot be
+    obtained. We also decided to distinguish learner feedback from
+    caregiver observations rather than treating one as a substitute for
+    the other.
+    
+    Finally, determining measurable goals required us to make decisions
+    before every detail of our verification and validation process is
+    known. Rather than leaving the goals vague, we established
+    preliminary acceptance targets while explicitly documenting their
+    limitations. We recognize that these targets may need refinement as
+    our verification and validation planning develops, but establishing
+    them now gives us some concrete criteria against which we can
+    evaluate our progress.
+    
     \item How did you and your team adjust the scope of your goals to ensure
     they are suitable for a Capstone project (not overly ambitious but also of
     appropriate complexity for a senior design project)?
+    Our initial concept was considerably broader than the project we
+    have now defined. We originally envisioned a large collection of
+    games that could address many areas of development, support extensive
+    caregiver customization, operate through several visual modes,
+    accommodate numerous control schemes, provide detailed longitudinal
+    analytics, and potentially allow multiple learners to participate
+    collaboratively. While this represented our long-term vision for the
+    application, we recognized that attempting to implement every aspect
+    within our Capstone would likely result in many partially developed
+    features rather than a smaller number of well-designed and
+    meaningfully evaluated ones.
+    
+    We narrowed the scope to three activities addressing routine
+    sequencing, functional communication, and short-term memory. This
+    decision gives us enough variation to investigate whether a common
+    platform can support different forms of practice while still keeping
+    the number of activities manageable. More importantly, limiting the
+    number of core activities gives us time to focus on the aspects we
+    believe distinguish the project: individual configuration,
+    accessibility, meaningful learner choice, contextualized performance
+    information, and caregiver-supported use.
+    
+    We also reconsidered what ``personalization'' should mean within the
+    scope of the project. Rather than attempting to automatically
+    determine what is best for a learner, our current goals emphasize
+    giving caregivers and educators meaningful configuration options
+    while preserving learner choice. This reduces both the technical
+    scope and the risk of the software making unsupported assumptions
+    about an individual's needs.
+    
+    The process of narrowing our scope also changed how we thought about
+    complexity. Initially, we associated a stronger Capstone project
+    with having more features. Through developing this deliverable, we
+    came to recognize that complexity can instead come from designing
+    a smaller system carefully through supporting different users,
+    maintaining accessibility across activities, recording the context
+    behind performance, designing useful configuration mechanisms, and
+    verifying that the resulting information can actually be interpreted
+    correctly. We chose to prioritize depth, validation, and coherence
+    over the number of features implemented.
+    
+    We do expect our scope to continue evolving as we receive feedback
+    from our supervisor, intended users, and TA meetings. However, our
+    current goals establish a project that we believe is technically
+    substantial while still leaving enough time to investigate whether
+    the decisions we make actually serve the people for whom the
+    application is being designed.
 \end{enumerate}  
 
 \end{document}
