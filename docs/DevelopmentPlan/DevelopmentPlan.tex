@@ -44,22 +44,22 @@ There is no external IP partnership to protect. This project is independently th
 
 \section{Copyright License}
 
-Our team is not adopting a copyright license as of now, therefore our team's work falls under default copyright laws.
+Our team is adopting the MIT license for the sake of simplicity and freedom.
 
 \section{Team Meeting Plan}
 
-The team will have a weekly in-person meeting; those with extenuating circumstances may join virtually. The default meeting time is Thursday at 12:30pm as none of the team members have lectures. \newline
-\newline
-We plan to meet with our supervisor every ~2 weeks on a Zoom call, subject to their availability. Larger development milestones will ideally be showcased in-person to the supervisor. \newline
-\newline
+The team will have a weekly in-person meeting; those with extenuating circumstances may join virtually. The default meeting time is Thursday at 12:30pm as none of the team members have lectures.
+
+We plan to meet with our supervisor every ~2 weeks on a Zoom call, subject to their availability. Larger development milestones will ideally be showcased in-person to the supervisor.
+
 The meetings will be structured in a manner where the Project Manager comes prepared with an agenda of upcoming deliverables and tasks to be handled. The Project Manager is the meeting chair facilitating the flow of the meeting, such as major updates from each team member. Outstanding work or conflicts are addressed before the end of the meeting. The agenda denotes all decisions made regarding agenda items.
 
 
 
 \section{Team Communication Plan}
 
-The team will use Git Issues with specific labels on a Kanban Board display to track the progress of work items and who is responsible for them. Github branches and pull requests function as a form of version control, history and technical reviews. \newline
-\newline
+The team will use Git Issues with specific labels on a Kanban Board display to track the progress of work items and who is responsible for them. Github branches and pull requests function as a form of version control, history and technical reviews. 
+
 Teams will be utilized as the formal method of communication for file sharing, important messages and virtual meetings. An iMessage groupchat serves as an informal means to deliver quick non-sensitive information.
 
 \section{Team Member Roles}
@@ -115,9 +115,11 @@ during that initial meeting as well as throughout the milestone.
 \section{Workflow Plan}
 
 We will be using Git for version control and code review. We will use branches to separate features to ensure modular development.
-Pull requests will require at least one reviewer to prevent accidental bugs and preserve code quality.\\
-\\We will be using GitHub Issues assigned to at least one member. Issues will be classified along 3 axes: priority level, bug/feature/refactor and by software module.\\
-\\Our CI involves pushing code changes to branches frequently and merging sub-branches early to detect integration errors. Our CD involves continually
+Pull requests will require at least one reviewer to prevent accidental bugs and preserve code quality.
+
+We will be using GitHub Issues assigned to at least one member. Issues will be classified along 3 axes: priority level, bug/feature/refactor and by software module.
+
+Our CI involves pushing code changes to branches frequently and merging sub-branches early to detect integration errors. Our CD involves continually
 testing code in a staging environment and updating the main branch accordingly.
 
 \section{Project Decomposition and Scheduling}
@@ -132,7 +134,8 @@ testing code in a staging environment and updating the main branch accordingly.
 %for deadlines.}
 
 We will be using \href{https://github.com/users/meena-alomran/projects/5}
-{this GitHub project} for project decomposition, scheduling, and progress tracking.\\\\
+{this GitHub project} for project decomposition, scheduling, and progress tracking.
+
 Each major milestone has been defined as a GitHub Milestone with the appropriate title and
 deadline, and broken down into high-level tasks represented as GitHub Issues linked to the milestones. The list of
 milestones can be accessed \href{https://github.com/meena-alomran/game-n-grow/milestones?sort=due_date&direction=asc}{here}.
@@ -141,7 +144,8 @@ of work which we will create new issues for. For milestone i, the assignment of 
 tasks will take place during the first meeting following the completion and submission of milestone i-1.
 The progression of issues from To Do, to In Progress, to In Review, and finally to Done can be
 tracked through the \href{https://github.com/users/meena-alomran/projects/5/views/2}{Kanban Board}.
-\\\\In addition to the Kanban Board, we have a \href{https://github.com/users/meena-alomran/projects/5/views/8}
+
+In addition to the Kanban Board, we have a \href{https://github.com/users/meena-alomran/projects/5/views/8}
 {Roadmap} view in the GitHub project which displays each milestone's due date across a timeline,
 as well as its associated issues. This is a frame of reference for us to keep track of upcoming work to be completed,
 as well as our progression. As we continue to create and add more issues for each milestone, the roadmap
@@ -153,33 +157,33 @@ will continue to be populated.
 \begin{itemize}
   \item Different users may find some perspectives not conducive to learning or engaging; for example, being overwhelmed by the nature of 3D perspectives.
 
-  \noindent What we will demonstrate to convince ourselves we can overcome this risk is designing multiple perspective modes for suitable games (e.g., 2D, first-person 3D, third-person 3D) to alleviate any user issues pertaining to perspective.
+  What we will demonstrate to convince ourselves we can overcome this risk is designing multiple perspective modes for suitable games (e.g., 2D, first-person 3D, third-person 3D) to alleviate any user issues pertaining to perspective.
 
-  \noindent If our PoC demo fails regarding this, we may work around this risk by supplanting the 3D ideas with 2.5D rendering instead, replicating games such as Overcooked.
+  If our PoC demo fails regarding this, we may work around this risk by supplanting the 3D ideas with 2.5D rendering instead, replicating games such as Overcooked.
 
   \item Users may find some games to be overly stimulating, or not stimulating enough; for example, the noise level in a grocery shopping mini-game.
 
-  \noindent What we will demonstrate to convince ourselves we can overcome this risk is adding adjustable settings to each game to pinpoint the most suitable level of stimulation for the user.
+  What we will demonstrate to convince ourselves we can overcome this risk is adding adjustable settings to each game to pinpoint the most suitable level of stimulation for the user.
 
-  \noindent If our PoC demo fails regarding this, we may simplify the simulation levels to a binary option, or assume low stimulation as the default, since overstimulation is a larger risk.
+  If our PoC demo fails regarding this, we may simplify the simulation levels to a binary option, or assume low stimulation as the default, since overstimulation is a larger risk.
 
   \item Some games may be considered too easy or too difficult depending on the user, missing the goal of learning and progress tracking.
 
-  \noindent What we will demonstrate to convince ourselves we can overcome this risk is implementing difficulty levels for each game. This enables users to play at a difficulty ideal for their skills and needs.
+  What we will demonstrate to convince ourselves we can overcome this risk is implementing difficulty levels for each game. This enables users to play at a difficulty ideal for their skills and needs.
 
-  \noindent If our PoC demo fails regarding this, we may implement a binary option regarding difficulties that solely shortens the maximum time given to complete a task within the game, or the game as a whole.
+  If our PoC demo fails regarding this, we may implement a binary option regarding difficulties that solely shortens the maximum time given to complete a task within the game, or the game as a whole.
 
   \item The caregiver may not have sufficient flexibility or freedom to tailor games to each user; the games not being personable per user.
   
-  \noindent What we will demonstrate to convince ourselves we can overcome this risk is implementing a template system for the caregiver to create their own games from pre-existing baseline games. For example, the caregiver may create a vocabulary-based mini-game for the user's specific information such as their favorite grocery items.
+  What we will demonstrate to convince ourselves we can overcome this risk is implementing a template system for the caregiver to create their own games from pre-existing baseline games. For example, the caregiver may create a vocabulary-based mini-game for the user's specific information such as their favorite grocery items.
 
-  \noindent If our PoC demo fails regarding this, we may create a text-based form per game for the caregiver to input the customized vocabulary, rather than a full template system with pictures, colors et cetera.
+  If our PoC demo fails regarding this, we may create a text-based form per game for the caregiver to input the customized vocabulary, rather than a full template system with pictures, colors et cetera.
 
   \item The caregiver may have difficulty interpreting the data collected from the games, and thus be unable to derive useful information for the user.
   
-  \noindent What we will demonstrate to convince ourselves we can overcome this risk is creating multiple views of the data for the caregiver such as graphical views, table views and summarized bullet point views. 
+  What we will demonstrate to convince ourselves we can overcome this risk is creating multiple views of the data for the caregiver such as graphical views, table views and summarized bullet point views. 
 
-  \noindent If our PoC demo fails regarding this, we may instead offer a method for the caregiver to export the data to a CSV file, and analyze it themselves in a program such as Excel.
+  If our PoC demo fails regarding this, we may instead offer a method for the caregiver to export the data to a CSV file, and analyze it themselves in a program such as Excel.
 \end{itemize}
 
 \par\medskip
@@ -188,25 +192,15 @@ will continue to be populated.
 
 Our team will use a pre-packaged game engine, namely Godot, as the bedrock of our project implementation. Godot is a free and open-source game engine that has a very lenient learning curve via a Pythonic language (GD Script) made specifically for game development. It is also cross-platform, allowing for enhanced accessibility as the project can run on multiple devices.
 
-\par\medskip
+AssetLib, Godot's native asset library, enables us to choose assets and add-ons such as: objects \& frameworks instead of creating everything from scratch. Godot Unit Testing (GUT) is a unit testing framework that serves as a quick method for creating and executing unit tests.
 
-\noindent AssetLib, Godot's native asset library, enables us to choose assets and add-ons such as: objects \& frameworks instead of creating everything from scratch. Godot Unit Testing (GUT) is a unit testing framework that serves as a quick method for creating and executing unit tests.
+For frontend purposes, we will largely be using Godot's built-in GUI system, which allows for the creation of user interfaces with minimal code. However, we may use the TauPlot add-on for complex data visualization instead of creating our own math system.
 
-\par\medskip
+For backend purposes, we are looking at Godotbase as a bridge between our UI layer and potentially our Supabase database layer. Godotbase permits very easy integration with Supabase, while Supabase has strong features for authentication, database management and storage. 
 
-\noindent For frontend purposes, we will largely be using Godot's built-in GUI system, which allows for the creation of user interfaces with minimal code. However, we may use the TauPlot add-on for complex data visualization instead of creating our own math system.
+SonarQube is a code quality tool that we may use to double as both a linter and a code coverage measuring tool. It is compatible with Godot and can be used to analyze our codebase for potential bugs, vulnerabilities, and code smells.
 
-\par\medskip
-
-\noindent For backend purposes, we are looking at Godotbase as a bridge between our UI layer and potentially our Supabase database layer. Godotbase permits very easy integration with Supabase, while Supabase has strong features for authentication, database management and storage. 
-
-\par\medskip
-
-\noindent SonarQube is a code quality tool that we may use to double as both a linter and a code coverage measuring tool. It is compatible with Godot and can be used to analyze our codebase for potential bugs, vulnerabilities, and code smells.
-
-\par\medskip
-
-\noindent Our plan for Continuous Integration (CI) is to use GitHub Actions, which is a CI/CD platform that allows us to automate our build, test, and deployment processes. It is integrated with GitHub, making it easy to set up and manage.
+Our plan for Continuous Integration (CI) is to use GitHub Actions, which is a CI/CD platform that allows us to automate our build, test, and deployment processes. It is integrated with GitHub, making it easy to set up and manage.
 
 
 \section{Use of AI and LLMs}
@@ -262,10 +256,20 @@ AI-Generated content was not used in this document. The usage was limited to lea
     \item Why is it important to create a development plan prior to starting the
     project?
 
+    A development plan functions as great documentation to reference when unsure about things, such as our reasoning behind technology choices, our coding standard or the conflict resolution process. Additionally, it enforces teams to think about how project-level tasks will be decomposed amongst the group members to keep progress timely. For example, a dedicated meeting chair avoids confusion regarding who will lead a meeting, or a liaison is the formal point of contact with external entities instead of scattered communication.
+
     \item In your opinion, what are the advantages and disadvantages of using
     CI/CD?
+
+    Advantages of CI/CD include: early bug detections since integration is constantly being tested, higher code quality because merged code must be of a similar strong standard, and lower deployment risk because continuous deployment ensures a functioning source of truth in the main deployment branch. 
+    Disadvantages of CI/CD include: a possibly steep learning curve for developers to learn new tools and workflows to actually maintain the pipeline, a high setup price since there is some initial investment setting up the CI/CD pipelines which in our case is setting up a Kanban board and issue labels and such. 
+
     \item What disagreements did your group have in this deliverable, if any,
     and how did you resolve them?
+
+    Our group was largely cohesive this deliverable and only had minor disagreements regarding whether to use Godot or another game engine such as Unity or Unreal. That conflict resolved by discussing the pros and cons of each tool. In the end, the person with Unreal experience conceded that it is a very heavyweight application with a much more difficult learning curve, and Godot is therefore the more suitable choice for our project.
+
+
 \end{enumerate}
 
 \newpage{}
@@ -276,9 +280,7 @@ AI-Generated content was not used in this document. The usage was limited to lea
 
 Our team has an aligned set of goals for this project. We want to create a project that has a real positive impact on people's lives, especially a marginalized group such as autistic individuals, because our aim is to use our acquired skills to leave the world a better place than we found it. 
 
-\par \medskip
-
-\noindent Secondary priorities include winning a department podium award (1st, 2nd, or 3rd place) at the Capstone EXPO, and showcasing a complex project that we can be proud of to potential employers.
+Secondary priorities include winning a department podium award (1st, 2nd, or 3rd place) at the Capstone EXPO, and showcasing a complex project that we can be proud of to potential employers.
 
 \subsection*{Attendance}
 
@@ -289,11 +291,9 @@ Our team has an aligned set of goals for this project. We want to create a proje
 
 \subsubsection*{Acceptable Excuse}
 
-For deadlines, only critical emergencies can function as an excuse for missing them. This is because the team member should notify other team members as soon as they think they might not be able to meet a deadline, so the team has time to find a solution and distribute the outstanding work.
+For deadlines, only critical emergencies can function as an excuse for missing them. This is because the team member should notify other team members as soon as they think they might not be able to meet a deadline, so the team has time to find a solution and distribute the outork.
 
-\par \medskip
-
-\noindent For one-time meeting absences, a team member reserves the right to keep their reason for absence private. However, a repeated absence requires a reason for absence and must constitute a reasonable excuse by the rest of the team that deterred them from attending.
+For one-time meeting absences, a team member reserves the right to keep their reason for absence private. However, a repeated absence requires a reason for absence and must constitute a reasonable excuse by the rest of the team that deterred them from attending.
 
 \subsubsection*{In Case of Emergency}
 
@@ -305,23 +305,17 @@ Team members are expected to notify the team as soon as possible if they have an
 
 \noindent Team members should be prepared to discuss their work and progress at each meeting. The meeting chair's agenda along with the Kanban board will reflect the current status of deliverables and work items; each team member is expected to provide updates regarding issued assigned to them. 
 
-\par\medskip
-
-\noindent The quality of deliverables should be strong with a focus on efficiency and clean code. Technical debt is natural and expected, but must be explicitly documented and addressed in a timely manner. Shortcuts and workarounds are only acceptable if they do not degrade the quality of the codebase, or if they are temporary solutions that will be addressed in the near future.
+The quality of deliverables should be strong with a focus on efficiency and clean code. Technical debt is natural and expected, but must be explicitly documented and addressed in a timely manner. Shortcuts and workarounds are only acceptable if they do not degrade the quality of the codebase, or if they are temporary solutions that will be addressed in the near future.
 \subsubsection*{Attitude}
 
 \noindent We expect all team members to exhibit openness to others' ideas no matter what their own ideas, in the name of respect and collaboration. Cooperation and positive attitudes are an expection, and any team member who acts otherwise will be addressed by the team to ensure everyone feels comfortable. 
 
-\par\medskip
-
-\noindent For conflicts, it is expected to be resolved between the concerned parties. Polite communication is imperative. If a conflict still remains unresolved, the team members may utilize one or more other team members as mediators to aid in the conflict resolution. The team may then elect to take a vote or bring the issue to the TA or instructor.
+For conflicts, it is expected to be resolved between the concerned parties. Polite communication is imperative. If a conflict still remains unresolved, the team members may utilize one or more other team members as mediators to aid in the conflict resolution. The team may then elect to take a vote or bring the issue to the TA or instructor.
 \subsubsection*{Stay on Track}
 
-The team has a meeting chair and project manager that together manage the team's progress; they will have the ability to tell if the team is off track. For team members, it is expected that they will complete their work in a timely manner and at a high level. For team members who are struggling to complete their work, the environment should be supportive enough to allow them to ask for help and guidance from other team members. Team members not contributing their fair share will be addressed by the team in a kind manner and encouraged to contribute proportionately if they are able to. If the problem persists, the team may elect to bring the issue to the TA or instructor.
+The team has a meeting chair and project manager that together manage the team's progress; they will have the ability to tell if the team is off track. For team members, it is expected that they will complete their work in a timely manner and at a high level. For team members who are struggling to complete their work, the environment should be supportive enough to allow them to ask for help and guidance from other team members. Team members not contributing their fair share will be addressed by the team in a kind manner and encouraged to contribute proportionately if they are able to. If the problem persists, the team may elect to bring the issue tr instructor.
 
-\par \medskip
-
-\noindent Meeting attendance and amount of lines of code committed to the repository will be monitorted by team members as a metric for contribution. The consequences of not doing proportionate work relative to others will be addressed internally, with empathy, before it becomes a persistent issue. However, a pattern of not contributing will be brought to the attention of the TA and/or instructor. Team members performing particularly well may be rewarded with priase and retain the right to choose what tasks they prefer to do in the following sprint or deliverable.
+Meeting attendance and amount of lines of code committed to the repository will be monitorted by team members as a metric for contribution. The consequences of not doing proportionate work relative to others will be addressed internally, with empathy, before it becomes a persistent issue. However, a pattern of not contributing will be brought to the attention of the TA and/or instructor. Team members performing particularly well may be rewarded with priase and retain the right to choose what tasks they prefer to do in the following sprint or deliverable.
 
 
 \subsubsection*{Team Building}
