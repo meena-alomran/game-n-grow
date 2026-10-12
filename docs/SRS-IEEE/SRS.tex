@@ -165,8 +165,6 @@ Date 2 & 1.1 & Notes\\
 \section{Introduction} 
 % ==============================================================
 
-TESTING SRS IEEE
-
 \plt{Explain what system is being specified. State purpose, users, and project goals.}
 
 \plt{Introduce the name of your software as \progname{}.  Using \progname{} as
@@ -180,70 +178,50 @@ practice.}
 
 \subsection{Purpose}
 
-\plt{State the purpose of the system.}
+The purpose of \progname{} is providing a range of games for caregivers, parents or educators to evaluate and develop the skills of autistic learners. The former may tailor the stimulation, difficulty or contents of the games to the needs of the child. 
 
-\plt{The purpose should be in the context of the project itself, not in the
-  context of this course. Although the ``purpose'' of the document is to get a
-  grade, you should not mention this.  Instead, ``fake it'' as if this is a real
-  project.}
+\progname{} is intended to solve the lack of a engaging digital platform for autistic kids to develop their skills. Additionally, we aim to solve the problem that few tools exist for the comprehensive evaluation and progress tracking of autistic learners.
 
-\progname{} is intended to solve ... \plt{What problem does your program solve?
-The description here should be in the problem space, not the solution space.}
+Moreover, physical and digital games designed for autistic kids tend to be rigid and difficult to customize for each student. We aim to solve this issue by allowing caregivers, educators and parents the ability to tailor the games in a variety of ways. 
 
 \subsection{Scope}
-\plt{Briefly describe:
-\begin{itemize}
-  \item Problem being solved
-  \item Intended users
-  \item Major functionality
-  \item Expected benefits
-  \item Clarifying the scope often means saying what the software doesn't do
-\end{itemize}
-}
 
-\plt{The scope section is relevant for understanding the boundaries of the system. It is also relevant for later determining typical values of inputs. The scope should make it clear what inputs are reasonable to expect. This is a distinction between scope and context (context is a later section).  Scope affects the inputs while context affects how the software will be used.}
+The scope of our project is the development of a digital game suite for the evaluation and improvement of the skills of autistic learners under the jurisdiction of caregivers, parents and educators. The intended users are therefore autistic learners with varying skills in varying domains, and Care Team members who utilize features designed to tailor and support the learning path of the child.
 
-TODO
+The major functionality revolves around the core skill games, and the customization surrounding them. For example, the learning path of the child may involve a vocabulary-based game. The Care Team may customize the game through saving templates to: include words relevant to the child, adjust the colors and stimulative aspects of the game depending on child preferences, change the difficulty based on the child's progress, or decide the reward threshold for cosmetics. 
+
+Expected benefits for a player perspective include the boosted engagement of autistic learners in a learning context, the enhancement of their progress in a diversity of skills. From a Care Team perspective, the expected benefits involve the identification of patterns or insights into the child's progress or skill profile through visualized data and numerical metrics that may have been difficult to track beforehand. Additionally, a digitalized platform is ideal for a Care Team member to quickly adapt games to different learners without creating or assembling games from scratch.
+
+To further clarify the scope, \progname{} is intended to be used as a tool for Care Team members rather than a replacement for professional expertise. Within the timeline of Capstone, the software will not retain functionality for Care Team members to create their own brand new game types, design of their own tailored maps for games, or designing cosmetic rewards from scratch. The software will also not include a competitive component for players to compete against each other's scores.
+
 
 \subsection{Stakeholders}
 \begin{itemize}
-\item Customer
-\item End Users
-\item Project Sponsor
-\item Development Team
-\item Administrators
+\item Autistic Learners are a primary stakeholder and an end user group. They play the games and their skill growth is the main objective of the product. Accessibility, engagement and comfort are the priorities for this stakeholder group.
+\item Customers are secondary stakeholders whoencompass anybody that makes the decision to acquire the software for autistic learners. This includes learning centers adopting the platform for students, parents or caregivers that purchase the software for their child.
+\item The Development Team is a secondary stakeholder group. They are responsible for the successful design, implementation and maintenance of the software. They are the group attempting to translate requirements into working features and functionality.
+\item Care Team Members are another end user group that are primary stakeholders. They are the ones familiar with the autistic learner. Consequently, they use both administrative privileges to customize games and the dashboard to read or analyze student-specific data. They are the main decision makers for the autistic learner's learning path and progress, and therefore consulted by the development team for the latter to prioritize the most important tailoring features.
+\item Domain Experts are the finalstakeholder group, falling into the secondary category. They are consulted by the development team to ensure the designed software is appropriate for autistic learners; aiding their progress and steering clear of any unintended harm. 
 \end{itemize}
 
-\subsection{Definitions and Acronyms}
 
-\plt{This section provides the meaning of the different words and phrases used
-  in the domain of the problem.}
+
+\subsection{Definitions and Acronyms}
 
 \begin{longtable}{p{0.25\textwidth} p{0.65\textwidth}}
 \toprule
 Term & Definition\\
 \midrule
-TODO & TODO\\
+CTM & Care Team Member. A caregiver, parent, educator or any other figure that is responsible for the learning path of an autistic learner.\\
+Template & A pre-defined copy of an existing game that CTMs can create to tailor games for individual students, by modifying the content or stimulation level for example.\\
+Dashboard & A CTM-specific interface designed to visualize data, read key metrics and track the progress of autistic learners.\\
 \bottomrule
 \caption{Definitions and Acronyms} \label{tab:DefinitionsAndAcronyms}
 \end{longtable}
 
 \subsection{Characteristics of Intended Reader} \label{sec_IntendedReader}
 
-\plt{This section summarizes the skills and knowledge of the readers of the
-  SRS.  It does NOT have the same purpose as the ``User Characteristics''
-  section (Section~\ref{SecUserCharacteristics}).  The intended readers are the
-  people that will read, review and maintain the SRS.  They are the people that
-  will conceivably design the software that is intended to meet the
-  requirements.  The user, on the other hand, is the person that uses the
-  software that is built.  They may never read this SRS document.  Of course,
-  the same person could be a ``user'' and an ``intended reader.''}
-
-\plt{The intended reader characteristics should be written as unambiguously and
-  as specifically as possible.  Rather than say, the user should have an
-  understanding of physics, say what kind of physics and at what level.  For
-  instance, is high school physics adequate, or should the reader have had a
-  graduate course on advanced quantum mechanics?}
+The intended readers of this SRS are mainly the development team and potentially CTMs and domain experts. The development team will refer back to this SRS throughout the development process to ensure their features align with the outlined requirements and user groups. The CTMs and domain experts may read this SRS as an introduction to understanding \progname{} to be later consulted on domain issues. As such, the intended readers should ideally have a basic understanding of the capabilities and limitations of software, in addition to a basic understanding of the needs and challenges of autistic individuals in a learning environment.
 
 % ============================================================== 
 \section{System Overview}
