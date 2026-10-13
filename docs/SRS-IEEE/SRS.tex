@@ -221,7 +221,7 @@ Dashboard & A CTM-specific interface designed to visualize data, read key metric
 
 \subsection{Characteristics of Intended Reader} \label{sec_IntendedReader}
 
-The intended readers of this SRS are mainly the development team and potentially CTMs and domain experts. The development team will refer back to this SRS throughout the development process to ensure their features align with the outlined requirements and user groups. The CTMs and domain experts may read this SRS as an introduction to understanding \progname{} to be later consulted on domain issues. As such, the intended readers should ideally have a basic understanding of the capabilities and limitations of software, in addition to a basic understanding of the needs and challenges of autistic individuals in a learning environment.
+The intended readers of this SRS are mainly the development team and potentially CTMs and domain experts. The development team will refer back to this SRS throughout the development process to ensure their features align with the outlined requirements and user groups. The CTMs and domain experts may read this SRS as an introduction to understanding \progname{} to be later consulted on domain issues. As such, the intended readers should ideally have a basic understanding of the capabilities and limitations of software, specifically game engines like Godot in the context of the project timeline. In addition, a basic understanding is required of the needs of autistic individuals in a learning environment. This means understanding the most common challenges faced by autistic learners when they engage in learning, what some of the most common preferences are, and what are the boundaries to avoid that may cause harm even unintentionally.
 
 % ============================================================== 
 \section{System Overview}
@@ -408,30 +408,59 @@ numbers.}
 \plt{Typically 8-15 substantial use cases.}
 
 \refstepcounter{ucnum} \label{UC_Label1}
-\subsection{\ucref{UC_Label1}: Example Use Case}
+\subsection{\ucref{UC_Label1}: Play a game}
 
 \textbf{Primary Actor}
 
+Autistic Learner
+
 \textbf{Preconditions}
 \begin{itemize}
-\item TODO
+\item A CTM has authorized that the Learner can play this game.
+\item A CTM has either approved default settings or configured personalized settings for this game for the learner.
 \end{itemize}
 
 \textbf{Main Success Scenario}
 \begin{enumerate}
-\item TODO
-\item TODO
-\item TODO
+\item Learner selects a specific game from their game suite.
+\item System loads the selected game with the correct settings. 
+\item Learner chooses to start the game when they are ready.
+\item System continues presenting tasks completed by the Learner.
+\item After the final task is completed, System loads the final completion screen.
+\item System saves the Learner's performance data from the session into the correct database(s).
+\item Learner claims their in-game reward.
+\item Learner exits the game.
 \end{enumerate}
 
 \textbf{Alternative Flows}
 \begin{itemize}
-\item TODO
+\item 2.1: The system fails to load the selected game with the correct setting.
+
+2.2: CTM or Learner aborts the game.
+
+\item 3.1: Learner chooses to return to game suite screen.
+
+\item 4.1: Learner finds instruction unclear. 
+
+4.2: Learner wants a Guide for this instruction.
+
+4.3: System loads Guide.
+
+4.4: Learner closes Guide.
+
+\item 6.1: System does not find a stable connection to the database(s).
+
+6.2: System queues the data for future syncing.
+
+\item 8.1: Learner or CTM start the game again.
+
 \end{itemize}
 
 \textbf{Postconditions}
 \begin{itemize}
-\item TODO
+\item Autistic Learner has completed the game.
+\item Autistic Learner has received their in-game reward.
+\item The performance data has been saved to a local queue or a remote database.
 \end{itemize}
 
 % ============================================================== 
