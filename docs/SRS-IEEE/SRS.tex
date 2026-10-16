@@ -165,16 +165,6 @@ Date 2 & 1.1 & Notes\\
 \section{Introduction} 
 % ==============================================================
 
-\plt{Explain what system is being specified. State purpose, users, and project goals.}
-
-\plt{Introduce the name of your software as \progname{}.  Using \progname{} as
-a command lets you change the name if necessary and have the change propagate to
-all documents.}
-
-\plt{Include a reference to the template this work is based on.  \citet{ISOIECIEEE29148_2018}
-justifies the SRS structure and \citet{ISOIECIEEE15288_2023} provides the
-broader life-cycle context that underlines modern requirements engineering
-practice.}
 
 \subsection{Purpose}
 
@@ -212,9 +202,11 @@ To further clarify the scope, \progname{} is intended to be used as a tool for C
 \toprule
 Term & Definition\\
 \midrule
-CTM & Care Team Member. A caregiver, parent, educator or any other figure that is responsible for the learning path of an autistic learner.\\
+Learner & Primary player of the games that the care team is aiming to develop the skills and track the progress of.\\
+CTM & Care Team Member. A caregiver, parent, educator or any other figure that is responsible for the learning path of a learner.\\
+Primary CTM & Each Care Team has only one primary CTM for a Learner; the primary CTM has all permissions and is able to manage the permissions of other CTMs.\\
 Template & A pre-defined copy of an existing game that CTMs can create to tailor games for individual students, by modifying the content or stimulation level for example.\\
-Dashboard & A CTM-specific interface designed to visualize data, read key metrics and track the progress of autistic learners.\\
+Dashboard & A CTM-specific interface designed to visualize data, read key metrics and track the progress of learners.\\
 \bottomrule
 \caption{Definitions and Acronyms} \label{tab:DefinitionsAndAcronyms}
 \end{longtable}
@@ -401,11 +393,6 @@ numbers.}
 
 % ============================================================== 
 \section{Use Cases}
-\plt{Use cases are a way to describe the interactions between users and the system.
-  They are typically written in natural language and describe the steps that a
-  user takes to achieve a specific goal.  Use cases can be used to identify
-  functional requirements and to create test cases.}  
-\plt{Typically 8-15 substantial use cases.}
 
 \refstepcounter{ucnum} \label{UC_Label1}
 \subsection{\ucref{UC_Label1}: Play a game}
