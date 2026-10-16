@@ -165,85 +165,55 @@ Date 2 & 1.1 & Notes\\
 \section{Introduction} 
 % ==============================================================
 
-TESTING SRS IEEE
-
-\plt{Explain what system is being specified. State purpose, users, and project goals.}
-
-\plt{Introduce the name of your software as \progname{}.  Using \progname{} as
-a command lets you change the name if necessary and have the change propagate to
-all documents.}
-
-\plt{Include a reference to the template this work is based on.  \citet{ISOIECIEEE29148_2018}
-justifies the SRS structure and \citet{ISOIECIEEE15288_2023} provides the
-broader life-cycle context that underlines modern requirements engineering
-practice.}
 
 \subsection{Purpose}
 
-\plt{State the purpose of the system.}
+The purpose of \progname{} is providing a range of games for caregivers, parents or educators to evaluate and develop the skills of autistic learners. The former may tailor the stimulation, difficulty or contents of the games to the needs of the child. 
 
-\plt{The purpose should be in the context of the project itself, not in the
-  context of this course. Although the ``purpose'' of the document is to get a
-  grade, you should not mention this.  Instead, ``fake it'' as if this is a real
-  project.}
+\progname{} is intended to solve the lack of a engaging digital platform for autistic kids to develop their skills. Additionally, we aim to solve the problem that few tools exist for the comprehensive evaluation and progress tracking of autistic learners.
 
-\progname{} is intended to solve ... \plt{What problem does your program solve?
-The description here should be in the problem space, not the solution space.}
+Moreover, physical and digital games designed for autistic kids tend to be rigid and difficult to customize for each student. We aim to solve this issue by allowing caregivers, educators and parents the ability to tailor the games in a variety of ways. 
 
 \subsection{Scope}
-\plt{Briefly describe:
-\begin{itemize}
-  \item Problem being solved
-  \item Intended users
-  \item Major functionality
-  \item Expected benefits
-  \item Clarifying the scope often means saying what the software doesn't do
-\end{itemize}
-}
 
-\plt{The scope section is relevant for understanding the boundaries of the system. It is also relevant for later determining typical values of inputs. The scope should make it clear what inputs are reasonable to expect. This is a distinction between scope and context (context is a later section).  Scope affects the inputs while context affects how the software will be used.}
+The scope of our project is the development of a digital game suite for the evaluation and improvement of the skills of autistic learners under the jurisdiction of caregivers, parents and educators. The intended users are therefore autistic learners with varying skills in varying domains, and Care Team members who utilize features designed to tailor and support the learning path of the child.
 
-TODO
+The major functionality revolves around the core skill games, and the customization surrounding them. For example, the learning path of the child may involve a vocabulary-based game. The Care Team may customize the game through saving templates to: include words relevant to the child, adjust the colors and stimulative aspects of the game depending on child preferences, change the difficulty based on the child's progress, or decide the reward threshold for cosmetics. 
+
+Expected benefits for a player perspective include the boosted engagement of autistic learners in a learning context, the enhancement of their progress in a diversity of skills. From a Care Team perspective, the expected benefits involve the identification of patterns or insights into the child's progress or skill profile through visualized data and numerical metrics that may have been difficult to track beforehand. Additionally, a digitalized platform is ideal for a Care Team member to quickly adapt games to different learners without creating or assembling games from scratch.
+
+To further clarify the scope, \progname{} is intended to be used as a tool for Care Team members rather than a replacement for professional expertise. Within the timeline of Capstone, the software will not retain functionality for Care Team members to create their own brand new game types, design of their own tailored maps for games, or designing cosmetic rewards from scratch. The software will also not include a competitive component for players to compete against each other's scores.
+
 
 \subsection{Stakeholders}
 \begin{itemize}
-\item Customer
-\item End Users
-\item Project Sponsor
-\item Development Team
-\item Administrators
+\item Autistic Learners are a primary stakeholder and an end user group. They play the games and their skill growth is the main objective of the product. Accessibility, engagement and comfort are the priorities for this stakeholder group.
+\item Customers are secondary stakeholders whoencompass anybody that makes the decision to acquire the software for autistic learners. This includes learning centers adopting the platform for students, parents or caregivers that purchase the software for their child.
+\item The Development Team is a secondary stakeholder group. They are responsible for the successful design, implementation and maintenance of the software. They are the group attempting to translate requirements into working features and functionality.
+\item Care Team Members are another end user group that are primary stakeholders. They are the ones familiar with the autistic learner. Consequently, they use both administrative privileges to customize games and the dashboard to read or analyze student-specific data. They are the main decision makers for the autistic learner's learning path and progress, and therefore consulted by the development team for the latter to prioritize the most important tailoring features.
+\item Domain Experts are the finalstakeholder group, falling into the secondary category. They are consulted by the development team to ensure the designed software is appropriate for autistic learners; aiding their progress and steering clear of any unintended harm. 
 \end{itemize}
 
-\subsection{Definitions and Acronyms}
 
-\plt{This section provides the meaning of the different words and phrases used
-  in the domain of the problem.}
+
+\subsection{Definitions and Acronyms}
 
 \begin{longtable}{p{0.25\textwidth} p{0.65\textwidth}}
 \toprule
 Term & Definition\\
 \midrule
-TODO & TODO\\
+Learner & Primary player of the games that the care team is aiming to develop the skills and track the progress of.\\
+CTM & Care Team Member. A caregiver, parent, educator or any other figure that is responsible for the learning path of a learner.\\
+Primary CTM & Each Care Team has only one primary CTM for a Learner; the primary CTM has all permissions and is able to manage the permissions of other CTMs.\\
+Template & A pre-defined copy of an existing game that CTMs can create to tailor games for individual students, by modifying the content or stimulation level for example.\\
+Dashboard & A CTM-specific interface designed to visualize data, read key metrics and track the progress of learners.\\
 \bottomrule
 \caption{Definitions and Acronyms} \label{tab:DefinitionsAndAcronyms}
 \end{longtable}
 
 \subsection{Characteristics of Intended Reader} \label{sec_IntendedReader}
 
-\plt{This section summarizes the skills and knowledge of the readers of the
-  SRS.  It does NOT have the same purpose as the ``User Characteristics''
-  section (Section~\ref{SecUserCharacteristics}).  The intended readers are the
-  people that will read, review and maintain the SRS.  They are the people that
-  will conceivably design the software that is intended to meet the
-  requirements.  The user, on the other hand, is the person that uses the
-  software that is built.  They may never read this SRS document.  Of course,
-  the same person could be a ``user'' and an ``intended reader.''}
-
-\plt{The intended reader characteristics should be written as unambiguously and
-  as specifically as possible.  Rather than say, the user should have an
-  understanding of physics, say what kind of physics and at what level.  For
-  instance, is high school physics adequate, or should the reader have had a
-  graduate course on advanced quantum mechanics?}
+The intended readers of this SRS are mainly the development team and potentially CTMs and domain experts. The development team will refer back to this SRS throughout the development process to ensure their features align with the outlined requirements and user groups. The CTMs and domain experts may read this SRS as an introduction to understanding \progname{} to be later consulted on domain issues. As such, the intended readers should ideally have a basic understanding of the capabilities and limitations of software, specifically game engines like Godot in the context of the project timeline. In addition, a basic understanding is required of the needs of autistic individuals in a learning environment. This means understanding the most common challenges faced by autistic learners when they engage in learning, what some of the most common preferences are, and what are the boundaries to avoid that may cause harm even unintentionally.
 
 % ============================================================== 
 \section{System Overview}
@@ -386,66 +356,511 @@ numbers.}
 
 % ============================================================== 
 \section{User Personas}
-\plt{Create 2-5 realistic personas.
-  Personas are fictional characters that represent the different user types that
-  might use your software.  They are used to help understand the users'
-  needs, experiences, behaviors and goals.  They are not real people, but they
-  should be based on real data collected from user research.}
 
 \subsection{Persona 1}
 \begin{itemize}
-\item Name:
-\item Description:
-\item Goals:
-\item Frustrations:
-\item Technical Ability:
+\item Name: Layla
+\item Description: Layla is a 9-year-old autistic learner who enjoys speaking her mind. Layla is a strong academic student that excels in mathematics and reading. Layla also struggles with social interactions and has difficulty understanding social cues which hamper her ability to make friends and socialize with peers or the public. Layla can be easily overstimulated by loud noises, bright lights or fast movements.
+\item Goals: Layla wants to make friends easier and conversate without being scared or shy. She also wants to express herself and understand other people's expressions.
+\item Frustrations: Layla finds friends hard to make. She feels misunderstood when she expresses herself. Games can often contain: loud noises, bright lights and cluttered screens that can be overwhelming.
+\item Technical Ability: Layla is a tech-savvy child that enjoys playing video games on her laptop. She is comfortable with basic computer functions such as dragging and dropping, clicking and typing.
 \end{itemize}
-
 \subsection{Persona 2}
 \begin{itemize}
-\item Name:
-\item Description:
-\item Goals:
-\item Frustrations:
-\item Technical Ability:
+\item Name: Adam
+\item Description: Adam is a 6-year-old autistic learner who enjoys being social and chatty with his friends. Adam struggles with executive functioning and has difficulty focusing on academic tasks for extended periods of time, especially in mathematics and reading. Adam can be quickly understimulated by repetitive tasks and become bored.
+\item Goals: Learn math without being bored. Find reading easy. Focus on academic activities for longer. 
+\item Frustrations: Adam thinks math is boring and reading is hard, and that both take too long without any stimulation. Educational games lack rewards or any incentive to complete.
+\item Technical Ability: Adam does not have access to a laptop, but is comfortable on touch screen devices such as his tablet. He does not like flat-looking designs with nothing particularly engaging happening. 
+\end{itemize}
+\subsection{Persona 3}
+\begin{itemize}
+\item Name: Noah
+\item Description: Noah is a 65-year-old licensed educator at an Autism Learning Center. Noah teaches classrooms of 10 autistic learners at a time, often in the 4-10 year old range. Noah also teaches autistic learners 1-on-1 across a range of skills including social skills, communication, mathematics and reading. Noah uses physical materials either hand-crafted or externally purchased to facilitate learning activities with his students.
+\item Goals: Noah wants to track the progress of his diverse set of students individually across different skills. Noah wants a more malleable method of tailoring his activities for each student's preferences.
+\item Frustrations: Noah finds that having several students can strain the time available to analyze each one's specific progress, whether they have made any and to what extent. Noah likes the physical materials employed in his activities, but they are not malleable enough to be personalized for each student's experience.
+\item Technical Ability: Noah's formative years in the world of teaching autistic learners preceded widespread technology. Therefore, Noah is able to use tablets and computers at a basic level, but it may be confusing with more complicated functionality or presentation.
+\end{itemize}
+
+\subsection{Persona 4}
+\begin{itemize}
+\item Name: Sara
+\item Description: Sara is a 32-year-old mother of a 6-year-old autistic child. Sara's job in the engineering industry enables her to quickly adopt new technologies and use them proficiently. She is experienced at reading and analyzing data. However, Sara's knowledge in the field of autism is limited.
+\item Goals: Sara wants to aid her child's learning path. Sara knows her child's preferences and habits well, and wants to create a curated experience for her child based on this knowledge. 
+\item Frustrations: Sara is unsure which activities are suitable for the skill development of autistic children. When she does find a pre-packaged activity, her child tends to not respond well because the experience is not personalized.
+\item Technical Ability: Sara is proficient at hugely different devices and technologies. She is comfortable with laptops, tablets and reading visualized or numerical data.
 \end{itemize}
 
 % ============================================================== 
 \section{Use Cases}
-\plt{Use cases are a way to describe the interactions between users and the system.
-  They are typically written in natural language and describe the steps that a
-  user takes to achieve a specific goal.  Use cases can be used to identify
-  functional requirements and to create test cases.}  
-\plt{Typically 8-15 substantial use cases.}
 
 \refstepcounter{ucnum} \label{UC_Label1}
-\subsection{\ucref{UC_Label1}: Example Use Case}
+\subsection{\ucref{UC_Label1}: Play a game}
 
 \textbf{Primary Actor}
 
-TODO
+Autistic Learner
 
 \textbf{Preconditions}
 \begin{itemize}
-\item TODO
+\item A CTM has authorized that the Learner can play this game.
+\item A CTM has either approved default settings or configured personalized settings for this game for the learner.
 \end{itemize}
 
 \textbf{Main Success Scenario}
 \begin{enumerate}
-\item TODO
-\item TODO
-\item TODO
+\item System's game suite displays games Learner can play.
+\item Learner selects a specific game from their game suite.
+\item System loads the selected game with the correct settings. 
+\item Learner chooses to start the game when they are ready.
+\item System continues presenting tasks completed by the Learner.
+\item After the final task is completed, System loads the final completion screen.
+\item System saves the Learner's performance data from the session into the correct database(s).
+\item Learner claims their in-game reward.
+\item Learner exits the game.
 \end{enumerate}
 
 \textbf{Alternative Flows}
 \begin{itemize}
-\item TODO
+\item 1.1: System displays that the Learner cannot play any games at the moment.
+
+\item 2.1: The system fails to load the selected game with the correct setting.
+
+2.2: CTM or Learner aborts the game.
+
+\item 3.1: Learner chooses to return to game suite screen.
+
+\item 4.1: Learner finds instruction unclear. 
+
+4.2: Learner wants a Guide for this instruction.
+
+4.3: System loads Guide.
+
+4.4: Learner closes Guide.
+
+\item 6.1: System does not find a stable connection to the database(s).
+
+6.2: System queues the data for future syncing.
+
+\item 8.1: Learner or CTM start the game again.
+
+\end{itemize}
+
+\refstepcounter{ucnum} \label{UC_Label2}
+\subsection{\ucref{UC_Label2}: Adding a Learner}
+
+\textbf{Primary Actor}
+
+CTM
+
+\textbf{Preconditions}
+\begin{itemize}
+\item The CTM is logged into their account.
+\end{itemize}
+
+\textbf{Main Success Scenario}
+\begin{enumerate}
+\item CTM chooses to Add Learner.
+\item System loads the configuration page for a new learner's information.
+\item CTM inputs Learner information.
+\item CTM chooses which games this Learner can play, with configurable per-game settings.
+\item System displays a special Learner code for pairing purposes.
+\item The special code is entered correctly by an actor on the Learner's device(s).
+\item System saves the Learner's information to the appropriate tables in the database.
+\item System visually confirms successful pairing on the CTM account (Learner added) and the Learner's device(s).
+\end{enumerate}
+
+\textbf{Alternative Flows}
+\begin{itemize}
+\item 1.1: CTM chooses to transfer Learner profile to their account from another CTM.
+
+1.2: Other CTM account confirms transfer of profile ownership.
+
+\item 6.1: Actor's code input was incorrect.
+
+6.2: System allows for a limited amount of retries before blocking more tries for a period of time.
+
+6.3: CTM chooses to generate new code for this Learner.
+
+\end{itemize}
+
+
+\textbf{Postconditions}
+\begin{itemize}
+\item Learner profile has been created in relationship with the CTM's account.
+\item Learner can see the correct Learner screen on their paired device(s).
+\item The CTM that created the Learner profile is the primary CTM for this Learner.
+\end{itemize}
+
+\refstepcounter{ucnum} \label{UC_Label3}
+\subsection{\ucref{UC_Label3}: View Learner data}
+
+\textbf{Primary Actor}
+
+CTM
+
+\textbf{Preconditions}
+\begin{itemize}
+\item The CTM is logged into their account.
+\item The CTM is authorized to view this Learner's profile.
+\end{itemize}
+
+\textbf{Main Success Scenario}
+\begin{enumerate}
+\item CTM chooses to view a specific Learner's data.
+\item System loads Learner's data and displays the main page.
+\item CTM views the Learner's most recent game sessions.
+\item CTM views an overview of the Learner's average performance on each game.
+\item CTM chooses a specific game to view more specific details.
+\item System loads the Learner's statistics and session history for this game.
+\item CTM chooses a view (eg. table, chart) for the Learner's statistics in this game such as overall score and where the Learner's strongest and weakest performance during sessions typically are.
+\item CTM views a data representation of the Learner's overall score in this game across their timeline since their first session.
+\item CTM exports the Learner's data into a different format.
+\item CTM exits the Learner data page.
+\end{enumerate}
+
+\textbf{Alternative Flows}
+\begin{itemize}
+\item 3.1: CTM chooses to view a specified portion of the Learner's overall game sessions (eg. October 6 - October 15).
+
+\item 8.1: CTM sets a specific timeline to view the Learner's score such (eg. October 6 - October 15).
+
+\end{itemize}
+
+
+\textbf{Postconditions}
+\begin{itemize}
+\item CTM has viewed the requested data successfully.
+\end{itemize}
+
+\refstepcounter{ucnum} \label{UC_Label4}
+\subsection{\ucref{UC_Label4}: Personalize Learner Settings}
+
+\textbf{Primary Actor}
+CTM
+
+\textbf{Preconditions}
+\begin{itemize}
+\item The CTM is logged into their account.
+\item The CTM is authorized to change this Learner's settings.
+\end{itemize}
+
+\textbf{Main Success Scenario}
+\begin{enumerate}
+\item CTM chooses the Learner's profile.
+\item CTM chooses a specific game to personalize Learner settings for.
+\item CTM picks specific difficulties of this game to be available for this Learner.
+\item CTM picks a specific stimulation level.
+\item CTM adjusts reward for completing the game successfully.
+\item CTM chooses prompt level such as full help, partial hints or fully independent.
+\item CTM chooses volume levels for music, sound effects and voice.
+\item CTM chooses intensity of celebrations when the Learner is successful.
+\item CTM saves new settings for this Learner on this game.
+\end{enumerate}
+
+\textbf{Alternative Flows}
+\begin{itemize}
+\item 3.1: CTM allows all difficulties to be available for this Learner on this game.
+
+\item 4.1: CTM does not change the default stimulation level.
+
+\item 5.1: CTM does not adjust the baseline rewards.
+
+\item 6.1: CTM does not change the default prompt level.
+
+\item 7.1: CTM does not change the default volume levels.
+
+\item 8.1: CTM does not change the default intensity.
+\end{itemize}
+
+
+\textbf{Postconditions}
+\begin{itemize}
+\item System has successfully saved the personalized Learner's settings for this game.
+\item Learner can only play the game with personalized settings.
+\end{itemize}
+
+\refstepcounter{ucnum} \label{UC_Label5}
+\subsection{\ucref{UC_Label5}: Adding Game Template}
+
+\textbf{Primary Actor}
+CTM
+
+\textbf{Preconditions}
+\begin{itemize}
+\item The CTM is logged into their account.
+\end{itemize}
+
+\textbf{Main Success Scenario}
+\begin{enumerate}
+\item CTM chooses a specific game to create a template out of.
+\item System loads the template screen.
+\item CTM chooses to add, change or remove contents within the game. Example: changing 'Cereal' to a specific brand, removing candy or adding chocolate in a grocery-based game.
+\item CTM chooses to adjust the colour palette, volume levels, intesntiy for this game..
+\item CTM chooses a difficulty for this template.
+\item CTM chooses the Learner(s) this template should be assigned to.
+\item CTM chooses to export the template to a file format.
+\item System replaces the default version of the game with the template version for the assigned Learner(s).
+\item System displays a success message for the CTM.
+\end{enumerate}
+
+\textbf{Alternative Flows}
+\begin{itemize}
+\item 1.1: CTM imports template from another CTM.
+
+\item 3.1: CTM chooses to not change the content.
+ 
+\item 4.1: CTM chooses to go with the default settings.
+
+\item 6.1: System says this Learner already has a template for this game and asks whether to replace that assignment.
+
+6.2: CTM saves the template under a unique name without assigning it yet.
+
+6.2: CTM saves the template under a specific folder in their templates screen.
+
+\item 9.1: System displays a failure message for the CTM with reasoning.
+
+\end{itemize}
+
+
+\textbf{Postconditions}
+\begin{itemize}
+\item CTM has successfully created, assigned and saved the template.
+\item System has saved which Learners play the created template.
+\item Learner can play the assigned template version of the game.
+\end{itemize}
+
+\refstepcounter{ucnum} \label{UC_Label6}
+\subsection{\ucref{UC_Label6}: Equipping Cosmetic Item}
+
+\textbf{Primary Actor}
+Learner
+
+\textbf{Preconditions}
+\begin{itemize}
+\item The Learner is logged into their profile.
+\end{itemize}
+
+\textbf{Main Success Scenario}
+\begin{enumerate}
+\item Learner chooses to open the Items screen.
+\item System loads the item page with any filters applied by the CTM i.e to hide certain items.
+\item Learner chooses a cosmetic item to buy.
+\item System grants the cosmetic item to the Learner.
+\item The Learner chooses to equip their cosmetic item.
+\item System updates the Learner's view to show the equipped cosmetic item (eg. shirt, pet).
+\item Learner exits the Item screen.
+\end{enumerate}
+
+\textbf{Alternative Flows}
+\begin{itemize}
+\item 3.1: Learner equips a cosmetic item they already have.
+
+\item 4.1: System finds that the cosmetic item cannot be purchased.
+
+4.2: System displays reasoning for failure to purchase.
+
+4.3: System explains when it is possible to purchase this item.
+
+4.4: System shows possible alternatives to the wanted item.
+
+\item 5.1: Learner chooses to not equip their item.
+
+\item 7.1: Learner chooses to browse further items.
+
+
+\end{itemize}
+
+
+\textbf{Postconditions}
+\begin{itemize}
+\item Learner screen displays their updated view with the equipped item(s).
+\item System has saved the newly equipped items to the current view.
+\item System has saved the newly purchased items to what items the Learner owns.
+\item If applicable, System has deducted currency from the Learner's balance.
+\end{itemize}
+
+\refstepcounter{ucnum} \label{UC_Label7}
+\subsection{\ucref{UC_Label7}: Create CTM account}
+
+\textbf{Primary Actor}
+CTM
+
+\textbf{Preconditions}
+\begin{itemize}
+\item CTM is on the registration page.
+\item The CTM's device is connected to the Internet.
+\end{itemize}
+
+\textbf{Main Success Scenario}
+\begin{enumerate}
+\item CTM enters their name, email and password.
+\item CTM chooses from a collection of default avatars.
+\item CTM agrees to terms \& conditions.
+\item System saves entered information and agreement into the appropriate data tables.
+\item System sends the CTM a verification email.
+\item CTM verifies their email.
+\item System creates CTM account.
+\item System sends CTM an email confirming their account creation.
+\item CTM uses previously entered information to log into their account.
+\end{enumerate}
+
+\textbf{Alternative Flows}
+\begin{itemize}
+\item 4.1: System prompts CTM to agree to terms \& conditions if they did not explicitly agree before submitting.
+
+4.2: System prompts CTM to log in after finding the email is associated with an existing account.
+
+4.3: System prompts CTM to choose a stronger password after finding the password too weak.
+
+4.3: System prompts CTM to check their re-typed password after finding the passwords do not match.
+
+\item 5.1: CTM asks to re-send verification email after expiry.
+
+5.2: System re-sends verification email.
+
+\end{itemize}
+
+
+\textbf{Postconditions}
+\begin{itemize}
+\item System has successfully saved the newly created CTM account into the database.
+\item CTM is able to successfully log in with the information they previously entered during creation.
+\end{itemize}
+
+\refstepcounter{ucnum} \label{UC_Label8}
+\subsection{\ucref{UC_Label8}: Delete Learner Profile}
+
+\textbf{Primary Actor}
+CTM
+
+\textbf{Preconditions}
+\begin{itemize}
+\item CTM is authorized to delete this Learner's profile.
+\end{itemize}
+
+\textbf{Main Success Scenario}
+\begin{enumerate}
+\item CTM chooses the intended Learner's profile.
+\item CTM chooses to delete Learner's profile.
+\item System explains what this entails and offers to export the Learner's data before deletion.
+\item CTM confirms deletion of Learner's profile.
+\item System unlinks Learner's paired devices.
+\item System revokes access to other CTM's that were able to view this Learner's profile.
+\item System schedules account's permanent deletion after a short grace period.
+\item System sends notification to CTM as a confirmation of deletion.
+\end{enumerate}
+
+\textbf{Alternative Flows}
+\begin{itemize}
+\item 4.1: CTM chooses to not delete Learner's profile.
+
+\item 6.1: CTM decides to restore Learner's profile during the grace period.
+
+6.2: System restores Learner data and cancels scheduled deletion.
+
+
+\end{itemize}
+
+
+\textbf{Postconditions}
+\begin{itemize}
+\item System has successfully scheduled the Learner's profile for deletion.
+\item System does not retain any Learner data after deletion for privacy reasons.
+\item Learner can no longer enter their deleted profile.
+\end{itemize}
+
+\refstepcounter{ucnum} \label{UC_Label9}
+\subsection{\ucref{UC_Label9}: Add CTM to Learner}
+
+\textbf{Primary Actor}
+Primary CTM
+
+\textbf{Preconditions}
+\begin{itemize}
+\item The Primary CTM is logged into their account.
+\item The Learner's profile exists.
+\end{itemize}
+
+\textbf{Main Success Scenario}
+\begin{enumerate}
+\item Primary CTM chooses the Learner's profile.
+\item Primary CTM chooses to add a CTM to the Learner's care team.
+\item Primary CTM selects the permissions the New CTM will have (eg. view Learner data, personalize settings, assign templates).
+\item System generates an invite code with an expiry time.
+\item Primary CTM shares the invite code with the new CTM.
+\item New CTM enters the invite code on their account.
+\item System validates the invite code.
+\item System adds the New CTM to the Learner's care team with the selected permissions.
+\item System displays the Learner on the New CTM's account.
+\item System notifies the Primary CTM that the New CTM has joined.
+\end{enumerate}
+
+\textbf{Alternative Flows}
+\begin{itemize}
+\item 3.1: Primary CTM keeps the default permissions.
+
+\item 5.1: Primary CTM cancels the invite before it is used.
+
+\item 6.1: New CTM does not have an account.
+
+\item 7.1: Invite code is incorrect, expired or already used.
+
+7.2: System allows a limited number of retries before blocking further attempts for a period of time.
+
+7.3: Primary CTM generates a new invite code.
+
+\item 8.1: New CTM is already part of this Learner's care team.
 \end{itemize}
 
 \textbf{Postconditions}
 \begin{itemize}
-\item TODO
+\item The new CTM can see the Learner's profile on their account.
+\item New CTM is limited to the pre-selected permissions by the primary CTM.
 \end{itemize}
+
+\refstepcounter{ucnum} \label{UC_Label10}
+\subsection{\ucref{UC_Label10}: Manage CTM Permissions}
+
+\textbf{Primary Actor}
+
+Primary CTM
+
+\textbf{Preconditions}
+\begin{itemize}
+\item The Primary CTM is logged into their account.
+\item The Learner's care team has at least one CTM other than the Primary CTM.
+\end{itemize}
+
+\textbf{Main Success Scenario}
+\begin{enumerate}
+\item Primary CTM chooses the Learner's profile.
+\item Primary CTM chooses to view the Learner's care team.
+\item Primary CTM selects a CTM.
+\item System displays the CTM's permissions and actions related to this Learner.
+\item Primary CTM grants, edits or revokes permissions for the selected CTM.
+\item Primary CTM saves the changes.
+\item System applies the new permissions immediately.
+\item System notifies the affected CTM that their permissions have changed.
+\end{enumerate}
+
+\textbf{Alternative Flows}
+\begin{itemize}
+\item 5.1: Primary CTM chooses to remove the selected CTM from the care team.
+
+5.2: System asks the Primary CTM to confirm the removal.
+
+5.3: System revokes the CTM's access to the Learner and notifies them.
+
+\item 6.1: Primary CTM chooses to no apply the changes.
+\end{itemize}
+
+\textbf{Postconditions}
+\begin{itemize}
+\item The selected CTM's permissions are changed.
+\item There is exactly one Primary CTM for the Learner.
+\end{itemize}
+
 
 % ============================================================== 
 \section{Functional Requirements}
