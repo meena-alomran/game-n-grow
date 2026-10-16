@@ -422,6 +422,7 @@ Autistic Learner
 
 \textbf{Main Success Scenario}
 \begin{enumerate}
+\item System's game suite displays games Learner can play.
 \item Learner selects a specific game from their game suite.
 \item System loads the selected game with the correct settings. 
 \item Learner chooses to start the game when they are ready.
@@ -434,6 +435,8 @@ Autistic Learner
 
 \textbf{Alternative Flows}
 \begin{itemize}
+\item 1.1: System displays that the Learner cannot play any games at the moment.
+
 \item 2.1: The system fails to load the selected game with the correct setting.
 
 2.2: CTM or Learner aborts the game.
@@ -456,12 +459,421 @@ Autistic Learner
 
 \end{itemize}
 
+\refstepcounter{ucnum} \label{UC_Label2}
+\subsection{\ucref{UC_Label2}: Adding a Learner}
+
+\textbf{Primary Actor}
+
+CTM
+
+\textbf{Preconditions}
+\begin{itemize}
+\item The CTM is logged into their account.
+\end{itemize}
+
+\textbf{Main Success Scenario}
+\begin{enumerate}
+\item CTM chooses to Add Learner.
+\item System loads the configuration page for a new learner's information.
+\item CTM inputs Learner information.
+\item CTM chooses which games this Learner can play, with configurable per-game settings.
+\item System displays a special Learner code for pairing purposes.
+\item The special code is entered correctly by an actor on the Learner's device(s).
+\item System saves the Learner's information to the appropriate tables in the database.
+\item System visually confirms successful pairing on the CTM account (Learner added) and the Learner's device(s).
+\end{enumerate}
+
+\textbf{Alternative Flows}
+\begin{itemize}
+\item 1.1: CTM chooses to transfer Learner profile to their account from another CTM.
+
+1.2: Other CTM account confirms transfer of profile ownership.
+
+\item 6.1: Actor's code input was incorrect.
+
+6.2: System allows for a limited amount of retries before blocking more tries for a period of time.
+
+6.3: CTM chooses to generate new code for this Learner.
+
+\end{itemize}
+
+
 \textbf{Postconditions}
 \begin{itemize}
-\item Autistic Learner has completed the game.
-\item Autistic Learner has received their in-game reward.
-\item The performance data has been saved to a local queue or a remote database.
+\item Learner profile has been created in relationship with the CTM's account.
+\item Learner can see the correct Learner screen on their paired device(s).
+\item The CTM that created the Learner profile is the primary CTM for this Learner.
 \end{itemize}
+
+\refstepcounter{ucnum} \label{UC_Label3}
+\subsection{\ucref{UC_Label3}: View Learner data}
+
+\textbf{Primary Actor}
+
+CTM
+
+\textbf{Preconditions}
+\begin{itemize}
+\item The CTM is logged into their account.
+\item The CTM is authorized to view this Learner's profile.
+\end{itemize}
+
+\textbf{Main Success Scenario}
+\begin{enumerate}
+\item CTM chooses to view a specific Learner's data.
+\item System loads Learner's data and displays the main page.
+\item CTM views the Learner's most recent game sessions.
+\item CTM views an overview of the Learner's average performance on each game.
+\item CTM chooses a specific game to view more specific details.
+\item System loads the Learner's statistics and session history for this game.
+\item CTM chooses a view (eg. table, chart) for the Learner's statistics in this game such as overall score and where the Learner's strongest and weakest performance during sessions typically are.
+\item CTM views a data representation of the Learner's overall score in this game across their timeline since their first session.
+\item CTM exports the Learner's data into a different format.
+\item CTM exits the Learner data page.
+\end{enumerate}
+
+\textbf{Alternative Flows}
+\begin{itemize}
+\item 3.1: CTM chooses to view a specified portion of the Learner's overall game sessions (eg. October 6 - October 15).
+
+\item 8.1: CTM sets a specific timeline to view the Learner's score such (eg. October 6 - October 15).
+
+\end{itemize}
+
+
+\textbf{Postconditions}
+\begin{itemize}
+\item CTM has viewed the requested data successfully.
+\end{itemize}
+
+\refstepcounter{ucnum} \label{UC_Label4}
+\subsection{\ucref{UC_Label4}: Personalize Learner Settings}
+
+\textbf{Primary Actor}
+CTM
+
+\textbf{Preconditions}
+\begin{itemize}
+\item The CTM is logged into their account.
+\item The CTM is authorized to change this Learner's settings.
+\end{itemize}
+
+\textbf{Main Success Scenario}
+\begin{enumerate}
+\item CTM chooses the Learner's profile.
+\item CTM chooses a specific game to personalize Learner settings for.
+\item CTM picks specific difficulties of this game to be available for this Learner.
+\item CTM picks a specific stimulation level.
+\item CTM adjusts reward for completing the game successfully.
+\item CTM chooses prompt level such as full help, partial hints or fully independent.
+\item CTM chooses volume levels for music, sound effects and voice.
+\item CTM chooses intensity of celebrations when the Learner is successful.
+\item CTM saves new settings for this Learner on this game.
+\end{enumerate}
+
+\textbf{Alternative Flows}
+\begin{itemize}
+\item 3.1: CTM allows all difficulties to be available for this Learner on this game.
+
+\item 4.1: CTM does not change the default stimulation level.
+
+\item 5.1: CTM does not adjust the baseline rewards.
+
+\item 6.1: CTM does not change the default prompt level.
+
+\item 7.1: CTM does not change the default volume levels.
+
+\item 8.1: CTM does not change the default intensity.
+\end{itemize}
+
+
+\textbf{Postconditions}
+\begin{itemize}
+\item System has successfully saved the personalized Learner's settings for this game.
+\item Learner can only play the game with personalized settings.
+\end{itemize}
+
+\refstepcounter{ucnum} \label{UC_Label5}
+\subsection{\ucref{UC_Label5}: Adding Game Template}
+
+\textbf{Primary Actor}
+CTM
+
+\textbf{Preconditions}
+\begin{itemize}
+\item The CTM is logged into their account.
+\end{itemize}
+
+\textbf{Main Success Scenario}
+\begin{enumerate}
+\item CTM chooses a specific game to create a template out of.
+\item System loads the template screen.
+\item CTM chooses to add, change or remove contents within the game. Example: changing 'Cereal' to a specific brand, removing candy or adding chocolate in a grocery-based game.
+\item CTM chooses to adjust the colour palette, volume levels, intesntiy for this game..
+\item CTM chooses a difficulty for this template.
+\item CTM chooses the Learner(s) this template should be assigned to.
+\item CTM chooses to export the template to a file format.
+\item System replaces the default version of the game with the template version for the assigned Learner(s).
+\item System displays a success message for the CTM.
+\end{enumerate}
+
+\textbf{Alternative Flows}
+\begin{itemize}
+\item 1.1: CTM imports template from another CTM.
+
+\item 3.1: CTM chooses to not change the content.
+ 
+\item 4.1: CTM chooses to go with the default settings.
+
+\item 6.1: System says this Learner already has a template for this game and asks whether to replace that assignment.
+
+6.2: CTM saves the template under a unique name without assigning it yet.
+
+6.2: CTM saves the template under a specific folder in their templates screen.
+
+\item 9.1: System displays a failure message for the CTM with reasoning.
+
+\end{itemize}
+
+
+\textbf{Postconditions}
+\begin{itemize}
+\item CTM has successfully created, assigned and saved the template.
+\item System has saved which Learners play the created template.
+\item Learner can play the assigned template version of the game.
+\end{itemize}
+
+\refstepcounter{ucnum} \label{UC_Label6}
+\subsection{\ucref{UC_Label6}: Equipping Cosmetic Item}
+
+\textbf{Primary Actor}
+Learner
+
+\textbf{Preconditions}
+\begin{itemize}
+\item The Learner is logged into their profile.
+\end{itemize}
+
+\textbf{Main Success Scenario}
+\begin{enumerate}
+\item Learner chooses to open the Items screen.
+\item System loads the item page with any filters applied by the CTM i.e to hide certain items.
+\item Learner chooses a cosmetic item to buy.
+\item System grants the cosmetic item to the Learner.
+\item The Learner chooses to equip their cosmetic item.
+\item System updates the Learner's view to show the equipped cosmetic item (eg. shirt, pet).
+\item Learner exits the Item screen.
+\end{enumerate}
+
+\textbf{Alternative Flows}
+\begin{itemize}
+\item 3.1: Learner equips a cosmetic item they already have.
+
+\item 4.1: System finds that the cosmetic item cannot be purchased.
+
+4.2: System displays reasoning for failure to purchase.
+
+4.3: System explains when it is possible to purchase this item.
+
+4.4: System shows possible alternatives to the wanted item.
+
+\item 5.1: Learner chooses to not equip their item.
+
+\item 7.1: Learner chooses to browse further items.
+
+
+\end{itemize}
+
+
+\textbf{Postconditions}
+\begin{itemize}
+\item Learner screen displays their updated view with the equipped item(s).
+\item System has saved the newly equipped items to the current view.
+\item System has saved the newly purchased items to what items the Learner owns.
+\item If applicable, System has deducted currency from the Learner's balance.
+\end{itemize}
+
+\refstepcounter{ucnum} \label{UC_Label7}
+\subsection{\ucref{UC_Label7}: Create CTM account}
+
+\textbf{Primary Actor}
+CTM
+
+\textbf{Preconditions}
+\begin{itemize}
+\item CTM is on the registration page.
+\item The CTM's device is connected to the Internet.
+\end{itemize}
+
+\textbf{Main Success Scenario}
+\begin{enumerate}
+\item CTM enters their name, email and password.
+\item CTM chooses from a collection of default avatars.
+\item CTM agrees to terms \& conditions.
+\item System saves entered information and agreement into the appropriate data tables.
+\item System sends the CTM a verification email.
+\item CTM verifies their email.
+\item System creates CTM account.
+\item System sends CTM an email confirming their account creation.
+\item CTM uses previously entered information to log into their account.
+\end{enumerate}
+
+\textbf{Alternative Flows}
+\begin{itemize}
+\item 4.1: System prompts CTM to agree to terms \& conditions if they did not explicitly agree before submitting.
+
+4.2: System prompts CTM to log in after finding the email is associated with an existing account.
+
+4.3: System prompts CTM to choose a stronger password after finding the password too weak.
+
+4.3: System prompts CTM to check their re-typed password after finding the passwords do not match.
+
+\item 5.1: CTM asks to re-send verification email after expiry.
+
+5.2: System re-sends verification email.
+
+\end{itemize}
+
+
+\textbf{Postconditions}
+\begin{itemize}
+\item System has successfully saved the newly created CTM account into the database.
+\item CTM is able to successfully log in with the information they previously entered during creation.
+\end{itemize}
+
+\refstepcounter{ucnum} \label{UC_Label8}
+\subsection{\ucref{UC_Label8}: Delete Learner Profile}
+
+\textbf{Primary Actor}
+CTM
+
+\textbf{Preconditions}
+\begin{itemize}
+\item CTM is authorized to delete this Learner's profile.
+\end{itemize}
+
+\textbf{Main Success Scenario}
+\begin{enumerate}
+\item CTM chooses the intended Learner's profile.
+\item CTM chooses to delete Learner's profile.
+\item System explains what this entails and offers to export the Learner's data before deletion.
+\item CTM confirms deletion of Learner's profile.
+\item System unlinks Learner's paired devices.
+\item System revokes access to other CTM's that were able to view this Learner's profile.
+\item System schedules account's permanent deletion after a short grace period.
+\item System sends notification to CTM as a confirmation of deletion.
+\end{enumerate}
+
+\textbf{Alternative Flows}
+\begin{itemize}
+\item 4.1: CTM chooses to not delete Learner's profile.
+
+\item 6.1: CTM decides to restore Learner's profile during the grace period.
+
+6.2: System restores Learner data and cancels scheduled deletion.
+
+
+\end{itemize}
+
+
+\textbf{Postconditions}
+\begin{itemize}
+\item System has successfully scheduled the Learner's profile for deletion.
+\item System does not retain any Learner data after deletion for privacy reasons.
+\item Learner can no longer enter their deleted profile.
+\end{itemize}
+
+\refstepcounter{ucnum} \label{UC_Label9}
+\subsection{\ucref{UC_Label9}: Add CTM to Learner}
+
+\textbf{Primary Actor}
+Primary CTM
+
+\textbf{Preconditions}
+\begin{itemize}
+\item The Primary CTM is logged into their account.
+\item The Learner's profile exists.
+\end{itemize}
+
+\textbf{Main Success Scenario}
+\begin{enumerate}
+\item Primary CTM chooses the Learner's profile.
+\item Primary CTM chooses to add a CTM to the Learner's care team.
+\item Primary CTM selects the permissions the New CTM will have (eg. view Learner data, personalize settings, assign templates).
+\item System generates an invite code with an expiry time.
+\item Primary CTM shares the invite code with the new CTM.
+\item New CTM enters the invite code on their account.
+\item System validates the invite code.
+\item System adds the New CTM to the Learner's care team with the selected permissions.
+\item System displays the Learner on the New CTM's account.
+\item System notifies the Primary CTM that the New CTM has joined.
+\end{enumerate}
+
+\textbf{Alternative Flows}
+\begin{itemize}
+\item 3.1: Primary CTM keeps the default permissions.
+
+\item 5.1: Primary CTM cancels the invite before it is used.
+
+\item 6.1: New CTM does not have an account.
+
+\item 7.1: Invite code is incorrect, expired or already used.
+
+7.2: System allows a limited number of retries before blocking further attempts for a period of time.
+
+7.3: Primary CTM generates a new invite code.
+
+\item 8.1: New CTM is already part of this Learner's care team.
+\end{itemize}
+
+\textbf{Postconditions}
+\begin{itemize}
+\item The new CTM can see the Learner's profile on their account.
+\item New CTM is limited to the pre-selected permissions by the primary CTM.
+\end{itemize}
+
+\refstepcounter{ucnum} \label{UC_Label10}
+\subsection{\ucref{UC_Label10}: Manage CTM Permissions}
+
+\textbf{Primary Actor}
+
+Primary CTM
+
+\textbf{Preconditions}
+\begin{itemize}
+\item The Primary CTM is logged into their account.
+\item The Learner's care team has at least one CTM other than the Primary CTM.
+\end{itemize}
+
+\textbf{Main Success Scenario}
+\begin{enumerate}
+\item Primary CTM chooses the Learner's profile.
+\item Primary CTM chooses to view the Learner's care team.
+\item Primary CTM selects a CTM.
+\item System displays the CTM's permissions and actions related to this Learner.
+\item Primary CTM grants, edits or revokes permissions for the selected CTM.
+\item Primary CTM saves the changes.
+\item System applies the new permissions immediately.
+\item System notifies the affected CTM that their permissions have changed.
+\end{enumerate}
+
+\textbf{Alternative Flows}
+\begin{itemize}
+\item 5.1: Primary CTM chooses to remove the selected CTM from the care team.
+
+5.2: System asks the Primary CTM to confirm the removal.
+
+5.3: System revokes the CTM's access to the Learner and notifies them.
+
+\item 6.1: Primary CTM chooses to no apply the changes.
+\end{itemize}
+
+\textbf{Postconditions}
+\begin{itemize}
+\item The selected CTM's permissions are changed.
+\item There is exactly one Primary CTM for the Learner.
+\end{itemize}
+
 
 % ============================================================== 
 \section{Functional Requirements}
