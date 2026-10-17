@@ -596,7 +596,7 @@ CTM
 \item CTM chooses a specific game to create a template out of.
 \item System loads the template screen.
 \item CTM chooses to add, change or remove contents within the game. Example: changing 'Cereal' to a specific brand, removing candy or adding chocolate in a grocery-based game.
-\item CTM chooses to adjust the colour palette, volume levels, intesntiy for this game..
+\item CTM chooses to adjust the colour palette, volume levels, intesntiy for this game.
 \item CTM chooses a difficulty for this template.
 \item CTM chooses the Learner(s) this template should be assigned to.
 \item CTM chooses to export the template to a file format.
@@ -864,19 +864,156 @@ Primary CTM
 
 % ============================================================== 
 \section{Functional Requirements}
-\plt{Functional requirements describe what the system should do.  They are typically
-expressed as a set of conditions or capabilities that the system must have.  These
-requirements are usually derived from the stakeholder requirements and use cases.}
 
-\plt{Use SHALL statements. Requirements must be atomic, testable, and traceable.}
+\textbf{CTM Accounts}
 
 \noindent \begin{itemize}
 
-\item[FR\refstepcounter{reqnum}\thereqnum \label{FR_Label1}:] The system shall ...
+\item[FR\refstepcounter{reqnum}\thereqnum \label{FR_Label1}:] The system shall check a CTM's account registration to validate entered information.
 
-\item[FR\refstepcounter{reqnum}\thereqnum \label{FR_Label2}:] The system shall ...
+\item[FR\refstepcounter{reqnum}\thereqnum \label{FR_Label2}:] The system shall display reasons for errors in the CTM registration process.
 
-\item[FR\refstepcounter{reqnum}\thereqnum \label{FR_Label3}:] The system shall ...
+\item[FR\refstepcounter{reqnum}\thereqnum \label{FR_Label3}:] The system shall create the CTM's account after they verify their email.
+
+\item[FR\refstepcounter{reqnum}\thereqnum \label{FR_Label4}:] The system shall allow a CTM to log in using the information verified in the registration process.
+
+\item[FR\refstepcounter{reqnum}\thereqnum \label{FR_Label5}:] The system shall allow a CTM to delete their account with a scheduled grace period, un-linking all Learners and templates.
+
+\item[FR\refstepcounter{reqnum}\thereqnum \label{FR_Label6}:] The system shall allow a CTM to restore their account during the grace period.
+
+\textbf{Learner Profiles}
+
+\item[FR\refstepcounter{reqnum}\thereqnum \label{FR_Label7}:] The system shall allow a CTM to create a new Learner profile under their account.
+
+\item[FR\refstepcounter{reqnum}\thereqnum \label{FR_Label8}:] The system shall designate the CTM that created the Learner profile as the primary CTM.
+
+\item[FR\refstepcounter{reqnum}\thereqnum \label{FR_Label9}:] The system shall allow a CTM to input the Learner's specific information.
+
+\item[FR\refstepcounter{reqnum}\thereqnum \label{FR_Label10}:] The system shall allow the primary CTM to delete a Learner's profile with a scheduled grace period.
+
+\item[FR\refstepcounter{reqnum}\thereqnum \label{FR_Label11}:] The system shall allow the primary CTM to export a Learner's data prior to deletion.
+
+\item[FR\refstepcounter{reqnum}\thereqnum \label{FR_Label12}:] The system shall delete all Learner-related data after the deletion grace period.
+
+\item[FR\refstepcounter{reqnum}\thereqnum \label{FR_Label13}:] The system shall allow the primary CTM to restore a Learner's profile during the grace period.
+
+\item[FR\refstepcounter{reqnum}\thereqnum \label{FR_Label14}:] The system shall not allow a Learner to access their deleted profile.
+
+\textbf{Device Pairing}
+
+\item[FR\refstepcounter{reqnum}\thereqnum \label{FR_Label15}:] The system shall allow a Learner to pair multiple devices.
+
+\item[FR\refstepcounter{reqnum}\thereqnum \label{FR_Label16}:] The system shall confirm the successful pairing of each device to both parties.
+
+\item[FR\refstepcounter{reqnum}\thereqnum \label{FR_Label17}:] The system shall allow a CTM to generate a new code for the Learner's device pairing.
+
+\item[FR\refstepcounter{reqnum}\thereqnum \label{FR_Label18}:] The system shall allow a specific amount of retries before the pairing method is nullified.
+
+\item[FR\refstepcounter{reqnum}\thereqnum \label{FR_Label19}:] The system shall block further pairing attempts for a period of time after the retry limit is reached.
+
+\textbf{Care Team \& Permissions}
+
+\item[FR\refstepcounter{reqnum}\thereqnum \label{FR_Label20}:] The system shall allow the primary CTM to add other CTM's to the Learner's care team via invite code.
+
+\item[FR\refstepcounter{reqnum}\thereqnum \label{FR_Label21}:] The system shall allow the primary CTM to cancel an outgoing invite.
+
+\item[FR\refstepcounter{reqnum}\thereqnum \label{FR_Label22}:] The system shall allow the primary CTM to generate a new invite.
+
+\item[FR\refstepcounter{reqnum}\thereqnum \label{FR_Label23}:] The system shall allow the primary CTM to edit the permission of other CTMs in the Learner's care team.
+
+\item[FR\refstepcounter{reqnum}\thereqnum \label{FR_Label24}:] The system shall allow the primary CTM to remove another CTM from the Learner's care team.
+
+\item[FR\refstepcounter{reqnum}\thereqnum \label{FR_Label25}:] The system shall allow a CTM to transfer ownership of a Learner's profile from another CTM.
+
+\item[FR\refstepcounter{reqnum}\thereqnum \label{FR_Label26}:] The system shall not allow a CTM to perform actions they do not explicitly have permission to do.
+
+\textbf{Game Access \& Personalization}
+
+\item[FR\refstepcounter{reqnum}\thereqnum \label{FR_Label27}:] The system shall allow a CTM to toggle the authorization of specific games for a Learner.
+
+\item[FR\refstepcounter{reqnum}\thereqnum \label{FR_Label28}:] The system shall allow an authorized CTM to toggle the authorization of specific difficulties of a game for a Learner.
+
+\item[FR\refstepcounter{reqnum}\thereqnum \label{FR_Label29}:] The system shall allow an authorized CTM to choose a specific personalized settings of a game for a Learner.
+
+\item[FR\refstepcounter{reqnum}\thereqnum \label{FR_Label30}:] The system shall always load the personalized settings for a game when a Learner plays it.
+
+\textbf{Game Templates}
+
+\item[FR\refstepcounter{reqnum}\thereqnum \label{FR_Label31}:] The system shall allow an authorized CTM to create a new template from an existing game in their saved templates.
+
+\item[FR\refstepcounter{reqnum}\thereqnum \label{FR_Label32}:] The system shall allow an authorized CTM to import a template from another CTM.
+
+\item[FR\refstepcounter{reqnum}\thereqnum \label{FR_Label33}:] The system shall allow a CTM to add, change or remove default contents within a template.
+
+\item[FR\refstepcounter{reqnum}\thereqnum \label{FR_Label34}:] The system shall allow a CTM to tailor settings for this template.
+
+\item[FR\refstepcounter{reqnum}\thereqnum \label{FR_Label35}:] The system shall allow a CTM to assign a difficulty for a template.
+
+\item[FR\refstepcounter{reqnum}\thereqnum \label{FR_Label36}:] The system shall allow a CTM to assign the template to Learner(s), overriding any previous settings.
+
+\item[FR\refstepcounter{reqnum}\thereqnum \label{FR_Label37}:] The system shall allow a CTM to un-assign a template to Learner(s), restoring previous settings.
+
+\item[FR\refstepcounter{reqnum}\thereqnum \label{FR_Label38}:] The system shall allow a CTM to delete a template which un-assigns it from any associated Learner(s).
+
+\item[FR\refstepcounter{reqnum}\thereqnum \label{FR_Label39}:] The system shall allow a CTM to create folders that can hold more than one template.
+
+\textbf{Gameplay}
+
+\item[FR\refstepcounter{reqnum}\thereqnum \label{FR_Label40}:] The system shall not allow the Learner to play the games they are not explicitly authorized to play.
+
+\item[FR\refstepcounter{reqnum}\thereqnum \label{FR_Label41}:] The system shall not start a game until it receives a cue that the Learner is ready.
+
+\item[FR\refstepcounter{reqnum}\thereqnum \label{FR_Label42}:] The system shall only present the next task once it verifies the Learner has completed the current task.
+
+\item[FR\refstepcounter{reqnum}\thereqnum \label{FR_Label43}:] The system shall allow the Learner to read a guide regarding the current instruction if permitted by the CTM.
+
+\item[FR\refstepcounter{reqnum}\thereqnum \label{FR_Label44}:] The system shall allow the Learner to pause an ongoing game.
+
+\item[FR\refstepcounter{reqnum}\thereqnum \label{FR_Label45}:] The system shall allow the Learner to restart an ongoing game.
+
+\item[FR\refstepcounter{reqnum}\thereqnum \label{FR_Label46}:] The system shall allow the Learner to abort an ongoing game.
+
+\item[FR\refstepcounter{reqnum}\thereqnum \label{FR_Label47}:] The system shall allow the CTM to abort a Learner's ongoing game.
+
+\item[FR\refstepcounter{reqnum}\thereqnum \label{FR_Label48}:] The system shall allow the Learner to play again after a completed game if permitted by the CTM.
+
+\item[FR\refstepcounter{reqnum}\thereqnum \label{FR_Label49}:] The system shall allow the Learner to return to the game suite screen after a completed game.
+
+\textbf{Session Data \& Syncing}
+
+\item[FR\refstepcounter{reqnum}\thereqnum \label{FR_Label50}:] The system shall save the Learner's performance in the game session into the correct data tables.
+
+\item[FR\refstepcounter{reqnum}\thereqnum \label{FR_Label51}:] The system shall queue the Learner's performance locally for future syncing if it does not have a stable connection.
+
+\textbf{Rewards \& Cosmetics}
+
+\item[FR\refstepcounter{reqnum}\thereqnum \label{FR_Label52}:] The system shall allow a Learner to claim an in-game reward after their completed game.
+
+\item[FR\refstepcounter{reqnum}\thereqnum \label{FR_Label53}:] The system shall not offer duplicate items as rewards.
+
+\item[FR\refstepcounter{reqnum}\thereqnum \label{FR_Label54}:] The system shall allow a Learner to view cosmetic items in the items screen.
+
+\item[FR\refstepcounter{reqnum}\thereqnum \label{FR_Label55}:] The system shall allow a Learner to purchase an item they meet the conditions for.
+
+\item[FR\refstepcounter{reqnum}\thereqnum \label{FR_Label56}:] The system shall allow a Learner to equip an item they already own.
+
+\item[FR\refstepcounter{reqnum}\thereqnum \label{FR_Label57}:] The system shall display a reason for when an item cannot be purchased while outlining the conditions for purchase.
+
+\item[FR\refstepcounter{reqnum}\thereqnum \label{FR_Label58}:] The system shall display alternatives for an item that could not be purchased when buyable alternatives exist.
+
+\textbf{Learner Progress Data}
+
+\item[FR\refstepcounter{reqnum}\thereqnum \label{FR_Label59}:] The system shall allow an authorized CTM to view a Learner's general data.
+
+\item[FR\refstepcounter{reqnum}\thereqnum \label{FR_Label60}:] The system shall display an expandable overview of the Learner's game history.
+
+\item[FR\refstepcounter{reqnum}\thereqnum \label{FR_Label61}:] The system shall allow an authorized CTM to view a Learner's game history between specific dates.
+
+\item[FR\refstepcounter{reqnum}\thereqnum \label{FR_Label62}:] The system shall allow an authorized CTM to view a Learner's game-specific data.
+
+\item[FR\refstepcounter{reqnum}\thereqnum \label{FR_Label63}:] The system shall offer multiple data representations of the Learner's game-specific data.
+
+\item[FR\refstepcounter{reqnum}\thereqnum \label{FR_Label64}:] The system shall allow an authorized CTM to export a Learner's game data.
 
 \end{itemize}
 
