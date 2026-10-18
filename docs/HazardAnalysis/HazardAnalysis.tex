@@ -3,6 +3,8 @@
 \usepackage{booktabs}
 \usepackage{tabularx}
 \usepackage{hyperref}
+\usepackage{pdflscape}
+\usepackage{longtable}
 
 \hypersetup{
     colorlinks=true,        % false: boxed links; true: colored links
@@ -57,20 +59,33 @@ Date2 & Name(s) & Description of changes\\
 
 \wss{You can include your definition of what a hazard is here.}
 
-Game N Grow aims to provide a suite of games that can aid caregivers of neurodivergent children with progress in certain aspects, as well as an engaging experience to players. Due to the nature of our project, our notion of "hazard" and "safety" diverges from traditional physical harm. We will consider "harm" to be in general any state in the system where:
+This document is the hazard analysis of Spectropica, a suite of games that helps educators, parents, and care team members (CTMs) evaluate and develop the skills of autistic Learners. CTMs can tailor each game to a Learner through personalized settings and templates, and can track the Learner's progress through a dashboard.
+
+Because of the nature of Spectropica, our notion of "hazard" is seperate from physical harm. We consider "harm" to be any state of the system where:
 
 \begin{itemize}
-    \item The user experience is not engaging
-    \item User experience is hindered by some non-crucial stimulation
-    \item Difficulty for caregiver to understand restults or gauge progress
-\end{itemize} 
-
-
+    \item The Learner's experience is not engaging, or that the Learner becomes bored and does not wish to progress.
+    \item The Learner's experience is hindered due to overstimulation (such as loud sounds bright or flashing visuals).
+    \item A CTM has difficulty understanding results or gauging the Learner's progress.
+    \item A Learner's personal data or performance data is lost, corrupted or seen by someone who is not authorized to see it.
+    \item A CTM or Learner is unable to rely on the system to behave as it was configured (for example, a game ignores some settings set by a CTM).
+\end{itemize}
 
 \section{Scope and Purpose of Hazard Analysis}
 
-\wss{You should say what \textbf{loss} could be incurred because of the
-hazards.}
+\wss{You should say what \textbf{loss} could be incurred because of the hazards.}
+
+The scope of this document is to identify the hazards within the components of Spectropica, mitigation strategies, and the safety and security requirements that follow.
+
+To start, it is important that we discuss potential losses that could be incurred because of these hazards:
+
+\begin{itemize}
+    \item \textbf{Loss of Learner wellbeing and engagement:} A Learner who is overstimulated or understimulated may become distressed/disinterested and stop playing.
+    \item \textbf{Loss of progress and data:} Session history, settings, templates, rewards and Learner profiles may be lost or corrupted, so progress cannot be tracked and CTM effort is wasted.
+    \item \textbf{Loss of accuracy:} Incorrect or incomplete data may lead a CTM to draw the wrong conclusions about a Learner and adjust the learning path inappropriately.
+    \item \textbf{Loss of privacy and control:} Data about Learner's progress may be accessed or changed by unauthorized people.
+    \item \textbf{Loss of trust:} CTMs, Learners and customers may stop using Spectropica if it behaves unpredictably or mishandles data.
+\end{itemize}
 
 \section{System Boundaries and Components}
 
@@ -80,21 +95,26 @@ ones.  For projects that involve hardware, the components will typically include
 each individual piece of hardware.  If your software will have a database, or an
 important library, these are also potential components.}
 
-The major components are divided based on how they will interact with the end users (players and caregivers).
-\newline
+We divide the system into the following components based on how they interact with the main users (Learners and CTMs):
 
-More about specific technical hazards. Not general "user loses engagement" but more UI glitches, database/settings saving issues, input issues etc.
-Also specific userbase (autistic) meltdown / overstimulation. Nishimura said user engagement is paramount since kids shouldn't get bored.
-
-List of Important Areas:
 \begin{itemize}
-    \item Hub
-    \item Individual Minigame
-    \item Game Modification Dashboard
-    \item Progress Dashboard
+    \item \textbf{Account and Care Team Management:} CTM registration, login and email verification, Learner profile creation, transfer and deletion, pairing of Learner devices, and the care team with its permissions (UC2, UC7--UC10).
+    \item \textbf{Individual Minigames:} The game suite and the games themselves, including loading a game with the correct settings, presenting tasks, guides, and pausing, restarting and quitting a game (UC1). There are multiple games, but the same considerations apply to each of them individually.
+    \item \textbf{Rewards and Cosmetics:} Rewards claimed after a completed game, and the items screen where a Learner buys and equips cosmetic items (UC6).
+    \item \textbf{Game Customization Dashboard:} CTM personalization of per-Learner game settings, and creation, import, export and assignment of game templates (UC4, UC5).
+    \item \textbf{Learner Data Viewer:} CTM viewing and exporting of a Learner's session history and game-specific progress statistics (UC3).
+    \item \textbf{Data Storage and Synchronization:} The database(s), the saving of session data, and the local queue used for later syncing (UC1, FR50, FR51).
 \end{itemize}
 
-For the Minigame component, there are multiple instances as there are multiple games, but for hazard analysis the same considerations apply to all.
+The following elements are part of the system's operating environment. They are critical to Spectropica, but are not controlled by the development team, and are therefore outside of the system boundary:
+
+\begin{itemize}
+    \item The Learner and CTM devices (laptops, tablets)
+    \item The Internet connection of the users.
+    \item The email delivery service used to send verification and confirmation emails.
+    \item The hosting infrastructure of the database(s)
+    \item The Godot game engine.
+\end{itemize}
 
 \section{Critical Assumptions}
 
@@ -102,6 +122,15 @@ For the Minigame component, there are multiple instances as there are multiple g
 minimize the number of assumptions that remove potential hazards.  For instance,
 you could assume a part will never fail, but it is generally better to include
 this potential failure mode.}
+
+The number of assumptions has been kept small so that potential hazards are not missed. In particular, we do not assume that the database, the network, the Learner's device or the application itself will never fail; these failures are included in the FMEA. Our assumptions are:
+
+\begin{itemize}
+    \item[\textbf{CA1.}] A person who registers as a CTM or is given a pairing or invite code is a legitimate parent, caregiver or educator of the Learner Spectropica does not verify a CTM's real-world relationship to a Learner, so protection relies on the access controls of the system and on the Primary CTM sharing codes only with trusted people.
+    \item[\textbf{CA2.}] CTMs are responsible for the suitability of the content and settings they choose within the options that Spectropica offers, and consult professionals where needed. Spectropica limits the options to reduce the possibility of harm but does not replace professional
+    judgement (SRS Section 1.2).
+    \item[\textbf{CA3.}] CTMs keep their login credentials private and log out of or lock devices that they leave unattended.
+\end{itemize}
 
 \section{Failure Mode and Effect Analysis}
 
@@ -114,15 +143,367 @@ requirements.}
 entered in the table, including strategies involving providing additional
 documentation, and/or test cases.}
 
+The failure modes and effects analysis (FMEA) was chosen as the tool to identify and analyze hazards of each component. Each failure mode is given a reference (H\emph{c}-\emph{n}, where \emph{c} is the component number and \emph{n} is the failure mode number). The "SR" column gives the safety and security requirements that mitigate the hazard. These are either new requirements defined in
+Section~\ref{sec:requirements} (ACR, IR, WBR, PRR, ADR and IMR) or existing functional requirements from the SRS (FR). Where no software requirement can fully remove a hazard, other mitigations (such as testing and usability evaluation) are given in the ``Recommended Action'' column.
+
+\subsection{Hazards Out of Scope}
+
+The following areas are excluded from the scope since they cannot be managed by Spectropica.
+
+\begin{itemize}
+    \item The user's device (e.g., internet, power loss)
+    \item The email delivery service or the hosting provider of the database(s).
+    \item Bugs in the Godot game engine itself.
+    \item Whether a learning plan chosen by a CTM is appropriate for a Learner (see CA2).
+\end{itemize}
+
+\subsection{Failure Modes and Effects Analysis Table}
+
+\begin{landscape}
+\setlength{\tabcolsep}{4pt}
+\footnotesize
+\begin{longtable}{p{1.0cm} p{3.1cm} p{3.9cm} p{3.9cm} p{5.2cm} p{2.5cm}}
+\caption{Failure Modes and Effects Analysis for Spectropica}\label{tab:fmea}\\
+\toprule
+\textbf{Ref} & \textbf{Failure Mode} & \textbf{Effects of Failure} & \textbf{Causes of Failure} & \textbf{Recommended Action} & \textbf{SR}\\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Ref} & \textbf{Failure Mode} & \textbf{Effects of Failure} & \textbf{Causes of Failure} & \textbf{Recommended Action} & \textbf{SR}\\
+\midrule
+\endhead
+\midrule
+\multicolumn{6}{r}{\textit{Continued on next page}}\\
+\endfoot
+\bottomrule
+\endlastfoot
+
+\multicolumn{6}{l}{\textbf{1. Account and Care Team Management}}\\*
+\midrule
+H1-1 & CTM account is accessed by an unauthorized person &
+Learner profiles, performance data and settings are exposed; settings, templates or profiles are changed or deleted &
+Weak or reused password; stolen credentials; unattended logged-in device; unlimited login attempts &
+Enforce password strength at registration; temporarily lock the account after repeated failed logins; expire idle sessions &
+FR-CTM-1, FR-HZRD-1, FR-HZRD-36\\
+\midrule
+H1-2 & Verification email is not received or has expired &
+CTM cannot complete registration and cannot use Spectropica &
+Email filtered as spam; email service outage; verification link expires before the CTM acts &
+Allow the CTM to request a new verification email; display the reason for any registration error &
+FR-CTM-2, FR-CTM-3\\
+\midrule
+H1-3 & Unauthorized device is paired to a Learner &
+A third party can play as the Learner, see data cached on the device, or add false performance data &
+Pairing code guessed, shared or reused; unlimited retries &
+Limit retries and block further attempts for a period of time; make codes single-use and expiring; let the CTM generate a new code; confirm pairing to both parties &
+FR-DEV-2--FR-DEV-5, FR-HZRD-4, FR-HZRD-36\\
+\midrule
+H1-4 & Invite code is used by the wrong person &
+An unintended person joins the care team and gains access to the Learner's data &
+Code shared over an insecure channel; code never expires or is reused; unlimited retries &
+Make codes single-use and expiring; limit retries; let the Primary CTM cancel an invite and notify them when a CTM joins &
+FR-TEAM-1--FR-TEAM-3, FR-HZRD-4, FR-HZRD-36\\
+\midrule
+H1-5 & CTM permissions are not enforced, or revoked access still works &
+A CTM views or changes data beyond their permissions; a removed CTM keeps access to the Learner &
+Missing permission check in a feature; permissions cached on a device or kept in an old session &
+Check permissions for every action; apply permission changes and removals to active sessions immediately; notify the affected CTM &
+FR-TEAM-4, FR-TEAM-5, FR-TEAM-7, FR-HZRD-5, FR-HZRD-31\\
+\midrule
+H1-6 & Learner profile is deleted by mistake or maliciously &
+The Learner's entire history is lost; other CTMs lose access &
+Mis-click; misunderstanding of the consequences; unauthorized access to the Primary CTM's account &
+Explain consequences and offer an export before deletion; use a grace period during which the profile can be restored; require re-authentication to confirm &
+FR-LRN-4, FR-LRN-5, FR-LRN-7, FR-HZRD-3\\
+\midrule
+H1-7 & A Learner is left without a Primary CTM, or has more than one &
+Nobody can manage permissions or delete the profile, or administration conflicts &
+CTM deletes their own account while being the Primary CTM; ownership transfer fails part-way &
+Block account deletion until each owned Learner is transferred or deleted; make ownership transfer atomic and confirmed by both CTMs &
+FR-CTM-5, FR-LRN-2, FR-TEAM-6, FR-HZRD-3, FR-HZRD-6\\
+\midrule
+H1-8 & Learner reaches CTM-only functions on a paired device &
+Learner changes settings or difficulty, views data, or deletes items; CTM data exposed &
+Device shared by Learner and CTM; CTM session left active on the Learner's device &
+Keep the Learner and CTM interfaces separate; require CTM authentication for CTM functions even on a paired device; expire idle sessions &
+FR-HZRD-2, FR-HZRD-7\\
+\midrule
+
+\multicolumn{6}{l}{\textbf{2. Individual Minigames}}\\*
+\midrule
+H2-1 & Game overstimulates the Learner &
+Learner becomes distressed or has a meltdown, refuses to play, and loses trust in the product &
+Personalized settings not applied; default stimulation or volume too high; flashing or fast movement; sudden loud sounds; volume settings ignored &
+Always load the Learner's personalized settings; use conservative defaults; limit flashing and volume; do not start a game with settings that cannot be verified; test games for sensory intensity with domain experts &
+FR-PERS-4, FR-HZRD-9, FR-HZRD-21, FR-HZRD-22, FR-HZRD-23, FR-HZRD-24\\
+\midrule
+H2-2 & Game is understimulating, repetitive or mismatched to the Learner's difficulty &
+Learner becomes bored and disengages; less focus and less skill progress &
+Stimulation or reward set too low; difficulty not matched to the Learner; tasks repeat without variety &
+Let CTMs tune stimulation, difficulty and rewards; evaluate engagement by playtesting with target-age users and domain experts (see Usability in the VnV Plan) &
+FR-PERS-2, FR-PERS-3, NFR2\\
+\midrule
+H2-3 & Game fails to load or crashes during a session &
+Learner loses progress and may become distressed; session data is lost or incomplete &
+Asset or settings failed to load; engine or application bug; low device memory; lost connection &
+Show a calm message and return the Learner to the game suite; record interrupted sessions as incomplete; keep gameplay working without a connection &
+FR-HZRD-27, FR-HZRD-15, FR-HZRD-40\\
+\midrule
+H2-4 & Learner cannot complete a task &
+Frustration and abandonment; the session cannot finish &
+Input not registered (touch versus mouse, drag and drop); task completion check fails wrongly; instruction unclear &
+Support both touch and mouse input; offer the guide when permitted; allow the CTM to abort; test input handling on every supported device &
+FR-PLAY-3, FR-PLAY-4, FR-PLAY-8, FR-HZRD-29\\
+\midrule
+H2-5 & Pause, restart or exit is unavailable or unresponsive &
+Learner feels trapped in an activity and becomes distressed &
+Interface bug; controls hidden behind game content; game loop blocking input &
+Keep controls visible and responsive at all times; include these controls in every game's tests &
+FR-PLAY-5--FR-PLAY-7, FR-HZRD-26\\
+\midrule
+H2-6 & Game begins before the Learner is ready &
+Learner is startled; engagement is reduced &
+Accidental input treated as the ready cue; audio or animation starts automatically &
+Wait for an explicit start cue; no audio or motion before the cue &
+FR-PLAY-2, FR-HZRD-22\\
+\midrule
+H2-7 & Learner plays a game or difficulty that the CTM has not authorized &
+Learner is exposed to unsuitable content or difficulty; the learning path is undermined &
+Authorization change not synced to the device; check done only in the interface &
+Check authorization when a game starts, using the latest synced authorization &
+FR-PERS-1, FR-PERS-2, FR-PLAY-1, FR-HZRD-8\\
+\midrule
+
+\multicolumn{6}{l}{\textbf{3. Rewards and Cosmetics}}\\*
+\midrule
+H3-1 & Reward is not granted after a completed game &
+Learner loses the expected incentive and becomes upset; the reward system loses meaning &
+Database or connection failure at claim time; claim lost when the game is exited &
+Queue the claim locally and retry; show the reward as pending until it is granted &
+FR52, IR4, IR6\\
+\midrule
+H3-2 & Duplicate reward is granted &
+Reward feels meaningless; item records are inconsistent &
+Claim processed twice; queued claim replayed after sync &
+Check ownership before granting; process claims so repeats have no further effect &
+FR-RWD-3, FR-HZRD-13\\
+\midrule
+H3-3 & Purchase is inconsistent: currency deducted without the item, or item granted without deduction &
+Learner is frustrated; balance is unfair or incorrect &
+Failure part-way through a multi-step update; sync conflict &
+Make purchases atomic; reconcile balances and items on sync &
+FR-RWD-6, FR-IR6\\
+\midrule
+H3-4 & Items hidden by the CTM are still visible or purchasable &
+Learner sees or equips content the CTM chose to exclude (for example, overstimulating items) &
+Filter applied only to the display; filter not synced to the device &
+Apply CTM filters both when items are displayed and when they are purchased &
+FR-RWD-5, FR-HZRD-28\\
+\midrule
+H3-5 & Equipped item does not display or persist &
+Learner is confused or upset when their view changes &
+Save failure; missing item data &
+Verify that the equipped state was saved; fall back to the default appearance if item data is missing &
+FR-RWD-7, FR-HZRD-10\\
+\midrule
+
+\multicolumn{6}{l}{\textbf{4. Game Customization Dashboard}}\\*
+\midrule
+H4-1 & Personalized settings are not saved, or are saved incorrectly &
+Learner plays with the wrong difficulty, stimulation, prompt level or volume, while the CTM believes it was configured &
+Database failure; validation error; connection lost during save &
+Confirm the save only after it is verified; keep the previous settings and inform the CTM if saving fails &
+FR-PERS-3, FR-HZRD-10\\
+\midrule
+H4-2 & Two CTMs edit the same Learner's settings at the same time &
+One CTM's changes are silently overwritten &
+Last write wins with no conflict detection &
+Detect concurrent edits and warn the CTM before overwriting &
+FR-HZRD-11\\
+\midrule
+H4-3 & Settings are outside a safe range, or the colour palette is hard to see &
+Learner is overwhelmed, or cannot see the game content &
+Unrestricted values for volume, intensity or colours; CTM unaware of the Learner's sensory needs &
+Restrict settings to bounded ranges; require a minimum colour contrast; rely on CTM judgement for choices inside the safe range &
+FR-TMPL-4, FR-HZRD-24, FR-HZRD-25\\
+\midrule
+H4-4 & Template is assigned to the wrong Learner or replaces another assignment unintentionally &
+Learner receives unsuitable content or difficulty; a previous template is lost &
+Wrong Learner selected; replacement of existing assignment is not noticed &
+Show a summary of affected Learners and what will be replaced and require confirmation; restore previous settings on un-assignment &
+FR-TMPL-6, FR-TMPL-7, FR-HZRD-18\\
+\midrule
+H4-5 & Template content is unsuitable or incorrect &
+Learner is exposed to inappropriate or confusing material, or learns incorrect content (for example, a misspelled word) &
+Typing mistakes; poor choices of content; content in a template imported from another CTM &
+Preview the template before assigning it; never assign an imported template automatically &
+FR-TMPL-2, FR-TMPL-3, FR-HZRD-17, FR-HZRD-18\\
+\midrule
+H4-6 & Imported or exported template file is corrupt or malicious &
+Application crash; corrupted templates; unsafe content enters the system &
+File corrupted in transfer; file edited by hand; file from an untrusted source &
+Validate every imported file against the expected format; treat it as data that is never executed; reject invalid files with a clear message &
+FR-TMPL-2, FR-HZRD-17, FR-HZRD-38, FR-HZRD-39\\
+\midrule
+H4-7 & Template is deleted unintentionally &
+Learners revert to their previous settings unexpectedly; tailored content is lost &
+Mis-click; unclear which Learners use the template &
+List the affected Learners and require confirmation; restore previous settings for those Learners &
+FR-TMPL-7, FR-TMPL-8, FR-HZRD-18\\
+\midrule
+
+\multicolumn{6}{l}{\textbf{5. Progress Dashboard}}\\*
+\midrule
+H5-1 & Dashboard shows incorrect or misleading statistics &
+CTM misjudges the Learner's progress and may change difficulty or rewards inappropriately &
+Aggregation or date filter bug; incomplete sessions counted; data not yet synced &
+Test calculations against datasets with known answers; exclude incomplete sessions from averages; show the time of the last sync and flag incomplete data &
+FR60--FR62, IR7, IR8\\
+\midrule
+H5-2 & Data of a Learner is displayed to a CTM who is not authorized &
+Privacy breach of a child's data &
+Missing authorization check; wrong Learner identifier used in a request &
+Check the CTM's authorization for the specific Learner on every data request &
+FR-DATA-3, FR-HZRD-31\\
+\midrule
+H5-3 & Data representations are hard to interpret &
+CTM cannot gauge progress, especially CTMs with basic technical ability &
+Cluttered charts; missing labels or units; poor defaults &
+Offer multiple representations with labelled axes, units and plain-language summaries; evaluate with CTMs through usability testing (see Usability in the VnV Plan) &
+FR-DATA-7, NFR2\\
+\midrule
+H5-4 & Exported data is incomplete, wrong or exposed &
+Records are lost or misreported; a child's data leaks outside of Spectropica &
+Export or filter bug; exported file stored or shared insecurely &
+Make the export match the dashboard record count; include only authorized Learner data; warn the CTM that exported files leave Spectropica's protection &
+FR-DATA-8, FR-HZRD-20, FR-HZRD-31, FR-HZRD-34\\
+\midrule
+
+\multicolumn{6}{l}{\textbf{6. Data Storage and Synchronization}}\\*
+\midrule
+H6-1 & Session performance data is lost &
+Gaps in the Learner's progress history; CTM draws wrong conclusions &
+Database failure; local queue lost when the app restarts; app closed before sync &
+Keep the local queue across restarts until the data is confirmed saved; retry syncing; back up the database &
+FR-RWD-1, FR-RWD-2, FR-HZRD-12, FR-HZRD-19\\
+\midrule
+H6-2 & Duplicate or conflicting records appear after syncing &
+Statistics are skewed; item or reward records are inconsistent &
+Queue replayed after a partial failure; multiple paired devices syncing the same data &
+Give each session a unique identifier and merge records so a repeat has no further effect &
+FR-DEV-1, FR-HZRD-13\\
+\midrule
+H6-3 & Database is unavailable &
+CTMs cannot log in, view data or save settings; Learner data cannot be synced &
+Hosting outage; network failure; maintenance &
+Show CTMs a clear error message; let Learners continue with cached settings and queue data for later &
+FR-HZRD-9, FR-HZRD-12, FR-HZRD-40\\
+\midrule
+H6-4 & Data is corrupted or deleted unintentionally &
+Learner histories, settings and templates are lost &
+Database failure; software bug; faulty update &
+Back up data regularly and support restoring from a backup &
+FR-HZRD-19\\
+\midrule
+H6-5 & Learner data remains after deletion &
+Privacy violation and legal exposure; contradicts what the CTM was told &
+Deletion job fails; backups keep deleted data; local cache remains on a device &
+Verify that deletion completed; remove backups of deleted data within a fixed retention period; erase local data when a device is unlinked &
+FR-LRN-6, FR-HZRD-32, FR-HZRD-33\\
+\midrule
+H6-6 & Learner data is intercepted or read from storage &
+A child's information is disclosed &
+Unencrypted transmission or local queue; lost or stolen device; excess data collected &
+Encrypt data in transit and at rest, including the local queue; collect only the data needed &
+FR-HZRD-30, FR-HZRD-35\\
+\end{longtable}
+\end{landscape}
+
 \section{Safety and Security Requirements}
 
 \wss{Newly discovered requirements.  These should also be added to the SRS.  (A
 rationale design process how and why to fake it.)}
 
+\label{sec:requirements}
+
+The following requirements were discovered during the hazard analysis and have been placed in the SRS as a result.
+
+\begin{itemize}
+    \item[\textbf{FR-HZRD-1.}] The system shall temporarily lock a CTM account after a limited number of consecutive failed login attempts.
+    \item[\textbf{FR-HZRD-2.}] The system shall end a CTM's session after a period of inactivity.
+    \item[\textbf{FR-HZRD-3.}] The system shall require a CTM to re-enter their password before deleting a Learner profile, deleting their account, transferring ownership of a Learner profile or removing a CTM from a care team.
+    \item[\textbf{FR-HZRD-4.}] Pairing codes and invite codes shall be single-use and expire after a limited time, and a code shall no longer be valid once it is replaced or cancelled.
+    \item[\textbf{FR-HZRD-5.}] Changes to a CTM's permissions, including removal from a care team, shall apply to all of that CTM's active sessions immediately.
+    \item[\textbf{FR-HZRD-6.}] The system shall not complete the deletion of a CTM account that is the Primary CTM of any Learner until each such Learner is transferred or deleted, and ownership transfers shall be atomic so that each Learner has exactly one Primary CTM at all times.
+    \item[\textbf{FR-HZRD-7.}] The Learner interface shall not provide access to CTM-only functions, and CTM functions shall require CTM authentication even on a paired Learner device.
+    \item[\textbf{FR-HZRD-8.}] The system shall check a Learner's authorization for a game and its difficulty against the most recent synced authorization on the device each time the game starts.
+    \item[\textbf{FR-HZRD-9.}] The system shall not start a game with settings that it cannot verify as the Learner's current settings; it shall use the last successfully loaded settings stored on the device or otherwise return the Learner to the game suite.
+    \item[\textbf{FR-HZRD-10.}] The system shall confirm a save of settings, templates or equipped items only after the write has been verified; if saving fails, the previous values shall be kept and the CTM or Learner informed.
+    \item[\textbf{FR-HZRD-11.}] The system shall detect when two CTMs edit the same Learner's settings at the same time and warn the later CTM before overwriting.
+    \item[\textbf{FR-HZRD-12.}] Data queued on a device for syncing shall be kept across application restarts until it is confirmed as saved.
+    \item[\textbf{FR-HZRD-13.}] Each game session, reward claim and purchase shall have a unique identifier so that processing it more than once does not create duplicate records.
+    \item[\textbf{FR-HZRD-14.}] Reward grants and purchases shall be atomic: either the item is granted and any currency deducted, or neither occurs. A reward that cannot yet be granted shall be shown as pending to the Learner.
+    \item[\textbf{FR-HZRD-15.}] Sessions that end through a crash, abort or lost connection shall be recorded as incomplete and shall not be counted in a Learner's performance averages.
+    \item[\textbf{FR-HZRD-16.}] The progress dashboard shall display the time of the last successful sync and shall indicate when data may be incomplete.
+    \item[\textbf{FR-HZRD-17.}] The system shall validate imported template files against the expected format before use, shall reject invalid files with a clear message, and shall not assign an imported template automatically.
+    \item[\textbf{FR-HZRD-18.}] Before a template is assigned, un-assigned or deleted, the system shall show the affected Learners and what will be replaced, require confirmation, and (for assignment) show a preview of the template.
+    \item[\textbf{FR-HZRD-19.}] The system shall automatically back up stored data regularly and shall support restoring from a backup.
+    \item[\textbf{FR-HZRD-20.}] An export of Learner data shall contain every record for the selected Learner, game and date range, and shall report a record count that matches the dashboard for the same selection.
+    \item[\textbf{FR-HZRD-21.}] Default stimulation level, volume and celebration intensity shall be set to low values until a CTM changes them.
+    \item[\textbf{FR-HZRD-22.}] No game audio or animation shall begin before the Learner gives the cue to start.
+    \item[\textbf{FR-HZRD-23.}] Games shall not contain content that flashes more than three times in any one-second period (following WCAG 2.x Success Criterion 2.3.1).
+    \item[\textbf{FR-HZRD-24.}] The volume of music, sound effects and voice shall be capped, the Learner's configured volume levels shall always be applied, and sounds shall not suddenly become louder during play.
+    \item[\textbf{FR-HZRD-25.}] Customizable values (such as stimulation, intensity and colour palette) shall be limited to bounded ranges, and colour palettes shall meet a minimum contrast ratio between text or important objects and the background.
+    \item[\textbf{FR-HZRD-26.}] Pause, restart and exit controls shall be visible and responsive at all times while a game is being played.
+    \item[\textbf{FR-HZRD-27.}] Error messages shown to a Learner shall be calm and short, shall not use alarming sounds or visuals, and shall offer a single action to return to the game suite.
+    \item[\textbf{FR-HZRD-28.}] Cosmetic items hidden by a CTM shall be hidden from the items screen and shall not be purchasable or equippable by the Learner.
+    \item[\textbf{FR-HZRD-29.}] Every game task shall be completable with either touch or mouse input.
+    \item[\textbf{FR-HZRD-30.}] Learner data shall be encrypted in transit and at rest, including data queued locally on a device.
+    \item[\textbf{FR-HZRD-31.}] The system shall check that a CTM is authorized for a specific Learner on every request for that Learner's data, including viewing and exporting.
+    \item[\textbf{FR-HZRD-32.}] The system shall erase Learner data stored on a device when the device is unlinked, when the Learner profile is deleted, or when a CTM's access is removed.
+    \item[\textbf{FR-HZRD-33.}] The system shall verify that deletion of a Learner's data has completed and shall remove the data from backups within a fixed retention period (defined in the SRS Appendix of auxiliary constants).
+    \item[\textbf{FR-HZRD-34.}] The system shall warn a CTM, before an export, that exported files are no longer protected by Spectropica.
+    \item[\textbf{FR-HZRD-35.}] The system shall collect only the Learner information needed for Spectropica's functionality.
+    \item[\textbf{FR-HZRD-36.}] The system shall record security-relevant events (failed logins, pairing and invite attempts, permission changes, profile deletion, template assignment and data export) and make them viewable by the Primary CTM.
+    \item[\textbf{FR-HZRD-37.}] Each safety and security requirement shall be traceable to the hazard it mitigates and to a test case in the Verification and Validation Plan.
+    \item[\textbf{FR-HZRD-38.}] Imported files shall be treated as untrusted data and shall never be executed.
+    \item[\textbf{FR-HZRD-39.}] The system shall validate all user input for type, range and length, and shall reject invalid input with a clear message.
+    \item[\textbf{FR-HZRD-40.}] A loss of connection shall not interrupt a game session in progress or prevent a Learner from playing authorized games with settings already stored on the device.
+\end{itemize}
+
+
 \section{Roadmap}
 
 \wss{Which safety requirements will be implemented as part of the capstone timeline?
 Which requirements will be implemented in the future?}
+
+\textbf{Implemented within the Capstone timeline:}
+
+\begin{itemize}
+    \item All Learner Wellbeing Requirements (WBR1--WBR9).
+    \item Access requirements ACR1--ACR8.
+    \item Integrity requirements IR1, IR2 and IR4--IR10, which protect the
+    correctness of settings, sessions, rewards and templates.
+    \item Privacy requirements PRR1--PRR3, PRR5 and PRR6.
+    \item Immunity requirements IMR1--IMR3.
+    \item ADR2, which is maintained throughout development as the SRS and VnV
+    Plan are updated.
+\end{itemize}
+
+\textbf{Planned for future work:}
+
+\begin{itemize}
+    \item IR3 (detecting concurrent edits to a Learner's settings).
+    \item IR11 (automated backups and restoration beyond the capabilities
+    provided by the database host) and IR12 (record-count checks on exports).
+    \item PRR4 (verified deletion from backups), which depends on the retention
+    period to be defined in the SRS.
+    \item ADR1 (an in-app view of security events for the Primary CTM).
+\end{itemize}
+
+Towards the end of the project, this hazard analysis will be consulted to
+determine which hazards have been successfully mitigated and which still require
+work.
 
 \newpage{}
 
@@ -133,6 +514,8 @@ Which requirements will be implemented in the future?}
 \subsection{AI Tools Used}
 
 \wss{Give the name of the AI tool(s) used and the version.}
+
+Claude Sonnet 5.5
 
 \subsection{How and Where Used}
 
@@ -145,6 +528,8 @@ inconsistencies.}
 
 \wss{You do not need to report every interaction, but you should disclose the 
 uses that materially contributed to your work}
+
+Claude was used for brainstorming many of the possible hazards, as well as potential additional requirements to solve them. Also for LaTeX formatting support (namely, for the FMEA table).
 
 \subsection{Verification of AI-Generated Content}
 
@@ -159,6 +544,8 @@ consistency, and appropriateness of the submitted document, regardless of
 whether material was generated by a human or an AI system.}
 \end{itemize}}
 
+Each potential hazard brainstorm idea given from Claude was checked against the Spectropica plan as well as the requirements. Each new requirement was discussed by the group and verified for redundancy, so as to make sure there are no unnecessary requirements generated from the analysis.
+
 \newpage{}
 
 \section{Appendix --- Reflection}
@@ -169,15 +556,25 @@ whether material was generated by a human or an AI system.}
 
 \begin{enumerate}
     \item What went well while writing this deliverable? 
-    \item What pain points did you experience during this deliverable, and how
-    did you resolve them?
-    \item Which of your listed risks had your team thought of before this
-    deliverable, and which did you think of while doing this deliverable? For
-    the latter ones (ones you thought of while doing the Hazard Analysis), how
-    did they come about?
-    \item Other than the risk of physical harm (some projects may not have any
-    appreciable risks of this form), list at least 2 other types of risk in
-    software products. Why are they important to consider?
+    
+    Coming up with potential hazards was quick, due to the complex and sensitive nature of our game and system. It made the hazard analysis reveal useful things that otherwise wouldn't have been considered if we were just brainstorming requirements from a perspective where everything works as intended. It's more work, but it's necessary.
+
+    \item What pain points did you experience during this deliverable, and how did you resolve them?
+    
+    At first, dividing the system into major components was tricky, since we needed to have a good idea of a the layout of a complex multi-game playground. We resolved this early on in a very productive team meeting where each team member gave thoughts on how Spectropica should be structured, and voted on the one that makes the most sense.
+
+    \item Which of your listed risks had your team thought of before this deliverable, and which did you think of while doing this deliverable? For the latter ones (ones you thought of while doing the Hazard Analysis), how did they come about?
+    
+    Before we started, we thought of general risks from the learner's human perspective. Things relating to boredom, overstimulation, and sensitivity to learning goals. The analysis allowed us to iron out more of the specifics regarding technical details relating to accounts, privacy, and database integrity.
+
+    \item Other than the risk of physical harm (some projects may not have any appreciable risks of this form), list at least 2 other types of risk in software products. Why are they important to consider?
+    
+    Since our project contained zero risk of physical harm, we considered many other forms of risk. Since Spectropica is a game, and an educational one, the 2 most important risk areas for us were related to the user's engagement, and cohesiveness of the system's presentation and handling of data. 
+
+    User experience related risks are important to consider in a game software context since the user expects it to be engaging, and not to be something that feels like a chore. 
+
+    Data handling risks (like privacy, security, and accuracy) are important to consider in any software that manages accounts, passwords or sensitive data, but especially ones where presenting that data back to the user is required. Like for our CTMs.
+
 \end{enumerate}
 
 \end{document}
