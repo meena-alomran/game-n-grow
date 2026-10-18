@@ -5,7 +5,7 @@
 \usepackage{hyperref}
 
 \hypersetup{
-    colorlinks=true,       % false: boxed links; true: colored links
+    colorlinks=true,        % false: boxed links; true: colored links
     linkcolor=red,          % color of internal links (change box color with linkbordercolor)
     citecolor=green,        % color of links to bibliography
     filecolor=magenta,      % color of file links
@@ -57,6 +57,16 @@ Date2 & Name(s) & Description of changes\\
 
 \wss{You can include your definition of what a hazard is here.}
 
+Game N Grow aims to provide a suite of games that can aid caregivers of neurodivergent children with progress in certain aspects, as well as an engaging experience to players. Due to the nature of our project, our notion of "hazard" and "safety" diverges from traditional physical harm. We will consider "harm" to be in general any state in the system where:
+
+\begin{itemize}
+    \item The user experience is not engaging
+    \item User experience is hindered by some non-crucial stimulation
+    \item Difficulty for caregiver to understand restults or gauge progress
+\end{itemize} 
+
+
+
 \section{Scope and Purpose of Hazard Analysis}
 
 \wss{You should say what \textbf{loss} could be incurred because of the
@@ -69,6 +79,22 @@ You shouldn't do a full design of the components, just get a feel for the major
 ones.  For projects that involve hardware, the components will typically include
 each individual piece of hardware.  If your software will have a database, or an
 important library, these are also potential components.}
+
+The major components are divided based on how they will interact with the end users (players and caregivers).
+\newline
+
+More about specific technical hazards. Not general "user loses engagement" but more UI glitches, database/settings saving issues, input issues etc.
+Also specific userbase (autistic) meltdown / overstimulation. Nishimura said user engagement is paramount since kids shouldn't get bored.
+
+List of Important Areas:
+\begin{itemize}
+    \item Hub
+    \item Individual Minigame
+    \item Game Modification Dashboard
+    \item Progress Dashboard
+\end{itemize}
+
+For the Minigame component, there are multiple instances as there are multiple games, but for hazard analysis the same considerations apply to all.
 
 \section{Critical Assumptions}
 
