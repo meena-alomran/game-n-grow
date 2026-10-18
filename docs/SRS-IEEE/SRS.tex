@@ -190,7 +190,7 @@ To further clarify the scope, \progname{} is intended to be used as a tool for C
 \item Autistic Learners are a primary stakeholder and an end user group. They play the games and their skill growth is the main objective of the product. Accessibility, engagement and comfort are the priorities for this stakeholder group.
 \item Customers are secondary stakeholders whoencompass anybody that makes the decision to acquire the software for autistic learners. This includes learning centers adopting the platform for students, parents or caregivers that purchase the software for their child.
 \item Care Team Members are another end user group that are primary stakeholders. They are the ones familiar with the autistic learner. Consequently, they use both administrative privileges to customize games and the dashboard to read or analyze student-specific data. They are the main decision makers for the autistic learner's learning path and progress, and therefore consulted by the development team for the latter to prioritize the most important tailoring features.
-\item Domain Experts are the finalstakeholder group, falling into the secondary category. They are consulted by the development team to ensure the designed software is appropriate for autistic learners; aiding their progress and steering clear of any unintended harm. 
+\item Domain Experts are the final stakeholder group, falling into the secondary category. They are consulted by the development team to ensure the designed software is appropriate for autistic learners; aiding their progress and steering clear of any unintended harm. 
 \end{itemize}
 
 
@@ -624,7 +624,7 @@ CTM
 \item CTM chooses a specific game to create a template out of.
 \item System loads the template screen.
 \item CTM chooses to add, change or remove contents within the game. Example: changing 'Cereal' to a specific brand, removing candy or adding chocolate in a grocery-based game.
-\item CTM chooses to adjust the colour palette, volume levels, intesntiy for this game..
+\item CTM chooses to adjust the colour palette, volume levels, intesntiy for this game.
 \item CTM chooses a difficulty for this template.
 \item CTM chooses the Learner(s) this template should be assigned to.
 \item CTM chooses to export the template to a file format.
@@ -684,11 +684,11 @@ Learner
 \begin{itemize}
 \item 3.1: Learner equips a cosmetic item they already have.
 
-\item 4.1: System finds that the cosmetic item cannot be purchased.
+\item 4.1: System finds that the cosmetic item cannot be unlocked.
 
-4.2: System displays reasoning for failure to purchase.
+4.2: System displays reasoning for failure to unlock.
 
-4.3: System explains when it is possible to purchase this item.
+4.3: System explains when it is possible to unlock this item.
 
 4.4: System shows possible alternatives to the wanted item.
 
@@ -704,7 +704,7 @@ Learner
 \begin{itemize}
 \item Learner screen displays their updated view with the equipped item(s).
 \item System has saved the newly equipped items to the current view.
-\item System has saved the newly purchased items to what items the Learner owns.
+\item System has saved the newly unlocked items to what items the Learner owns.
 \item If applicable, System has deducted currency from the Learner's balance.
 \end{itemize}
 
@@ -892,67 +892,374 @@ Primary CTM
 
 % ============================================================== 
 \section{Functional Requirements}
-\plt{Functional requirements describe what the system should do.  They are typically
-expressed as a set of conditions or capabilities that the system must have.  These
-requirements are usually derived from the stakeholder requirements and use cases.}
 
-\plt{Use SHALL statements. Requirements must be atomic, testable, and traceable.}
+\textbf{CTM Accounts}
 
 \noindent \begin{itemize}
 
-\item[FR\refstepcounter{reqnum}\thereqnum \label{FR_Label1}:] The system shall ...
+\setcounter{reqnum}{0}\renewcommand{\thereqnum}{FR-CTM-\arabic{reqnum}}
 
-\item[FR\refstepcounter{reqnum}\thereqnum \label{FR_Label2}:] The system shall ...
+\item[\refstepcounter{reqnum}\thereqnum \label{FR-CTM-1}:] The system shall check a CTM's account registration to validate entered information.
 
-\item[FR\refstepcounter{reqnum}\thereqnum \label{FR_Label3}:] The system shall ...
+\item[\refstepcounter{reqnum}\thereqnum \label{FR-CTM-2}:] The system shall display reasons for errors in the CTM registration process.
+
+\item[\refstepcounter{reqnum}\thereqnum \label{FR-CTM-3}:] The system shall create the CTM's account after they verify their email.
+
+\item[\refstepcounter{reqnum}\thereqnum \label{FR-CTM-4}:] The system shall allow a CTM to log in using the information verified in the registration process.
+
+\item[\refstepcounter{reqnum}\thereqnum \label{FR-CTM-5}:] The system shall allow a CTM to delete their account with a scheduled grace period, un-linking all Learners and templates.
+
+\item[\refstepcounter{reqnum}\thereqnum \label{FR-CTM-6}:] The system shall allow a CTM to restore their account during the grace period.
+
+\textbf{Learner Profiles}
+\setcounter{reqnum}{0}\renewcommand{\thereqnum}{FR-LRN-\arabic{reqnum}}
+
+\item[\refstepcounter{reqnum}\thereqnum \label{FR-LRN-1}:] The system shall allow a CTM to create a new Learner profile under their account.
+
+\item[\refstepcounter{reqnum}\thereqnum \label{FR-LRN-2}:] The system shall designate the CTM that created the Learner profile as the primary CTM.
+
+\item[\refstepcounter{reqnum}\thereqnum \label{FR-LRN-3}:] The system shall allow a CTM to input the Learner's specific information.
+
+\item[\refstepcounter{reqnum}\thereqnum \label{FR-LRN-4}:] The system shall allow the primary CTM to delete a Learner's profile with a scheduled grace period.
+
+\item[\refstepcounter{reqnum}\thereqnum \label{FR-LRN-5}:] The system shall allow the primary CTM to export a Learner's data prior to deletion.
+
+\item[\refstepcounter{reqnum}\thereqnum \label{FR-LRN-6}:] The system shall delete all Learner-related data after the deletion grace period.
+
+\item[\refstepcounter{reqnum}\thereqnum \label{FR-LRN-7}:] The system shall allow the primary CTM to restore a Learner's profile during the grace period.
+
+\item[\refstepcounter{reqnum}\thereqnum \label{FR-LRN-8}:] The system shall not allow a Learner to access their deleted profile.
+
+\textbf{Device Pairing}
+\setcounter{reqnum}{0}\renewcommand{\thereqnum}{FR-DEV-\arabic{reqnum}}
+
+\item[\refstepcounter{reqnum}\thereqnum \label{FR-DEV-1}:] The system shall allow a Learner to pair multiple devices.
+
+\item[\refstepcounter{reqnum}\thereqnum \label{FR-DEV-2}:] The system shall confirm the successful pairing of each device to both parties.
+
+\item[\refstepcounter{reqnum}\thereqnum \label{FR-DEV-3}:] The system shall allow a CTM to generate a new code for the Learner's device pairing.
+
+\item[\refstepcounter{reqnum}\thereqnum \label{FR-DEV-4}:] The system shall allow a specific amount of retries before the pairing method is nullified.
+
+\item[\refstepcounter{reqnum}\thereqnum \label{FR-DEV-5}:] The system shall block further pairing attempts for a period of time after the retry limit is reached.
+
+\textbf{Care Team \& Permissions}
+\setcounter{reqnum}{0}\renewcommand{\thereqnum}{FR-TEAM-\arabic{reqnum}}
+
+\item[\refstepcounter{reqnum}\thereqnum \label{FR-TEAM-1}:] The system shall allow the primary CTM to add other CTM's to the Learner's care team via invite code.
+
+\item[\refstepcounter{reqnum}\thereqnum \label{FR-TEAM-2}:] The system shall allow the primary CTM to cancel an outgoing invite.
+
+\item[\refstepcounter{reqnum}\thereqnum \label{FR-TEAM-3}:] The system shall allow the primary CTM to generate a new invite.
+
+\item[\refstepcounter{reqnum}\thereqnum \label{FR-TEAM-4}:] The system shall allow the primary CTM to edit the permission of other CTMs in the Learner's care team.
+
+\item[\refstepcounter{reqnum}\thereqnum \label{FR-TEAM-5}:] The system shall allow the primary CTM to remove another CTM from the Learner's care team.
+
+\item[\refstepcounter{reqnum}\thereqnum \label{FR-TEAM-6}:] The system shall allow a CTM to transfer ownership of a Learner's profile from another CTM.
+
+\item[\refstepcounter{reqnum}\thereqnum \label{FR-TEAM-7}:] The system shall not allow a CTM to perform actions they do not explicitly have permission to do.
+
+\textbf{Personalization}
+\setcounter{reqnum}{0}\renewcommand{\thereqnum}{FR-PERS-\arabic{reqnum}}
+
+\item[\refstepcounter{reqnum}\thereqnum \label{FR-PERS-1}:] The system shall allow a CTM to toggle the authorization of specific games for a Learner.
+
+\item[\refstepcounter{reqnum}\thereqnum \label{FR-PERS-2}:] The system shall allow an authorized CTM to toggle the authorization of specific difficulties of a game for a Learner.
+
+\item[\refstepcounter{reqnum}\thereqnum \label{FR-PERS-3}:] The system shall allow an authorized CTM to choose specific personalized settings of a game for a Learner.
+
+\item[\refstepcounter{reqnum}\thereqnum \label{FR-PERS-4}:] The system shall always load the personalized settings for a game when a Learner plays it, unless a template is assigned.
+
+\textbf{Templates}
+\setcounter{reqnum}{0}\renewcommand{\thereqnum}{FR-TMPL-\arabic{reqnum}}
+
+\item[\refstepcounter{reqnum}\thereqnum \label{FR-TMPL-1}:] The system shall allow an authorized CTM to create a new template from an existing game in their saved templates.
+
+\item[\refstepcounter{reqnum}\thereqnum \label{FR-TMPL-2}:] The system shall allow an authorized CTM to import a template from another CTM.
+
+\item[\refstepcounter{reqnum}\thereqnum \label{FR-TMPL-3}:] The system shall allow a CTM to add, change or remove default contents within a template.
+
+\item[\refstepcounter{reqnum}\thereqnum \label{FR-TMPL-4}:] The system shall allow a CTM to tailor settings for this template.
+
+\item[\refstepcounter{reqnum}\thereqnum \label{FR-TMPL-5}:] The system shall allow a CTM to assign a difficulty for a template.
+
+\item[\refstepcounter{reqnum}\thereqnum \label{FR-TMPL-6}:] The system shall allow a CTM to assign the template to Learner(s), overriding any previous settings.
+
+\item[\refstepcounter{reqnum}\thereqnum \label{FR-TMPL-7}:] The system shall allow a CTM to un-assign a template to Learner(s), restoring previous settings.
+
+\item[\refstepcounter{reqnum}\thereqnum \label{FR-TMPL-8}:] The system shall allow a CTM to delete a template which un-assigns it from any associated Learner(s).
+
+\item[\refstepcounter{reqnum}\thereqnum \label{FR-TMPL-9}:] The system shall allow a CTM to create folders that can hold more than one template.
+
+\textbf{Gameplay}
+\setcounter{reqnum}{0}\renewcommand{\thereqnum}{FR-PLAY-\arabic{reqnum}}
+
+\item[\refstepcounter{reqnum}\thereqnum \label{FR-PLAY-1}:] The system shall not allow the Learner to play the games they are not explicitly authorized to play.
+
+\item[\refstepcounter{reqnum}\thereqnum \label{FR-PLAY-2}:] The system shall not start a game until it receives a cue that the Learner is ready.
+
+\item[\refstepcounter{reqnum}\thereqnum \label{FR-PLAY-3}:] The system shall only present the next task once it verifies the Learner has completed the current task.
+
+\item[\refstepcounter{reqnum}\thereqnum \label{FR-PLAY-4}:] The system shall allow the Learner to read a guide regarding the current instruction if permitted by the CTM.
+
+\item[\refstepcounter{reqnum}\thereqnum \label{FR-PLAY-5}:] The system shall allow the Learner to pause an ongoing game.
+
+\item[\refstepcounter{reqnum}\thereqnum \label{FR-PLAY-6}:] The system shall allow the Learner to restart an ongoing game.
+
+\item[\refstepcounter{reqnum}\thereqnum \label{FR-PLAY-7}:] The system shall allow the Learner to abort an ongoing game.
+
+\item[\refstepcounter{reqnum}\thereqnum \label{FR-PLAY-8}:] The system shall allow the CTM to abort a Learner's ongoing game.
+
+\item[\refstepcounter{reqnum}\thereqnum \label{FR-PLAY-9}:] The system shall allow the Learner to play again after a completed game if permitted by the CTM.
+
+\item[\refstepcounter{reqnum}\thereqnum \label{FR-PLAY-10}:] The system shall allow the Learner to return to the game suite screen after a completed game.
+
+
+\textbf{Rewards \& Cosmetics}
+\setcounter{reqnum}{0}\renewcommand{\thereqnum}{FR-RWD-\arabic{reqnum}}
+
+\item[\refstepcounter{reqnum}\thereqnum \label{FR-RWD-1}:] The system shall allow a Learner to claim an in-game reward after their completed game.
+
+\item[\refstepcounter{reqnum}\thereqnum \label{FR-RWD-2}:] The system shall not offer duplicate items as rewards.
+
+\item[\refstepcounter{reqnum}\thereqnum \label{FR-RWD-3}:] The system shall allow a Learner to view cosmetic items in the items screen.
+
+\item[\refstepcounter{reqnum}\thereqnum \label{FR-RWD-4}:] The system shall allow a Learner to unlock an item they meet the conditions for.
+
+\item[\refstepcounter{reqnum}\thereqnum \label{FR-RWD-5}:] The system shall allow a Learner to equip an item they already own.
+
+\item[\refstepcounter{reqnum}\thereqnum \label{FR-RWD-6}:] The system shall display a reason for when an item cannot be unlocked while outlining the conditions for unlocking.
+
+\item[\refstepcounter{reqnum}\thereqnum \label{FR-RWD-7}:] The system shall display alternatives for an item that could not be unlocked when buyable alternatives exist.
+
+\textbf{Learner Data}
+\setcounter{reqnum}{0}\renewcommand{\thereqnum}{FR-DATA-\arabic{reqnum}}
+
+\item[\refstepcounter{reqnum}\thereqnum \label{FR-DATA-1}:] The system shall allow an authorized CTM to view a Learner's general data.
+
+\item[\refstepcounter{reqnum}\thereqnum \label{FR-DATA-2}:] The system shall display an expandable overview of the Learner's game history.
+
+\item[\refstepcounter{reqnum}\thereqnum \label{FR-DATA-3}:] The system shall allow an authorized CTM to view a Learner's game history between specific dates.
+
+\item[\refstepcounter{reqnum}\thereqnum \label{FR-DATA-4}:] The system shall allow an authorized CTM to view a Learner's game-specific data.
+
+\item[\refstepcounter{reqnum}\thereqnum \label{FR-DATA-5}:] The system shall offer multiple data representations of the Learner's game-specific data.
+
+\item[\refstepcounter{reqnum}\thereqnum \label{FR-DATA-6}:] The system shall allow an authorized CTM to export a Learner's game data.
+
+\item[\refstepcounter{reqnum}\thereqnum \label{FR-DATA-7}:] The system shall save the Learner's performance in the game session into the correct data tables.
+
+\item[\refstepcounter{reqnum}\thereqnum \label{FR-DATA-8}:] The system shall queue the Learner's performance locally for future syncing if it does not have a stable connection.
+
+\item[\refstepcounter{reqnum}\thereqnum \label{FR-DATA-9}:] The system shall not gather any data more than what is required to fulfill the purpose of loading the correct game configurations, cosmetic items and uploading session data.
 
 \end{itemize}
-
-\plt{The requirements are given labels so that they can be referenced in other
-parts of the SRS.  The label names should be meaningful mnemonics, not numbers.}
 
 % ============================================================== 
 \section{Data Requirements}
 
-\plt{The Data Requirements section describes what information the system must manage.
-  It includes the major data entities, their attributes, and the relationships
-  between them.  It also includes a data dictionary that defines the meaning of
-  each attribute.}
-
 \subsection{Major Data Entities}
 
-\plt{What information must exist for the system to accomplish its goals?}
-
-\plt{For each entity, provide a short explanation.}
-
 \begin{itemize}
-\item User
-\item Song
-\item Session
-\item Report
+\item Learner: The profile of a Learner and their paired devices.
+\item Device: information pertaining to a Learner's paired devices.
+\item CTM: The registered CTM account with login credentials and template folders.
+\item Care Team Membership: Each link between a CTM and a Learner, the permissions associated and whether they're the primary CTM.
+\item Game: A game object with its information and default settings.
+\item Game Session: A play-through session of a Learner on a specific game with scores and other relevant statistics.
+\item Learner Game Configuration: The tailored per-game configuration for a Learner, including personalized settings, assigned templates and authorizations.
+\item Template: A CTM-made variation of an existing game with customized content and/or settings.
+\item Cosmetic Item: an item (eg. shirt, pet) that can be unlocked or earned.
+\item Learner Inventory: a collection of cosmetic items owned by the Learner, when they were owned and whether they're equipped.
+\item Access Code: a time-limited unique code, whether it's for device pairing or CTM invites, and tracking attempts for lockout.
 \end{itemize}
 
 \subsection{Data Dictionary}
-
-\plt{For each entity, define all important attributes.}
 
 \begin{longtable}{p{0.20\textwidth} p{0.20\textwidth} p{0.45\textwidth}}
 \toprule
 Attribute & Type & Description\\
 \midrule
-user\_id & UUID & Unique identifier\\
-email & String & User email address\\
+learnerId & UUID & Unique Learner identifier\\
+createdAt & DateTime & When the profile was created\\
+learnerName & String & Learner name displayed in software\\
+deletionTime & DateTime & When deletion is scheduled, or null\\
 \bottomrule
-\caption{Data Dictionary} \label{tab:DataDictionary}
+\caption{Learner} \label{tab:Learner}
 \end{longtable}
+
+\begin{longtable}{p{0.20\textwidth} p{0.20\textwidth} p{0.45\textwidth}}
+\toprule
+Attribute & Type & Description\\
+\midrule
+deviceId & UUID & Unique device identifier\\
+learnerId & UUID & Unique Learner identifier\\
+deviceName & String & Readable name for the device\\
+pairedAt & DateTime & When the device was paired\\
+isActive & Boolean & Whether the pairing is active\\
+\bottomrule
+\caption{Device} \label{tab:Device}
+\end{longtable}
+
+\begin{longtable}{p{0.20\textwidth} p{0.20\textwidth} p{0.45\textwidth}}
+\toprule
+Attribute & Type & Description\\
+\midrule
+ctmId & UUID & Unique CTM identifier\\
+createdAt & DateTime & When the profile was created\\
+ctmName & string & CTM Name displayed in software\\
+ctmEmail & String & Unique email address\\
+emailVerified & Boolean & Whether email is verified\\
+passwordHash & String & Securely hashed password\\
+termsAcceptedAt & DateTime & Time of terms acceptance\\
+deletionTime & DateTime & When deletion is scheduled, or null\\
+
+\bottomrule
+\caption{CTM} \label{tab:CTM}
+\end{longtable}
+
+\begin{longtable}{p{0.20\textwidth} p{0.20\textwidth} p{0.45\textwidth}}
+\toprule
+Attribute & Type & Description\\
+\midrule
+careTeamId & UUID & Unique Care Team identifier\\
+learnerId & UUID & Unique Learner identifier\\
+ctmId & UUID & Unique CTM identifier\\
+isPrimary & Boolean & Whether the CTM is the primary CTM for this learner\\
+permissions & Enum & Permission granted by the CTM regarding this learner's profile\\
+joinedAt & DateTime & Time of joining the Learner's care team\\
+
+
+\bottomrule
+\caption{Care Team Membership} \label{tab:Care Team Membership}
+\end{longtable}
+
+\begin{longtable}{p{0.20\textwidth} p{0.20\textwidth} p{0.45\textwidth}}
+\toprule
+Attribute & Type & Description\\
+\midrule
+gameId & UUID & Unique Game identifier\\
+gameName & String & Game display name\\
+gameDesc & String & Description of game\\
+defaultSettings & JSON & Settings applied by default\\
+
+
+\bottomrule
+\caption{Game} \label{tab:Game}
+\end{longtable}
+
+\begin{longtable}{p{0.20\textwidth} p{0.20\textwidth} p{0.45\textwidth}}
+\toprule
+Attribute & Type & Description\\
+\midrule
+sessionId & UUID & Unique session identifier\\
+learnerId & UUID & Unique Learner identifier\\
+gameId & UUID & Unique game identifier\\
+templateId & UUID & Template used; null if none\\
+settingsUsed & JSON & Settings active during the session\\
+startedAt & DateTime & When the session started\\
+endedAt & DateTime & When the session ended\\
+outcome & Enum & Completed, aborted, restarted\\
+scores & JSON & Individual task scores and overall score\\
+\bottomrule
+\caption{Game Session} \label{tab:GameSession}
+\end{longtable}
+
+\begin{longtable}{p{0.20\textwidth} p{0.20\textwidth} p{0.45\textwidth}}
+\toprule
+Attribute & Type & Description\\
+\midrule
+configId & UUID & Unique configuration identifier\\
+learnerId & UUID & The Learner this configuration applies to\\
+gameId & UUID & The Game this configuration applies to\\
+isAuthorized & Boolean & Whether the Learner can play the Game\\
+settings & JSON & Personalized settings and authorizations for this Learner on this game\\
+reward & String & Reward given for completing the Game\\
+templateId & UUID & Template assigned, null if none\\
+updatedBy & UUID & CTM who last changed the configuration\\
+updatedAt & DateTime & When the configuration was last changed\\
+\bottomrule
+\caption{Learner Game Configuration} \label{tab:LearnerGameConfig}
+\end{longtable}
+
+\begin{longtable}{p{0.20\textwidth} p{0.20\textwidth} p{0.45\textwidth}}
+\toprule
+Attribute & Type & Description\\
+\midrule
+templateId & UUID & Unique template identifier\\
+ownerCtmId & UUID & CTM who has this template\\
+gameId & UUID & Game the template is based on\\
+templateName & String & Template display name\\
+folderName & String & Folder the template is organized under; null if unfiled\\
+modifiedContent & JSON & Edited game content\\
+settings & JSON & Template settings\\
+createdAt & DateTime & When the template was created\\
+updatedAt & DateTime & When the template was last changed\\
+\bottomrule
+\caption{Template} \label{tab:Template}
+\end{longtable}
+
+\begin{longtable}{p{0.20\textwidth} p{0.20\textwidth} p{0.45\textwidth}}
+\toprule
+Attribute & Type & Description\\
+\midrule
+itemId & UUID & Unique item identifier\\
+itemName & String & Item display name\\
+category & Enum & Type of item (eg. shirt, pet)\\
+unlockConditions & JSON & Conditions required to unlock the item\\
+\bottomrule
+\caption{Cosmetic Item} \label{tab:CosmeticItem}
+\end{longtable}
+
+\begin{longtable}{p{0.20\textwidth} p{0.20\textwidth} p{0.45\textwidth}}
+\toprule
+Attribute & Type & Description\\
+\midrule
+inventoryId & UUID & Unique inventory identifier\\
+learnerId & UUID & Learner who owns the item\\
+itemId & UUID & The owned Cosmetic Item\\
+source & Enum & How the item was obtained (eg. unlocked, game reward, granted by CTM)\\
+acquiredAt & DateTime & When the item was obtained\\
+isEquipped & Boolean & Whether the item is currently equipped\\
+\bottomrule
+\caption{Learner Inventory} \label{tab:LearnerInventory}
+\end{longtable}
+
+\begin{longtable}{p{0.20\textwidth} p{0.20\textwidth} p{0.45\textwidth}}
+\toprule
+Attribute & Type & Description\\
+\midrule
+codeId & UUID & Unique access code identifier\\
+learnerId & UUID & Learner the code applies to\\
+createdBy & UUID & CTM who generated the code\\
+code & String & The code entered by the recipient\\
+codeType & Enum & Device pairing or care team invite\\
+permissions & Enum & Permissions granted to the joining CTM; care team invites only\\
+failedAttempts & Integer & Number of incorrect entries of this code\\
+lockedUntil & DateTime & When further attempts are allowed again; null if not locked\\
+status & Enum & Active, used, cancelled or expired\\
+expiresAt & DateTime & When the code stops being valid\\
+createdAt & DateTime & When the code was generated\\
+\bottomrule
+\caption{Access Code} \label{tab:AccessCode}
+\end{longtable}
+
+
 
 \subsection{Privacy and Data Retention}
 
-\plt{Discuss storage, retention, deletion, privacy controls,
- consent, encryption, and compliance requirements.}
+Learner, sessions and CTM data are stored on a central server in Canada. A learner's paired devices only keep what is required to play: learner game configurations, learner inventory and local session data waiting to sync.
 
-TODO
+Deleted Learner profiles and CTM accounts enter a 30-day grace period after which they are permenantly deleted including all backups. The data is no longer scheduled for deletion if the account or profile is restored within the 30-day grace period. Deleting a Learner profile entails the unlinking of any paired devices and all profile access to other CTMs. Before deleting a Learner profle, the primary CTM can download the Learner data.
 
+The system collects minimal info about Learners because they have no login credentials nor do they own a traditional account. The system has no advertising or third-party tracking of Learners. The primary CTM (eg. a parent) controls the extent of permissions and access of other CTM's regarding the Learner's configurations and data. Any changes by a CTM to a Learner's settings is logged clearly for other CTMs to see.
+
+When creating a Learner profile, the creator confirms they are the Learner's legal guardian or have permission from the guardian to create/manage this profile. CTMs must agree to a list of terms \& conditions and privacy policies upon account registration. A CTM joining a Learner's care team requires an intentional invite from the primary CTM. 
+
+All data is encrypted in transit and at rest. Passwords are stored as securely hashed passwords rather than a readable form. Any session data being collected or queued for syncing on a paired device is kept in protected app storage until syncing, then deleted off the local storage.
+
+The system shall comply with Canada's federal PIPEDA law and the EU's GDPR law. Additionally, the system shall meet the conditions of app store rules for children's apps regarding ads, analytics and external links. 
 % ============================================================== 
 \section{Non-Functional Requirements}
 
@@ -1016,31 +1323,23 @@ be covered in the Verification and Validation document.}
 % ============================================================== 
 \section{AI and Machine Learning Requirements}
 
-\plt{Refer to
-\href{https://gitlab.cas.mcmaster.ca/courses/capstone/-/blob/main/Lectures/Lxx_DrMosserGuestLecture/2026_09_Capstone.pdf?ref_type=heads}{Dr.
-Mosser's guest lecture} on AI requirements.}
-
-\plt{Include only when applicable.}
+Not applicable. \progname{} does not include an AI or machine learning component.
 
 \subsection{Model Inputs}
 
-TODO
+N/A
 
 \subsection{Model Outputs}
 
-TODO
+N/A
 
 \subsection{Evaluation Metrics}
 
-\plt{Accuracy, Precision, Recall, F1, BLEU, WER, etc.}
-
-TODO
+N/A
 
 \subsection{Known Limitations}
 
-\plt{Explicitly document expected failure modes.}
-
-TODO
+N/A
 
 % ============================================================== 
 \section{Requirements Traceability Matrices}
