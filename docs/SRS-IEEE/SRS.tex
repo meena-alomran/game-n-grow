@@ -1705,13 +1705,138 @@ authorization, Learner-specific configurations, and Game Session records.
 
 \end{itemize}
 
-\section{Unlikely Changes}    
+\section{Unlikely Changes}
+
+The following assumptions are considered unlikely to change during the
+development of \progname{}. They define stable characteristics that the system's
+design can rely on. Each assumption is supported by the system's intended
+purpose, user responsibilities, or existing requirements.
 
 \noindent \begin{itemize}
 
-\item[LC\refstepcounter{lcnum}\thelcnum\label{LC_meaningfulLabel}:] \plt{Give
-    the unlikely changes.  The design can assume that the changes listed will
-    not occur.}
+\newcounter{ulcnum}
+
+\item[ULC\refstepcounter{ulcnum}\arabic{ulcnum}
+  \label{ULC_Roles}:] \textbf{Distinction Between Learners and CTMs}
+
+\progname{} will continue to distinguish between Learners, who participate in
+Games, and Care Team Members (CTMs), who manage and support their learning
+activities. The specific functions available to each group may evolve, but their
+primary responsibilities are expected to remain separate.
+
+Maintaining this distinction allows Learners to focus on participating in Games
+without being responsible for administrative tasks, while CTMs retain
+responsibility for managing activities and interpreting results.
+
+\textbf{Traceability:} Learner (Table~\ref{tab:Learner}), CTM
+(Table~\ref{tab:CTM}).
+
+\item[ULC\refstepcounter{ulcnum}\arabic{ulcnum}
+  \label{ULC_LearnerProfiles}:] \textbf{Individual Learner Profiles}
+
+Each Learner will continue to have an identifiable profile associated with their
+Games, configurations, and Game Session records. This relationship is
+fundamental to providing individualized activities and maintaining a history of
+performance.
+
+Maintaining individual profiles also allows \progname{} to associate the correct
+configurations and records with a Learner when they use different paired devices
+or receive support from multiple CTMs.
+
+\textbf{Traceability:} Learner (Table~\ref{tab:Learner}), Learner Game
+Configuration (Table~\ref{tab:LearnerGameConfig}), Game Session
+(Table~\ref{tab:GameSession}); \ref{FR-LRN-1}, \ref{FR-DATA-7}.
+
+\item[ULC\refstepcounter{ulcnum}\arabic{ulcnum}
+  \label{ULC_CareTeamPermissions}:] \textbf{Care Team Membership and
+Permissions}
+
+\progname{} will continue to associate CTMs with Learners through care team
+memberships. Each active Learner profile will have a Primary CTM responsible for
+managing the permissions of other CTMs. This structure establishes clear
+responsibility for access management when multiple individuals support the same
+Learner.
+
+Although the available permissions may change, the distinction between
+authorized and unauthorized actions is expected to remain. The identity of the
+Primary CTM may change through the ownership-transfer process without changing
+the purpose of the role.
+
+\textbf{Traceability:} CTM (Table~\ref{tab:CTM}), Care Team Membership
+(Table~\ref{tab:Care Team Membership}); \ref{FR-LRN-2}, \ref{FR-TEAM-4},
+\ref{FR-TEAM-6}, \ref{FR-TEAM-7}.
+
+\item[ULC\refstepcounter{ulcnum}\arabic{ulcnum}
+  \label{ULC_Personalization}:] \textbf{CTM-Controlled Personalization}
+
+CTMs will continue to manage Learner-specific Game settings and authorizations.
+The system is expected to preserve the principle that personalized activities
+are configured by authorized CTMs rather than automatically prescribed based on
+assumptions about a Learner's developmental needs.
+
+This approach maintains CTM responsibility for selecting activities appropriate
+to individual Learners, even if the range of available personalization settings
+expands.
+
+\textbf{Traceability:} Learner Game Configuration
+(Table~\ref{tab:LearnerGameConfig}), Template (Table~\ref{tab:Template});
+\ref{FR-PERS-1} through \ref{FR-PERS-4}.
+
+\item[ULC\refstepcounter{ulcnum}\arabic{ulcnum}
+  \label{ULC_Games}:] \textbf{Games as the Primary Learning Experience}
+
+Games will remain the central activities through which Learners interact with
+\progname{}. The content and number of Games may change, but their role as the
+primary means of providing practice opportunities is expected to remain.
+
+Replacing Games with a different primary learning format would fundamentally
+change \progname{}'s intended purpose rather than simply extend its
+functionality.
+
+\textbf{Traceability:} Game (Table~\ref{tab:Game}), Game Session
+(Table~\ref{tab:GameSession}).
+
+\item[ULC\refstepcounter{ulcnum}\arabic{ulcnum}
+  \label{ULC_PerformanceRecords}:] \textbf{Game-Specific Performance Records}
+
+\progname{} will continue to record performance information associated with
+individual Learners and Game Sessions. The metrics and methods of presentation
+may evolve, but the relationship between a Learner, a Game, and its recorded
+session results is expected to remain.
+
+Maintaining these relationships allows CTMs to review individual Game histories
+and interpret recorded results in the context of the activities completed.
+
+\textbf{Traceability:} Learner (Table~\ref{tab:Learner}), Game
+(Table~\ref{tab:Game}), Game Session (Table~\ref{tab:GameSession});
+\ref{FR-DATA-2}, \ref{FR-DATA-4}, \ref{FR-DATA-7}.
+
+\item[ULC\refstepcounter{ulcnum}\arabic{ulcnum}
+  \label{ULC_Participation}:] \textbf{Learner Control Over Participation}
+
+Learners will continue to have the ability to pause, restart, or end an ongoing
+Game. These controls allow Learners to stop or repeat an activity according to
+their needs and preferences, making them an important part of the intended
+gameplay experience.
+
+Removing these controls would reduce the flexibility available to Learners
+during participation and would conflict with the existing gameplay requirements.
+
+\textbf{Traceability:} \ref{FR-PLAY-5}, \ref{FR-PLAY-6}, \ref{FR-PLAY-7}.
+
+\item[ULC\refstepcounter{ulcnum}\arabic{ulcnum}
+  \label{ULC_NonClinicalPurpose}:] \textbf{Non-Clinical Purpose}
+
+\progname{} will remain an educational support application rather than a
+clinical assessment or diagnostic tool. Performance information will continue to
+describe outcomes within Games rather than establish broader developmental
+conclusions.
+
+Changing this purpose would require a substantial reconsideration of the
+system's scope and validation requirements.
+
+\textbf{Traceability:} Game (Table~\ref{tab:Game}), Game Session
+(Table~\ref{tab:GameSession}).
 
 \end{itemize}
 
