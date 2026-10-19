@@ -1562,12 +1562,146 @@ rationale for everything, ust the major decisions that are not obvious.  You
 should have traceability to the entities in the document that you are
 referencing.}
 
-\section{Likely Changes}    
+\section{Likely Changes}
+
+The following changes are considered likely as \progname{} is developed, tested,
+and evaluated with intended users. Each entry identifies the part of the system
+expected to evolve and its relationship to existing requirements or data
+entities.
 
 \noindent \begin{itemize}
 
-\item[LC\refstepcounter{lcnum}\thelcnum\label{LC_meaningfulLabel}:] \plt{Give
-    the likely changes, with traceability to the entity that is likely to change.}
+\item[LC\refstepcounter{lcnum}\thelcnum
+  \label{LC_GameContent}:] \textbf{Game Content and Difficulty}
+
+The content, challenges, and available difficulty levels within Games are likely
+to change based on feedback from Learners, Care Team Members (CTMs), and Domain
+Experts. New activities or variations may be introduced, and existing challenges
+may be adjusted to better accommodate individual needs.
+
+These changes are expected to affect Game content and configuration rather than
+the underlying relationship between a Learner and their authorized Games.
+Changes to content or difficulty may also affect how previously recorded results
+are interpreted and compared with results from later Game Sessions.
+
+\textbf{Traceability:} Game (Table~\ref{tab:Game}), Learner Game Configuration
+(Table~\ref{tab:LearnerGameConfig}), Template (Table~\ref{tab:Template}), Game
+Session (Table~\ref{tab:GameSession}); \ref{FR-PERS-2}, \ref{FR-PERS-3},
+\ref{FR-TMPL-3}, \ref{FR-TMPL-5}, \ref{FR-DATA-7}.
+
+\item[LC\refstepcounter{lcnum}\thelcnum
+  \label{LC_Personalization}:] \textbf{Personalization and Template Settings}
+
+The available personalization settings and types of Template modifications are
+likely to expand. Additional settings may be introduced to give CTMs greater
+control over Game content, presentation, or difficulty.
+
+The mechanisms for assigning configurations and Templates to Learners are
+expected to remain applicable even as the range of customizable options changes.
+
+\textbf{Traceability:} Learner Game Configuration
+(Table~\ref{tab:LearnerGameConfig}), Template (Table~\ref{tab:Template});
+\ref{FR-PERS-3}, \ref{FR-PERS-4}, \ref{FR-TMPL-3}, \ref{FR-TMPL-4},
+\ref{FR-TMPL-6}.
+
+\item[LC\refstepcounter{lcnum}\thelcnum
+  \label{LC_PerformanceMetrics}:] \textbf{Performance Metrics and Dashboard
+Representations}
+
+The metrics recorded for Game Sessions and the methods used to present them are
+likely to change as CTMs provide feedback on which information is most useful.
+
+For example, the Dashboard may be updated to emphasize different performance
+measures or provide additional representations of a Learner's Game history.
+These changes should preserve the association between performance records and
+their corresponding Learner and Game Session. Changes to scoring or performance
+measures may affect comparisons between historical and newer results and should
+be considered when interpreting performance over time.
+
+\textbf{Traceability:} Game Session (Table~\ref{tab:GameSession});
+\ref{FR-DATA-2}, \ref{FR-DATA-3}, \ref{FR-DATA-4}, \ref{FR-DATA-5},
+\ref{FR-DATA-7}.
+
+\item[LC\refstepcounter{lcnum}\thelcnum
+  \label{LC_Rewards}:] \textbf{Rewards and Cosmetic Items}
+
+The available Cosmetic Items, rewards, and conditions for unlocking them are
+likely to change as the team evaluates Learner engagement. New items may be
+added, existing items may be modified, and reward conditions may be adjusted.
+
+These changes affect the available content and reward conditions rather than the
+relationship between Learners and the items in their inventories.
+
+\textbf{Traceability:} Cosmetic Item (Table~\ref{tab:CosmeticItem}), Learner
+Inventory (Table~\ref{tab:LearnerInventory}); \ref{FR-RWD-1} through
+\ref{FR-RWD-7}.
+
+\item[LC\refstepcounter{lcnum}\thelcnum
+  \label{LC_InterfaceAccessibility}:] \textbf{Interface Design and Accessibility
+Options}
+
+The presentation and navigation of the Game Suite and CTM Dashboard are likely
+to change following usability evaluations. These changes may involve
+instructions, navigation, feedback presentation, and available accessibility
+settings.
+
+Such modifications are expected to improve the user experience without changing
+the responsibilities of Learners and CTMs.
+
+\textbf{Traceability:} Learner Game Configuration
+(Table~\ref{tab:LearnerGameConfig}); \ref{FR-PLAY-4}, \ref{FR-PLAY-5},
+\ref{FR-PERS-3}, \ref{FR-DATA-5}. Related usability and accessibility
+requirements should be included when finalized in
+\hyperlink{section.8}{Section~8}.
+
+\item[LC\refstepcounter{lcnum}\thelcnum
+  \label{LC_TemplateSharing}:] \textbf{Template Organization and Sharing}
+
+The way CTMs organize and share Templates may change as the team evaluates how
+these features are used. Future changes may include improvements to Template
+folders, importing Templates, and managing customized content.
+
+These changes are expected to preserve the purpose of Templates as reusable
+variations of existing Games.
+
+\textbf{Traceability:} Template (Table~\ref{tab:Template}); \ref{FR-TMPL-1},
+\ref{FR-TMPL-2}, \ref{FR-TMPL-3}, \ref{FR-TMPL-9}.
+
+\item[LC\refstepcounter{lcnum}\thelcnum
+  \label{LC_PlatformCompatibility}:] \textbf{Platform Compatibility and
+Interaction Methods}
+
+The range of supported platforms and input methods may change as \progname{} is
+developed and tested. The initial intended platforms include iPadOS and Android
+tablets, along with web access. Additional desktop platforms, such as Windows
+and macOS, may be considered depending on compatibility testing and available
+development resources.
+
+Changes to supported platforms may also affect available input methods,
+including touch, keyboard, and pointer interaction. These changes are expected
+to expand or refine the environments in which \progname{} operates without
+changing the underlying relationship between Learner profiles and paired
+devices.
+
+\textbf{Traceability:} \hyperlink{subsection.2.5}{SC1} and \hyperlink{subsection.2.5}{SC2};
+applicable portability and accessibility requirements in
+\hyperlink{section.8}{Section~8}. Related device-pairing entities and
+requirements: Device (Table~\ref{tab:Device}), Access Code
+(Table~\ref{tab:AccessCode}); \ref{FR-DEV-1} through \ref{FR-DEV-5}.
+
+\item[LC\refstepcounter{lcnum}\thelcnum
+  \label{LC_AdditionalGames}:] \textbf{Additional Games and Learning Activities}
+
+The number and variety of Games available in \progname{} may increase beyond the
+initial set of learning activities. New Games may introduce additional
+objectives, content, and performance measures.
+
+These additions are expected to follow the existing approach of managing Game
+authorization, Learner-specific configurations, and Game Session records.
+
+\textbf{Traceability:} Game (Table~\ref{tab:Game}), Learner Game Configuration
+(Table~\ref{tab:LearnerGameConfig}), Game Session (Table~\ref{tab:GameSession});
+\ref{FR-PERS-1}, \ref{FR-PERS-2}, \ref{FR-DATA-7}.
 
 \end{itemize}
 
