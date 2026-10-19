@@ -76,8 +76,8 @@
   "docs/ProblemStatementAndGoals/ProblemStatement.tex": [
     "docs/Comments.text",
     "docs/Common.text",
-    "docs/ProblemStatementAndGoals/ProblemStatement.bib",
-    "docs/ProblemStatementAndGoals/ProblemStatement.tex"
+    "docs/ProblemStatementAndGoals/ProblemStatement.tex",
+    "refs/References.bib"
   ],
   "docs/ReflectAndTrace/ReflectAndTrace.tex": [
     "docs/Comments.text",
