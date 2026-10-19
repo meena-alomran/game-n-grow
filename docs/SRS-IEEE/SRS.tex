@@ -1293,35 +1293,41 @@ be covered in the Verification and Validation document.}
 \textbf{Usability}
 
 \setcounter{nfrnum}{0}\renewcommand{\thenfrnum}{NFR-USE-\arabic{nfrnum}}
-\item[\refstepcounter{nfrnum}\thenfrnum \label{NFR-USE-1}:] System is easy for Primary CTM to set up. When using the system for the first time, 90\% of Primary CTMs should be able to create an account, input a Learner's information, configure settings for and add one game that the Learner can play, and pair to the Learner's device within 20 minutes.
-\item[\refstepcounter{nfrnum}\thenfrnum \label{NFR-USE-2}:] System is easy for Primary CTM to learn. Primary CTM should be able to locate, edit, and save settings for a Learner's general settings within 5 minutes. Primary CTM should be able to locate and access a Learner's dashboard within 5 minutes. Primary CTM should be able to locate the allowed games for a Learner and add a new game (including setting up a template) to the selection within 15 minutes. Primary CTM should be able to successfully invite another CTM to a Learner's profile within 10 minutes.
-\item[\refstepcounter{nfrnum}\thenfrnum \label{NFR-USE-3}:] System is memorable. Insert above scenarios but shorter times? locate within one min, at least. actually editing is less relevant.
-\item[\refstepcounter{nfrnum}\thenfrnum \label{NFR-USE-4}:] Facilitating gameplay is easy for a CTM to do. CTM experiences 1-4 personal points of difficulty when having a Learner play for the first time.
+\item[\refstepcounter{nfrnum}\thenfrnum \label{NFR-USE-1}:] When using the system for the first time, a Primary CTM should be able to create an account, input a Learner's profile information, add one game for the Learner to be able to play, and pair to the Learner's device within 30 minutes.
+\item[\refstepcounter{nfrnum}\thenfrnum \label{NFR-USE-2}:] A Primary CTM should be able to locate specific views such as a Learner's profile settings, progression data, or set of permitted games within 2 minutes the first time they do so, demonstrating the system's learnability.
+\item[\refstepcounter{nfrnum}\thenfrnum \label{NFR-USE-3}:] Following this, a Primary CTM should be able to locate these views again within 30 seconds, demonstrating the system's memorability.
+\item[\refstepcounter{nfrnum}\thenfrnum \label{NFR-USE-4}:] A Primary CTM should be able to select a permitted game and start gameplay for a Learner within 5 minutes, with little to no reported pain points throughout the session. This will be measured through a rating from the CTM on a scale from 1 to 10, with 0-3 being considered an acceptable range of experienced difficulty.
+
+\textbf{Efficiency}
+
+\setcounter{nfrnum}{0}\renewcommand{\thenfrnum}{NFR-EFF-\arabic{nfrnum}}
+\item[\refstepcounter{nfrnum}\thenfrnum \label{NFR-EFF-1}:] Typical actions such as adding a new game and configuring a template for it or editing a Learner's general settings should take 10-15 minutes.
+\item[\refstepcounter{nfrnum}\thenfrnum \label{NFR-EFF-2}:] A Learner's game data can be quickly understood and analyzed.
 
 \textbf{Accuracy}
 
 \setcounter{nfrnum}{0}\renewcommand{\thenfrnum}{NFR-ACC-\arabic{nfrnum}}
-\item[\refstepcounter{nfrnum}\thenfrnum \label{NFR-ACC-1}:] A Learner's data should be completely up-to-date with any gameplay that occurred before the data page was opened.
-\item[\refstepcounter{nfrnum}\thenfrnum \label{NFR-ACC-2}:] The dashboard statistics for a Learner should be 99\% accurate to a Learner's stored data, allowing some room for rounding errors.
+\item[\refstepcounter{nfrnum}\thenfrnum \label{NFR-ACC-1}:] A Learner's data and dashboard statistics should be completely up-to-date with any gameplay that occurred before the data page was opened.
 
 \textbf{Portability}
 
 \setcounter{nfrnum}{0}\renewcommand{\thenfrnum}{NFR-PORT-\arabic{nfrnum}}
-\item[\refstepcounter{nfrnum}\thenfrnum \label{NFR-PORT-1}:] The System should run on Apple iPads and support iPadOS 27, as well as being compatible with iPadOS 26 and 18.
-\item[\refstepcounter{nfrnum}\thenfrnum \label{NFR-PORT-2}:] The System should run on Android Tablets and support Android 17, as well as being compatible with Android 16 and 15.
-\item[\refstepcounter{nfrnum}\thenfrnum \label{NFR-PORT-3}:] The System is available be web-based and should run on the following web browsers: Google Chrome, Mozilla Firefox, and Microsoft Edge.
+\item[\refstepcounter{nfrnum}\thenfrnum \label{NFR-PORT-1}:] The system should run on Apple iPads and support iPadOS 27, as well as being compatible with iPadOS 26 and 18.
+\item[\refstepcounter{nfrnum}\thenfrnum \label{NFR-PORT-2}:] The system should run on Android Tablets and support Android 17, as well as being compatible with Android 16 and 15.
+\item[\refstepcounter{nfrnum}\thenfrnum \label{NFR-PORT-3}:] The system is available in web-based form and should run on the following web browsers: Google Chrome, Mozilla Firefox, and Microsoft Edge.
 
 \textbf{Accessibility}
 
 \setcounter{nfrnum}{0}\renewcommand{\thenfrnum}{NFR-ACCESS-\arabic{nfrnum}}
-\item[\refstepcounter{nfrnum}\thenfrnum \label{NFR-ACCESS-1}:] The system shall use clear and simple language throughout, and especially within game instructions, to support CTMs' and Learners' understanding and ease of use.
+\item[\refstepcounter{nfrnum}\thenfrnum \label{NFR-ACCESS-1}:] The system shall use clear and simple language throughout, especially within game instructions, to support CTMs' and Learners' understanding and ease of use.
 \item[\refstepcounter{nfrnum}\thenfrnum \label{NFR-ACCESS-2}:] For the scope of capstone, English will be the only language supported by the system.
 \item[\refstepcounter{nfrnum}\thenfrnum \label{NFR-ACCESS-3}:] The system shall provide both visual and auditory feedback and output, both of which can be adjusted for Learners' specific needs.
+\item[\refstepcounter{nfrnum}\thenfrnum \label{NFR-ACCESS-4}:] The system shall support a safe learning experience for Learners by allowing for pause, retrying, and review of game instructions at any point in gameplay
 
 \textbf{Security}
 
 \setcounter{nfrnum}{0}\renewcommand{\thenfrnum}{NFR-SECURE-\arabic{nfrnum}}
-\item[\refstepcounter{nfrnum}\thenfrnum \label{NFR-SECURE-1}:] The system shall protect CTMs' account login information, using encryption whenever authorization is needed
+\item[\refstepcounter{nfrnum}\thenfrnum \label{NFR-SECURE-1}:] The system shall protect CTMs' account login information
 \item[\refstepcounter{nfrnum}\thenfrnum \label{NFR-SECURE-2}:] The system shall protect Learners' gameplay data (link to 7.3)
 
 \end{itemize}
