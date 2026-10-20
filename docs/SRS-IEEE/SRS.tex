@@ -1860,14 +1860,25 @@ TODO
 
 \subsection{Appendix C: Values of Auxiliary Constants}
 
-\plt{Show the values of the symbolic parameters introduced in the report.}
+The following auxiliary constant is used in the nonfunctional requirements.
+Table~\ref{tab:AuxiliaryConstants} lists its value and referenced requirement.
 
-\plt{The definition of the requirements will likely call for SYMBOLIC\_CONSTANTS.
-Their values are defined in this section for easy maintenance.}
+\begin{table}[htbp]
+\centering
+\begin{tabular}{lll}
+\toprule
+Constant & Value & Referenced Requirement \\
+\midrule
+\texttt{FRACTION} & $1/6$ &
+\hyperref[NFR_Maintainability]{NFR-MAINT-1} \\
+\bottomrule
+\end{tabular}
+\caption{Values of Auxiliary Constants}
+\label{tab:AuxiliaryConstants}
+\end{table}
 
-\plt{The value of FRACTION, for the Maintainability NFR would be given here.}
-
-TODO
+The constant \texttt{FRACTION} is defined as $1/6$ and is used in
+\hyperref[NFR_Maintainability]{NFR-MAINT-1}.
 
 \subsection{Appendix D: Generative AI Disclosure}
 
