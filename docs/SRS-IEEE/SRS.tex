@@ -1726,22 +1726,281 @@ There are no AI requirements because we are not employing a machine learning mod
 
 
 
-\section{Likely Changes}    
+\section{Likely Changes}
+
+The following changes are considered likely as \progname{} is developed, tested,
+and evaluated with intended users. Each entry identifies the part of the system
+expected to evolve and its relationship to existing requirements or data
+entities.
 
 \noindent \begin{itemize}
 
-\item[LC\refstepcounter{lcnum}\thelcnum\label{LC_meaningfulLabel}:] \plt{Give
-    the likely changes, with traceability to the entity that is likely to change.}
+\item[LC\refstepcounter{lcnum}\thelcnum
+  \label{LC_GameContent}:] \textbf{Game Content and Difficulty}
+
+The content, challenges, and available difficulty levels within Games are likely
+to change based on feedback from Learners, Care Team Members (CTMs), and Domain
+Experts. New activities or variations may be introduced, and existing challenges
+may be adjusted to better accommodate individual needs.
+
+These changes are expected to affect Game content and configuration rather than
+the underlying relationship between a Learner and their authorized Games.
+Changes to content or difficulty may also affect how previously recorded results
+are interpreted and compared with results from later Game Sessions.
+
+\textbf{Traceability:} Game (Table~\ref{tab:Game}), Learner Game Configuration
+(Table~\ref{tab:LearnerGameConfig}), Template (Table~\ref{tab:Template}), Game
+Session (Table~\ref{tab:GameSession}); \ref{FR-PERS-2}, \ref{FR-PERS-3},
+\ref{FR-TMPL-3}, \ref{FR-TMPL-5}, \ref{FR-DATA-7}.
+
+\item[LC\refstepcounter{lcnum}\thelcnum
+  \label{LC_Personalization}:] \textbf{Personalization and Template Settings}
+
+The available personalization settings and types of Template modifications are
+likely to expand. Additional settings may be introduced to give CTMs greater
+control over Game content, presentation, or difficulty.
+
+The mechanisms for assigning configurations and Templates to Learners are
+expected to remain applicable even as the range of customizable options changes.
+
+\textbf{Traceability:} Learner Game Configuration
+(Table~\ref{tab:LearnerGameConfig}), Template (Table~\ref{tab:Template});
+\ref{FR-PERS-3}, \ref{FR-PERS-4}, \ref{FR-TMPL-3}, \ref{FR-TMPL-4},
+\ref{FR-TMPL-6}.
+
+\item[LC\refstepcounter{lcnum}\thelcnum
+  \label{LC_PerformanceMetrics}:] \textbf{Performance Metrics and Dashboard
+Representations}
+
+The metrics recorded for Game Sessions and the methods used to present them are
+likely to change as CTMs provide feedback on which information is most useful.
+
+For example, the Dashboard may be updated to emphasize different performance
+measures or provide additional representations of a Learner's Game history.
+These changes should preserve the association between performance records and
+their corresponding Learner and Game Session. Changes to scoring or performance
+measures may affect comparisons between historical and newer results and should
+be considered when interpreting performance over time.
+
+\textbf{Traceability:} Game Session (Table~\ref{tab:GameSession});
+\ref{FR-DATA-2}, \ref{FR-DATA-3}, \ref{FR-DATA-4}, \ref{FR-DATA-5},
+\ref{FR-DATA-7}.
+
+\item[LC\refstepcounter{lcnum}\thelcnum
+  \label{LC_Rewards}:] \textbf{Rewards and Cosmetic Items}
+
+The available Cosmetic Items, rewards, and conditions for unlocking them are
+likely to change as the team evaluates Learner engagement. New items may be
+added, existing items may be modified, and reward conditions may be adjusted.
+
+These changes affect the available content and reward conditions rather than the
+relationship between Learners and the items in their inventories.
+
+\textbf{Traceability:} Cosmetic Item (Table~\ref{tab:CosmeticItem}), Learner
+Inventory (Table~\ref{tab:LearnerInventory}); \ref{FR-RWD-1} through
+\ref{FR-RWD-7}.
+
+\item[LC\refstepcounter{lcnum}\thelcnum
+  \label{LC_InterfaceAccessibility}:] \textbf{Interface Design and Accessibility
+Options}
+
+The presentation and navigation of the Game Suite and CTM Dashboard are likely
+to change following usability evaluations. These changes may involve
+instructions, navigation, feedback presentation, and available accessibility
+settings.
+
+Such modifications are expected to improve the user experience without changing
+the responsibilities of Learners and CTMs.
+
+\textbf{Traceability:} Learner Game Configuration
+(Table~\ref{tab:LearnerGameConfig}); \ref{FR-PLAY-4}, \ref{FR-PLAY-5},
+\ref{FR-PERS-3}, \ref{FR-DATA-5}. Related usability and accessibility
+requirements should be included when finalized in
+\hyperlink{section.8}{Section~8}.
+
+\item[LC\refstepcounter{lcnum}\thelcnum
+  \label{LC_TemplateSharing}:] \textbf{Template Organization and Sharing}
+
+The way CTMs organize and share Templates may change as the team evaluates how
+these features are used. Future changes may include improvements to Template
+folders, importing Templates, and managing customized content.
+
+These changes are expected to preserve the purpose of Templates as reusable
+variations of existing Games.
+
+\textbf{Traceability:} Template (Table~\ref{tab:Template}); \ref{FR-TMPL-1},
+\ref{FR-TMPL-2}, \ref{FR-TMPL-3}, \ref{FR-TMPL-9}.
+
+\item[LC\refstepcounter{lcnum}\thelcnum
+  \label{LC_PlatformCompatibility}:] \textbf{Platform Compatibility and
+Interaction Methods}
+
+The range of supported platforms and input methods may change as \progname{} is
+developed and tested. The initial intended platforms include iPadOS and Android
+tablets, along with web access. Additional desktop platforms, such as Windows
+and macOS, may be considered depending on compatibility testing and available
+development resources.
+
+Changes to supported platforms may also affect available input methods,
+including touch, keyboard, and pointer interaction. These changes are expected
+to expand or refine the environments in which \progname{} operates without
+changing the underlying relationship between Learner profiles and paired
+devices.
+
+\textbf{Traceability:} \hyperlink{subsection.2.5}{SC1} and \hyperlink{subsection.2.5}{SC2};
+applicable portability and accessibility requirements in
+\hyperlink{section.8}{Section~8}. Related device-pairing entities and
+requirements: Device (Table~\ref{tab:Device}), Access Code
+(Table~\ref{tab:AccessCode}); \ref{FR-DEV-1} through \ref{FR-DEV-5}.
+
+\item[LC\refstepcounter{lcnum}\thelcnum
+  \label{LC_AdditionalGames}:] \textbf{Additional Games and Learning Activities}
+
+The number and variety of Games available in \progname{} may increase beyond the
+initial set of learning activities. New Games may introduce additional
+objectives, content, and performance measures.
+
+These additions are expected to follow the existing approach of managing Game
+authorization, Learner-specific configurations, and Game Session records.
+
+\textbf{Traceability:} Game (Table~\ref{tab:Game}), Learner Game Configuration
+(Table~\ref{tab:LearnerGameConfig}), Game Session (Table~\ref{tab:GameSession});
+\ref{FR-PERS-1}, \ref{FR-PERS-2}, \ref{FR-DATA-7}.
 
 \end{itemize}
 
-\section{Unlikely Changes}    
+\section{Unlikely Changes}
+
+The following assumptions are considered unlikely to change during the
+development of \progname{}. They define stable characteristics that the system's
+design can rely on. Each assumption is supported by the system's intended
+purpose, user responsibilities, or existing requirements.
 
 \noindent \begin{itemize}
 
-\item[LC\refstepcounter{lcnum}\thelcnum\label{LC_meaningfulLabel}:] \plt{Give
-    the unlikely changes.  The design can assume that the changes listed will
-    not occur.}
+\newcounter{ulcnum}
+
+\item[ULC\refstepcounter{ulcnum}\arabic{ulcnum}
+  \label{ULC_Roles}:] \textbf{Distinction Between Learners and CTMs}
+
+\progname{} will continue to distinguish between Learners, who participate in
+Games, and Care Team Members (CTMs), who manage and support their learning
+activities. The specific functions available to each group may evolve, but their
+primary responsibilities are expected to remain separate.
+
+Maintaining this distinction allows Learners to focus on participating in Games
+without being responsible for administrative tasks, while CTMs retain
+responsibility for managing activities and interpreting results.
+
+\textbf{Traceability:} Learner (Table~\ref{tab:Learner}), CTM
+(Table~\ref{tab:CTM}).
+
+\item[ULC\refstepcounter{ulcnum}\arabic{ulcnum}
+  \label{ULC_LearnerProfiles}:] \textbf{Individual Learner Profiles}
+
+Each Learner will continue to have an identifiable profile associated with their
+Games, configurations, and Game Session records. This relationship is
+fundamental to providing individualized activities and maintaining a history of
+performance.
+
+Maintaining individual profiles also allows \progname{} to associate the correct
+configurations and records with a Learner when they use different paired devices
+or receive support from multiple CTMs.
+
+\textbf{Traceability:} Learner (Table~\ref{tab:Learner}), Learner Game
+Configuration (Table~\ref{tab:LearnerGameConfig}), Game Session
+(Table~\ref{tab:GameSession}); \ref{FR-LRN-1}, \ref{FR-DATA-7}.
+
+\item[ULC\refstepcounter{ulcnum}\arabic{ulcnum}
+  \label{ULC_CareTeamPermissions}:] \textbf{Care Team Membership and
+Permissions}
+
+\progname{} will continue to associate CTMs with Learners through care team
+memberships. Each active Learner profile will have a Primary CTM responsible for
+managing the permissions of other CTMs. This structure establishes clear
+responsibility for access management when multiple individuals support the same
+Learner.
+
+Although the available permissions may change, the distinction between
+authorized and unauthorized actions is expected to remain. The identity of the
+Primary CTM may change through the ownership-transfer process without changing
+the purpose of the role.
+
+\textbf{Traceability:} CTM (Table~\ref{tab:CTM}), Care Team Membership
+(Table~\ref{tab:Care Team Membership}); \ref{FR-LRN-2}, \ref{FR-TEAM-4},
+\ref{FR-TEAM-6}, \ref{FR-TEAM-7}.
+
+\item[ULC\refstepcounter{ulcnum}\arabic{ulcnum}
+  \label{ULC_Personalization}:] \textbf{CTM-Controlled Personalization}
+
+CTMs will continue to manage Learner-specific Game settings and authorizations.
+The system is expected to preserve the principle that personalized activities
+are configured by authorized CTMs rather than automatically prescribed based on
+assumptions about a Learner's developmental needs.
+
+This approach maintains CTM responsibility for selecting activities appropriate
+to individual Learners, even if the range of available personalization settings
+expands.
+
+\textbf{Traceability:} Learner Game Configuration
+(Table~\ref{tab:LearnerGameConfig}), Template (Table~\ref{tab:Template});
+\ref{FR-PERS-1} through \ref{FR-PERS-4}.
+
+\item[ULC\refstepcounter{ulcnum}\arabic{ulcnum}
+  \label{ULC_Games}:] \textbf{Games as the Primary Learning Experience}
+
+Games will remain the central activities through which Learners interact with
+\progname{}. The content and number of Games may change, but their role as the
+primary means of providing practice opportunities is expected to remain.
+
+Replacing Games with a different primary learning format would fundamentally
+change \progname{}'s intended purpose rather than simply extend its
+functionality.
+
+\textbf{Traceability:} Game (Table~\ref{tab:Game}), Game Session
+(Table~\ref{tab:GameSession}).
+
+\item[ULC\refstepcounter{ulcnum}\arabic{ulcnum}
+  \label{ULC_PerformanceRecords}:] \textbf{Game-Specific Performance Records}
+
+\progname{} will continue to record performance information associated with
+individual Learners and Game Sessions. The metrics and methods of presentation
+may evolve, but the relationship between a Learner, a Game, and its recorded
+session results is expected to remain.
+
+Maintaining these relationships allows CTMs to review individual Game histories
+and interpret recorded results in the context of the activities completed.
+
+\textbf{Traceability:} Learner (Table~\ref{tab:Learner}), Game
+(Table~\ref{tab:Game}), Game Session (Table~\ref{tab:GameSession});
+\ref{FR-DATA-2}, \ref{FR-DATA-4}, \ref{FR-DATA-7}.
+
+\item[ULC\refstepcounter{ulcnum}\arabic{ulcnum}
+  \label{ULC_Participation}:] \textbf{Learner Control Over Participation}
+
+Learners will continue to have the ability to pause, restart, or end an ongoing
+Game. These controls allow Learners to stop or repeat an activity according to
+their needs and preferences, making them an important part of the intended
+gameplay experience.
+
+Removing these controls would reduce the flexibility available to Learners
+during participation and would conflict with the existing gameplay requirements.
+
+\textbf{Traceability:} \ref{FR-PLAY-5}, \ref{FR-PLAY-6}, \ref{FR-PLAY-7}.
+
+\item[ULC\refstepcounter{ulcnum}\arabic{ulcnum}
+  \label{ULC_NonClinicalPurpose}:] \textbf{Non-Clinical Purpose}
+
+\progname{} will remain an educational support application rather than a
+clinical assessment or diagnostic tool. Performance information will continue to
+describe outcomes within Games rather than establish broader developmental
+conclusions.
+
+Changing this purpose would require a substantial reconsideration of the
+system's scope and validation requirements.
+
+\textbf{Traceability:} Game (Table~\ref{tab:Game}), Game Session
+(Table~\ref{tab:GameSession}).
 
 \end{itemize}
 
@@ -1751,47 +2010,238 @@ There are no AI requirements because we are not employing a machine learning mod
 
 \subsection{Appendix A: Additional Materials}
 
-TODO
+Figure~\ref{fig:PlayingGame} shows the state diagram for playing a Game,
+including loading, gameplay, pausing, rewards, restarting, and exiting.
+
+\begin{figure}[htbp]
+  \centering
+  \resizebox{0.95\textwidth}{!}{\input{PlayingGame.tex}}
+  \caption{State diagram for playing a Game.}
+  \label{fig:PlayingGame}
+\end{figure}
 
 \subsection{Appendix B: Development Plan}
 
-\plt{This section is optional.  It is used to explain the plan for developing
-  the software.  In particular, this section gives a list of the order in which
-  the requirements will be implemented.  In the context of a course  this is
-  where you can indicate which requirements will be implemented as part of the
-  course, and which will be ``faked'' as future work.  This section can be
-  organized as a prioritized list of requirements, or it could show the
-  requirements that will be implemented for ``phase 1'', ``phase 2'', etc.}
+The project's development process and implementation plan are documented in the
+\href{https://github.com/meena-alomran/game-n-grow/blob/main/pdfs/DevelopmentPlan/DevelopmentPlan.pdf}{Development Plan}
+in the project repository.
 
 \subsection{Appendix C: Values of Auxiliary Constants}
 \label{Appendix C}
 
-\plt{Show the values of the symbolic parameters introduced in the report.}
+The following auxiliary constant is used in the nonfunctional requirements.
+Table~\ref{tab:AuxiliaryConstants} lists its value and referenced requirement.
 
-\plt{The definition of the requirements will likely call for SYMBOLIC\_CONSTANTS.
-Their values are defined in this section for easy maintenance.}
-
-\plt{The value of FRACTION, for the Maintainability NFR would be given here.}
-
-TODO
+\begin{table}[htbp]
+\centering
+\begin{tabular}{lll}
+\toprule
+Constant & Value & Referenced Requirement \\
+\midrule
+\texttt{FRACTION} & $1/6$ &
+\hyperref[NFR_Maintainability]{NFR-MAINT-1} \\
+\bottomrule
+\end{tabular}
+\caption{Values of Auxiliary Constants}
+\label{tab:AuxiliaryConstants}
+\end{table}
 
 \subsection{Appendix D: Generative AI Disclosure}
 
-\plt{Provide full transparency on how generative AI was used in the creation of
-  this document.  This includes any text, figures, or tables that were generated
-  by AI.  If any skills were created for AI agents to review the documentation,
-  those should be disclosed here.}
+\textbf{Artificial Intelligence (AI) Tools Used:} Claude's Sonnet 5 model and
+ChatGPT (OpenAI).
+
+\subsubsection{How and Where Used}
+
+ChatGPT (OpenAI) assisted with a final grammar and spelling review of portions
+of this Software Requirements Specification (SRS).
+
+Sonnet was used to learn how to resolve LaTeX errors and structure LaTeX
+documents.
+
+We used AI to convert our team-created system context diagram into a vector
+diagram using LaTeX/TikZ. We also used AI to add citations to the text and
+format the corresponding BibTeX entries.
+
+\subsubsection{Verification of AI-Generated Content}
+
+AI usage was limited to resolving LaTeX errors, formatting citations,
+structuring the document, converting the team-created system context diagram
+into a vector diagram, and reviewing grammar and spelling.
 
 \subsection{Appendix E: Reflection}
 
-\plt{This isn't part of the SRS, but it is part of the course.}
+\begin{enumerate}
 
-The information in this section will be used to evaluate the team members on the
-graduate attribute of Lifelong Learning.  
+\item \textbf{What went well during the development of the SRS?}
 
-\input{../Reflection.text}
+One aspect that went well was our team's ability to build on our initial project
+proposal and develop a more detailed understanding of what \progname{} needs to
+accomplish. As we worked through the Software Requirements Specification (SRS),
+we were able to break down our overall project goals into more specific system
+functionalities and identify how different parts of the application would
+interact. Having a shared understanding of our project's purpose helped us
+organize the requirements and maintain consistency between sections. We also
+benefited from being able to discuss different ideas as a team and refine our
+decisions as the project became more clearly defined.
 
-\input{../SRS_Reflection.text}
+\item \textbf{What challenges did you experience, and how did you resolve them?}
+
+One of the main challenges we experienced was distinguishing between high-level
+project goals and specific system requirements. Initially, it was difficult to
+determine how much detail belonged in each section and how to describe what the
+system needed to accomplish without prescribing exactly how it would be
+implemented.
+
+Another challenge was ensuring that the requirements remained consistent across
+different sections of the SRS, especially as our understanding of the project
+evolved. We addressed these challenges by referring back to the SRS template,
+reviewing the requirements as a team, and comparing them against our overall
+project objectives. This helped us make our requirements more specific while
+ensuring they continued to support the intended purpose of \progname{}.
+
+\item \textbf{How many requirements were inspired by discussions with clients,
+stakeholders, or potential users?}
+
+Approximately ten of our requirements were influenced by discussions with our
+project supervisor, who is our domain expert in psychology and autism. These
+discussions helped us better understand the different needs and abilities of
+autistic Learners, particularly the importance of personalization,
+accessibility, and flexibility during gameplay. This influenced requirements
+related to Game customization, adjustable settings, clear instructions, and
+allowing Learners to control their participation. The discussions helped us
+ensure that our requirements considered the needs of our intended users rather
+than focusing solely on technical functionality.
+
+\item \textbf{Which courses helped prepare your team for this capstone
+deliverable?}
+
+SFWRENG 3RA3, our Software Requirements course, was especially useful for
+developing this deliverable. The course introduced us to the process of
+identifying, organizing, and documenting software requirements, which directly
+applied to writing our SRS. In particular, it helped us understand the
+distinction between functional and nonfunctional requirements, the importance of
+clear and unambiguous wording, and how to structure requirements so that they
+can be understood and evaluated.
+
+The knowledge gained from this course provided a strong foundation for
+translating our project idea into a more formal specification.
+
+\item \textbf{What additional knowledge or skills do you need to acquire?}
+
+\textbf{Amirah Abdel-Rahman:}
+
+One area where I would like to develop a stronger understanding is developmental
+psychology, particularly autism and how differences in cognitive, communication,
+and learning abilities may affect the way individuals interact with educational
+games. Since \progname{} is designed for autistic Learners, I think it is
+important to understand these differences so that the decisions we make are
+appropriate for our intended users rather than based on assumptions.
+
+I would also like to improve my knowledge of game design, especially how to
+create engaging and accessible activities that balance learning objectives with
+an enjoyable user experience. While I have experience with software development,
+designing educational games for a specific user group introduces considerations
+that I have not explored in as much depth.
+
+\textbf{Marko:} I have some knowledge in game development, but I currently lack
+the hands-on experience with database management specifically for a game engine
+context. I understand SQL and security well enough, as well as game engines like
+Godot, but as for bridging the gap between them, I am unfamiliar with the best
+practices.
+
+\textbf{Maya Azar:}
+
+One area where I need to develop a stronger understanding is autism,
+particularly the different needs, abilities, and challenges that autistic
+individuals may experience. Currently, my knowledge is mostly surface-level, so
+I think it is important to learn more about autism to ensure that the Games we
+develop are appropriate for our intended users. I would also like to gain a
+better understanding of how children learn and develop new skills, especially
+how different learning approaches can influence their engagement and progress.
+Since Spectropica is designed to support learning, having a stronger foundation
+in these areas will help me make more informed design decisions.
+
+\textbf{Meena Al Omran:}
+
+I have a lot to learn technically. I don't have any experience in game design,
+although I've always found it interesting. It will be new to program real-time interactions
+and to also consider things like enjoyability, rewards, etc. Most of my experience is
+very objective-based. I also have never designed for an app before and have only worked
+in web development, so that will be a new environment to work in.
+I also have a ways to go with understanding the needs and experiences of autistic children,
+although I do have some basic knowledge from research I've done for personal interest. Most of
+my knowledge of autism is about how adults experience it. It will be new to consider a child's
+point of view and how to help them. I look forward to the challenge.
+
+\textbf{Omar Ghoneim:}
+
+Despite having a C++ background, I am not familiar with game engines and their quirks. I am also not experienced in the field of game physics and how to draw good art or visuals in the context of gaming. This will also be my first time dealing with very sensitive data and integrating heavy privacy and security mechanisms. 
+
+I also need to acquire the macrosystem understanding of backend engineering, with the game engine, with the frontend and the account management altogether wrapped up. I need to acquire the skill of planning a system that expansive and complex.
+
+
+
+\item \textbf{How will you acquire these skills, and which approach will you
+choose?}
+
+\textbf{Amirah Abdel-Rahman:}
+
+To strengthen my understanding of autism and developmental abilities, I plan to
+continue reviewing academic research on autism and educational interventions and
+consulting with our domain expert to gain more practical insight into the needs
+of our intended users. Consulting our expert will allow me to ask questions
+directly related to our project and receive feedback on our design decisions.
+Reviewing research will help me build the foundational knowledge needed to make
+those discussions more meaningful.
+
+For game design, I plan to prioritize hands-on prototyping because I learn best
+by applying concepts directly. This will allow me to explore different game
+mechanics, identify usability issues, and gradually improve my understanding of
+how to design activities that are both engaging and accessible.
+
+\textbf{Marko:} A good approach is online research and finding learning
+resources for this problem specifically. I could also personally ask actual
+industry professionals with past experience in the area how they would do it.
+And then, I could practice on a mini side-project that uses Godot and bridges
+data to an online SQL hosting service, so that I get hands-on mastery of the
+skill.
+
+\textbf{Maya Azar:}
+
+To improve my understanding of autism and children's learning processes, I could
+review academic research and educational resources or speak with individuals who
+have professional or personal experience in these areas. I plan to use a
+combination of both approaches. Research will help me build a stronger
+foundation and understand different learning needs, while speaking with experts,
+such as our project supervisor, will allow me to ask questions specific to
+Spectropica. I also plan to learn from friends and family members with relevant
+experience, including those who work as special education teachers. I think
+these conversations will be especially valuable because they can provide
+practical insight into how children with different learning needs respond to
+educational activities, which can help guide our Game design decisions.
+
+\textbf{Meena Al Omran:}
+
+To improve my technical knowledge, I will have to do some research about game development
+and how it differs from the type of programming I'm used to. It will also help to talk
+to my groupmates who have more experience in game development about how to learn and 
+what goes into it. It would help to do some sample coding on a much smaller scale before
+we start implementation. The same goes for app development - I will need to do some reading and
+try out some small examples.
+I plan to improve my knowledge of autism, specifically autistic children, by reading research. Our supervisor
+will also be a big help in understanding not only their development, but general cognitive development
+in children. I think that also speaking to educators in the field will help me gain some perspective
+and understand their needs better.
+
+\textbf{Omar Ghoneim:}
+
+I will acquire the skill of dealing with the Godot engine by doing a volume of demonstrations and practice projects on a small scale with Godot, each harnessing different areas important to Spectropica such as game physics, backend engineering and frontend design. I will try to agglomerate these into one skillset that can be used for a large full-stack project like Spectropica.
+
+Regarding the macrosystem understanding and planning, I will ask some colleagues and friends I have that are veterans in the field of designing large systems and handling sensitive data, of which some are older and more experienced. I will create mock plans for mock project to practice the skill of system decomposition and system design, to then apply it the Spectropica context.
+
+
+\end{enumerate}
 
 \newpage
 
