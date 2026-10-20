@@ -1551,7 +1551,7 @@ The system shall comply with Canada's federal PIPEDA law and the EU's GDPR law. 
   \textbf{Maintainability}
   
   \setcounter{nfrnum}{0}\renewcommand{\thenfrnum}{NFR-MAINT-\arabic{nfrnum}}
-  \item[\refstepcounter{nfrnum}\thenfrnum \label{NFR-MAINT-1}:]The effort required to make any of the likely changes listed for \progname{} should be less than FRACTION of the original development time.
+  \item[\refstepcounter{nfrnum}\thenfrnum \label{NFR-MAINT-1}:]The effort required to make any of the likely changes listed for \progname{} should be less than FRACTION (defined in \ref{Appendix C}) of the original development time.
   
 \end{itemize}
 
@@ -1591,22 +1591,33 @@ flow is: Stakeholder Need -> Use Case -> Requirement}
 \plt{Further traceability to test cases and modules will be given in other
 documents.}
 
-\begin{longtable}{p{0.15\textwidth} p{0.15\textwidth} p{0.20\textwidth} p{0.20\textwidth}}
+\begin{longtable}{p{0.3\textwidth} p{0.3\textwidth} p{0.3\textwidth} p{0.3\textwidth}}
 
 \toprule
 Stakeholder Req & Use Case & Functional Req \\
 \midrule
 \ref{SR-LRN-1} & \ref{UC_Label4}, \ref{UC_Label5} & \ref{FR-PERS-3} \\
+\\
 \ref{SR-LRN-3} & \ref{UC_Label1} & \ref{FR-PLAY-2}, \ref{FR-PLAY-4}, \ref{FR-PLAY-5}, \ref{FR-PLAY-6}, \ref{FR-PLAY-7}, \ref{FR-PLAY-8}, \ref{FR-PLAY-9} \\
+\\
 \ref{SR-LRN-4} & \ref{UC_Label1}, \ref{UC_Label6} & \ref{FR-TMPL-3}, \ref{FR-RWD-1}, \ref{FR-RWD-4} \\
+\\
 \ref{SR-CUST-3} &  & \ref{FR-PLAY-4}, \ref{FR-PLAY-5}, \ref{FR-PLAY-6}, \ref{FR-PLAY-7}, \ref{FR-PLAY-8}, \ref{FR-PLAY-9} \\
+\\
 \ref{SR-CTM-2} & \ref{UC_Label4}, \ref{UC_Label5} & \ref{FR-PERS-3} \\
+\\
 \ref{SR-CTM-3} & \ref{UC_Label5} & \ref{FR-TMPL-3} \\
+\\
 \ref{SR-CTM-4} & \ref{UC_Label3} & \ref{FR-DATA-1}, \ref{FR-DATA-2}, \ref{FR-DATA-3}, \ref{FR-DATA-4}, \ref{FR-DATA-5}\\
+\\
 \ref{SR-CTM-5} & \ref{UC_Label9}, \ref{UC_Label10} & \ref{FR-TEAM-1}, \ref{FR-TEAM-5} \\
+\\
 \ref{SR-CTM-6} & \ref{UC_Label10} & \ref{FR-TEAM-4}, \ref{FR-TEAM-7} \\
+\\
 \ref{SR-DOM-2} & \ref{UC_Label5}, \ref{UC_Label6} & \ref{FR-TMPL-3}, \ref{FR-RWD-1}, \ref{FR-RWD-4} \\
-\ref{SR-DOM-3} & \ref{UC_Label5}, \ref{UC_Label6} & \ref{FR-PRS-3}, \ref{FR-TMPL-4} \\
+\\
+\ref{SR-DOM-3} & \ref{UC_Label5}, \ref{UC_Label6} & \ref{FR-PERS-3}, \ref{FR-TMPL-4} \\
+\\
 \ref{SR-DOM-4} & \ref{UC_Label4}, \ref{UC_Label5} & \ref{FR-PERS-2}, \ref{FR-TMPL-5} \\
 \bottomrule
 
@@ -1614,24 +1625,20 @@ Stakeholder Req & Use Case & Functional Req \\
 Functional Requirements} \label{tab:SR2UC2FRtm}
 \end{longtable}
 
-\begin{longtable}{p{0.20\textwidth} p{0.20\textwidth}}
-
-\toprule
-Stakeholder Req & Nonfunctional Req \\
-\midrule
-\ref{SR-LRN-1} & \ref{NFR-USE-1} \\
-\bottomrule
-\caption{Traceability Between Stakeholder and Nonfunctional Requirements}
-\label{tab:SR2FRtm}
-
-\end{longtable}
-
-\begin{longtable}{p{0.20\textwidth} p{0.20\textwidth}}
+\begin{longtable}{p{0.5\textwidth} p{0.5\textwidth}}
 
 \toprule
 Functional Req & Nonfunctional Req \\
 \midrule
-\rref{FR-CTM-1} & \nfrref{NFR-USE-1} \\
+\ref{FR-CTM-4}, \ref{FR-DATA-1}, \ref{FR-DATA-9} & \ref{NFR-SEC-1}, \ref{NFR-USE-1} \\
+\\
+\ref{FR-LRN-3} & \ref{NFR-SEC-2} \\
+\\
+\ref{FR-DATA-1}, \ref{FR-DATA-9} & \ref{NFR-SEC-3}, \ref{NFR-EFF-1}, \ref{NFR-ACCU-1} \\
+\\
+\ref{FR-PLAY-2}, \ref{FR-PLAY-4}, \ref{FR-PLAY-5}, \ref{FR-PLAY-6}, \ref{FR-PLAY-7}, \ref{FR-PLAY-8} & \ref{NFR-USE-4}, \ref{NFR-USE-5}, \ref{NFR-ACCESS-4} \\
+\\
+\ref{FR-PERS-3}, \ref{FR-TMPL-4} & \ref{NFR-ACCESS-3} \\
 \bottomrule
 \caption{Traceability Between Functional and Nonfunctional Requirements}
 \label{tab:FR2NFRtm}
@@ -1687,6 +1694,7 @@ TODO
   requirements that will be implemented for ``phase 1'', ``phase 2'', etc.}
 
 \subsection{Appendix C: Values of Auxiliary Constants}
+\label{Appendix C}
 
 \plt{Show the values of the symbolic parameters introduced in the report.}
 
