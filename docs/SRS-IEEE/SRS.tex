@@ -31,6 +31,7 @@
 \usepackage{amsfonts}
 \usepackage{amssymb}
 \usepackage{graphicx}
+\usepackage{tikz}
 \usepackage{colortbl}
 \usepackage{xr}
 \usepackage{hyperref}
@@ -217,119 +218,279 @@ The intended readers of this SRS are mainly the development team and potentially
 % ============================================================== 
 \section{System Overview}
 
-This section provides general information about the system.  It identifies the
-problem, the vision, and the interfaces between the system and its environment.
-This section also describes user characteristics and lists the system
-constraints.
-
-\plt{The purpose of this section is to provide general information about the
-  system so that the specific requirements in the later sections will be easier to
-  understand. The general system description section is designed to be
-  changeable independent of changes to the functional requirements documented in
-  the specific system description. The general system description provides a
-  context for a family of related models.  The general description can stay the
-  same, while specific details are changed between family members.}
+This section provides an overview of \progname{}, including the problem it
+addresses, its intended purpose, the environment in which it operates, its
+users, and the constraints affecting its design. The overview establishes the
+context for the detailed requirements presented in the following sections.
 
 \subsection{Problem Statement}
 
-\plt{Current situation, problem, impact, desired improvement.  You will likely borrow some text from your problem description document.}
+Autistic Learners have different strengths, communication styles, sensory
+preferences, and support needs~\citep{nimhAutism2025}. These differences mean
+that learning activities
+suitable for one Learner may not be appropriate for another. Caregivers and
+educators therefore need ways to provide activities that accommodate individual
+needs rather than relying on a single difficulty level, presentation style, or
+learning approach.
 
-TODO
+Providing personalized activities also introduces challenges in managing each
+Learner's experience. When multiple individuals are involved in supporting a
+Learner, they need a consistent way to manage learning activities, share
+relevant information, and coordinate responsibilities. Without a centralized
+system, maintaining individual configurations and understanding which activities
+are appropriate for each Learner can become difficult.
+
+Another challenge is interpreting performance over time. A Learner's results may
+vary depending on the Game, its difficulty, and the conditions under which it
+was completed. Without organized records of previous Game Sessions, Care Team
+Members (CTMs) may struggle to identify patterns or make informed decisions
+about future activities.
+
+\progname{} addresses these challenges through a unified suite of customizable
+learning Games supported by Learner profiles, CTM-managed configurations, and
+performance tracking. The system allows CTMs to manage individual Learners,
+collaborate through care teams, customize Games using Templates, and review
+recorded performance information. Learners can participate in authorized Games,
+receive feedback and rewards, and control their participation during gameplay.
+
+\progname{} is intended to provide individualized practice opportunities and
+support CTMs in understanding performance within the application. It is not
+intended to provide clinical diagnoses or establish that changes in Game
+performance represent broader developmental improvements.
 
 \subsection{Product Vision}
 
-\plt{A clear and concise statement of the product's purpose and goals.}
+\progname{} aims to provide autistic Learners with an engaging and personalized
+environment for practising selected skills while giving CTMs a centralized way
+to manage learning activities and review progress.
 
-\plt{The goal statements are functional and nonfunctional objectives that system
-  under consideration should achieve. Goals provide criteria for sufficient
-  completeness of a requirements specification and for requirements pertinence.
-  Goals will be refined by requirements.  The goals are written abstractly, with
-  a minimal amount of technical language.  They should be understandable by
-  non-domain experts.}
+The system has five primary objectives:
 
-\plt{You will likely borrow from your goal statements in your problem
-description document.}
+\begin{enumerate}
+\item \textbf{Support Individualized Learning:} Allow CTMs to manage
+Learner-specific Game authorizations, difficulty levels, personalized settings,
+and Templates so that activities can reflect individual needs and preferences.
+\item \textbf{Enable Coordinated Care Team Management:} Provide a structured way
+for multiple CTMs to support the same Learner while maintaining appropriate
+permissions and responsibilities. A Primary CTM manages access to the Learner's
+information and configuration.
+\item \textbf{Provide Accessible and Engaging Gameplay:} Offer Games with
+understandable instructions, opportunities for repeated practice, and rewards
+intended to encourage engagement. Learners retain the ability to pause, restart,
+or end activities.
+\item \textbf{Support Meaningful Performance Tracking:} Record Game Session
+results and provide authorized CTMs with access to individual Game histories,
+performance representations, and data exports.
+\item \textbf{Maintain Consistent Learner Experiences:} Allow Learners to access
+their profiles through paired devices while preserving their assigned Games,
+configurations, and associated information.
+\end{enumerate}
 
-TODO
-  
+The initial learning areas are routine sequencing, functional communication, and
+short-term memory. These areas establish the intended focus of the initial
+Games, while Templates allow CTMs to customize existing Games rather than create
+entirely new Game types.
+
+These objectives define \progname{}'s intended benefits without prescribing the
+implementation of individual features. Together, they support a learning
+environment in which CTMs can personalize activities, coordinate
+responsibilities, and review information while Learners participate in Games
+suited to their needs.
+
 \subsection{System Context}
 
-\plt{Include users, external systems, APIs, databases, and third-party services.}
+\progname{} is intended for use in environments where autistic Learners
+participate in learning activities with varying levels of support from
+caregivers or educators. These environments may include homes and learning
+centres.
 
-\plt{Your system context will include a figure that shows the abstract view of
-  the software.  In some cases the diagram will show other external
-  entities, besides the user.  For instance, when the software product is a
-  library, the user will be another software program, not an actual end user.
-  If there are system constraints that the software must work with external
-  libraries, these libraries can also be shown on the System Context diagram.
-  They should only be named with a specific library name if this is required by
-  the system constraint.}
+The system interacts with two primary user groups: Learners and CTMs. Learners
+access the Game Suite to participate in authorized Games, while CTMs use the
+Dashboard to manage Learner profiles, Game configurations, Templates, care team
+permissions, and performance information.
 
-\begin{figure}[h!]
-\begin{center}
- \includegraphics[width=0.6\textwidth]{SystemContextFigure}
-\caption{System Context}
-\label{Fig_SystemContext} 
-\end{center}
+Users interact with \progname{} through supported devices, with tablet
+applications for iPadOS and Android forming the primary intended operating
+environments. Web access is also planned. The system is being developed using
+Godot, whose documentation describes exports for Android, iOS, and web
+browsers~\citep{godotExportDocumentation}. Support for a particular platform
+depends on the team's ability to implement and test it.
+
+Devices provide the input, display, and connectivity capabilities needed to
+access \progname{}. The system manages the association between Learners and
+their paired devices.
+
+The system boundary includes \progname{}'s application functionality running on
+supported devices and its server-side functionality responsible for managing
+accounts, permissions, configurations, Games, and records. The devices,
+operating systems, browsers, and network connectivity used to access \progname{}
+form part of its operating environment rather than separate application
+components.
+
+The system manages information associated with CTM accounts, Learner profiles,
+care team memberships, Games, Game Sessions, Templates, and rewards. These
+entities are internal to \progname{} and are described in
+Section~7.
+
+\begin{figure}[htbp]
+\centering
+\resizebox{\textwidth}{!}{\input{SystemContext.tex}}
+\caption{System Context Diagram for \progname{}}
+\label{Fig_SystemContext}
 \end{figure}
 
-\plt{For each of the entities in the system context diagram its responsibilities
-  should be listed.  Whenever possible the system should check for data quality,
-  but for some cases the user will need to assume that responsibility.  The list
-  of responsibilities should be about the inputs and outputs only, and they
-  should be abstract.  Details should not be presented here.  However, the
-  information should not be so abstract as to just say ``inputs'' and
-  ``outputs''.  A summarizing phrase can be used to characterize the inputs.
-  For instance, saying ``material properties'' provides some information, but it
-  stays away from the detail of listing every required properties.}
+Figure~\ref{Fig_SystemContext} illustrates \progname{}'s system boundary and the
+information exchanged with its external entities: Learners and CTMs. The arrows
+represent the direction of information flow rather than the order in which
+operations occur.
 
-\begin{itemize}
-\item User Responsibilities:
-\begin{itemize}
-\item 
-\end{itemize}
-\item \progname{} Responsibilities:
-\begin{itemize}
-\item Detect data type mismatch, such as a string of characters instead of a
-  floating point number
-\item 
-\end{itemize}
-\end{itemize}
+\paragraph{Learner Responsibilities}
 
-\plt{Identify in what context the software will typically be used.  Is it for
-exploration? education? engineering work? scientific work?. Identify whether it
-will be used for mission-critical or safety-critical applications.} 
+Learners provide Game selections, responses to activities, and participation
+choices. They may also interact with rewards and cosmetic items made available
+through the Game Suite. Learners are responsible for making selections during
+gameplay but are not expected to manage their own configurations or permissions.
 
-\plt{This additional context information is needed to determine how much effort
-should be devoted to the rationale section.  If the application is
-safety-critical, the bar is higher.  This is currently less structured, but
-analogous to, the idea to the Automotive Safety Integrity Levels (ASILs) that
-McSCert uses in their automotive hazard analyses.}
+\paragraph{CTM Responsibilities}
+
+CTMs provide information needed to create and manage Learner profiles, configure
+Games, customize Templates, and interpret performance results. Authorized CTMs
+may manage Learner information according to their assigned permissions. The
+Primary CTM is responsible for managing the membership and permissions of other
+CTMs associated with a Learner.
+
+CTMs are responsible for choosing configurations and content appropriate to the
+Learners they support. \progname{} does not independently determine the
+suitability of a learning activity for an individual Learner.
+
+\paragraph{Supported Device and Network Responsibilities}
+
+The device provides the input and display capabilities through which users
+interact with \progname{}. Network connectivity supports communication with the
+system and synchronization of Learner information.
+
+\paragraph{External Email-Delivery Service Responsibilities}
+
+An external email-delivery service supports the account-verification
+functionality specified in \ref{FR-CTM-3}. The service is responsible for
+delivering verification messages requested by \progname{}, while \progname{}
+remains responsible for managing account verification. No specific email
+provider is prescribed.
+
+\paragraph{\progname{} Responsibilities}
+
+\progname{} is responsible for receiving and validating user inputs, managing
+CTM accounts and Learner profiles, maintaining device pairings, and enforcing
+access permissions.
+
+During gameplay, the system is responsible for presenting authorized Games with
+the appropriate Learner Game Configuration or assigned Template. It also
+provides feedback, manages rewards and cosmetic items, and records Game Session
+information.
+
+For CTMs, \progname{} provides access to permitted management functions and
+representations of Learner performance information. It maintains the
+relationships between Learners, CTMs, Games, configurations, and session
+records.
+
+\progname{} is also responsible for temporarily retaining unsynchronized Game
+Session results when network connectivity is unavailable, as specified in
+\ref{FR-DATA-8}.
+
+The system requests delivery of account-verification messages through the
+external email-delivery service as part of the CTM registration process.
+
+\progname{} is an educational support system rather than a clinical or
+safety-critical application. Its intended use involves providing opportunities
+for practice and presenting information about performance within the Games.
+
+Although it is not a clinical system, \progname{} manages information about
+potentially vulnerable users. Appropriate access controls and handling of
+Learner information are therefore important to its operation.
+
+The external email-delivery service supports account verification through
+communication beyond \progname{}'s application boundary. This does not prescribe
+a particular email provider or implementation technology.
 
 \subsection{User Characteristics} \label{SecUserCharacteristics}
 
-\plt{This section summarizes the knowledge/skills expected of the user.
-  Measuring usability, which is often a required non-function requirement,
-  requires knowledge of a typical user.  As mentioned above, the user is a
-  different role from the ``intended reader,'' as given in
-  Section~\ref{sec_IntendedReader}.  As in Section~\ref{sec_IntendedReader}, the
-  user characteristics should be specific an unambiguous.  For instance, ``The
-  end user of \progname{} should have an understanding of undergraduate Level 1
-  Calculus and Physics.''}
+\progname{} has two primary user groups: Learners and Care Team Members (CTMs).
+Each group has different responsibilities, technical abilities, and interaction
+needs.
+
+\paragraph{Learners}
+
+Learners are autistic individuals who use \progname{} to participate in Games
+and practise selected skills. The initial target population identified by the
+project is children aged eight to ten, although suitability depends on individual
+abilities and support needs rather than age alone.
+
+Autistic individuals have varied communication characteristics and may be
+more or less sensitive to sensory input~\citep{nimhAutism2025}. For design
+purposes, the project also assumes that Learners may vary in attention, reading
+skills, motor coordination, and experience with digital devices and Games.
+
+The intended Learner should be able to make intentional selections using a
+supported interaction method, independently or with assistance. Independent
+reading, spoken communication, and advanced technical knowledge are not assumed.
+
+Learners are expected to interact primarily with the Game Suite. Their tasks
+include selecting authorized Games, responding to instructions, controlling
+gameplay, and interacting with available rewards or cosmetic items. They are not
+expected to understand account management, permission structures, or performance
+analytics.
+
+\paragraph{Care Team Members (CTMs)}
+
+CTMs include parents, guardians, caregivers, educators, and other individuals
+involved in supporting a Learner's activities.
+
+CTMs are expected to have basic digital literacy, including the ability to
+navigate an application, create or access an account, enter information, and
+manage settings. Programming experience or knowledge of software development is
+not required.
+
+CTMs are expected to have sufficient familiarity with the Learner's needs and
+preferences to select appropriate Games, adjust configurations, and interpret
+recorded performance information.
+
+CTMs may have different levels of authority within a Learner's care team. The
+Primary CTM manages other members' permissions, while other CTMs can access
+functions according to the permissions assigned to them.
+
+\paragraph{Domain Experts}
+
+Domain Experts, such as special-education professionals and autism researchers,
+are stakeholders who may provide guidance on the appropriateness of learning
+activities and the interpretation of results. They are not defined as a separate
+application user role in the current functional requirements.
 
 \subsection{System Constraints}
 
-\plt{System constraints differ from other type of requirements because they
-  limit the developers' options in the system design and they identify how the
-  eventual system must fit into the world. This is the only place in the SRS
-  where design decisions can be specified.  That is, the quality requirement for
-  abstraction is relaxed here.  However, system constraints should only be
-  included if they are truly required.}
+The following constraints limit the operating environment and design choices for
+\progname{}. They are distinguished from functional and nonfunctional
+requirements, which describe the system's behavior and quality attributes in
+later sections.
 
-\plt{This is where you would mention platform constrains, and licensing
-restrictions.}
+\begin{description}
+\item[\textbf{SC1 --- Supported Operating Platforms}]
+\progname{} is intended to support tablet applications on iPadOS and Android, as
+well as access through a web browser. Support for additional desktop operating
+systems, including Windows and macOS, may be considered depending on
+implementation and testing feasibility. Linux support is not a priority for the
+initial release.
+\item[\textbf{SC2 --- Supported Input Hardware}]
+The initial system is intended to support touch input on compatible tablets.
+Additional input methods, including keyboard and pointer interaction, may be
+supported where appropriate for the selected deployment platforms.
+\item[\textbf{SC3 --- Networked Account and Data Management}]\hfill\\
+Network connectivity is required for operations involving shared account
+information, care team membership, and synchronization of Learner data.
+\ref{FR-DATA-8} specifies temporary retention of unsynchronized Game Session
+results but does not establish full offline operation.
+\end{description}
 
-% ============================================================== 
+% ==============================================================
 \section{Stakeholder Requirements}
 
 %\plt{Technology-independent requirements.  These come from statements made by
@@ -343,7 +504,7 @@ restrictions.}
 \noindent \begin{itemize}
 \setcounter{srnum}{0}\renewcommand{\thesrnum}{SR-LRN-\arabic{srnum}}
 
-\item[\refstepcounter{srnum}\thesrnum \label{SR-LRN-1}:] Games are not overstimulating or understimulating for Learners with hypersensitivity or hyposensitivity, respectively, to stimuli
+\item[\refstepcounter{srnum}\thesrnum \label{SR-LRN-1}:] Games are not overstimulating or understimulating for Learners with sensory hypersensitivity or hyposensitivity, respectively
 
 \item[\refstepcounter{srnum}\thesrnum \label{SR-LRN-2}:] Games are unambiguous with clear rules and instructions
 
@@ -356,6 +517,10 @@ restrictions.}
 
 \item[\refstepcounter{srnum}\thesrnum \label{SR-CUST-1}:] System is easy to install, implement, and manage for varying levels of technical literacy
 
+\item[\refstepcounter{srnum}\thesrnum \label{SR-CUST-2}:] System is highly reliable from a technological point of view
+
+\item[\refstepcounter{srnum}\thesrnum \label{SR-CUST-3}:] System must be safe for autistic children to use and avoid elements that can trigger emotional or physical distress in Learners
+
 \textbf{Care Team Members}
 \setcounter{srnum}{0}\renewcommand{\thesrnum}{SR-CTM-\arabic{srnum}}
 \item[\refstepcounter{srnum}\thesrnum \label{SR-CTM-1}:] Game content is educational and aids Learners with their skill development
@@ -365,6 +530,10 @@ restrictions.}
 \item[\refstepcounter{srnum}\thesrnum \label{SR-CTM-3}:] Aspects of game content (such as a vocabulary list in a reading game) can be tailored towards a specific Learner
 
 \item[\refstepcounter{srnum}\thesrnum \label{SR-CTM-4}:] Learners' progression in games can be viewed and tracked over time
+
+\item[\refstepcounter{srnum}\thesrnum \label{SR-CTM-5}:] Multiple CTMs are able to collaborate in managing a Learner's profile
+
+\item[\refstepcounter{srnum}\thesrnum \label{SR-CTM-6}:] The primary CTM can manage other CTMs' permissions on a Learner's profile and control what can be accessed and changed
 
 \textbf{Domain Experts}
 \setcounter{srnum}{0}\renewcommand{\thesrnum}{SR-DOM-\arabic{srnum}}
@@ -377,6 +546,8 @@ restrictions.}
 \item[\refstepcounter{srnum}\thesrnum \label{SR-DOM-4}:] Games are not static; they allow for progression of difficulty
 
 \end{itemize}
+
+Note that there is some natural overlap between stakeholders' requirements. Requirements were categorized under what the development team considers the most relevant stakeholder to them.
 
 %\plt{You should give your SRs meaningful labels, so that you can refer to them
 %in other parts of the SRS.  The label names should be meaningful mnemonics, not
