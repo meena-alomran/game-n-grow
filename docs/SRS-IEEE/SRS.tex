@@ -175,7 +175,7 @@ The purpose of \progname{} is providing a range of games for caregivers, parents
 
 Moreover, physical and digital games designed for autistic kids tend to be rigid and difficult to customize for each student. We aim to solve this issue by allowing caregivers, educators and parents the ability to tailor the games in a variety of ways. 
 
-\subsection{Scope}
+\subsection{Scope} \label{sec_Scope}
 
 The scope of our project is the development of a digital game suite for the evaluation and improvement of the skills of autistic learners under the jurisdiction of caregivers, parents and educators. The intended users are therefore autistic learners with varying skills in varying domains, and Care Team members who utilize features designed to tailor and support the learning path of the child.
 
@@ -223,7 +223,7 @@ addresses, its intended purpose, the environment in which it operates, its
 users, and the constraints affecting its design. The overview establishes the
 context for the detailed requirements presented in the following sections.
 
-\subsection{Problem Statement}
+\subsection{Problem Statement} \label{sec_SystemProblem}
 
 Autistic Learners have different strengths, communication styles, sensory
 preferences, and support needs~\citep{nimhAutism2025}. These differences mean
@@ -258,7 +258,7 @@ support CTMs in understanding performance within the application. It is not
 intended to provide clinical diagnoses or establish that changes in Game
 performance represent broader developmental improvements.
 
-\subsection{Product Vision}
+\subsection{Product Vision} \label{sec_ProductVision}
 
 \progname{} aims to provide autistic Learners with an engaging and personalized
 environment for practising selected skills while giving CTMs a centralized way
@@ -297,7 +297,7 @@ environment in which CTMs can personalize activities, coordinate
 responsibilities, and review information while Learners participate in Games
 suited to their needs.
 
-\subsection{System Context}
+\subsection{System Context} \label{sec_SystemContext}
 
 \progname{} is intended for use in environments where autistic Learners
 participate in learning activities with varying levels of support from
@@ -473,17 +473,17 @@ requirements, which describe the system's behavior and quality attributes in
 later sections.
 
 \begin{description}
-\item[\textbf{SC1 --- Supported Operating Platforms}]
+\item[\textbf{SC1 --- Supported Operating Platforms}]\hypertarget{SC1}{}
 \progname{} is intended to support tablet applications on iPadOS and Android, as
 well as access through a web browser. Support for additional desktop operating
 systems, including Windows and macOS, may be considered depending on
 implementation and testing feasibility. Linux support is not a priority for the
 initial release.
-\item[\textbf{SC2 --- Supported Input Hardware}]
+\item[\textbf{SC2 --- Supported Input Hardware}]\hypertarget{SC2}{}
 The initial system is intended to support touch input on compatible tablets.
 Additional input methods, including keyboard and pointer interaction, may be
 supported where appropriate for the selected deployment platforms.
-\item[\textbf{SC3 --- Networked Account and Data Management}]\hfill\\
+\item[\textbf{SC3 --- Networked Account and Data Management}]\hypertarget{SC3}{}\hfill\\
 Network connectivity is required for operations involving shared account
 information, care team membership, and synchronization of Learner data.
 \ref{FR-DATA-8} specifies temporary retention of unsynchronized Game Session
@@ -1555,12 +1555,61 @@ Functional Req & Nonfunctional Req \\
 
 \section{Rationale}
 
-\plt{Provide a rationale for the decisions made in the documentation.  Rationale
-should be provided for scope decisions, functional requirements, nonfunctioanl
-requirements, data requirements, and AI requirements.  You don't need a
-rationale for everything, ust the major decisions that are not obvious.  You
-should have traceability to the entities in the document that you are
-referencing.}
+Table~\ref{tab:Rationale} provides justification for selected requirements and
+scope decisions that influence \progname{}'s functionality and operating
+environment.
+
+\begin{longtable}{@{}p{0.12\textwidth}p{\dimexpr0.88\textwidth-2\tabcolsep\relax}@{}}
+\caption{Rationale for Selected Requirements and Scope Decisions}
+\label{tab:Rationale}\\
+\toprule
+\textbf{ID} & \textbf{Rationale}\\
+\midrule
+\endfirsthead
+\toprule
+\textbf{ID} & \textbf{Rationale}\\
+\midrule
+\endhead
+\midrule
+\multicolumn{2}{r}{Continued on next page}\\
+\endfoot
+\bottomrule
+\endlastfoot
+\hyperref[sec_SystemProblem]{Section~\ref*{sec_SystemProblem}} &
+\progname{} is designed to support educational practice rather than clinical
+assessment. Evaluating developmental improvement or making diagnostic
+conclusions would require additional research and validation beyond the scope of
+this project.\\
+\addlinespace
+\hyperref[sec_ProductVision]{Section~\ref*{sec_ProductVision}} &
+The initial system focuses on routine sequencing, functional communication, and
+short-term memory to establish a manageable set of learning activities that can
+be developed and evaluated within the capstone timeline.\\
+\addlinespace
+\hyperref[sec_SystemContext]{Section~\ref*{sec_SystemContext}} &
+Separating Learners and CTMs into distinct user groups allows Learners to focus
+on participating in Games while CTMs manage settings, permissions, and
+performance information.\\
+\addlinespace
+\hyperref[SecUserCharacteristics]{Section~\ref*{SecUserCharacteristics}} &
+The system considers differences in Learners' communication methods,
+developmental abilities, and familiarity with technology because autistic
+individuals may have different learning needs and preferences.\\
+\addlinespace
+\hyperlink{SC1}{SC1} &
+Supporting commonly available devices allows \progname{} to be used in homes and
+educational environments without requiring specialized equipment.\\
+\addlinespace
+\hyperlink{SC2}{SC2} &
+Supporting standard input methods accommodates different device configurations
+and interaction preferences while keeping the initial development and testing
+scope manageable.\\
+\addlinespace
+\hyperlink{SC3}{SC3} &
+Network connectivity is necessary to maintain consistent Learner information,
+Game configurations, and care team permissions across authorized users and
+devices.\\
+\end{longtable}
 
 \section{Likely Changes}    
 
