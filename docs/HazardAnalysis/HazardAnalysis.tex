@@ -3,9 +3,11 @@
 \usepackage{booktabs}
 \usepackage{tabularx}
 \usepackage{hyperref}
+\usepackage{pdflscape}
+\usepackage{longtable}
 
 \hypersetup{
-    colorlinks=true,       % false: boxed links; true: colored links
+    colorlinks=true,        % false: boxed links; true: colored links
     linkcolor=red,          % color of internal links (change box color with linkbordercolor)
     citecolor=green,        % color of links to bibliography
     filecolor=magenta,      % color of file links
@@ -51,107 +53,328 @@ Date2 & Name(s) & Description of changes\\
 
 \pagenumbering{arabic}
 
-\wss{You are free to modify this template.}
-
 \section{Introduction}
 
-\wss{You can include your definition of what a hazard is here.}
+This document is the hazard analysis of Spectropica, a suite of games that helps educators, parents, and care team members (CTMs) evaluate and develop the skills of autistic Learners. CTMs can tailor each game to a Learner through personalized settings and templates, and can track the Learner's progress through a dashboard.
+
+Because of the nature of Spectropica, our notion of "hazard" is seperate from physical harm. We consider "harm" to be any state of the system where:
+
+\begin{itemize}
+    \item The Learner's experience is not engaging, or that the Learner becomes bored and does not wish to progress.
+    \item The Learner's experience is hindered due to overstimulation (such as loud sounds bright or flashing visuals).
+    \item A CTM has difficulty understanding results or gauging the Learner's progress.
+    \item A Learner's personal data or performance data is lost, corrupted or seen by someone who is not authorized to see it.
+    \item A CTM or Learner is unable to rely on the system to behave as it was configured (for example, a game ignores some settings set by a CTM).
+\end{itemize}
 
 \section{Scope and Purpose of Hazard Analysis}
 
-\wss{You should say what \textbf{loss} could be incurred because of the
-hazards.}
+The scope of this document is to identify the hazards within the components of Spectropica, mitigation strategies, and the safety and security requirements that follow.
+
+To start, it is important that we discuss potential losses that could be incurred because of these hazards:
+
+\begin{itemize}
+    \item \textbf{Loss of Learner wellbeing and engagement:} A Learner who is overstimulated or understimulated may become distressed/disinterested and stop playing.
+    \item \textbf{Loss of progress and data:} Session history, settings, templates, rewards and Learner profiles may be lost or corrupted, so progress cannot be tracked and CTM effort is wasted.
+    \item \textbf{Loss of accuracy:} Incorrect or incomplete data may lead a CTM to draw the wrong conclusions about a Learner and adjust the learning path inappropriately.
+    \item \textbf{Loss of privacy and control:} Data about Learner's progress may be accessed or changed by unauthorized people.
+    \item \textbf{Loss of trust:} CTMs, Learners and customers may stop using Spectropica if it behaves unpredictably or mishandles data.
+\end{itemize}
 
 \section{System Boundaries and Components}
 
-\wss{Dividing the system into components will help you brainstorm the hazards.
-You shouldn't do a full design of the components, just get a feel for the major
-ones.  For projects that involve hardware, the components will typically include
-each individual piece of hardware.  If your software will have a database, or an
-important library, these are also potential components.}
+We divide the system into the following components based on how they interact with the main users (Learners and CTMs):
+
+\begin{itemize}
+    \item \textbf{Account and Care Team Management:} CTM registration, login and email verification, Learner profile creation, transfer and deletion, pairing of Learner devices, and the care team with its permissions (UC2, UC7--UC10).
+    \item \textbf{Individual Minigames:} The game suite and the games themselves, including loading a game with the correct settings, presenting tasks, guides, and pausing, restarting and quitting a game (UC1). There are multiple games, but the same considerations apply to each of them individually.
+    \item \textbf{Rewards and Cosmetics:} Rewards claimed after a completed game, and the items screen where a Learner buys and equips cosmetic items (UC6).
+    \item \textbf{Game Customization Dashboard:} CTM personalization of per-Learner game settings, and creation, import, export and assignment of game templates (UC4, UC5).
+    \item \textbf{Learner Data Viewer:} CTM viewing and exporting of a Learner's session history and game-specific progress statistics (UC3).
+    \item \textbf{Data Storage and Synchronization:} The database(s), the saving of session data, and the local queue used for later syncing (UC1, FR50, FR51).
+\end{itemize}
+
+The following elements are part of the system's operating environment. They are critical to Spectropica, but are not controlled by the development team, and are therefore outside of the system boundary:
+
+\begin{itemize}
+    \item The Learner and CTM devices (laptops, tablets)
+    \item The Internet connection of the users.
+    \item The email delivery service used to send verification and confirmation emails.
+    \item The hosting infrastructure of the database(s)
+    \item The Godot game engine.
+\end{itemize}
 
 \section{Critical Assumptions}
 
-\wss{These assumptions that are made about the software or system.  You should
-minimize the number of assumptions that remove potential hazards.  For instance,
-you could assume a part will never fail, but it is generally better to include
-this potential failure mode.}
+The number of assumptions has been kept small so that potential hazards are not missed. In particular, we do not assume that the database, the network, the Learner's device or the application itself will never fail; these failures are included in the FMEA. Our assumptions are:
+
+\begin{itemize}
+    \item[\textbf{CA1.}] A person who registers as a CTM or is given a pairing or invite code is a legitimate parent, caregiver or educator of the Learner Spectropica does not verify a CTM's real-world relationship to a Learner, so protection relies on the access controls of the system and on the Primary CTM sharing codes only with trusted people.
+    \item[\textbf{CA2.}] CTMs are responsible for the suitability of the content and settings they choose within the options that Spectropica offers, and consult professionals where needed. Spectropica limits the options to reduce the possibility of harm but does not replace professional
+    judgement (SRS Section 1.2).
+    \item[\textbf{CA3.}] CTMs keep their login credentials private and log out of or lock devices that they leave unattended.
+\end{itemize}
 
 \section{Failure Mode and Effect Analysis}
 
-\wss{Include your FMEA table here. This is the most important part of this document.}
-\wss{The safety requirements in the table do not have to have the prefix SR.
-The most important thing is to show traceability to your SRS. You might trace to
-requirements you have already written, or you might need to add new
-requirements.}
-\wss{If no safety requirement can be devised, other mitigation strategies can be
-entered in the table, including strategies involving providing additional
-documentation, and/or test cases.}
+The failure modes and effects analysis (FMEA) was chosen as the tool to identify and analyze hazards of each component. Each failure mode is given a reference (H\emph{c}-\emph{n}, where \emph{c} is the component number and \emph{n} is the failure mode number). The "SR" column gives the safety and security requirements that mitigate the hazard. These are either new requirements defined in
+Section~\ref{sec:requirements} (ACR, IR, WBR, PRR, ADR and IMR) or existing functional requirements from the SRS (FR). Where no software requirement can fully remove a hazard, other mitigations (such as testing and usability evaluation) are given in the ``Recommended Action'' column.
+
+\subsection{Hazards Out of Scope}
+
+The following areas are excluded from the scope since they cannot be managed by Spectropica.
+
+\begin{itemize}
+    \item The user's device (e.g., internet, power loss)
+    \item The email delivery service or the hosting provider of the database(s).
+    \item Bugs in the Godot game engine itself.
+    \item Whether a learning plan chosen by a CTM is appropriate for a Learner (see CA2).
+\end{itemize}
+
+\subsection{Failure Modes and Effects Analysis Table}
+
+\begin{landscape}
+\setlength{\tabcolsep}{4pt}
+\footnotesize
+\begin{longtable}{p{1.0cm} p{3.1cm} p{3.9cm} p{3.9cm} p{5.2cm} p{2.5cm}}
+\caption{Failure Modes and Effects Analysis for Spectropica}\label{tab:fmea}\\
+\toprule
+\textbf{Ref} & \textbf{Failure Mode} & \textbf{Failure Effects} & \textbf{Failure Causes} & \textbf{Recommended Actions} & \textbf{SR}\\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Ref} & \textbf{Failure Mode} & \textbf{Effects of Failure} & \textbf{Causes of Failure} & \textbf{Recommended Action} & \textbf{SR}\\
+\midrule
+\endhead
+\midrule
+\multicolumn{6}{r}{\textit{Continued on next page}}\\
+\endfoot
+\bottomrule
+\endlastfoot
+
+\multicolumn{6}{l}{\textbf{1. Account and Care Team Management}}\\*
+\midrule
+H1-1 & CTM account is accessed by an unauthorized person &
+Learner profiles, performance data and settings are exposed &
+Weak or reused password, stolen credentials, or unattended logged-in device &
+Enforce password strength at registration; temporarily lock the account after repeated failed logins; expire idle sessions &
+SR-1, SR-2\\
+\midrule
+H1-6 & Learner profile is deleted by mistake or maliciously &
+The Learner's entire history is lost; other CTMs lose access &
+Mis-click; misunderstanding of the consequences; unauthorized access to the Primary CTM's account &
+Explain consequences and offer an export before deletion; use a grace period during which the profile can be restored; require re-authentication to confirm &
+SR-3\\
+\midrule
+H1-7 & A Learner is left without a Primary CTM, or has more than one &
+Nobody can manage permissions or delete the profile, or administration conflicts &
+CTM deletes their own account while being the Primary CTM; ownership transfer fails part-way &
+Block account deletion until each owned Learner is transferred or deleted; make ownership transfer atomic and confirmed by both CTMs &
+SR-3\\
+\midrule
+H1-8 & Learner reaches CTM-only functions on a paired device &
+Learner changes settings or difficulty, views data, or deletes items&
+Device shared by Learner and CTM; CTM session left active on the Learner's device &
+Keep the Learner and CTM interfaces separate; require CTM authentication for CTM functions even on a paired device; expire idle sessions &
+SR-2\\
+\midrule
+
+\multicolumn{6}{l}{\textbf{2. Individual Minigames}}\\*
+\midrule
+H2-1 & Game overstimulates the Learner &
+Learner becomes distressed or has a meltdown, refuses to play, and loses trust in the product &
+Personalized settings not applied; default stimulation or volume too high; flashing or fast movement; sudden loud sounds; volume settings ignored &
+Always load the Learner's personalized settings; use conservative defaults; limit volume; test games for sensory intensity with domain experts &
+SR-4, SR-5, SR-6\\
+\midrule
+H2-3 & Game fails to load or crashes during a session &
+Learner loses progress and may become distressed; session data is lost or incomplete &
+Asset or settings failed to load; engine or application bug; low device memory; lost connection &
+Show a calm message and return the Learner to the game suite; record interrupted sessions as incomplete; keep gameplay working without a connection &
+SR-7, SR-8, SR-9\\
+\midrule
+H2-4 & Learner cannot complete a task &
+Frustration and abandonment; the session cannot finish &
+Input not registered (touch versus mouse, drag and drop); task completion check fails wrongly; instruction unclear &
+Support both touch and mouse input; offer the guide when permitted; allow the CTM to abort; test input handling on every supported device &
+SR-10\\
+\midrule
+H2-5 & Pause, restart or exit is unavailable or unresponsive &
+Learner feels trapped in an activity and becomes distressed &
+Interface bug; controls hidden behind game content; game loop blocking input &
+Keep controls visible and responsive at all times; include these controls in every game's tests &
+SR-11\\
+\midrule
+H2-6 & Game begins before the Learner is ready &
+Learner is startled; engagement is reduced &
+Accidental input treated as the ready cue; audio or animation starts automatically &
+Wait for an explicit start cue; no audio or motion before the cue &
+SR-5\\
+\midrule
+
+\multicolumn{6}{l}{\textbf{3. Rewards and Cosmetics}}\\*
+\midrule
+H3-4 & Items hidden by the CTM are still visible or purchasable &
+Learner sees or equips content the CTM chose to exclude (for example, overstimulating items) &
+Filter applied only to the display; filter not synced to the device &
+Apply CTM filters both when items are displayed and when they are purchased &
+SR-12\\
+\midrule
+H3-5 & Equipped item does not display or persist &
+Learner is confused or upset when their view changes &
+Save failure; missing item data &
+Verify that the equipped state was saved; fall back to the default appearance if item data is missing &
+SR-13\\
+\midrule
+
+\multicolumn{6}{l}{\textbf{4. Game Customization Dashboard}}\\*
+\midrule
+H4-1 & Personalized settings are not saved, or are saved incorrectly &
+Learner plays with the wrong difficulty, stimulation, prompt level or volume, while the CTM believes it was configured &
+Database failure; validation error; connection lost during save &
+Confirm the save only after it is verified; keep the previous settings and inform the CTM if saving fails &
+SR-13\\
+\midrule
+H4-4 & Template is assigned to the wrong Learner or replaces another assignment unintentionally &
+Learner receives unsuitable content or difficulty; a previous template is lost &
+Wrong Learner selected; replacement of existing assignment is not noticed &
+Show a summary of affected Learners and what will be replaced and require confirmation; restore previous settings on un-assignment &
+SR-14\\
+\midrule
+H4-5 & Template content is unsuitable or incorrect &
+Learner is exposed to inappropriate or confusing material, or learns incorrect content (for example, a misspelled word) &
+Typing mistakes; poor choices of content; content in a template imported from another CTM &
+Preview the template before assigning it; never assign an imported template automatically &
+SR-14\\
+\midrule
+H4-6 & Imported or exported template file is corrupt or malicious &
+Application crash; corrupted templates; unsafe content enters the system &
+File corrupted in transfer; file edited by hand; file from an untrusted source &
+Validate every imported file against the expected format; treat it as data that is never executed; reject invalid files with a clear message &
+SR-15, SR-16\\
+\midrule
+H4-7 & Template is deleted unintentionally &
+Learners revert to their previous settings unexpectedly; tailored content is lost &
+Mis-click; unclear which Learners use the template &
+List the affected Learners and require confirmation; restore previous settings for those Learners &
+SR-14\\
+\midrule
+
+\multicolumn{6}{l}{\textbf{5. Learner Data Viewer}}\\*
+\midrule
+H5-4 & Exported data is incomplete, wrong or exposed &
+Records are lost or misreported; a child's data leaks outside of Spectropica &
+Export or filter bug; exported file stored or shared insecurely &
+Make the export match the dashboard record count; include only authorized Learner data; warn the CTM that exported files leave Spectropica's protection &
+SR-17\\
+\midrule
+
+\multicolumn{6}{l}{\textbf{6. Data Storage and Synchronization}}\\*
+\midrule
+H6-1 & Session performance data is lost &
+Gaps in the Learner's progress history; CTM draws wrong conclusions &
+Database failure; local queue lost when the app restarts; app closed before sync &
+Keep the local queue across restarts until the data is confirmed saved; retry syncing; back up the database &
+SR-17\\
+\midrule
+H6-3 & Database is unavailable &
+CTMs cannot log in, view data or save settings; Learner data cannot be synced &
+Hosting outage; network failure; maintenance &
+Show CTMs a clear error message; let Learners continue with cached settings and queue data for later &
+SR-9\\
+\midrule
+H6-4 & Data is corrupted or deleted unintentionally &
+Learner histories, settings and templates are lost &
+Database failure; software bug; faulty update &
+Back up data regularly and support restoring from a backup &
+SR-17\\
+\midrule
+H6-5 & Learner data remains after deletion &
+Privacy violation and legal exposure; contradicts what the CTM was told &
+Deletion job fails; backups keep deleted data; local cache remains on a device &
+Verify that deletion completed; remove backups of deleted data within a fixed retention period; erase local data when a device is unlinked &
+SR-18\\
+\end{longtable}
+\end{landscape}
 
 \section{Safety and Security Requirements}
 
-\wss{Newly discovered requirements.  These should also be added to the SRS.  (A
-rationale design process how and why to fake it.)}
+\label{sec:requirements}
+
+The following requirements were discovered during the hazard analysis and have been placed in the SRS as a result.
+
+\begin{itemize}
+    \item[\textbf{SR-1}] The system shall enforce password strength on creation of account. 
+    \item[\textbf{SR-2.}] The system shall end a CTM's session after a period of inactivity.
+    \item[\textbf{SR-3.}] The system shall require a CTM to re-enter their password before deleting a Learner profile, deleting their account, transferring ownership of a Learner profile or removing a CTM from a care team.
+    \item[\textbf{SR-4.}] Default stimulation level, volume and celebration intensity shall be set to low values until a CTM changes them.
+    \item[\textbf{SR-5.}] No game audio or animation shall begin before the Learner gives the cue to start.
+    \item[\textbf{SR-6.}] Games shall not contain content that flashes more than three times in any one-second period (following WCAG 2.x Success Criterion 2.3.1).
+    \item[\textbf{SR-7.}] Error messages shown to a Learner shall be calm and short, shall not use alarming sounds or visuals, and shall offer a single action to return to the game suite.
+    \item[\textbf{SR-8.}] Sessions that end through a crash, abort or lost connection shall be recorded as incomplete and shall not be counted in a Learner's performance averages.
+    \item[\textbf{SR-9.}] A loss of connection shall not interrupt a game session in progress or prevent a Learner from playing authorized games with settings already stored on the device.
+    \item[\textbf{SR-10.}] Every game task shall be completable with either touch or mouse input.
+    \item[\textbf{SR-11.}] Pause, restart and exit controls shall be visible and responsive at all times while a game is being played.
+    \item[\textbf{SR-12.}] Cosmetic items hidden by a CTM shall be hidden from the items screen and shall not be purchasable or equippable by the Learner.
+    \item[\textbf{SR-13.}] The system shall confirm a save of settings, templates or equipped items only after the write has been verified; if saving fails, the previous values shall be kept and the CTM or Learner informed.
+    \item[\textbf{SR-14.}] Before a template is assigned, un-assigned or deleted, the system shall show the affected Learners and what will be replaced, require confirmation, and show a preview of the template.
+    \item[\textbf{SR-15.}] Imported files shall be treated as untrusted data and shall never be executed.
+    \item[\textbf{SR-16.}] An export of Learner data shall contain every record for the selected Learner, game and date range, and shall report a record count that matches the dashboard for the same selection.
+    \item[\textbf{SR-17.}] The system shall automatically back up stored data regularly and shall support restoring from a backup.
+    \item[\textbf{SR-18.}] The system shall verify that deletion of a Learner's data has completed and shall remove the data from backups within a fixed retention period (defined in the SRS Appendix of auxiliary constants).
+\end{itemize}
+
 
 \section{Roadmap}
 
-\wss{Which safety requirements will be implemented as part of the capstone timeline?
-Which requirements will be implemented in the future?}
+The hazard analysis has resulted in the new safety and security requirements in the section above. During the capstone timeline, the first requirements implemented will be ones regarding the Learner's wellbeing and the privacy of Learner data, since these are the most severe losses identified.
+
+In the future, the other requirements will be organized by severity according to what's most important to the project at its current stage.
 
 \newpage{}
 
 \section{Appendix --- Generative AI Use Disclosure}
 
-\wss{ChatGPT (version 5) was used to brainstorm ideas for the template for this disclose section.}
-
 \subsection{AI Tools Used}
 
-\wss{Give the name of the AI tool(s) used and the version.}
+Claude Sonnet 5.5
 
 \subsection{How and Where Used}
 
-\wss{Explain what the tool(s) were used for.  Examples include: brainstorming,
-explaining a technical concept, reviewing the document, generating or modifying
-text, generating or modifying diagrams, identifying errors or omissions or
-inconsistencies.}
-
-\wss{For each of the uses, identify which parts of the document were affected.}
-
-\wss{You do not need to report every interaction, but you should disclose the 
-uses that materially contributed to your work}
+Claude was used for brainstorming many of the possible hazards, as well as potential additional requirements to solve them. Also for LaTeX formatting support (namely, for the FMEA table).
 
 \subsection{Verification of AI-Generated Content}
 
-\wss{\begin{itemize}
-    \item Describe how the team checked AI-generated or AI-assisted material
-    before including it in the document.
-    \item In particular, verify factual claims, technical assertions,
-    requirements, calculations, references, and other information for which an
-    AI system may produce incorrect or fabricated results.
-    \item \textbf{The team is responsible for the accuracy, completeness,
-consistency, and appropriateness of the submitted document, regardless of
-whether material was generated by a human or an AI system.}
-\end{itemize}}
+
+Each potential hazard brainstorm idea given from Claude was checked against the Spectropica plan as well as the requirements. Each new requirement was discussed by the group and verified for redundancy, so as to make sure there are no unnecessary requirements generated from the analysis.
 
 \newpage{}
 
 \section{Appendix --- Reflection}
 
-\wss{Not required for CAS 741}
-
 \input{../Reflection.text}
 
 \begin{enumerate}
     \item What went well while writing this deliverable? 
-    \item What pain points did you experience during this deliverable, and how
-    did you resolve them?
-    \item Which of your listed risks had your team thought of before this
-    deliverable, and which did you think of while doing this deliverable? For
-    the latter ones (ones you thought of while doing the Hazard Analysis), how
-    did they come about?
-    \item Other than the risk of physical harm (some projects may not have any
-    appreciable risks of this form), list at least 2 other types of risk in
-    software products. Why are they important to consider?
+    
+    Coming up with potential hazards was quick, due to the complex and sensitive nature of our game and system. It made the hazard analysis reveal useful things that otherwise wouldn't have been considered if we were just brainstorming requirements from a perspective where everything works as intended. It's more work, but it's necessary.
+
+    \item What pain points did you experience during this deliverable, and how did you resolve them?
+    
+    At first, dividing the system into major components was tricky, since we needed to have a good idea of a the layout of a complex multi-game playground. We resolved this early on in a very productive team meeting where each team member gave thoughts on how Spectropica should be structured, and voted on the one that makes the most sense.
+
+    \item Which of your listed risks had your team thought of before this deliverable, and which did you think of while doing this deliverable? For the latter ones (ones you thought of while doing the Hazard Analysis), how did they come about?
+    
+    Before we started, we thought of general risks from the learner's human perspective. Things relating to boredom, overstimulation, and sensitivity to learning goals. The analysis allowed us to iron out more of the specifics regarding technical details relating to accounts, privacy, and database integrity.
+
+    \item Other than the risk of physical harm (some projects may not have any appreciable risks of this form), list at least 2 other types of risk in software products. Why are they important to consider?
+    
+    Since our project contained zero risk of physical harm, we considered many other forms of risk. Since Spectropica is a game, and an educational one, the 2 most important risk areas for us were related to the user's engagement, and cohesiveness of the system's presentation and handling of data. 
+
+    User experience related risks are important to consider in a game software context since the user expects it to be engaging, and not to be something that feels like a chore. 
+
+    Data handling risks (like privacy, security, and accuracy) are important to consider in any software that manages accounts, passwords or sensitive data, but especially ones where presenting that data back to the user is required. Like for our CTMs.
+
 \end{enumerate}
 
 \end{document}

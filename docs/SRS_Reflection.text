@@ -13,8 +13,14 @@
   computer science knowledge.  Skills may be related to technology, or writing,
   or presentation, or team management, etc.  You should look to identify at
   least one item for each team member.
+
+  \textbf{Marko:} I have some knowledge in game development, but I currently lack the hands-on experience with database management specifically for a game engine context. I understand SQL and security well enough, as well as game engines like Godot, but as for bridging the gap between them, I am unfamiliar with the best practices.
+
   \item For each of the knowledge areas and skills identified in the previous
   question, what are at least two approaches to acquiring the knowledge or
   mastering the skill?  Of the identified approaches, which will each team
   member pursue, and why did they make this choice?
+
+  \textbf{Marko:} A good approach is online research and finding learning resources for this problem specifically. I could also personally ask actual industry professionals with past experience in the area how they would do it.
+  And then, I could practice on a mini side-project that uses Godot and bridges data to an online SQL hosting service, so that I get hands-on mastery of the skill.
 \end{enumerate}

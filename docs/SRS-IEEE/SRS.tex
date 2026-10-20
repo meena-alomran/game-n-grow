@@ -31,6 +31,7 @@
 \usepackage{amsfonts}
 \usepackage{amssymb}
 \usepackage{graphicx}
+\usepackage{tikz}
 \usepackage{colortbl}
 \usepackage{xr}
 \usepackage{hyperref}
@@ -72,11 +73,11 @@
 
 \newcounter{reqnum} %Functional Requirement (FR) Number
 \newcommand{\rthereqnum}{FR\thereqnum}
-\newcommand{\rref}[1]{FR\ref{#1}}
+\newcommand{\rref}[1]{\ref{#1}}
 
 \newcounter{nfrnum} %Non-Functional Requirement (NFR) Number
 \newcommand{\rthenfrnum}{NFR\thenfrnum}
-\newcommand{\nfrref}[1]{NFR\ref{#1}}
+\newcommand{\nfrref}[1]{\ref{#1}}
 
 \newcounter{lcnum} %Likely Change (LC) Number
 \newcommand{\lthelcnum}{LC\thelcnum}
@@ -110,531 +111,1484 @@ Date 2 & 1.1 & Notes\\
 \bottomrule
 \end{tabularx}
 
-~\\
-\plt{All capstone SRS documents should have a reflection appendix.}
-
 \newpage
 
 \pagenumbering{arabic}
 
-\plt{This SRS template is based on the IEEE template, with input from co-pilot
-  and S. Smith. It will get you started.  You should not modify the section
-  headings, without first discussing the change with the course instructor.
-  Modification means you are not following the template, which loses some of the
-  advantage of a template, especially standardization.}
-
-\plt{Feel free to change the appearance of the report by modifying the LaTeX
-  commands.}
-
-\plt{This template document assumes that a single program is being documented.
-  If you are documenting a family of models, you should start with a commonality
-  analysis.}
-
-\plt{The SRS is not generally written, or read, sequentially.  The SRS is a
-  reference document.  It is generally read in an ad hoc order, as the need
-  arises.}
-
-\plt{Guiding principles for the SRS document:
-\begin{itemize}
-\item Do not repeat the same information at the same abstraction level.  If
-  information is repeated, the repetition should be at a different abstraction
-  level.
-\end{itemize}
-}
-
-\plt{The template description comments should be disabled before submitting this
-  document for grading.}
-
-\plt{You can borrow any wording from the text given in the template.  It is part
-  of the template, and not considered an instance of academic integrity.  Of
-  course, you need to cite the source of the template.}
-
-\plt{When the documentation is done, it should be possible to trace back to the
-  source of every piece of information.  Some information will come from
-  external sources, like terminology.}
-
-\plt{An SRS document should have the following qualities: unambiguous,
-  consistent, complete, validatable, abstract and traceable.}
-
-\plt{The overall goal of the SRS is that someone can learn,
-  understand and verify the captured domain knowledge.  They should not have to
-  trust the authors of the SRS on any statements.  They should be able to
-  independently verify/derive every statement made.}
-
 % ============================================================== 
 \section{Introduction} 
-% ==============================================================
-
-TESTING SRS IEEE
-
-\plt{Explain what system is being specified. State purpose, users, and project goals.}
-
-\plt{Introduce the name of your software as \progname{}.  Using \progname{} as
-a command lets you change the name if necessary and have the change propagate to
-all documents.}
-
-\plt{Include a reference to the template this work is based on.  \citet{ISOIECIEEE29148_2018}
-justifies the SRS structure and \citet{ISOIECIEEE15288_2023} provides the
-broader life-cycle context that underlines modern requirements engineering
-practice.}
+% =======================================================
 
 \subsection{Purpose}
 
-\plt{State the purpose of the system.}
+The purpose of \progname{} is providing a range of games for caregivers, parents or educators to evaluate and develop the skills of autistic learners. The former may tailor the stimulation, difficulty or contents of the games to the needs of the child. 
 
-\plt{The purpose should be in the context of the project itself, not in the
-  context of this course. Although the ``purpose'' of the document is to get a
-  grade, you should not mention this.  Instead, ``fake it'' as if this is a real
-  project.}
+\progname{} is intended to solve the lack of a engaging digital platform for autistic kids to develop their skills. Additionally, we aim to solve the problem that few tools exist for the comprehensive evaluation and progress tracking of autistic learners.
 
-\progname{} is intended to solve ... \plt{What problem does your program solve?
-The description here should be in the problem space, not the solution space.}
+Moreover, physical and digital games designed for autistic kids tend to be rigid and difficult to customize for each student. We aim to solve this issue by allowing caregivers, educators and parents the ability to tailor the games in a variety of ways. 
 
-\subsection{Scope}
-\plt{Briefly describe:
-\begin{itemize}
-  \item Problem being solved
-  \item Intended users
-  \item Major functionality
-  \item Expected benefits
-  \item Clarifying the scope often means saying what the software doesn't do
-\end{itemize}
-}
+\subsection{Scope} \label{sec_Scope}
 
-\plt{The scope section is relevant for understanding the boundaries of the system. It is also relevant for later determining typical values of inputs. The scope should make it clear what inputs are reasonable to expect. This is a distinction between scope and context (context is a later section).  Scope affects the inputs while context affects how the software will be used.}
+The scope of our project is the development of a digital game suite for the evaluation and improvement of the skills of autistic learners under the jurisdiction of caregivers, parents and educators. The intended users are therefore autistic learners with varying skills in varying domains, and Care Team members who utilize features designed to tailor and support the learning path of the child.
 
-TODO
+The major functionality revolves around the core skill games, and the customization surrounding them. For example, the learning path of the child may involve a vocabulary-based game. The Care Team may customize the game through saving templates to: include words relevant to the child, adjust the colors and stimulative aspects of the game depending on child preferences, change the difficulty based on the child's progress, or decide the reward threshold for cosmetics. 
+
+Expected benefits for a player perspective include the boosted engagement of autistic learners in a learning context, the enhancement of their progress in a diversity of skills. From a Care Team perspective, the expected benefits involve the identification of patterns or insights into the child's progress or skill profile through visualized data and numerical metrics that may have been difficult to track beforehand. Additionally, a digitalized platform is ideal for a Care Team member to quickly adapt games to different learners without creating or assembling games from scratch.
+
+To further clarify the scope, \progname{} is intended to be used as a tool for Care Team members rather than a replacement for professional expertise. Within the timeline of Capstone, the software will not retain functionality for Care Team members to create their own brand new game types, design of their own tailored maps for games, or designing cosmetic rewards from scratch. The software will also not include a competitive component for players to compete against each other's scores.
 
 \subsection{Stakeholders}
 \begin{itemize}
-\item Customer
-\item End Users
-\item Project Sponsor
-\item Development Team
-\item Administrators
+\item Autistic Learners are a primary stakeholder and an end user group. They play the games and their skill growth is the main objective of the product. Accessibility, engagement and comfort are the priorities for this stakeholder group.
+\item Customers are secondary stakeholders whoencompass anybody that makes the decision to acquire the software for autistic learners. This includes learning centers adopting the platform for students, parents or caregivers that purchase the software for their child.
+\item Care Team Members are another end user group that are primary stakeholders. They are the ones familiar with the autistic learner. Consequently, they use both administrative privileges to customize games and the dashboard to read or analyze student-specific data. They are the main decision makers for the autistic learner's learning path and progress, and therefore consulted by the development team for the latter to prioritize the most important tailoring features.
+\item Domain Experts are the final stakeholder group, falling into the secondary category. They are consulted by the development team to ensure the designed software is appropriate for autistic learners; aiding their progress and steering clear of any unintended harm. 
 \end{itemize}
 
 \subsection{Definitions and Acronyms}
-
-\plt{This section provides the meaning of the different words and phrases used
-  in the domain of the problem.}
 
 \begin{longtable}{p{0.25\textwidth} p{0.65\textwidth}}
 \toprule
 Term & Definition\\
 \midrule
-TODO & TODO\\
+Learner & Primary player of the games that the care team is aiming to develop the skills and track the progress of.\\
+CTM & Care Team Member. A caregiver, parent, educator or any other figure that is responsible for the learning path of a learner.\\
+Primary CTM & Each Care Team has only one primary CTM for a Learner; the primary CTM has all permissions and is able to manage the permissions of other CTMs.\\
+Template & A pre-defined copy of an existing game that CTMs can create to tailor games for individual students, by modifying the content or stimulation level for example.\\
+Dashboard & A CTM-specific interface designed to visualize data, read key metrics and track the progress of learners.\\
 \bottomrule
 \caption{Definitions and Acronyms} \label{tab:DefinitionsAndAcronyms}
 \end{longtable}
 
 \subsection{Characteristics of Intended Reader} \label{sec_IntendedReader}
 
-\plt{This section summarizes the skills and knowledge of the readers of the
-  SRS.  It does NOT have the same purpose as the ``User Characteristics''
-  section (Section~\ref{SecUserCharacteristics}).  The intended readers are the
-  people that will read, review and maintain the SRS.  They are the people that
-  will conceivably design the software that is intended to meet the
-  requirements.  The user, on the other hand, is the person that uses the
-  software that is built.  They may never read this SRS document.  Of course,
-  the same person could be a ``user'' and an ``intended reader.''}
-
-\plt{The intended reader characteristics should be written as unambiguously and
-  as specifically as possible.  Rather than say, the user should have an
-  understanding of physics, say what kind of physics and at what level.  For
-  instance, is high school physics adequate, or should the reader have had a
-  graduate course on advanced quantum mechanics?}
+The intended readers of this SRS are mainly the development team and potentially CTMs and domain experts. The development team will refer back to this SRS throughout the development process to ensure their features align with the outlined requirements and user groups. The CTMs and domain experts may read this SRS as an introduction to understanding \progname{} to be later consulted on domain issues. As such, the intended readers should ideally have a basic understanding of the capabilities and limitations of software, specifically game engines like Godot in the context of the project timeline. In addition, a basic understanding is required of the needs of autistic individuals in a learning environment. This means understanding the most common challenges faced by autistic learners when they engage in learning, what some of the most common preferences are, and what are the boundaries to avoid that may cause harm even unintentionally.
 
 % ============================================================== 
 \section{System Overview}
 
-This section provides general information about the system.  It identifies the
-problem, the vision, and the interfaces between the system and its environment.
-This section also describes user characteristics and lists the system
-constraints.
+This section provides an overview of \progname{}, including the problem it
+addresses, its intended purpose, the environment in which it operates, its
+users, and the constraints affecting its design. The overview establishes the
+context for the detailed requirements presented in the following sections.
 
-\plt{The purpose of this section is to provide general information about the
-  system so that the specific requirements in the later sections will be easier to
-  understand. The general system description section is designed to be
-  changeable independent of changes to the functional requirements documented in
-  the specific system description. The general system description provides a
-  context for a family of related models.  The general description can stay the
-  same, while specific details are changed between family members.}
+\subsection{Problem Statement} \label{sec_SystemProblem}
 
-\subsection{Problem Statement}
+Autistic Learners have different strengths, communication styles, sensory
+preferences, and support needs~\citep{nimhAutism2025}. These differences mean
+that learning activities
+suitable for one Learner may not be appropriate for another. Caregivers and
+educators therefore need ways to provide activities that accommodate individual
+needs rather than relying on a single difficulty level, presentation style, or
+learning approach.
 
-\plt{Current situation, problem, impact, desired improvement.  You will likely borrow some text from your problem description document.}
+Providing personalized activities also introduces challenges in managing each
+Learner's experience. When multiple individuals are involved in supporting a
+Learner, they need a consistent way to manage learning activities, share
+relevant information, and coordinate responsibilities. Without a centralized
+system, maintaining individual configurations and understanding which activities
+are appropriate for each Learner can become difficult.
 
-TODO
+Another challenge is interpreting performance over time. A Learner's results may
+vary depending on the Game, its difficulty, and the conditions under which it
+was completed. Without organized records of previous Game Sessions, Care Team
+Members (CTMs) may struggle to identify patterns or make informed decisions
+about future activities.
 
-\subsection{Product Vision}
+\progname{} addresses these challenges through a unified suite of customizable
+learning Games supported by Learner profiles, CTM-managed configurations, and
+performance tracking. The system allows CTMs to manage individual Learners,
+collaborate through care teams, customize Games using Templates, and review
+recorded performance information. Learners can participate in authorized Games,
+receive feedback and rewards, and control their participation during gameplay.
 
-\plt{A clear and concise statement of the product's purpose and goals.}
+\progname{} is intended to provide individualized practice opportunities and
+support CTMs in understanding performance within the application. It is not
+intended to provide clinical diagnoses or establish that changes in Game
+performance represent broader developmental improvements.
 
-\plt{The goal statements are functional and nonfunctional objectives that system
-  under consideration should achieve. Goals provide criteria for sufficient
-  completeness of a requirements specification and for requirements pertinence.
-  Goals will be refined by requirements.  The goals are written abstractly, with
-  a minimal amount of technical language.  They should be understandable by
-  non-domain experts.}
+\subsection{Product Vision} \label{sec_ProductVision}
 
-\plt{You will likely borrow from your goal statements in your problem
-description document.}
+\progname{} aims to provide autistic Learners with an engaging and personalized
+environment for practising selected skills while giving CTMs a centralized way
+to manage learning activities and review progress.
 
-TODO
-  
-\subsection{System Context}
+The system has five primary objectives:
 
-\plt{Include users, external systems, APIs, databases, and third-party services.}
+\begin{enumerate}
+\item \textbf{Support Individualized Learning:} Allow CTMs to manage
+Learner-specific Game authorizations, difficulty levels, personalized settings,
+and Templates so that activities can reflect individual needs and preferences.
+\item \textbf{Enable Coordinated Care Team Management:} Provide a structured way
+for multiple CTMs to support the same Learner while maintaining appropriate
+permissions and responsibilities. A Primary CTM manages access to the Learner's
+information and configuration.
+\item \textbf{Provide Accessible and Engaging Gameplay:} Offer Games with
+understandable instructions, opportunities for repeated practice, and rewards
+intended to encourage engagement. Learners retain the ability to pause, restart,
+or end activities.
+\item \textbf{Support Meaningful Performance Tracking:} Record Game Session
+results and provide authorized CTMs with access to individual Game histories,
+performance representations, and data exports.
+\item \textbf{Maintain Consistent Learner Experiences:} Allow Learners to access
+their profiles through paired devices while preserving their assigned Games,
+configurations, and associated information.
+\end{enumerate}
 
-\plt{Your system context will include a figure that shows the abstract view of
-  the software.  In some cases the diagram will show other external
-  entities, besides the user.  For instance, when the software product is a
-  library, the user will be another software program, not an actual end user.
-  If there are system constraints that the software must work with external
-  libraries, these libraries can also be shown on the System Context diagram.
-  They should only be named with a specific library name if this is required by
-  the system constraint.}
+The initial learning areas are routine sequencing, functional communication, and
+short-term memory. These areas establish the intended focus of the initial
+Games, while Templates allow CTMs to customize existing Games rather than create
+entirely new Game types.
 
-\begin{figure}[h!]
-\begin{center}
- \includegraphics[width=0.6\textwidth]{SystemContextFigure}
-\caption{System Context}
-\label{Fig_SystemContext} 
-\end{center}
+These objectives define \progname{}'s intended benefits without prescribing the
+implementation of individual features. Together, they support a learning
+environment in which CTMs can personalize activities, coordinate
+responsibilities, and review information while Learners participate in Games
+suited to their needs.
+
+\subsection{System Context} \label{sec_SystemContext}
+
+\progname{} is intended for use in environments where autistic Learners
+participate in learning activities with varying levels of support from
+caregivers or educators. These environments may include homes and learning
+centres.
+
+The system interacts with two primary user groups: Learners and CTMs. Learners
+access the Game Suite to participate in authorized Games, while CTMs use the
+Dashboard to manage Learner profiles, Game configurations, Templates, care team
+permissions, and performance information.
+
+Users interact with \progname{} through supported devices, with tablet
+applications for iPadOS and Android forming the primary intended operating
+environments. Web access is also planned. The system is being developed using
+Godot, whose documentation describes exports for Android, iOS, and web
+browsers~\citep{godotExportDocumentation}. Support for a particular platform
+depends on the team's ability to implement and test it.
+
+Devices provide the input, display, and connectivity capabilities needed to
+access \progname{}. The system manages the association between Learners and
+their paired devices.
+
+The system boundary includes \progname{}'s application functionality running on
+supported devices and its server-side functionality responsible for managing
+accounts, permissions, configurations, Games, and records. The devices,
+operating systems, browsers, and network connectivity used to access \progname{}
+form part of its operating environment rather than separate application
+components.
+
+The system manages information associated with CTM accounts, Learner profiles,
+care team memberships, Games, Game Sessions, Templates, and rewards. These
+entities are internal to \progname{} and are described in
+Section~7.
+
+\begin{figure}[htbp]
+\centering
+\resizebox{\textwidth}{!}{\input{SystemContext.tex}}
+\caption{System Context Diagram for \progname{}}
+\label{Fig_SystemContext}
 \end{figure}
 
-\plt{For each of the entities in the system context diagram its responsibilities
-  should be listed.  Whenever possible the system should check for data quality,
-  but for some cases the user will need to assume that responsibility.  The list
-  of responsibilities should be about the inputs and outputs only, and they
-  should be abstract.  Details should not be presented here.  However, the
-  information should not be so abstract as to just say ``inputs'' and
-  ``outputs''.  A summarizing phrase can be used to characterize the inputs.
-  For instance, saying ``material properties'' provides some information, but it
-  stays away from the detail of listing every required properties.}
+Figure~\ref{Fig_SystemContext} illustrates \progname{}'s system boundary and the
+information exchanged with its external entities: Learners and CTMs. The arrows
+represent the direction of information flow rather than the order in which
+operations occur.
 
-\begin{itemize}
-\item User Responsibilities:
-\begin{itemize}
-\item 
-\end{itemize}
-\item \progname{} Responsibilities:
-\begin{itemize}
-\item Detect data type mismatch, such as a string of characters instead of a
-  floating point number
-\item 
-\end{itemize}
-\end{itemize}
+\paragraph{Learner Responsibilities}
 
-\plt{Identify in what context the software will typically be used.  Is it for
-exploration? education? engineering work? scientific work?. Identify whether it
-will be used for mission-critical or safety-critical applications.} 
+Learners provide Game selections, responses to activities, and participation
+choices. They may also interact with rewards and cosmetic items made available
+through the Game Suite. Learners are responsible for making selections during
+gameplay but are not expected to manage their own configurations or permissions.
 
-\plt{This additional context information is needed to determine how much effort
-should be devoted to the rationale section.  If the application is
-safety-critical, the bar is higher.  This is currently less structured, but
-analogous to, the idea to the Automotive Safety Integrity Levels (ASILs) that
-McSCert uses in their automotive hazard analyses.}
+\paragraph{CTM Responsibilities}
+
+CTMs provide information needed to create and manage Learner profiles, configure
+Games, customize Templates, and interpret performance results. Authorized CTMs
+may manage Learner information according to their assigned permissions. The
+Primary CTM is responsible for managing the membership and permissions of other
+CTMs associated with a Learner.
+
+CTMs are responsible for choosing configurations and content appropriate to the
+Learners they support. \progname{} does not independently determine the
+suitability of a learning activity for an individual Learner.
+
+\paragraph{Supported Device and Network Responsibilities}
+
+The device provides the input and display capabilities through which users
+interact with \progname{}. Network connectivity supports communication with the
+system and synchronization of Learner information.
+
+\paragraph{External Email-Delivery Service Responsibilities}
+
+An external email-delivery service supports the account-verification
+functionality specified in \ref{FR-CTM-3}. The service is responsible for
+delivering verification messages requested by \progname{}, while \progname{}
+remains responsible for managing account verification. No specific email
+provider is prescribed.
+
+\paragraph{\progname{} Responsibilities}
+
+\progname{} is responsible for receiving and validating user inputs, managing
+CTM accounts and Learner profiles, maintaining device pairings, and enforcing
+access permissions.
+
+During gameplay, the system is responsible for presenting authorized Games with
+the appropriate Learner Game Configuration or assigned Template. It also
+provides feedback, manages rewards and cosmetic items, and records Game Session
+information.
+
+For CTMs, \progname{} provides access to permitted management functions and
+representations of Learner performance information. It maintains the
+relationships between Learners, CTMs, Games, configurations, and session
+records.
+
+\progname{} is also responsible for temporarily retaining unsynchronized Game
+Session results when network connectivity is unavailable, as specified in
+\ref{FR-DATA-8}.
+
+The system requests delivery of account-verification messages through the
+external email-delivery service as part of the CTM registration process.
+
+\progname{} is an educational support system rather than a clinical or
+safety-critical application. Its intended use involves providing opportunities
+for practice and presenting information about performance within the Games.
+
+Although it is not a clinical system, \progname{} manages information about
+potentially vulnerable users. Appropriate access controls and handling of
+Learner information are therefore important to its operation.
+
+The external email-delivery service supports account verification through
+communication beyond \progname{}'s application boundary. This does not prescribe
+a particular email provider or implementation technology.
 
 \subsection{User Characteristics} \label{SecUserCharacteristics}
 
-\plt{This section summarizes the knowledge/skills expected of the user.
-  Measuring usability, which is often a required non-function requirement,
-  requires knowledge of a typical user.  As mentioned above, the user is a
-  different role from the ``intended reader,'' as given in
-  Section~\ref{sec_IntendedReader}.  As in Section~\ref{sec_IntendedReader}, the
-  user characteristics should be specific an unambiguous.  For instance, ``The
-  end user of \progname{} should have an understanding of undergraduate Level 1
-  Calculus and Physics.''}
+\progname{} has two primary user groups: Learners and Care Team Members (CTMs).
+Each group has different responsibilities, technical abilities, and interaction
+needs.
+
+\paragraph{Learners}
+
+Learners are autistic individuals who use \progname{} to participate in Games
+and practise selected skills. The initial target population identified by the
+project is children aged eight to ten, although suitability depends on individual
+abilities and support needs rather than age alone.
+
+Autistic individuals have varied communication characteristics and may be
+more or less sensitive to sensory input~\citep{nimhAutism2025}. For design
+purposes, the project also assumes that Learners may vary in attention, reading
+skills, motor coordination, and experience with digital devices and Games.
+
+The intended Learner should be able to make intentional selections using a
+supported interaction method, independently or with assistance. Independent
+reading, spoken communication, and advanced technical knowledge are not assumed.
+
+Learners are expected to interact primarily with the Game Suite. Their tasks
+include selecting authorized Games, responding to instructions, controlling
+gameplay, and interacting with available rewards or cosmetic items. They are not
+expected to understand account management, permission structures, or performance
+analytics.
+
+\paragraph{Care Team Members (CTMs)}
+
+CTMs include parents, guardians, caregivers, educators, and other individuals
+involved in supporting a Learner's activities.
+
+CTMs are expected to have basic digital literacy, including the ability to
+navigate an application, create or access an account, enter information, and
+manage settings. Programming experience or knowledge of software development is
+not required.
+
+CTMs are expected to have sufficient familiarity with the Learner's needs and
+preferences to select appropriate Games, adjust configurations, and interpret
+recorded performance information.
+
+CTMs may have different levels of authority within a Learner's care team. The
+Primary CTM manages other members' permissions, while other CTMs can access
+functions according to the permissions assigned to them.
+
+\paragraph{Domain Experts}
+
+Domain Experts, such as special-education professionals and autism researchers,
+are stakeholders who may provide guidance on the appropriateness of learning
+activities and the interpretation of results. They are not defined as a separate
+application user role in the current functional requirements.
 
 \subsection{System Constraints}
 
-\plt{System constraints differ from other type of requirements because they
-  limit the developers' options in the system design and they identify how the
-  eventual system must fit into the world. This is the only place in the SRS
-  where design decisions can be specified.  That is, the quality requirement for
-  abstraction is relaxed here.  However, system constraints should only be
-  included if they are truly required.}
+The following constraints limit the operating environment and design choices for
+\progname{}. They are distinguished from functional and nonfunctional
+requirements, which describe the system's behavior and quality attributes in
+later sections.
 
-\plt{This is where you would mention platform constrains, and licensing
-restrictions.}
+\begin{description}
+\item[\textbf{SC1 --- Supported Operating Platforms}]\hypertarget{SC1}{}
+\progname{} is intended to support tablet applications on iPadOS and Android, as
+well as access through a web browser. Support for additional desktop operating
+systems, including Windows and macOS, may be considered depending on
+implementation and testing feasibility. Linux support is not a priority for the
+initial release.
+\item[\textbf{SC2 --- Supported Input Hardware}]\hypertarget{SC2}{}
+The initial system is intended to support touch input on compatible tablets.
+Additional input methods, including keyboard and pointer interaction, may be
+supported where appropriate for the selected deployment platforms.
+\item[\textbf{SC3 --- Networked Account and Data Management}]\hypertarget{SC3}{}\hfill\\
+Network connectivity is required for operations involving shared account
+information, care team membership, and synchronization of Learner data.
+\ref{FR-DATA-8} specifies temporary retention of unsynchronized Game Session
+results but does not establish full offline operation.
+\end{description}
 
-% ============================================================== 
+% =======================================================
 \section{Stakeholder Requirements}
 
-\plt{Technology-independent requirements.  These come from statements made by
-the stakeholders.  You will find these through interviews and surveys.  They are
-often expressed in natural language.  They are not necessarily testable, but
-they should be verifiable.}
+%\plt{Technology-independent requirements.  These come from statements made by
+%the stakeholders.  You will find these through interviews and surveys.  They are
+%often expressed in natural language.  They are not necessarily testable, but
+%they should be verifiable.}
 
-\plt{The stakeholder requirements are numbered so that you can have traceability to other parts of your document.}
+%\plt{The stakeholder requirements are numbered so that you can have traceability to other parts of your document.}
+\textbf{Autistic Learners}
 
 \noindent \begin{itemize}
+\setcounter{srnum}{0}\renewcommand{\thesrnum}{SR-LRN-\arabic{srnum}}
 
-\item[SR\refstepcounter{srnum}\thesrnum \label{SR_Label1}] TODO
+\item[\refstepcounter{srnum}\thesrnum \label{SR-LRN-1}:] Games are not overstimulating or understimulating for Learners with sensory hypersensitivity or hyposensitivity, respectively \citep{forbrainAutismLearning}
 
-\item[SR\refstepcounter{srnum}\thesrnum \label{SR_Label2}] TODO
+\item[\refstepcounter{srnum}\thesrnum \label{SR-LRN-2}:] Games are unambiguous with clear rules and instructions \citep{fratnowAutismGaming}
 
-\item[SR\refstepcounter{srnum}\thesrnum \label{SR_Label3}] TODO
+\item[\refstepcounter{srnum}\thesrnum \label{SR-LRN-3}:] Games are a safe space for Learners, allowing them to take their time and retry if needed \citep{fratnowAutismGaming}
+
+\item[\refstepcounter{srnum}\thesrnum \label{SR-LRN-4}:] Games are fun and engaging for Learners and give them a sense of accomplishment
+
+\textbf{Customers}
+\setcounter{srnum}{0}\renewcommand{\thesrnum}{SR-CUST-\arabic{srnum}}
+
+\item[\refstepcounter{srnum}\thesrnum \label{SR-CUST-1}:] System is easy to install, implement, and manage for varying levels of technical literacy
+
+\item[\refstepcounter{srnum}\thesrnum \label{SR-CUST-2}:] System is highly reliable from a technological point of view
+
+\item[\refstepcounter{srnum}\thesrnum \label{SR-CUST-3}:] System must be safe for autistic children to use and avoid elements that can trigger emotional or physical distress in Learners
+
+\textbf{Care Team Members}
+\setcounter{srnum}{0}\renewcommand{\thesrnum}{SR-CTM-\arabic{srnum}}
+\item[\refstepcounter{srnum}\thesrnum \label{SR-CTM-1}:] Game content is educational and aids Learners with their skill development
+
+\item[\refstepcounter{srnum}\thesrnum \label{SR-CTM-2}:] Gameplay settings such as noise can be configured for a Learner's specific needs
+
+\item[\refstepcounter{srnum}\thesrnum \label{SR-CTM-3}:] Aspects of game content (such as a vocabulary list in a reading game) can be tailored towards a specific Learner
+
+\item[\refstepcounter{srnum}\thesrnum \label{SR-CTM-4}:] Learners' progression in games can be viewed and tracked over time
+
+\item[\refstepcounter{srnum}\thesrnum \label{SR-CTM-5}:] Multiple CTMs are able to collaborate in managing a Learner's profile
+
+\item[\refstepcounter{srnum}\thesrnum \label{SR-CTM-6}:] The primary CTM can manage other CTMs' permissions on a Learner's profile and control what can be accessed and changed
+
+\textbf{Domain Experts}
+\setcounter{srnum}{0}\renewcommand{\thesrnum}{SR-DOM-\arabic{srnum}}
+\item[\refstepcounter{srnum}\thesrnum \label{SR-DOM-1}:] Educational aspect of game content is in line with intended age group's school curriculum
+
+\item[\refstepcounter{srnum}\thesrnum \label{SR-DOM-2}:] Games interest Learners and retain their attention
+
+\item[\refstepcounter{srnum}\thesrnum \label{SR-DOM-3}:] Games consider and support idiosyncracity of autistic individuals' sensory processing
+
+\item[\refstepcounter{srnum}\thesrnum \label{SR-DOM-4}:] Games are not static; they allow for progression of difficulty
 
 \end{itemize}
 
-\plt{You should give your SRs meaningful labels, so that you can refer to them
-in other parts of the SRS.  The label names should be meaningful mnemonics, not
-numbers.}
+Note that there is some natural overlap between stakeholders' requirements. Requirements were categorized under what the development team considers the most relevant stakeholder to them.
+
+%\plt{You should give your SRs meaningful labels, so that you can refer to them
+%in other parts of the SRS.  The label names should be meaningful mnemonics, not
+%numbers.}
 
 % ============================================================== 
 \section{User Personas}
-\plt{Create 2-5 realistic personas.
-  Personas are fictional characters that represent the different user types that
-  might use your software.  They are used to help understand the users'
-  needs, experiences, behaviors and goals.  They are not real people, but they
-  should be based on real data collected from user research.}
 
 \subsection{Persona 1}
 \begin{itemize}
-\item Name:
-\item Description:
-\item Goals:
-\item Frustrations:
-\item Technical Ability:
+\item Name: Layla
+\item Description: Layla is a 9-year-old autistic learner who enjoys speaking her mind. Layla is a strong academic student that excels in mathematics and reading. Layla also struggles with social interactions and has difficulty understanding social cues which hamper her ability to make friends and socialize with peers or the public. Layla can be easily overstimulated by loud noises, bright lights or fast movements.
+\item Goals: Layla wants to make friends easier and conversate without being scared or shy. She also wants to express herself and understand other people's expressions.
+\item Frustrations: Layla finds friends hard to make. She feels misunderstood when she expresses herself. Games can often contain: loud noises, bright lights and cluttered screens that can be overwhelming.
+\item Technical Ability: Layla is a tech-savvy child that enjoys playing video games on her laptop. She is comfortable with basic computer functions such as dragging and dropping, clicking and typing.
 \end{itemize}
-
 \subsection{Persona 2}
 \begin{itemize}
-\item Name:
-\item Description:
-\item Goals:
-\item Frustrations:
-\item Technical Ability:
+\item Name: Adam
+\item Description: Adam is a 6-year-old autistic learner who enjoys being social and chatty with his friends. Adam struggles with executive functioning and has difficulty focusing on academic tasks for extended periods of time, especially in mathematics and reading. Adam can be quickly understimulated by repetitive tasks and become bored.
+\item Goals: Learn math without being bored. Find reading easy. Focus on academic activities for longer. 
+\item Frustrations: Adam thinks math is boring and reading is hard, and that both take too long without any stimulation. Educational games lack rewards or any incentive to complete.
+\item Technical Ability: Adam does not have access to a laptop, but is comfortable on touch screen devices such as his tablet. He does not like flat-looking designs with nothing particularly engaging happening. 
+\end{itemize}
+\subsection{Persona 3}
+\begin{itemize}
+\item Name: Noah
+\item Description: Noah is a 65-year-old licensed educator at an Autism Learning Center. Noah teaches classrooms of 10 autistic learners at a time, often in the 4-10 year old range. Noah also teaches autistic learners 1-on-1 across a range of skills including social skills, communication, mathematics and reading. Noah uses physical materials either hand-crafted or externally purchased to facilitate learning activities with his students.
+\item Goals: Noah wants to track the progress of his diverse set of students individually across different skills. Noah wants a more malleable method of tailoring his activities for each student's preferences.
+\item Frustrations: Noah finds that having several students can strain the time available to analyze each one's specific progress, whether they have made any and to what extent. Noah likes the physical materials employed in his activities, but they are not malleable enough to be personalized for each student's experience.
+\item Technical Ability: Noah's formative years in the world of teaching autistic learners preceded widespread technology. Therefore, Noah is able to use tablets and computers at a basic level, but it may be confusing with more complicated functionality or presentation.
+\end{itemize}
+
+\subsection{Persona 4}
+\begin{itemize}
+\item Name: Sara
+\item Description: Sara is a 32-year-old mother of a 6-year-old autistic child. Sara's job in the engineering industry enables her to quickly adopt new technologies and use them proficiently. She is experienced at reading and analyzing data. However, Sara's knowledge in the field of autism is limited.
+\item Goals: Sara wants to aid her child's learning path. Sara knows her child's preferences and habits well, and wants to create a curated experience for her child based on this knowledge. 
+\item Frustrations: Sara is unsure which activities are suitable for the skill development of autistic children. When she does find a pre-packaged activity, her child tends to not respond well because the experience is not personalized.
+\item Technical Ability: Sara is proficient at hugely different devices and technologies. She is comfortable with laptops, tablets and reading visualized or numerical data.
 \end{itemize}
 
 % ============================================================== 
 \section{Use Cases}
-\plt{Use cases are a way to describe the interactions between users and the system.
-  They are typically written in natural language and describe the steps that a
-  user takes to achieve a specific goal.  Use cases can be used to identify
-  functional requirements and to create test cases.}  
-\plt{Typically 8-15 substantial use cases.}
 
 \refstepcounter{ucnum} \label{UC_Label1}
-\subsection{\ucref{UC_Label1}: Example Use Case}
+\subsection{\ucref{UC_Label1}: Play a game}
 
 \textbf{Primary Actor}
 
-TODO
+Autistic Learner
 
 \textbf{Preconditions}
 \begin{itemize}
-\item TODO
+\item A CTM has authorized that the Learner can play this game.
+\item A CTM has either approved default settings or configured personalized settings for this game for the learner.
 \end{itemize}
 
 \textbf{Main Success Scenario}
 \begin{enumerate}
-\item TODO
-\item TODO
-\item TODO
+\item System's game suite displays games Learner can play.
+\item Learner selects a specific game from their game suite.
+\item System loads the selected game with the correct settings. 
+\item Learner chooses to start the game when they are ready.
+\item System continues presenting tasks completed by the Learner.
+\item After the final task is completed, System loads the final completion screen.
+\item System saves the Learner's performance data from the session into the correct database(s).
+\item Learner claims their in-game reward.
+\item Learner exits the game.
 \end{enumerate}
 
 \textbf{Alternative Flows}
 \begin{itemize}
-\item TODO
+\item 1.1: System displays that the Learner cannot play any games at the moment.
+
+\item 2.1: The system fails to load the selected game with the correct setting.
+
+2.2: CTM or Learner aborts the game.
+
+\item 3.1: Learner chooses to return to game suite screen.
+
+\item 4.1: Learner finds instruction unclear. 
+
+4.2: Learner wants a Guide for this instruction.
+
+4.3: System loads Guide.
+
+4.4: Learner closes Guide.
+
+\item 6.1: System does not find a stable connection to the database(s).
+
+6.2: System queues the data for future syncing.
+
+\item 8.1: Learner or CTM start the game again.
+
+\end{itemize}
+
+\refstepcounter{ucnum} \label{UC_Label2}
+\subsection{\ucref{UC_Label2}: Adding a Learner}
+
+\textbf{Primary Actor}
+
+CTM
+
+\textbf{Preconditions}
+\begin{itemize}
+\item The CTM is logged into their account.
+\end{itemize}
+
+\textbf{Main Success Scenario}
+\begin{enumerate}
+\item CTM chooses to Add Learner.
+\item System loads the configuration page for a new learner's information.
+\item CTM inputs Learner information.
+\item CTM chooses which games this Learner can play, with configurable per-game settings.
+\item System displays a special Learner code for pairing purposes.
+\item The special code is entered correctly by an actor on the Learner's device(s).
+\item System saves the Learner's information to the appropriate tables in the database.
+\item System visually confirms successful pairing on the CTM account (Learner added) and the Learner's device(s).
+\end{enumerate}
+
+\textbf{Alternative Flows}
+\begin{itemize}
+\item 1.1: CTM chooses to transfer Learner profile to their account from another CTM.
+
+1.2: Other CTM account confirms transfer of profile ownership.
+
+\item 6.1: Actor's code input was incorrect.
+
+6.2: System allows for a limited amount of retries before blocking more tries for a period of time.
+
+6.3: CTM chooses to generate new code for this Learner.
+
 \end{itemize}
 
 \textbf{Postconditions}
 \begin{itemize}
-\item TODO
+\item Learner profile has been created in relationship with the CTM's account.
+\item Learner can see the correct Learner screen on their paired device(s).
+\item The CTM that created the Learner profile is the primary CTM for this Learner.
+\end{itemize}
+
+\refstepcounter{ucnum} \label{UC_Label3}
+\subsection{\ucref{UC_Label3}: View Learner data}
+
+\textbf{Primary Actor}
+
+CTM
+
+\textbf{Preconditions}
+\begin{itemize}
+\item The CTM is logged into their account.
+\item The CTM is authorized to view this Learner's profile.
+\end{itemize}
+
+\textbf{Main Success Scenario}
+\begin{enumerate}
+\item CTM chooses to view a specific Learner's data.
+\item System loads Learner's data and displays the main page.
+\item CTM views the Learner's most recent game sessions.
+\item CTM views an overview of the Learner's average performance on each game.
+\item CTM chooses a specific game to view more specific details.
+\item System loads the Learner's statistics and session history for this game.
+\item CTM chooses a view (eg. table, chart) for the Learner's statistics in this game such as overall score and where the Learner's strongest and weakest performance during sessions typically are.
+\item CTM views a data representation of the Learner's overall score in this game across their timeline since their first session.
+\item CTM exports the Learner's data into a different format.
+\item CTM exits the Learner data page.
+\end{enumerate}
+
+\textbf{Alternative Flows}
+\begin{itemize}
+\item 3.1: CTM chooses to view a specified portion of the Learner's overall game sessions (eg. October 6 - October 15).
+
+\item 8.1: CTM sets a specific timeline to view the Learner's score such (eg. October 6 - October 15).
+
+\end{itemize}
+
+\textbf{Postconditions}
+\begin{itemize}
+\item CTM has viewed the requested data successfully.
+\end{itemize}
+
+\refstepcounter{ucnum} \label{UC_Label4}
+\subsection{\ucref{UC_Label4}: Personalize Learner Settings}
+
+\textbf{Primary Actor}
+CTM
+
+\textbf{Preconditions}
+\begin{itemize}
+\item The CTM is logged into their account.
+\item The CTM is authorized to change this Learner's settings.
+\end{itemize}
+
+\textbf{Main Success Scenario}
+\begin{enumerate}
+\item CTM chooses the Learner's profile.
+\item CTM chooses a specific game to personalize Learner settings for.
+\item CTM picks specific difficulties of this game to be available for this Learner.
+\item CTM picks a specific stimulation level.
+\item CTM adjusts reward for completing the game successfully.
+\item CTM chooses prompt level such as full help, partial hints or fully independent.
+\item CTM chooses volume levels for music, sound effects and voice.
+\item CTM chooses intensity of celebrations when the Learner is successful.
+\item CTM saves new settings for this Learner on this game.
+\end{enumerate}
+
+\textbf{Alternative Flows}
+\begin{itemize}
+\item 3.1: CTM allows all difficulties to be available for this Learner on this game.
+
+\item 4.1: CTM does not change the default stimulation level.
+
+\item 5.1: CTM does not adjust the baseline rewards.
+
+\item 6.1: CTM does not change the default prompt level.
+
+\item 7.1: CTM does not change the default volume levels.
+
+\item 8.1: CTM does not change the default intensity.
+\end{itemize}
+
+\textbf{Postconditions}
+\begin{itemize}
+\item System has successfully saved the personalized Learner's settings for this game.
+\item Learner can only play the game with personalized settings.
+\end{itemize}
+
+\refstepcounter{ucnum} \label{UC_Label5}
+\subsection{\ucref{UC_Label5}: Adding Game Template}
+
+\textbf{Primary Actor}
+CTM
+
+\textbf{Preconditions}
+\begin{itemize}
+\item The CTM is logged into their account.
+\end{itemize}
+
+\textbf{Main Success Scenario}
+\begin{enumerate}
+\item CTM chooses a specific game to create a template out of.
+\item System loads the template screen.
+\item CTM chooses to add, change or remove contents within the game. Example: changing 'Cereal' to a specific brand, removing candy or adding chocolate in a grocery-based game.
+\item CTM chooses to adjust the colour palette, volume levels, intesntiy for this game.
+\item CTM chooses a difficulty for this template.
+\item CTM chooses the Learner(s) this template should be assigned to.
+\item CTM chooses to export the template to a file format.
+\item System replaces the default version of the game with the template version for the assigned Learner(s).
+\item System displays a success message for the CTM.
+\end{enumerate}
+
+\textbf{Alternative Flows}
+\begin{itemize}
+\item 1.1: CTM imports template from another CTM.
+
+\item 3.1: CTM chooses to not change the content.
+ 
+\item 4.1: CTM chooses to go with the default settings.
+
+\item 6.1: System says this Learner already has a template for this game and asks whether to replace that assignment.
+
+6.2: CTM saves the template under a unique name without assigning it yet.
+
+6.2: CTM saves the template under a specific folder in their templates screen.
+
+\item 9.1: System displays a failure message for the CTM with reasoning.
+
+\end{itemize}
+
+\textbf{Postconditions}
+\begin{itemize}
+\item CTM has successfully created, assigned and saved the template.
+\item System has saved which Learners play the created template.
+\item Learner can play the assigned template version of the game.
+\end{itemize}
+
+\refstepcounter{ucnum} \label{UC_Label6}
+\subsection{\ucref{UC_Label6}: Equipping Cosmetic Item}
+
+\textbf{Primary Actor}
+Learner
+
+\textbf{Preconditions}
+\begin{itemize}
+\item The Learner is logged into their profile.
+\end{itemize}
+
+\textbf{Main Success Scenario}
+\begin{enumerate}
+\item Learner chooses to open the Items screen.
+\item System loads the item page with any filters applied by the CTM i.e to hide certain items.
+\item Learner chooses a cosmetic item to buy.
+\item System grants the cosmetic item to the Learner.
+\item The Learner chooses to equip their cosmetic item.
+\item System updates the Learner's view to show the equipped cosmetic item (eg. shirt, pet).
+\item Learner exits the Item screen.
+\end{enumerate}
+
+\textbf{Alternative Flows}
+\begin{itemize}
+\item 3.1: Learner equips a cosmetic item they already have.
+
+\item 4.1: System finds that the cosmetic item cannot be unlocked.
+
+4.2: System displays reasoning for failure to unlock.
+
+4.3: System explains when it is possible to unlock this item.
+
+4.4: System shows possible alternatives to the wanted item.
+
+\item 5.1: Learner chooses to not equip their item.
+
+\item 7.1: Learner chooses to browse further items.
+
+\end{itemize}
+
+\textbf{Postconditions}
+\begin{itemize}
+\item Learner screen displays their updated view with the equipped item(s).
+\item System has saved the newly equipped items to the current view.
+\item System has saved the newly unlocked items to what items the Learner owns.
+\item If applicable, System has deducted currency from the Learner's balance.
+\end{itemize}
+
+\refstepcounter{ucnum} \label{UC_Label7}
+\subsection{\ucref{UC_Label7}: Create CTM account}
+
+\textbf{Primary Actor}
+CTM
+
+\textbf{Preconditions}
+\begin{itemize}
+\item CTM is on the registration page.
+\item The CTM's device is connected to the Internet.
+\end{itemize}
+
+\textbf{Main Success Scenario}
+\begin{enumerate}
+\item CTM enters their name, email and password.
+\item CTM chooses from a collection of default avatars.
+\item CTM agrees to terms \& conditions.
+\item System saves entered information and agreement into the appropriate data tables.
+\item System sends the CTM a verification email.
+\item CTM verifies their email.
+\item System creates CTM account.
+\item System sends CTM an email confirming their account creation.
+\item CTM uses previously entered information to log into their account.
+\end{enumerate}
+
+\textbf{Alternative Flows}
+\begin{itemize}
+\item 4.1: System prompts CTM to agree to terms \& conditions if they did not explicitly agree before submitting.
+
+4.2: System prompts CTM to log in after finding the email is associated with an existing account.
+
+4.3: System prompts CTM to choose a stronger password after finding the password too weak.
+
+4.3: System prompts CTM to check their re-typed password after finding the passwords do not match.
+
+\item 5.1: CTM asks to re-send verification email after expiry.
+
+5.2: System re-sends verification email.
+
+\end{itemize}
+
+\textbf{Postconditions}
+\begin{itemize}
+\item System has successfully saved the newly created CTM account into the database.
+\item CTM is able to successfully log in with the information they previously entered during creation.
+\end{itemize}
+
+\refstepcounter{ucnum} \label{UC_Label8}
+\subsection{\ucref{UC_Label8}: Delete Learner Profile}
+
+\textbf{Primary Actor}
+CTM
+
+\textbf{Preconditions}
+\begin{itemize}
+\item CTM is authorized to delete this Learner's profile.
+\end{itemize}
+
+\textbf{Main Success Scenario}
+\begin{enumerate}
+\item CTM chooses the intended Learner's profile.
+\item CTM chooses to delete Learner's profile.
+\item System explains what this entails and offers to export the Learner's data before deletion.
+\item CTM confirms deletion of Learner's profile.
+\item System unlinks Learner's paired devices.
+\item System revokes access to other CTM's that were able to view this Learner's profile.
+\item System schedules account's permanent deletion after a short grace period.
+\item System sends notification to CTM as a confirmation of deletion.
+\end{enumerate}
+
+\textbf{Alternative Flows}
+\begin{itemize}
+\item 4.1: CTM chooses to not delete Learner's profile.
+
+\item 6.1: CTM decides to restore Learner's profile during the grace period.
+
+6.2: System restores Learner data and cancels scheduled deletion.
+
+\end{itemize}
+
+\textbf{Postconditions}
+\begin{itemize}
+\item System has successfully scheduled the Learner's profile for deletion.
+\item System does not retain any Learner data after deletion for privacy reasons.
+\item Learner can no longer enter their deleted profile.
+\end{itemize}
+
+\refstepcounter{ucnum} \label{UC_Label9}
+\subsection{\ucref{UC_Label9}: Add CTM to Learner}
+
+\textbf{Primary Actor}
+Primary CTM
+
+\textbf{Preconditions}
+\begin{itemize}
+\item The Primary CTM is logged into their account.
+\item The Learner's profile exists.
+\end{itemize}
+
+\textbf{Main Success Scenario}
+\begin{enumerate}
+\item Primary CTM chooses the Learner's profile.
+\item Primary CTM chooses to add a CTM to the Learner's care team.
+\item Primary CTM selects the permissions the New CTM will have (eg. view Learner data, personalize settings, assign templates).
+\item System generates an invite code with an expiry time.
+\item Primary CTM shares the invite code with the new CTM.
+\item New CTM enters the invite code on their account.
+\item System validates the invite code.
+\item System adds the New CTM to the Learner's care team with the selected permissions.
+\item System displays the Learner on the New CTM's account.
+\item System notifies the Primary CTM that the New CTM has joined.
+\end{enumerate}
+
+\textbf{Alternative Flows}
+\begin{itemize}
+\item 3.1: Primary CTM keeps the default permissions.
+
+\item 5.1: Primary CTM cancels the invite before it is used.
+
+\item 6.1: New CTM does not have an account.
+
+\item 7.1: Invite code is incorrect, expired or already used.
+
+7.2: System allows a limited number of retries before blocking further attempts for a period of time.
+
+7.3: Primary CTM generates a new invite code.
+
+\item 8.1: New CTM is already part of this Learner's care team.
+\end{itemize}
+
+\textbf{Postconditions}
+\begin{itemize}
+\item The new CTM can see the Learner's profile on their account.
+\item New CTM is limited to the pre-selected permissions by the primary CTM.
+\end{itemize}
+
+\refstepcounter{ucnum} \label{UC_Label10}
+\subsection{\ucref{UC_Label10}: Manage CTM Permissions}
+
+\textbf{Primary Actor}
+
+Primary CTM
+
+\textbf{Preconditions}
+\begin{itemize}
+\item The Primary CTM is logged into their account.
+\item The Learner's care team has at least one CTM other than the Primary CTM.
+\end{itemize}
+
+\textbf{Main Success Scenario}
+\begin{enumerate}
+\item Primary CTM chooses the Learner's profile.
+\item Primary CTM chooses to view the Learner's care team.
+\item Primary CTM selects a CTM.
+\item System displays the CTM's permissions and actions related to this Learner.
+\item Primary CTM grants, edits or revokes permissions for the selected CTM.
+\item Primary CTM saves the changes.
+\item System applies the new permissions immediately.
+\item System notifies the affected CTM that their permissions have changed.
+\end{enumerate}
+
+\textbf{Alternative Flows}
+\begin{itemize}
+\item 5.1: Primary CTM chooses to remove the selected CTM from the care team.
+
+5.2: System asks the Primary CTM to confirm the removal.
+
+5.3: System revokes the CTM's access to the Learner and notifies them.
+
+\item 6.1: Primary CTM chooses to no apply the changes.
+\end{itemize}
+
+\textbf{Postconditions}
+\begin{itemize}
+\item The selected CTM's permissions are changed.
+\item There is exactly one Primary CTM for the Learner.
 \end{itemize}
 
 % ============================================================== 
 \section{Functional Requirements}
-\plt{Functional requirements describe what the system should do.  They are typically
-expressed as a set of conditions or capabilities that the system must have.  These
-requirements are usually derived from the stakeholder requirements and use cases.}
 
-\plt{Use SHALL statements. Requirements must be atomic, testable, and traceable.}
+\textbf{CTM Accounts}
 
 \noindent \begin{itemize}
 
-\item[FR\refstepcounter{reqnum}\thereqnum \label{FR_Label1}:] The system shall ...
+\setcounter{reqnum}{0}\renewcommand{\thereqnum}{FR-CTM-\arabic{reqnum}}
 
-\item[FR\refstepcounter{reqnum}\thereqnum \label{FR_Label2}:] The system shall ...
+\item[\refstepcounter{reqnum}\thereqnum \label{FR-CTM-1}:] The system shall check a CTM's account registration to validate entered information.
 
-\item[FR\refstepcounter{reqnum}\thereqnum \label{FR_Label3}:] The system shall ...
+\item[\refstepcounter{reqnum}\thereqnum \label{FR-CTM-2}:] The system shall display reasons for errors in the CTM registration process.
+
+\item[\refstepcounter{reqnum}\thereqnum \label{FR-CTM-3}:] The system shall create the CTM's account after they verify their email.
+
+\item[\refstepcounter{reqnum}\thereqnum \label{FR-CTM-4}:] The system shall allow a CTM to log in using the information verified in the registration process.
+
+\item[\refstepcounter{reqnum}\thereqnum \label{FR-CTM-5}:] The system shall allow a CTM to delete their account with a scheduled grace period, un-linking all Learners and templates.
+
+\item[\refstepcounter{reqnum}\thereqnum \label{FR-CTM-6}:] The system shall allow a CTM to restore their account during the grace period.
+
+\textbf{Learner Profiles}
+\setcounter{reqnum}{0}\renewcommand{\thereqnum}{FR-LRN-\arabic{reqnum}}
+
+\item[\refstepcounter{reqnum}\thereqnum \label{FR-LRN-1}:] The system shall allow a CTM to create a new Learner profile under their account.
+
+\item[\refstepcounter{reqnum}\thereqnum \label{FR-LRN-2}:] The system shall designate the CTM that created the Learner profile as the primary CTM.
+
+\item[\refstepcounter{reqnum}\thereqnum \label{FR-LRN-3}:] The system shall allow a CTM to input the Learner's specific information.
+
+\item[\refstepcounter{reqnum}\thereqnum \label{FR-LRN-4}:] The system shall allow the primary CTM to delete a Learner's profile with a scheduled grace period.
+
+\item[\refstepcounter{reqnum}\thereqnum \label{FR-LRN-5}:] The system shall allow the primary CTM to export a Learner's data prior to deletion.
+
+\item[\refstepcounter{reqnum}\thereqnum \label{FR-LRN-6}:] The system shall delete all Learner-related data after the deletion grace period.
+
+\item[\refstepcounter{reqnum}\thereqnum \label{FR-LRN-7}:] The system shall allow the primary CTM to restore a Learner's profile during the grace period.
+
+\item[\refstepcounter{reqnum}\thereqnum \label{FR-LRN-8}:] The system shall not allow a Learner to access their deleted profile.
+
+\textbf{Device Pairing}
+\setcounter{reqnum}{0}\renewcommand{\thereqnum}{FR-DEV-\arabic{reqnum}}
+
+\item[\refstepcounter{reqnum}\thereqnum \label{FR-DEV-1}:] The system shall allow a Learner to pair multiple devices.
+
+\item[\refstepcounter{reqnum}\thereqnum \label{FR-DEV-2}:] The system shall confirm the successful pairing of each device to both parties.
+
+\item[\refstepcounter{reqnum}\thereqnum \label{FR-DEV-3}:] The system shall allow a CTM to generate a new code for the Learner's device pairing.
+
+\item[\refstepcounter{reqnum}\thereqnum \label{FR-DEV-4}:] The system shall allow a specific amount of retries before the pairing method is nullified.
+
+\item[\refstepcounter{reqnum}\thereqnum \label{FR-DEV-5}:] The system shall block further pairing attempts for a period of time after the retry limit is reached.
+
+\textbf{Care Team \& Permissions}
+\setcounter{reqnum}{0}\renewcommand{\thereqnum}{FR-TEAM-\arabic{reqnum}}
+
+\item[\refstepcounter{reqnum}\thereqnum \label{FR-TEAM-1}:] The system shall allow the primary CTM to add other CTM's to the Learner's care team via invite code.
+
+\item[\refstepcounter{reqnum}\thereqnum \label{FR-TEAM-2}:] The system shall allow the primary CTM to cancel an outgoing invite.
+
+\item[\refstepcounter{reqnum}\thereqnum \label{FR-TEAM-3}:] The system shall allow the primary CTM to generate a new invite.
+
+\item[\refstepcounter{reqnum}\thereqnum \label{FR-TEAM-4}:] The system shall allow the primary CTM to edit the permission of other CTMs in the Learner's care team.
+
+\item[\refstepcounter{reqnum}\thereqnum \label{FR-TEAM-5}:] The system shall allow the primary CTM to remove another CTM from the Learner's care team.
+
+\item[\refstepcounter{reqnum}\thereqnum \label{FR-TEAM-6}:] The system shall allow a CTM to transfer ownership of a Learner's profile from another CTM.
+
+\item[\refstepcounter{reqnum}\thereqnum \label{FR-TEAM-7}:] The system shall not allow a CTM to perform actions they do not explicitly have permission to do.
+
+\textbf{Personalization}
+\setcounter{reqnum}{0}\renewcommand{\thereqnum}{FR-PERS-\arabic{reqnum}}
+
+\item[\refstepcounter{reqnum}\thereqnum \label{FR-PERS-1}:] The system shall allow a CTM to toggle the authorization of specific games for a Learner.
+
+\item[\refstepcounter{reqnum}\thereqnum \label{FR-PERS-2}:] The system shall allow an authorized CTM to toggle the authorization of specific difficulties of a game for a Learner.
+
+\item[\refstepcounter{reqnum}\thereqnum \label{FR-PERS-3}:] The system shall allow an authorized CTM to choose specific personalized settings of a game for a Learner.
+
+\item[\refstepcounter{reqnum}\thereqnum \label{FR-PERS-4}:] The system shall always load the personalized settings for a game when a Learner plays it, unless a template is assigned.
+
+\textbf{Templates}
+\setcounter{reqnum}{0}\renewcommand{\thereqnum}{FR-TMPL-\arabic{reqnum}}
+
+\item[\refstepcounter{reqnum}\thereqnum \label{FR-TMPL-1}:] The system shall allow an authorized CTM to create a new template from an existing game in their saved templates.
+
+\item[\refstepcounter{reqnum}\thereqnum \label{FR-TMPL-2}:] The system shall allow an authorized CTM to import a template from another CTM.
+
+\item[\refstepcounter{reqnum}\thereqnum \label{FR-TMPL-3}:] The system shall allow a CTM to add, change or remove default contents within a template.
+
+\item[\refstepcounter{reqnum}\thereqnum \label{FR-TMPL-4}:] The system shall allow a CTM to tailor settings for this template.
+
+\item[\refstepcounter{reqnum}\thereqnum \label{FR-TMPL-5}:] The system shall allow a CTM to assign a difficulty for a template.
+
+\item[\refstepcounter{reqnum}\thereqnum \label{FR-TMPL-6}:] The system shall allow a CTM to assign the template to Learner(s), overriding any previous settings.
+
+\item[\refstepcounter{reqnum}\thereqnum \label{FR-TMPL-7}:] The system shall allow a CTM to un-assign a template to Learner(s), restoring previous settings.
+
+\item[\refstepcounter{reqnum}\thereqnum \label{FR-TMPL-8}:] The system shall allow a CTM to delete a template which un-assigns it from any associated Learner(s).
+
+\item[\refstepcounter{reqnum}\thereqnum \label{FR-TMPL-9}:] The system shall allow a CTM to create folders that can hold more than one template.
+
+\textbf{Gameplay}
+\setcounter{reqnum}{0}\renewcommand{\thereqnum}{FR-PLAY-\arabic{reqnum}}
+
+\item[\refstepcounter{reqnum}\thereqnum \label{FR-PLAY-1}:] The system shall not allow the Learner to play the games they are not explicitly authorized to play.
+
+\item[\refstepcounter{reqnum}\thereqnum \label{FR-PLAY-2}:] The system shall not start a game until it receives a cue that the Learner is ready.
+
+\item[\refstepcounter{reqnum}\thereqnum \label{FR-PLAY-3}:] The system shall only present the next task once it verifies the Learner has completed the current task.
+
+\item[\refstepcounter{reqnum}\thereqnum \label{FR-PLAY-4}:] The system shall allow the Learner to read a guide regarding the current instruction if permitted by the CTM.
+
+\item[\refstepcounter{reqnum}\thereqnum \label{FR-PLAY-5}:] The system shall allow the Learner to pause an ongoing game.
+
+\item[\refstepcounter{reqnum}\thereqnum \label{FR-PLAY-6}:] The system shall allow the Learner to restart an ongoing game.
+
+\item[\refstepcounter{reqnum}\thereqnum \label{FR-PLAY-7}:] The system shall allow the Learner to abort an ongoing game.
+
+\item[\refstepcounter{reqnum}\thereqnum \label{FR-PLAY-8}:] The system shall allow the CTM to abort a Learner's ongoing game.
+
+\item[\refstepcounter{reqnum}\thereqnum \label{FR-PLAY-9}:] The system shall allow the Learner to play again after a completed game if permitted by the CTM.
+
+\item[\refstepcounter{reqnum}\thereqnum \label{FR-PLAY-10}:] The system shall allow the Learner to return to the game suite screen after a completed game.
+
+\textbf{Rewards \& Cosmetics}
+\setcounter{reqnum}{0}\renewcommand{\thereqnum}{FR-RWD-\arabic{reqnum}}
+
+\item[\refstepcounter{reqnum}\thereqnum \label{FR-RWD-1}:] The system shall allow a Learner to claim an in-game reward after their completed game.
+
+\item[\refstepcounter{reqnum}\thereqnum \label{FR-RWD-2}:] The system shall not offer duplicate items as rewards.
+
+\item[\refstepcounter{reqnum}\thereqnum \label{FR-RWD-3}:] The system shall allow a Learner to view cosmetic items in the items screen.
+
+\item[\refstepcounter{reqnum}\thereqnum \label{FR-RWD-4}:] The system shall allow a Learner to unlock an item they meet the conditions for.
+
+\item[\refstepcounter{reqnum}\thereqnum \label{FR-RWD-5}:] The system shall allow a Learner to equip an item they already own.
+
+\item[\refstepcounter{reqnum}\thereqnum \label{FR-RWD-6}:] The system shall display a reason for when an item cannot be unlocked while outlining the conditions for unlocking.
+
+\item[\refstepcounter{reqnum}\thereqnum \label{FR-RWD-7}:] The system shall display alternatives for an item that could not be unlocked when buyable alternatives exist.
+
+\textbf{Learner Data}
+\setcounter{reqnum}{0}\renewcommand{\thereqnum}{FR-DATA-\arabic{reqnum}}
+
+\item[\refstepcounter{reqnum}\thereqnum \label{FR-DATA-1}:] The system shall allow an authorized CTM to view a Learner's general data.
+
+\item[\refstepcounter{reqnum}\thereqnum \label{FR-DATA-2}:] The system shall display an expandable overview of the Learner's game history.
+
+\item[\refstepcounter{reqnum}\thereqnum \label{FR-DATA-3}:] The system shall allow an authorized CTM to view a Learner's game history between specific dates.
+
+\item[\refstepcounter{reqnum}\thereqnum \label{FR-DATA-4}:] The system shall allow an authorized CTM to view a Learner's game-specific data.
+
+\item[\refstepcounter{reqnum}\thereqnum \label{FR-DATA-5}:] The system shall offer multiple data representations of the Learner's game-specific data.
+
+\item[\refstepcounter{reqnum}\thereqnum \label{FR-DATA-6}:] The system shall allow an authorized CTM to export a Learner's game data.
+
+\item[\refstepcounter{reqnum}\thereqnum \label{FR-DATA-7}:] The system shall save the Learner's performance in the game session into the correct data tables.
+
+\item[\refstepcounter{reqnum}\thereqnum \label{FR-DATA-8}:] The system shall queue the Learner's performance locally for future syncing if it does not have a stable connection.
+
+\item[\refstepcounter{reqnum}\thereqnum \label{FR-DATA-9}:] The system shall not gather any data more than what is required to fulfill the purpose of loading the correct game configurations, cosmetic items and uploading session data.
 
 \end{itemize}
 
-\plt{The requirements are given labels so that they can be referenced in other
-parts of the SRS.  The label names should be meaningful mnemonics, not numbers.}
+\section{Safety Requirements}
+
+The following were generated from the hazard analysis:
+
+\begin{itemize}
+    \item[\textbf{SR-1}] The system shall enforce password strength on creation of account. 
+    \item[\textbf{SR-2.}] The system shall end a CTM's session after a period of inactivity.
+    \item[\textbf{SR-3.}] The system shall require a CTM to re-enter their password before deleting a Learner profile, deleting their account, transferring ownership of a Learner profile or removing a CTM from a care team.
+    \item[\textbf{SR-4.}] Default stimulation level, volume and celebration intensity shall be set to low values until a CTM changes them.
+    \item[\textbf{SR-5.}] No game audio or animation shall begin before the Learner gives the cue to start.
+    \item[\textbf{SR-6.}] Games shall not contain content that flashes more than three times in any one-second period (following WCAG 2.x Success Criterion 2.3.1).
+    \item[\textbf{SR-7.}] Error messages shown to a Learner shall be calm and short, shall not use alarming sounds or visuals, and shall offer a single action to return to the game suite.
+    \item[\textbf{SR-8.}] Sessions that end through a crash, abort or lost connection shall be recorded as incomplete and shall not be counted in a Learner's performance averages.
+    \item[\textbf{SR-9.}] A loss of connection shall not interrupt a game session in progress or prevent a Learner from playing authorized games with settings already stored on the device.
+    \item[\textbf{SR-10.}] Every game task shall be completable with either touch or mouse input.
+    \item[\textbf{SR-11.}] Pause, restart and exit controls shall be visible and responsive at all times while a game is being played.
+    \item[\textbf{SR-12.}] Cosmetic items hidden by a CTM shall be hidden from the items screen and shall not be purchasable or equippable by the Learner.
+    \item[\textbf{SR-13.}] The system shall confirm a save of settings, templates or equipped items only after the write has been verified; if saving fails, the previous values shall be kept and the CTM or Learner informed.
+    \item[\textbf{SR-14.}] Before a template is assigned, un-assigned or deleted, the system shall show the affected Learners and what will be replaced, require confirmation, and show a preview of the template.
+    \item[\textbf{SR-15.}] Imported files shall be treated as untrusted data and shall never be executed.
+    \item[\textbf{SR-16.}] An export of Learner data shall contain every record for the selected Learner, game and date range, and shall report a record count that matches the dashboard for the same selection.
+    \item[\textbf{SR-17.}] The system shall automatically back up stored data regularly and shall support restoring from a backup.
+    \item[\textbf{SR-18.}] The system shall verify that deletion of a Learner's data has completed and shall remove the data from backups within a fixed retention period (defined in the SRS Appendix of auxiliary constants).
+\end{itemize}
 
 % ============================================================== 
 \section{Data Requirements}
 
-\plt{The Data Requirements section describes what information the system must manage.
-  It includes the major data entities, their attributes, and the relationships
-  between them.  It also includes a data dictionary that defines the meaning of
-  each attribute.}
-
 \subsection{Major Data Entities}
 
-\plt{What information must exist for the system to accomplish its goals?}
-
-\plt{For each entity, provide a short explanation.}
-
 \begin{itemize}
-\item User
-\item Song
-\item Session
-\item Report
+\item Learner: The profile of a Learner and their paired devices.
+\item Device: information pertaining to a Learner's paired devices.
+\item CTM: The registered CTM account with login credentials and template folders.
+\item Care Team Membership: Each link between a CTM and a Learner, the permissions associated and whether they're the primary CTM.
+\item Game: A game object with its information and default settings.
+\item Game Session: A play-through session of a Learner on a specific game with scores and other relevant statistics.
+\item Learner Game Configuration: The tailored per-game configuration for a Learner, including personalized settings, assigned templates and authorizations.
+\item Template: A CTM-made variation of an existing game with customized content and/or settings.
+\item Cosmetic Item: an item (eg. shirt, pet) that can be unlocked or earned.
+\item Learner Inventory: a collection of cosmetic items owned by the Learner, when they were owned and whether they're equipped.
+\item Access Code: a time-limited unique code, whether it's for device pairing or CTM invites, and tracking attempts for lockout.
 \end{itemize}
 
 \subsection{Data Dictionary}
-
-\plt{For each entity, define all important attributes.}
 
 \begin{longtable}{p{0.20\textwidth} p{0.20\textwidth} p{0.45\textwidth}}
 \toprule
 Attribute & Type & Description\\
 \midrule
-user\_id & UUID & Unique identifier\\
-email & String & User email address\\
+learnerId & UUID & Unique Learner identifier\\
+createdAt & DateTime & When the profile was created\\
+learnerName & String & Learner name displayed in software\\
+deletionTime & DateTime & When deletion is scheduled, or null\\
 \bottomrule
-\caption{Data Dictionary} \label{tab:DataDictionary}
+\caption{Learner} \label{tab:Learner}
+\end{longtable}
+
+\begin{longtable}{p{0.20\textwidth} p{0.20\textwidth} p{0.45\textwidth}}
+\toprule
+Attribute & Type & Description\\
+\midrule
+deviceId & UUID & Unique device identifier\\
+learnerId & UUID & Unique Learner identifier\\
+deviceName & String & Readable name for the device\\
+pairedAt & DateTime & When the device was paired\\
+isActive & Boolean & Whether the pairing is active\\
+\bottomrule
+\caption{Device} \label{tab:Device}
+\end{longtable}
+
+\begin{longtable}{p{0.20\textwidth} p{0.20\textwidth} p{0.45\textwidth}}
+\toprule
+Attribute & Type & Description\\
+\midrule
+ctmId & UUID & Unique CTM identifier\\
+createdAt & DateTime & When the profile was created\\
+ctmName & string & CTM Name displayed in software\\
+ctmEmail & String & Unique email address\\
+emailVerified & Boolean & Whether email is verified\\
+passwordHash & String & Securely hashed password\\
+termsAcceptedAt & DateTime & Time of terms acceptance\\
+deletionTime & DateTime & When deletion is scheduled, or null\\
+
+\bottomrule
+\caption{CTM} \label{tab:CTM}
+\end{longtable}
+
+\begin{longtable}{p{0.20\textwidth} p{0.20\textwidth} p{0.45\textwidth}}
+\toprule
+Attribute & Type & Description\\
+\midrule
+careTeamId & UUID & Unique Care Team identifier\\
+learnerId & UUID & Unique Learner identifier\\
+ctmId & UUID & Unique CTM identifier\\
+isPrimary & Boolean & Whether the CTM is the primary CTM for this learner\\
+permissions & Enum & Permission granted by the CTM regarding this learner's profile\\
+joinedAt & DateTime & Time of joining the Learner's care team\\
+
+\bottomrule
+\caption{Care Team Membership} \label{tab:Care Team Membership}
+\end{longtable}
+
+\begin{longtable}{p{0.20\textwidth} p{0.20\textwidth} p{0.45\textwidth}}
+\toprule
+Attribute & Type & Description\\
+\midrule
+gameId & UUID & Unique Game identifier\\
+gameName & String & Game display name\\
+gameDesc & String & Description of game\\
+defaultSettings & JSON & Settings applied by default\\
+
+\bottomrule
+\caption{Game} \label{tab:Game}
+\end{longtable}
+
+\begin{longtable}{p{0.20\textwidth} p{0.20\textwidth} p{0.45\textwidth}}
+\toprule
+Attribute & Type & Description\\
+\midrule
+sessionId & UUID & Unique session identifier\\
+learnerId & UUID & Unique Learner identifier\\
+gameId & UUID & Unique game identifier\\
+templateId & UUID & Template used; null if none\\
+settingsUsed & JSON & Settings active during the session\\
+startedAt & DateTime & When the session started\\
+endedAt & DateTime & When the session ended\\
+outcome & Enum & Completed, aborted, restarted\\
+scores & JSON & Individual task scores and overall score\\
+\bottomrule
+\caption{Game Session} \label{tab:GameSession}
+\end{longtable}
+
+\begin{longtable}{p{0.20\textwidth} p{0.20\textwidth} p{0.45\textwidth}}
+\toprule
+Attribute & Type & Description\\
+\midrule
+configId & UUID & Unique configuration identifier\\
+learnerId & UUID & The Learner this configuration applies to\\
+gameId & UUID & The Game this configuration applies to\\
+isAuthorized & Boolean & Whether the Learner can play the Game\\
+settings & JSON & Personalized settings and authorizations for this Learner on this game\\
+reward & String & Reward given for completing the Game\\
+templateId & UUID & Template assigned, null if none\\
+updatedBy & UUID & CTM who last changed the configuration\\
+updatedAt & DateTime & When the configuration was last changed\\
+\bottomrule
+\caption{Learner Game Configuration} \label{tab:LearnerGameConfig}
+\end{longtable}
+
+\begin{longtable}{p{0.20\textwidth} p{0.20\textwidth} p{0.45\textwidth}}
+\toprule
+Attribute & Type & Description\\
+\midrule
+templateId & UUID & Unique template identifier\\
+ownerCtmId & UUID & CTM who has this template\\
+gameId & UUID & Game the template is based on\\
+templateName & String & Template display name\\
+folderName & String & Folder the template is organized under; null if unfiled\\
+modifiedContent & JSON & Edited game content\\
+settings & JSON & Template settings\\
+createdAt & DateTime & When the template was created\\
+updatedAt & DateTime & When the template was last changed\\
+\bottomrule
+\caption{Template} \label{tab:Template}
+\end{longtable}
+
+\begin{longtable}{p{0.20\textwidth} p{0.20\textwidth} p{0.45\textwidth}}
+\toprule
+Attribute & Type & Description\\
+\midrule
+itemId & UUID & Unique item identifier\\
+itemName & String & Item display name\\
+category & Enum & Type of item (eg. shirt, pet)\\
+unlockConditions & JSON & Conditions required to unlock the item\\
+\bottomrule
+\caption{Cosmetic Item} \label{tab:CosmeticItem}
+\end{longtable}
+
+\begin{longtable}{p{0.20\textwidth} p{0.20\textwidth} p{0.45\textwidth}}
+\toprule
+Attribute & Type & Description\\
+\midrule
+inventoryId & UUID & Unique inventory identifier\\
+learnerId & UUID & Learner who owns the item\\
+itemId & UUID & The owned Cosmetic Item\\
+source & Enum & How the item was obtained (eg. unlocked, game reward, granted by CTM)\\
+acquiredAt & DateTime & When the item was obtained\\
+isEquipped & Boolean & Whether the item is currently equipped\\
+\bottomrule
+\caption{Learner Inventory} \label{tab:LearnerInventory}
+\end{longtable}
+
+\begin{longtable}{p{0.20\textwidth} p{0.20\textwidth} p{0.45\textwidth}}
+\toprule
+Attribute & Type & Description\\
+\midrule
+codeId & UUID & Unique access code identifier\\
+learnerId & UUID & Learner the code applies to\\
+createdBy & UUID & CTM who generated the code\\
+code & String & The code entered by the recipient\\
+codeType & Enum & Device pairing or care team invite\\
+permissions & Enum & Permissions granted to the joining CTM; care team invites only\\
+failedAttempts & Integer & Number of incorrect entries of this code\\
+lockedUntil & DateTime & When further attempts are allowed again; null if not locked\\
+status & Enum & Active, used, cancelled or expired\\
+expiresAt & DateTime & When the code stops being valid\\
+createdAt & DateTime & When the code was generated\\
+\bottomrule
+\caption{Access Code} \label{tab:AccessCode}
 \end{longtable}
 
 \subsection{Privacy and Data Retention}
+\label{7.3: Privacy and Data Retention}
 
-\plt{Discuss storage, retention, deletion, privacy controls,
- consent, encryption, and compliance requirements.}
+Learner, sessions and CTM data are stored on a central server in Canada. A learner's paired devices only keep what is required to play: learner game configurations, learner inventory and local session data waiting to sync.
 
-TODO
+Deleted Learner profiles and CTM accounts enter a 30-day grace period after which they are permenantly deleted including all backups. The data is no longer scheduled for deletion if the account or profile is restored within the 30-day grace period. Deleting a Learner profile entails the unlinking of any paired devices and all profile access to other CTMs. Before deleting a Learner profle, the primary CTM can download the Learner data.
 
+The system collects minimal info about Learners because they have no login credentials nor do they own a traditional account. The system has no advertising or third-party tracking of Learners. The primary CTM (eg. a parent) controls the extent of permissions and access of other CTM's regarding the Learner's configurations and data. Any changes by a CTM to a Learner's settings is logged clearly for other CTMs to see.
+
+When creating a Learner profile, the creator confirms they are the Learner's legal guardian or have permission from the guardian to create/manage this profile. CTMs must agree to a list of terms \& conditions and privacy policies upon account registration. A CTM joining a Learner's care team requires an intentional invite from the primary CTM. 
+
+All data is encrypted in transit and at rest. Passwords are stored as securely hashed passwords rather than a readable form. Any session data being collected or queued for syncing on a paired device is kept in protected app storage until syncing, then deleted off the local storage.
+
+The system shall comply with Canada's federal PIPEDA law and the EU's GDPR law. Additionally, the system shall meet the conditions of app store rules for children's apps regarding ads, analytics and external links. 
 % ============================================================== 
 \section{Non-Functional Requirements}
 
-\plt{You may have to add other NFRs.}
+% \plt{You may have to add other NFRs.}
 
-\plt{List your nonfunctional requirements.  You may consider using a fit
-  criterion to make them verifiable.}
+% \plt{List your nonfunctional requirements.  You may consider using a fit
+%   criterion to make them verifiable.}
 
-\plt{The goal is for the nonfunctional requirements to be unambiguous, abstract
-  and verifiable.  This isn't easy to show succinctly, so a good strategy may be
-to give a ``high level'' view of the requirement, but allow for the details to
-be covered in the Verification and Validation document.}
+% \plt{The goal is for the nonfunctional requirements to be unambiguous, abstract
+%   and verifiable.  This isn't easy to show succinctly, so a good strategy may be
+% to give a ``high level'' view of the requirement, but allow for the details to
+% be covered in the Verification and Validation document.}
 
-\plt{An absolute requirement on a quality of the system is rarely needed.  For
-  instance, an accuracy of 0.0101 \% is likely fine, even if the requirement is
-  for 0.01 \% accuracy.  Therefore, the emphasis will often be more on
-  describing now well the quality is achieved, through experimentation, and
-  possibly theory, rather than meeting some bar that was defined a priori.}
+% \plt{An absolute requirement on a quality of the system is rarely needed.  For
+%   instance, an accuracy of 0.0101 \% is likely fine, even if the requirement is
+%   for 0.01 \% accuracy.  Therefore, the emphasis will often be more on
+%   describing now well the quality is achieved, through experimentation, and
+%   possibly theory, rather than meeting some bar that was defined a priori.}
 
-\plt{You do not need an entry for correctness in your NFRs.  The purpose of the
-  SRS is to record the requirements that need to be satisfied for correctness.
-  Any statement of correctness would just be redundant. Rather than discuss
-  correctness, you can characterize how far away from the correct (true)
-  solution you are allowed to be.  This is discussed under accuracy.}
+% \plt{You do not need an entry for correctness in your NFRs.  The purpose of the
+%   SRS is to record the requirements that need to be satisfied for correctness.
+%   Any statement of correctness would just be redundant. Rather than discuss
+%   correctness, you can characterize how far away from the correct (true)
+%   solution you are allowed to be.  This is discussed under accuracy.}
+\textbf{Usability}
 
 \noindent \begin{itemize}
 
-\item[NFR\refstepcounter{nfrnum}\thenfrnum \label{NFR_Accuracy}:]
-  \textbf{Accuracy} \plt{Characterize the accuracy by giving the context/use for
-    the software.  Maybe something like, ``The accuracy of the computed
-    solutions should meet the level needed for $<$engineering or scientific
-    application$>$.  The level of accuracy achieved by \progname{} shall be
-    described following the procedure given in Section~X of the Verification and
-    Validation Plan.''  If you do this provide a link to the VnV plan.}
+% \item[NFR\refstepcounter{nfrnum}\thenfrnum \label{NFR_Accuracy}:]
+%   \textbf{Accuracy} \plt{Characterize the accuracy by giving the context/use for
+%     the software.  Maybe something like, ``The accuracy of the computed
+%     solutions should meet the level needed for $<$engineering or scientific
+%     application$>$.  The level of accuracy achieved by \progname{} shall be
+%     described following the procedure given in Section~X of the Verification and
+%     Validation Plan.''  If you do this provide a link to the VnV plan.}
 
-\item[NFR\refstepcounter{nfrnum}\thenfrnum \label{NFR_Usability}:] \textbf{Usability}
-  \plt{Characterize the usability by giving the context/use for the software.
-    You should likely reference the user characteristics section.  The level of
-    usability achieved by the software shall be described following the
-    procedure given in Section~X of the Verification and Validation Plan.  Include a link to the VnV plan.}
+% \item[NFR\refstepcounter{nfrnum}\thenfrnum \label{NFR_Usability}:] \textbf{Usability}
+%   \plt{Characterize the usability by giving the context/use for the software.
+%     You should likely reference the user characteristics section.  The level of
+%     usability achieved by the software shall be described following the
+%     procedure given in Section~X of the Verification and Validation Plan.  Include a link to the VnV plan.}
 
-\item[NFR\refstepcounter{nfrnum}\thenfrnum \label{NFR_Maintainability}:]
-  \textbf{Maintainability} \plt{The effort required to make any of the likely
-    changes listed for \progname{} should be less than FRACTION of the original
-    development time.  FRACTION is then a symbolic constant that can be defined
-    at the end of the report.}
+% \item[NFR\refstepcounter{nfrnum}\thenfrnum \label{NFR_Maintainability}:]
+%   \textbf{Maintainability} \plt{The effort required to make any of the likely
+%     changes listed for \progname{} should be less than FRACTION of the original
+%     development time.  FRACTION is then a symbolic constant that can be defined
+%     at the end of the report.}
 
-\item[NFR\refstepcounter{nfrnum}\thenfrnum \label{NFR_Portability}:]
-  \textbf{Portability} \plt{This NFR is easier to write than the others.  The
-    systems that \progname{} should run on should be listed here.  When possible
-    the specific versions of the potential operating environments should be
-    given.  To make the NFR verifiable a statement could be made that the tests
-    from a given section of the VnV plan can be successfully run on all of the
-    possible operating environments.}
+% \item[NFR\refstepcounter{nfrnum}\thenfrnum \label{NFR_Portability}:]
+%   \textbf{Portability} \plt{This NFR is easier to write than the others.  The
+%     systems that \progname{} should run on should be listed here.  When possible
+%     the specific versions of the potential operating environments should be
+%     given.  To make the NFR verifiable a statement could be made that the tests
+%     from a given section of the VnV plan can be successfully run on all of the
+%     possible operating environments.}
 
-\item Other NFRs that might be discussed include verifiability,
-  understandability, reusability, performance, reliability and availability, security, and accessibility.  You may have to add other NFRs.
+% \item Other NFRs that might be discussed include verifiability,
+%   understandability, reusability, performance, reliability and availability, security, and accessibility.  You may have to add other NFRs.
 
+  \setcounter{nfrnum}{0}\renewcommand{\thenfrnum}{NFR-USE-\arabic{nfrnum}}
+  \item[\refstepcounter{nfrnum}\thenfrnum \label{NFR-USE-1}:] 90\% of CTMS experience little to no difficulty with the setup process for account creation, Learner pairing, and invitation of other CTMs.
+  \item[\refstepcounter{nfrnum}\thenfrnum \label{NFR-USE-2}:] 90\% of CTMs are easily able to navigate the system with minor difficulty in locating views such as a Learner's settings or starting gameplay for a Learner.
+  \item[\refstepcounter{nfrnum}\thenfrnum \label{NFR-USE-3}:] 90\% of CTMs are more quickly able to complete these actions in following sessions compared to the first time, demonstrating the system's memorability.
+  \item[\refstepcounter{nfrnum}\thenfrnum \label{NFR-USE-4}:] 90\% of CTMs experience little to no difficulty facilitating gameplay for a Learner.
+  \item[\refstepcounter{nfrnum}\thenfrnum \label{NFR-USE-5}:] 80\% of Learners are easily able to participate in gameplay, with minor frustration or lack of understanding reported.
+  \\\\
+  The above 5 requirements will be measured through surveys with CTMs and Learners and/or observance, with the process outlined in section 4.2 of the \href{../../pdfs/VnVPlan/VnVPlan.pdf}{VnV Plan}.
+  
+  \textbf{Efficiency}
+  
+  \setcounter{nfrnum}{0}\renewcommand{\thenfrnum}{NFR-EFF-\arabic{nfrnum}}
+  \item[\refstepcounter{nfrnum}\thenfrnum \label{NFR-EFF-1}:] A Learner's game data can be quickly understood and analyzed.
+  
+  \textbf{Accuracy}
+
+  \setcounter{nfrnum}{0}\renewcommand{\thenfrnum}{NFR-ACCU-\arabic{nfrnum}}
+  \item[\refstepcounter{nfrnum}\thenfrnum \label{NFR-ACCU-1}:] A Learner's data and dashboard statistics should be completely up-to-date with any gameplay that occurred before the data page was opened.
+  \item[\refstepcounter{nfrnum}\thenfrnum \label{NFR-ACCU-2}:] The games' content and difficulty is aligned with Ontario's Elementary curriculum for grades 3-5.
+  
+  \textbf{Portability}
+
+  \setcounter{nfrnum}{0}\renewcommand{\thenfrnum}{NFR-PORT-\arabic{nfrnum}}
+  \item[\refstepcounter{nfrnum}\thenfrnum \label{NFR-PORT-1}:] The system should run on Apple iPads and support iPadOS 27, as well as being compatible with iPadOS 26 and 18 \citep{moodupAppVersion}.
+  \item[\refstepcounter{nfrnum}\thenfrnum \label{NFR-PORT-2}:] The system should run on Android Tablets and support Android 17, as well as being compatible with Android 16 and 15 \citep{moodupAppVersion}.
+  \item[\refstepcounter{nfrnum}\thenfrnum \label{NFR-PORT-3}:] The system is available in web-based form and should run on the following web browsers: Google Chrome, Mozilla Firefox, and Microsoft Edge.
+  
+  \textbf{Accessibility}
+  
+  \setcounter{nfrnum}{0}\renewcommand{\thenfrnum}{NFR-ACCESS-\arabic{nfrnum}}
+  \item[\refstepcounter{nfrnum}\thenfrnum \label{NFR-ACCESS-1}:] The system shall use clear and simple language throughout, especially within game instructions, to support CTMs' and Learners' understanding and ease of use.
+  \item[\refstepcounter{nfrnum}\thenfrnum \label{NFR-ACCESS-2}:] For the scope of capstone, English will be the only language supported by the system.
+  \item[\refstepcounter{nfrnum}\thenfrnum \label{NFR-ACCESS-3}:] The system shall provide both visual and auditory feedback and output, both of which can be adjusted for Learners' specific needs.
+  \item[\refstepcounter{nfrnum}\thenfrnum \label{NFR-ACCESS-4}:] The system shall allow for pause, retrying, and review of game instructions at any point in gameplay.
+  
+  \textbf{Security}
+  
+  \setcounter{nfrnum}{0}\renewcommand{\thenfrnum}{NFR-SEC-\arabic{nfrnum}}
+  \item[\refstepcounter{nfrnum}\thenfrnum \label{NFR-SEC-1}:] The system shall protect CTMs' account login information.
+  \item[\refstepcounter{nfrnum}\thenfrnum \label{NFR-SEC-2}:] The system shall protect Learners' profile information and setting configurations.
+  \item[\refstepcounter{nfrnum}\thenfrnum \label{NFR-SEC-3}:] The system shall protect Learners' gameplay data.
+  \\\\
+  The above 3 requirements will be enforced through the specifications made in \ref{7.3: Privacy and Data Retention}.
+  
+  \textbf{Reliability}
+  
+  \setcounter{nfrnum}{0}\renewcommand{\thenfrnum}{NFR-RELY-\arabic{nfrnum}}
+  \item[\refstepcounter{nfrnum}\thenfrnum \label{NFR-RELY-1}:] In-game response times to actions are consistent, making gameplay more predictable.
+  
+  \textbf{Performance}
+
+  \setcounter{nfrnum}{0}\renewcommand{\thenfrnum}{NFR-PERF-\arabic{nfrnum}}
+  \item[\refstepcounter{nfrnum}\thenfrnum \label{NFR-PERF-1}:] 90\% of CTMs report satisfaction with response time for loading-related actions such as logging in or accessing a Learner's game-specific dashboard statistics.
+  \item[\refstepcounter{nfrnum}\thenfrnum \label{NFR-PERF-2}:] In-game response times are sufficiently fast that they don't interfere with game logic or confuse/upset Learners.
+  \\\\
+  The above 2 requirements will be measured through surveys with CTMs and Learners and/or observance, with the process outlined in section 4.2 of the \href{../../pdfs/VnVPlan/VnVPlan.pdf}{VnV Plan}.
+  
+  \textbf{Maintainability}
+  
+  \setcounter{nfrnum}{0}\renewcommand{\thenfrnum}{NFR-MAINT-\arabic{nfrnum}}
+  \item[\refstepcounter{nfrnum}\thenfrnum \label{NFR-MAINT-1}:]The effort required to make any of the likely changes listed for \progname{} should be less than FRACTION (defined in \ref{Appendix C}) of the original development time.
+  
 \end{itemize}
 
 % ============================================================== 
 \section{AI and Machine Learning Requirements}
 
-\plt{Refer to
-\href{https://gitlab.cas.mcmaster.ca/courses/capstone/-/blob/main/Lectures/Lxx_DrMosserGuestLecture/2026_09_Capstone.pdf?ref_type=heads}{Dr.
-Mosser's guest lecture} on AI requirements.}
-
-\plt{Include only when applicable.}
+Not applicable. \progname{} does not include an AI or machine learning component.
 
 \subsection{Model Inputs}
 
-TODO
+N/A
 
 \subsection{Model Outputs}
 
-TODO
+N/A
 
 \subsection{Evaluation Metrics}
 
-\plt{Accuracy, Precision, Recall, F1, BLEU, WER, etc.}
-
-TODO
+N/A
 
 \subsection{Known Limitations}
 
-\plt{Explicitly document expected failure modes.}
-
-TODO
+N/A
 
 % ============================================================== 
 \section{Requirements Traceability Matrices}
 
-\plt{The Requirements Traceability Matrix (RTM) is a table that shows the
-relationship between different types of requirements. It is used to ensure that
-all requirements are traceable and that no requirements are missed. The typical
-flow is: Stakeholder Need -> Use Case -> Requirement}
-
-\plt{There is also a traceability matrix between functional and nonfunctional
-  requirements. The purpose of some FRs is to satisfy NFRs.  Therefore, it is
-  important to show the relationship between the two.}
-
-\plt{Further traceability to test cases and modules will be given in other
-documents.}
-
-\begin{longtable}{p{0.15\textwidth} p{0.15\textwidth} p{0.20\textwidth} p{0.20\textwidth}}
+\begin{longtable}{p{0.3\textwidth} p{0.3\textwidth} p{0.3\textwidth} p{0.3\textwidth}}
 
 \toprule
 Stakeholder Req & Use Case & Functional Req \\
 \midrule
-\srref{SR_Label1} & \ucref{UC_Label1} & \rref{FR_Label1} \\
+\ref{SR-LRN-1} & \ref{UC_Label4}, \ref{UC_Label5} & \ref{FR-PERS-3} \\
+\\
+\ref{SR-LRN-3} & \ref{UC_Label1} & \ref{FR-PLAY-2}, \ref{FR-PLAY-4}, \ref{FR-PLAY-5}, \ref{FR-PLAY-6}, \ref{FR-PLAY-7}, \ref{FR-PLAY-8}, \ref{FR-PLAY-9} \\
+\\
+\ref{SR-LRN-4} & \ref{UC_Label1}, \ref{UC_Label6} & \ref{FR-TMPL-3}, \ref{FR-RWD-1}, \ref{FR-RWD-4} \\
+\\
+\ref{SR-CUST-3} &  & \ref{FR-PLAY-4}, \ref{FR-PLAY-5}, \ref{FR-PLAY-6}, \ref{FR-PLAY-7}, \ref{FR-PLAY-8}, \ref{FR-PLAY-9} \\
+\\
+\ref{SR-CTM-2} & \ref{UC_Label4}, \ref{UC_Label5} & \ref{FR-PERS-3} \\
+\\
+\ref{SR-CTM-3} & \ref{UC_Label5} & \ref{FR-TMPL-3} \\
+\\
+\ref{SR-CTM-4} & \ref{UC_Label3} & \ref{FR-DATA-1}, \ref{FR-DATA-2}, \ref{FR-DATA-3}, \ref{FR-DATA-4}, \ref{FR-DATA-5}\\
+\\
+\ref{SR-CTM-5} & \ref{UC_Label9}, \ref{UC_Label10} & \ref{FR-TEAM-1}, \ref{FR-TEAM-5} \\
+\\
+\ref{SR-CTM-6} & \ref{UC_Label10} & \ref{FR-TEAM-4}, \ref{FR-TEAM-7} \\
+\\
+\ref{SR-DOM-2} & \ref{UC_Label5}, \ref{UC_Label6} & \ref{FR-TMPL-3}, \ref{FR-RWD-1}, \ref{FR-RWD-4} \\
+\\
+\ref{SR-DOM-3} & \ref{UC_Label5}, \ref{UC_Label6} & \ref{FR-PERS-3}, \ref{FR-TMPL-4} \\
+\\
+\ref{SR-DOM-4} & \ref{UC_Label4}, \ref{UC_Label5} & \ref{FR-PERS-2}, \ref{FR-TMPL-5} \\
 \bottomrule
 
 \caption{Traceability Between Stakeholder Requirements, Use Cases, and
 Functional Requirements} \label{tab:SR2UC2FRtm}
 \end{longtable}
 
-\begin{longtable}{p{0.20\textwidth} p{0.20\textwidth}}
+\begin{longtable}{p{0.5\textwidth} p{0.5\textwidth}}
 
 \toprule
 Functional Req & Nonfunctional Req \\
 \midrule
-\rref{FR_Label1} & \nfrref{NFR_Accuracy} \\
+\ref{FR-CTM-4}, \ref{FR-DATA-1}, \ref{FR-DATA-9} & \ref{NFR-SEC-1}, \ref{NFR-USE-1} \\
+\\
+\ref{FR-LRN-3} & \ref{NFR-SEC-2} \\
+\\
+\ref{FR-DATA-1}, \ref{FR-DATA-9} & \ref{NFR-SEC-3}, \ref{NFR-EFF-1}, \ref{NFR-ACCU-1} \\
+\\
+\ref{FR-PLAY-2}, \ref{FR-PLAY-4}, \ref{FR-PLAY-5}, \ref{FR-PLAY-6}, \ref{FR-PLAY-7}, \ref{FR-PLAY-8} & \ref{NFR-USE-4}, \ref{NFR-USE-5}, \ref{NFR-ACCESS-4} \\
+\\
+\ref{FR-PERS-3}, \ref{FR-TMPL-4} & \ref{NFR-ACCESS-3} \\
 \bottomrule
 \caption{Traceability Between Functional and Nonfunctional Requirements}
-\label{tab:FR2Rtm}
+\label{tab:FR2NFRtm}
 
 \end{longtable}
 
@@ -642,29 +1596,353 @@ Functional Req & Nonfunctional Req \\
 
 \section{Rationale}
 
-\plt{Provide a rationale for the decisions made in the documentation.  Rationale
-should be provided for scope decisions, functional requirements, nonfunctioanl
-requirements, data requirements, and AI requirements.  You don't need a
-rationale for everything, ust the major decisions that are not obvious.  You
-should have traceability to the entities in the document that you are
-referencing.}
+Table~\ref{tab:Rationale} provides justification for selected requirements and
+scope decisions that influence \progname{}'s functionality and operating
+environment.
 
-\section{Likely Changes}    
+\begin{longtable}{@{}p{0.12\textwidth}p{\dimexpr0.88\textwidth-2\tabcolsep\relax}@{}}
+\caption{Rationale for Selected Requirements and Scope Decisions}
+\label{tab:Rationale}\\
+\toprule
+\textbf{ID} & \textbf{Rationale}\\
+\midrule
+\endfirsthead
+\toprule
+\textbf{ID} & \textbf{Rationale}\\
+\midrule
+\endhead
+\midrule
+\multicolumn{2}{r}{Continued on next page}\\
+\endfoot
+\bottomrule
+\endlastfoot
+\hyperref[sec_SystemProblem]{Section~\ref*{sec_SystemProblem}} &
+\progname{} is designed to support educational practice rather than clinical
+assessment. Evaluating developmental improvement or making diagnostic
+conclusions would require additional research and validation beyond the scope of
+this project.\\
+\addlinespace
+\hyperref[sec_ProductVision]{Section~\ref*{sec_ProductVision}} &
+The initial system focuses on routine sequencing, functional communication, and
+short-term memory to establish a manageable set of learning activities that can
+be developed and evaluated within the capstone timeline.\\
+\addlinespace
+\hyperref[sec_SystemContext]{Section~\ref*{sec_SystemContext}} &
+Separating Learners and CTMs into distinct user groups allows Learners to focus
+on participating in Games while CTMs manage settings, permissions, and
+performance information.\\
+\addlinespace
+\hyperref[SecUserCharacteristics]{Section~\ref*{SecUserCharacteristics}} &
+The system considers differences in Learners' communication methods,
+developmental abilities, and familiarity with technology because autistic
+individuals may have different learning needs and preferences.\\
+\addlinespace
+\hyperlink{SC1}{SC1} &
+Supporting commonly available devices allows \progname{} to be used in homes and
+educational environments without requiring specialized equipment.\\
+\addlinespace
+\hyperlink{SC2}{SC2} &
+Supporting standard input methods accommodates different device configurations
+and interaction preferences while keeping the initial development and testing
+scope manageable.\\
+\addlinespace
+\hyperlink{SC3}{SC3} &
+Network connectivity is necessary to maintain consistent Learner information,
+Game configurations, and care team permissions across authorized users and
+devices.\\
+\end{longtable}
+
+For functional requirements regarding CTMs, we are allowing CTM's to delete and restore their accounts or Learners for which they are authorized to do so to comply with industry standard privacy policies for handling user data. 
+
+For functional requirements regarding Learner profiles, we've decided to not give the Learner a typical login-style account. This is because we do not want the Learner, who may be young or possess untrained memory skills, to remember their login every time. Therefore, we have created a device pairing system for the Learner to play on their authorized device(s) when setting up, not requiring any further admin steps after that.
+
+For the decision to make a primary CTM, we wanted to avoid conflicting decisions in the Care Team to affect the Learner. We also wanted to give an assured way for legal guardians to be comfortable with allowing a specialist, educator or therapist to adjust settings without feeling powerless to revert their changes or remove them from handling the Learner profile altogether. In this manner, the legal guardian has the right to remove other CTMs who are no longer affiliated with the Learner's learning path, instead inviting a new CTM for example. The granularity of the permissions the primary CTM can invoke on each CTM should further comfort a legal guardian in their control over who can affect the Learner's experience.
+
+Regarding the extensive personalization and template feature: autistic learners specifically are more easily prone to either understimulation or overstimulation. In that case, we should not adopt a one-size-fits-all gameplay experience as a typical educational game suite would, but rather allow the CTMs that are most knowledgeable about the Learner to have stronger capability to tailor the experience for the Learner.
+
+THe gameplay is designed to be low-pressure with the ability to pause, abort and find help all afforded to the Learner by default. This further emphasizes the experience of the Learner and the self-applied guardrails we've employed to not cause a Learner any unintended distress. The Learner's data section regarding these games is also crucial for the CTMs to assess the Learner's current skillset and for progress tracking. The reward system is another method by which we plan to boost the Learner's engagement and positive reinforcement instead of repetitive educational gameplay they may easily be bored by.\\
+
+The data requirements follow suit to what the functional requirements say about the system. The major data entities can be seen as nouns in the functional requirements for the most part. The Learner Game Configuration is a table designed to hold the Learner's configured settings for each game by the CTM's authorization. Device and Access Code are two entities that operate together in the case of the Learner's device pairing, though the Access Code table doubles as an invite system for CTMs to join a care team. 
+
+The data system is decomposed in such a way that objects created from these entities do not destroy other objects upon deletion. For example, despite the CTM account 'owning' the Learner profile, deleting the CTM account should not also delete a Learner's profile. Even with data entities such as Learner Inventory; the aim is to not create objects that are inefficient for a database to query what it requires. It is more efficient to have a Learner Inventory entity than to have either the Learner store their cosmetic items in the same table, whether they are equipped or not etc.\\
+
+There are no AI requirements because we are not employing a machine learning model in Spectropica.
+
+\section{Likely Changes}
+
+The following changes are considered likely as \progname{} is developed, tested,
+and evaluated with intended users. Each entry identifies the part of the system
+expected to evolve and its relationship to existing requirements or data
+entities.
 
 \noindent \begin{itemize}
 
-\item[LC\refstepcounter{lcnum}\thelcnum\label{LC_meaningfulLabel}:] \plt{Give
-    the likely changes, with traceability to the entity that is likely to change.}
+\item[LC\refstepcounter{lcnum}\thelcnum
+  \label{LC_GameContent}:] \textbf{Game Content and Difficulty}
+
+The content, challenges, and available difficulty levels within Games are likely
+to change based on feedback from Learners, Care Team Members (CTMs), and Domain
+Experts. New activities or variations may be introduced, and existing challenges
+may be adjusted to better accommodate individual needs.
+
+These changes are expected to affect Game content and configuration rather than
+the underlying relationship between a Learner and their authorized Games.
+Changes to content or difficulty may also affect how previously recorded results
+are interpreted and compared with results from later Game Sessions.
+
+\textbf{Traceability:} Game (Table~\ref{tab:Game}), Learner Game Configuration
+(Table~\ref{tab:LearnerGameConfig}), Template (Table~\ref{tab:Template}), Game
+Session (Table~\ref{tab:GameSession}); \ref{FR-PERS-2}, \ref{FR-PERS-3},
+\ref{FR-TMPL-3}, \ref{FR-TMPL-5}, \ref{FR-DATA-7}.
+
+\item[LC\refstepcounter{lcnum}\thelcnum
+  \label{LC_Personalization}:] \textbf{Personalization and Template Settings}
+
+The available personalization settings and types of Template modifications are
+likely to expand. Additional settings may be introduced to give CTMs greater
+control over Game content, presentation, or difficulty.
+
+The mechanisms for assigning configurations and Templates to Learners are
+expected to remain applicable even as the range of customizable options changes.
+
+\textbf{Traceability:} Learner Game Configuration
+(Table~\ref{tab:LearnerGameConfig}), Template (Table~\ref{tab:Template});
+\ref{FR-PERS-3}, \ref{FR-PERS-4}, \ref{FR-TMPL-3}, \ref{FR-TMPL-4},
+\ref{FR-TMPL-6}.
+
+\item[LC\refstepcounter{lcnum}\thelcnum
+  \label{LC_PerformanceMetrics}:] \textbf{Performance Metrics and Dashboard
+Representations}
+
+The metrics recorded for Game Sessions and the methods used to present them are
+likely to change as CTMs provide feedback on which information is most useful.
+
+For example, the Dashboard may be updated to emphasize different performance
+measures or provide additional representations of a Learner's Game history.
+These changes should preserve the association between performance records and
+their corresponding Learner and Game Session. Changes to scoring or performance
+measures may affect comparisons between historical and newer results and should
+be considered when interpreting performance over time.
+
+\textbf{Traceability:} Game Session (Table~\ref{tab:GameSession});
+\ref{FR-DATA-2}, \ref{FR-DATA-3}, \ref{FR-DATA-4}, \ref{FR-DATA-5},
+\ref{FR-DATA-7}.
+
+\item[LC\refstepcounter{lcnum}\thelcnum
+  \label{LC_Rewards}:] \textbf{Rewards and Cosmetic Items}
+
+The available Cosmetic Items, rewards, and conditions for unlocking them are
+likely to change as the team evaluates Learner engagement. New items may be
+added, existing items may be modified, and reward conditions may be adjusted.
+
+These changes affect the available content and reward conditions rather than the
+relationship between Learners and the items in their inventories.
+
+\textbf{Traceability:} Cosmetic Item (Table~\ref{tab:CosmeticItem}), Learner
+Inventory (Table~\ref{tab:LearnerInventory}); \ref{FR-RWD-1} through
+\ref{FR-RWD-7}.
+
+\item[LC\refstepcounter{lcnum}\thelcnum
+  \label{LC_InterfaceAccessibility}:] \textbf{Interface Design and Accessibility
+Options}
+
+The presentation and navigation of the Game Suite and CTM Dashboard are likely
+to change following usability evaluations. These changes may involve
+instructions, navigation, feedback presentation, and available accessibility
+settings.
+
+Such modifications are expected to improve the user experience without changing
+the responsibilities of Learners and CTMs.
+
+\textbf{Traceability:} Learner Game Configuration
+(Table~\ref{tab:LearnerGameConfig}); \ref{FR-PLAY-4}, \ref{FR-PLAY-5},
+\ref{FR-PERS-3}, \ref{FR-DATA-5}. Related usability and accessibility
+requirements should be included when finalized in
+\hyperlink{section.8}{Section~8}.
+
+\item[LC\refstepcounter{lcnum}\thelcnum
+  \label{LC_TemplateSharing}:] \textbf{Template Organization and Sharing}
+
+The way CTMs organize and share Templates may change as the team evaluates how
+these features are used. Future changes may include improvements to Template
+folders, importing Templates, and managing customized content.
+
+These changes are expected to preserve the purpose of Templates as reusable
+variations of existing Games.
+
+\textbf{Traceability:} Template (Table~\ref{tab:Template}); \ref{FR-TMPL-1},
+\ref{FR-TMPL-2}, \ref{FR-TMPL-3}, \ref{FR-TMPL-9}.
+
+\item[LC\refstepcounter{lcnum}\thelcnum
+  \label{LC_PlatformCompatibility}:] \textbf{Platform Compatibility and
+Interaction Methods}
+
+The range of supported platforms and input methods may change as \progname{} is
+developed and tested. The initial intended platforms include iPadOS and Android
+tablets, along with web access. Additional desktop platforms, such as Windows
+and macOS, may be considered depending on compatibility testing and available
+development resources.
+
+Changes to supported platforms may also affect available input methods,
+including touch, keyboard, and pointer interaction. These changes are expected
+to expand or refine the environments in which \progname{} operates without
+changing the underlying relationship between Learner profiles and paired
+devices.
+
+\textbf{Traceability:} \hyperlink{subsection.2.5}{SC1} and \hyperlink{subsection.2.5}{SC2};
+applicable portability and accessibility requirements in
+\hyperlink{section.8}{Section~8}. Related device-pairing entities and
+requirements: Device (Table~\ref{tab:Device}), Access Code
+(Table~\ref{tab:AccessCode}); \ref{FR-DEV-1} through \ref{FR-DEV-5}.
+
+\item[LC\refstepcounter{lcnum}\thelcnum
+  \label{LC_AdditionalGames}:] \textbf{Additional Games and Learning Activities}
+
+The number and variety of Games available in \progname{} may increase beyond the
+initial set of learning activities. New Games may introduce additional
+objectives, content, and performance measures.
+
+These additions are expected to follow the existing approach of managing Game
+authorization, Learner-specific configurations, and Game Session records.
+
+\textbf{Traceability:} Game (Table~\ref{tab:Game}), Learner Game Configuration
+(Table~\ref{tab:LearnerGameConfig}), Game Session (Table~\ref{tab:GameSession});
+\ref{FR-PERS-1}, \ref{FR-PERS-2}, \ref{FR-DATA-7}.
 
 \end{itemize}
 
-\section{Unlikely Changes}    
+\section{Unlikely Changes}
+
+The following assumptions are considered unlikely to change during the
+development of \progname{}. They define stable characteristics that the system's
+design can rely on. Each assumption is supported by the system's intended
+purpose, user responsibilities, or existing requirements.
 
 \noindent \begin{itemize}
 
-\item[LC\refstepcounter{lcnum}\thelcnum\label{LC_meaningfulLabel}:] \plt{Give
-    the unlikely changes.  The design can assume that the changes listed will
-    not occur.}
+\newcounter{ulcnum}
+
+\item[ULC\refstepcounter{ulcnum}\arabic{ulcnum}
+  \label{ULC_Roles}:] \textbf{Distinction Between Learners and CTMs}
+
+\progname{} will continue to distinguish between Learners, who participate in
+Games, and Care Team Members (CTMs), who manage and support their learning
+activities. The specific functions available to each group may evolve, but their
+primary responsibilities are expected to remain separate.
+
+Maintaining this distinction allows Learners to focus on participating in Games
+without being responsible for administrative tasks, while CTMs retain
+responsibility for managing activities and interpreting results.
+
+\textbf{Traceability:} Learner (Table~\ref{tab:Learner}), CTM
+(Table~\ref{tab:CTM}).
+
+\item[ULC\refstepcounter{ulcnum}\arabic{ulcnum}
+  \label{ULC_LearnerProfiles}:] \textbf{Individual Learner Profiles}
+
+Each Learner will continue to have an identifiable profile associated with their
+Games, configurations, and Game Session records. This relationship is
+fundamental to providing individualized activities and maintaining a history of
+performance.
+
+Maintaining individual profiles also allows \progname{} to associate the correct
+configurations and records with a Learner when they use different paired devices
+or receive support from multiple CTMs.
+
+\textbf{Traceability:} Learner (Table~\ref{tab:Learner}), Learner Game
+Configuration (Table~\ref{tab:LearnerGameConfig}), Game Session
+(Table~\ref{tab:GameSession}); \ref{FR-LRN-1}, \ref{FR-DATA-7}.
+
+\item[ULC\refstepcounter{ulcnum}\arabic{ulcnum}
+  \label{ULC_CareTeamPermissions}:] \textbf{Care Team Membership and
+Permissions}
+
+\progname{} will continue to associate CTMs with Learners through care team
+memberships. Each active Learner profile will have a Primary CTM responsible for
+managing the permissions of other CTMs. This structure establishes clear
+responsibility for access management when multiple individuals support the same
+Learner.
+
+Although the available permissions may change, the distinction between
+authorized and unauthorized actions is expected to remain. The identity of the
+Primary CTM may change through the ownership-transfer process without changing
+the purpose of the role.
+
+\textbf{Traceability:} CTM (Table~\ref{tab:CTM}), Care Team Membership
+(Table~\ref{tab:Care Team Membership}); \ref{FR-LRN-2}, \ref{FR-TEAM-4},
+\ref{FR-TEAM-6}, \ref{FR-TEAM-7}.
+
+\item[ULC\refstepcounter{ulcnum}\arabic{ulcnum}
+  \label{ULC_Personalization}:] \textbf{CTM-Controlled Personalization}
+
+CTMs will continue to manage Learner-specific Game settings and authorizations.
+The system is expected to preserve the principle that personalized activities
+are configured by authorized CTMs rather than automatically prescribed based on
+assumptions about a Learner's developmental needs.
+
+This approach maintains CTM responsibility for selecting activities appropriate
+to individual Learners, even if the range of available personalization settings
+expands.
+
+\textbf{Traceability:} Learner Game Configuration
+(Table~\ref{tab:LearnerGameConfig}), Template (Table~\ref{tab:Template});
+\ref{FR-PERS-1} through \ref{FR-PERS-4}.
+
+\item[ULC\refstepcounter{ulcnum}\arabic{ulcnum}
+  \label{ULC_Games}:] \textbf{Games as the Primary Learning Experience}
+
+Games will remain the central activities through which Learners interact with
+\progname{}. The content and number of Games may change, but their role as the
+primary means of providing practice opportunities is expected to remain.
+
+Replacing Games with a different primary learning format would fundamentally
+change \progname{}'s intended purpose rather than simply extend its
+functionality.
+
+\textbf{Traceability:} Game (Table~\ref{tab:Game}), Game Session
+(Table~\ref{tab:GameSession}).
+
+\item[ULC\refstepcounter{ulcnum}\arabic{ulcnum}
+  \label{ULC_PerformanceRecords}:] \textbf{Game-Specific Performance Records}
+
+\progname{} will continue to record performance information associated with
+individual Learners and Game Sessions. The metrics and methods of presentation
+may evolve, but the relationship between a Learner, a Game, and its recorded
+session results is expected to remain.
+
+Maintaining these relationships allows CTMs to review individual Game histories
+and interpret recorded results in the context of the activities completed.
+
+\textbf{Traceability:} Learner (Table~\ref{tab:Learner}), Game
+(Table~\ref{tab:Game}), Game Session (Table~\ref{tab:GameSession});
+\ref{FR-DATA-2}, \ref{FR-DATA-4}, \ref{FR-DATA-7}.
+
+\item[ULC\refstepcounter{ulcnum}\arabic{ulcnum}
+  \label{ULC_Participation}:] \textbf{Learner Control Over Participation}
+
+Learners will continue to have the ability to pause, restart, or end an ongoing
+Game. These controls allow Learners to stop or repeat an activity according to
+their needs and preferences, making them an important part of the intended
+gameplay experience.
+
+Removing these controls would reduce the flexibility available to Learners
+during participation and would conflict with the existing gameplay requirements.
+
+\textbf{Traceability:} \ref{FR-PLAY-5}, \ref{FR-PLAY-6}, \ref{FR-PLAY-7}.
+
+\item[ULC\refstepcounter{ulcnum}\arabic{ulcnum}
+  \label{ULC_NonClinicalPurpose}:] \textbf{Non-Clinical Purpose}
+
+\progname{} will remain an educational support application rather than a
+clinical assessment or diagnostic tool. Performance information will continue to
+describe outcomes within Games rather than establish broader developmental
+conclusions.
+
+Changing this purpose would require a substantial reconsideration of the
+system's scope and validation requirements.
+
+\textbf{Traceability:} Game (Table~\ref{tab:Game}), Game Session
+(Table~\ref{tab:GameSession}).
 
 \end{itemize}
 
@@ -674,46 +1952,235 @@ referencing.}
 
 \subsection{Appendix A: Additional Materials}
 
-TODO
+Figure~\ref{fig:PlayingGame} shows the state diagram for playing a Game,
+including loading, gameplay, pausing, rewards, restarting, and exiting.
+
+\begin{figure}[htbp]
+  \centering
+  \resizebox{0.95\textwidth}{!}{\input{PlayingGame.tex}}
+  \caption{State diagram for playing a Game.}
+  \label{fig:PlayingGame}
+\end{figure}
 
 \subsection{Appendix B: Development Plan}
 
-\plt{This section is optional.  It is used to explain the plan for developing
-  the software.  In particular, this section gives a list of the order in which
-  the requirements will be implemented.  In the context of a course  this is
-  where you can indicate which requirements will be implemented as part of the
-  course, and which will be ``faked'' as future work.  This section can be
-  organized as a prioritized list of requirements, or it could show the
-  requirements that will be implemented for ``phase 1'', ``phase 2'', etc.}
+The project's development process and implementation plan are documented in the
+\href{https://github.com/meena-alomran/game-n-grow/blob/main/pdfs/DevelopmentPlan/DevelopmentPlan.pdf}{Development Plan}
+in the project repository.
 
 \subsection{Appendix C: Values of Auxiliary Constants}
+\label{Appendix C}
 
-\plt{Show the values of the symbolic parameters introduced in the report.}
+The following auxiliary constant is used in the nonfunctional requirements.
+Table~\ref{tab:AuxiliaryConstants} lists its value and referenced requirement.
 
-\plt{The definition of the requirements will likely call for SYMBOLIC\_CONSTANTS.
-Their values are defined in this section for easy maintenance.}
-
-\plt{The value of FRACTION, for the Maintainability NFR would be given here.}
-
-TODO
+\begin{table}[htbp]
+\centering
+\begin{tabular}{lll}
+\toprule
+Constant & Value & Referenced Requirement \\
+\midrule
+\texttt{FRACTION} & $1/6$ &
+\hyperref[NFR_Maintainability]{NFR-MAINT-1} \\
+\bottomrule
+\end{tabular}
+\caption{Values of Auxiliary Constants}
+\label{tab:AuxiliaryConstants}
+\end{table}
 
 \subsection{Appendix D: Generative AI Disclosure}
 
-\plt{Provide full transparency on how generative AI was used in the creation of
-  this document.  This includes any text, figures, or tables that were generated
-  by AI.  If any skills were created for AI agents to review the documentation,
-  those should be disclosed here.}
+\textbf{Artificial Intelligence (AI) Tools Used:} Claude's Sonnet 5 model and
+ChatGPT (OpenAI).
+
+\subsubsection{How and Where Used}
+
+ChatGPT (OpenAI) assisted with a final grammar and spelling review of portions
+of this Software Requirements Specification (SRS).
+
+Sonnet was used to learn how to resolve LaTeX errors and structure LaTeX
+documents.
+
+We used AI to convert our team-created system context diagram into a vector
+diagram using LaTeX/TikZ. We also used AI to add citations to the text and
+format the corresponding BibTeX entries.
+
+\subsubsection{Verification of AI-Generated Content}
+
+AI usage was limited to resolving LaTeX errors, formatting citations,
+structuring the document, converting the team-created system context diagram
+into a vector diagram, and reviewing grammar and spelling.
 
 \subsection{Appendix E: Reflection}
 
-\plt{This isn't part of the SRS, but it is part of the course.}
+\begin{enumerate}
 
-The information in this section will be used to evaluate the team members on the
-graduate attribute of Lifelong Learning.  
+\item \textbf{What went well during the development of the SRS?}
 
-\input{../Reflection.text}
+One aspect that went well was our team's ability to build on our initial project
+proposal and develop a more detailed understanding of what \progname{} needs to
+accomplish. As we worked through the Software Requirements Specification (SRS),
+we were able to break down our overall project goals into more specific system
+functionalities and identify how different parts of the application would
+interact. Having a shared understanding of our project's purpose helped us
+organize the requirements and maintain consistency between sections. We also
+benefited from being able to discuss different ideas as a team and refine our
+decisions as the project became more clearly defined.
 
-\input{../SRS_Reflection.text}
+\item \textbf{What challenges did you experience, and how did you resolve them?}
+
+One of the main challenges we experienced was distinguishing between high-level
+project goals and specific system requirements. Initially, it was difficult to
+determine how much detail belonged in each section and how to describe what the
+system needed to accomplish without prescribing exactly how it would be
+implemented.
+
+Another challenge was ensuring that the requirements remained consistent across
+different sections of the SRS, especially as our understanding of the project
+evolved. We addressed these challenges by referring back to the SRS template,
+reviewing the requirements as a team, and comparing them against our overall
+project objectives. This helped us make our requirements more specific while
+ensuring they continued to support the intended purpose of \progname{}.
+
+\item \textbf{How many requirements were inspired by discussions with clients,
+stakeholders, or potential users?}
+
+Approximately ten of our requirements were influenced by discussions with our
+project supervisor, who is our domain expert in psychology and autism. These
+discussions helped us better understand the different needs and abilities of
+autistic Learners, particularly the importance of personalization,
+accessibility, and flexibility during gameplay. This influenced requirements
+related to Game customization, adjustable settings, clear instructions, and
+allowing Learners to control their participation. The discussions helped us
+ensure that our requirements considered the needs of our intended users rather
+than focusing solely on technical functionality.
+
+\item \textbf{Which courses helped prepare your team for this capstone
+deliverable?}
+
+SFWRENG 3RA3, our Software Requirements course, was especially useful for
+developing this deliverable. The course introduced us to the process of
+identifying, organizing, and documenting software requirements, which directly
+applied to writing our SRS. In particular, it helped us understand the
+distinction between functional and nonfunctional requirements, the importance of
+clear and unambiguous wording, and how to structure requirements so that they
+can be understood and evaluated.
+
+The knowledge gained from this course provided a strong foundation for
+translating our project idea into a more formal specification.
+
+\item \textbf{What additional knowledge or skills do you need to acquire?}
+
+\textbf{Amirah Abdel-Rahman:}
+
+One area where I would like to develop a stronger understanding is developmental
+psychology, particularly autism and how differences in cognitive, communication,
+and learning abilities may affect the way individuals interact with educational
+games. Since \progname{} is designed for autistic Learners, I think it is
+important to understand these differences so that the decisions we make are
+appropriate for our intended users rather than based on assumptions.
+
+I would also like to improve my knowledge of game design, especially how to
+create engaging and accessible activities that balance learning objectives with
+an enjoyable user experience. While I have experience with software development,
+designing educational games for a specific user group introduces considerations
+that I have not explored in as much depth.
+
+\textbf{Marko:} I have some knowledge in game development, but I currently lack
+the hands-on experience with database management specifically for a game engine
+context. I understand SQL and security well enough, as well as game engines like
+Godot, but as for bridging the gap between them, I am unfamiliar with the best
+practices.
+
+\textbf{Maya Azar:}
+
+One area where I need to develop a stronger understanding is autism,
+particularly the different needs, abilities, and challenges that autistic
+individuals may experience. Currently, my knowledge is mostly surface-level, so
+I think it is important to learn more about autism to ensure that the Games we
+develop are appropriate for our intended users. I would also like to gain a
+better understanding of how children learn and develop new skills, especially
+how different learning approaches can influence their engagement and progress.
+Since Spectropica is designed to support learning, having a stronger foundation
+in these areas will help me make more informed design decisions.
+
+\textbf{Meena Al Omran:}
+
+I have a lot to learn technically. I don't have any experience in game design,
+although I've always found it interesting. It will be new to program real-time interactions
+and to also consider things like enjoyability, rewards, etc. Most of my experience is
+very objective-based. I also have never designed for an app before and have only worked
+in web development, so that will be a new environment to work in.
+I also have a ways to go with understanding the needs and experiences of autistic children,
+although I do have some basic knowledge from research I've done for personal interest. Most of
+my knowledge of autism is about how adults experience it. It will be new to consider a child's
+point of view and how to help them. I look forward to the challenge.
+
+\textbf{Omar Ghoneim:}
+
+Despite having a C++ background, I am not familiar with game engines and their quirks. I am also not experienced in the field of game physics and how to draw good art or visuals in the context of gaming. This will also be my first time dealing with very sensitive data and integrating heavy privacy and security mechanisms. 
+
+I also need to acquire the macrosystem understanding of backend engineering, with the game engine, with the frontend and the account management altogether wrapped up. I need to acquire the skill of planning a system that expansive and complex.
+
+\item \textbf{How will you acquire these skills, and which approach will you
+choose?}
+
+\textbf{Amirah Abdel-Rahman:}
+
+To strengthen my understanding of autism and developmental abilities, I plan to
+continue reviewing academic research on autism and educational interventions and
+consulting with our domain expert to gain more practical insight into the needs
+of our intended users. Consulting our expert will allow me to ask questions
+directly related to our project and receive feedback on our design decisions.
+Reviewing research will help me build the foundational knowledge needed to make
+those discussions more meaningful.
+
+For game design, I plan to prioritize hands-on prototyping because I learn best
+by applying concepts directly. This will allow me to explore different game
+mechanics, identify usability issues, and gradually improve my understanding of
+how to design activities that are both engaging and accessible.
+
+\textbf{Marko:} A good approach is online research and finding learning
+resources for this problem specifically. I could also personally ask actual
+industry professionals with past experience in the area how they would do it.
+And then, I could practice on a mini side-project that uses Godot and bridges
+data to an online SQL hosting service, so that I get hands-on mastery of the
+skill.
+
+\textbf{Maya Azar:}
+
+To improve my understanding of autism and children's learning processes, I could
+review academic research and educational resources or speak with individuals who
+have professional or personal experience in these areas. I plan to use a
+combination of both approaches. Research will help me build a stronger
+foundation and understand different learning needs, while speaking with experts,
+such as our project supervisor, will allow me to ask questions specific to
+Spectropica. I also plan to learn from friends and family members with relevant
+experience, including those who work as special education teachers. I think
+these conversations will be especially valuable because they can provide
+practical insight into how children with different learning needs respond to
+educational activities, which can help guide our Game design decisions.
+
+\textbf{Meena Al Omran:}
+
+To improve my technical knowledge, I will have to do some research about game development
+and how it differs from the type of programming I'm used to. It will also help to talk
+to my groupmates who have more experience in game development about how to learn and 
+what goes into it. It would help to do some sample coding on a much smaller scale before
+we start implementation. The same goes for app development - I will need to do some reading and
+try out some small examples.
+I plan to improve my knowledge of autism, specifically autistic children, by reading research. Our supervisor
+will also be a big help in understanding not only their development, but general cognitive development
+in children. I think that also speaking to educators in the field will help me gain some perspective
+and understand their needs better.
+
+\textbf{Omar Ghoneim:}
+
+I will acquire the skill of dealing with the Godot engine by doing a volume of demonstrations and practice projects on a small scale with Godot, each harnessing different areas important to Spectropica such as game physics, backend engineering and frontend design. I will try to agglomerate these into one skillset that can be used for a large full-stack project like Spectropica.
+
+Regarding the macrosystem understanding and planning, I will ask some colleagues and friends I have that are veterans in the field of designing large systems and handling sensitive data, of which some are older and more experienced. I will create mock plans for mock project to practice the skill of system decomposition and system design, to then apply it the Spectropica context.
+
+\end{enumerate}
 
 \newpage
 
@@ -721,6 +2188,5 @@ graduate attribute of Lifelong Learning.
 \bibliography {../../refs/References}
 
 \newpage
-
 
 \end{document}
