@@ -1165,6 +1165,31 @@ Primary CTM
 
 \end{itemize}
 
+\section{Safety Requirements}
+
+The following were generated from the hazard analysis:
+
+\begin{itemize}
+    \item[\textbf{SR-1}] The system shall enforce password strength on creation of account. 
+    \item[\textbf{SR-2.}] The system shall end a CTM's session after a period of inactivity.
+    \item[\textbf{SR-3.}] The system shall require a CTM to re-enter their password before deleting a Learner profile, deleting their account, transferring ownership of a Learner profile or removing a CTM from a care team.
+    \item[\textbf{SR-4.}] Default stimulation level, volume and celebration intensity shall be set to low values until a CTM changes them.
+    \item[\textbf{SR-5.}] No game audio or animation shall begin before the Learner gives the cue to start.
+    \item[\textbf{SR-6.}] Games shall not contain content that flashes more than three times in any one-second period (following WCAG 2.x Success Criterion 2.3.1).
+    \item[\textbf{SR-7.}] Error messages shown to a Learner shall be calm and short, shall not use alarming sounds or visuals, and shall offer a single action to return to the game suite.
+    \item[\textbf{SR-8.}] Sessions that end through a crash, abort or lost connection shall be recorded as incomplete and shall not be counted in a Learner's performance averages.
+    \item[\textbf{SR-9.}] A loss of connection shall not interrupt a game session in progress or prevent a Learner from playing authorized games with settings already stored on the device.
+    \item[\textbf{SR-10.}] Every game task shall be completable with either touch or mouse input.
+    \item[\textbf{SR-11.}] Pause, restart and exit controls shall be visible and responsive at all times while a game is being played.
+    \item[\textbf{SR-12.}] Cosmetic items hidden by a CTM shall be hidden from the items screen and shall not be purchasable or equippable by the Learner.
+    \item[\textbf{SR-13.}] The system shall confirm a save of settings, templates or equipped items only after the write has been verified; if saving fails, the previous values shall be kept and the CTM or Learner informed.
+    \item[\textbf{SR-14.}] Before a template is assigned, un-assigned or deleted, the system shall show the affected Learners and what will be replaced, require confirmation, and show a preview of the template.
+    \item[\textbf{SR-15.}] Imported files shall be treated as untrusted data and shall never be executed.
+    \item[\textbf{SR-16.}] An export of Learner data shall contain every record for the selected Learner, game and date range, and shall report a record count that matches the dashboard for the same selection.
+    \item[\textbf{SR-17.}] The system shall automatically back up stored data regularly and shall support restoring from a backup.
+    \item[\textbf{SR-18.}] The system shall verify that deletion of a Learner's data has completed and shall remove the data from backups within a fixed retention period (defined in the SRS Appendix of auxiliary constants).
+\end{itemize}
+
 % ============================================================== 
 \section{Data Requirements}
 
