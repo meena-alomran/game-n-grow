@@ -111,61 +111,13 @@ Date 2 & 1.1 & Notes\\
 \bottomrule
 \end{tabularx}
 
-~\\
-\plt{All capstone SRS documents should have a reflection appendix.}
-
 \newpage
 
 \pagenumbering{arabic}
 
-\plt{This SRS template is based on the IEEE template, with input from co-pilot
-  and S. Smith. It will get you started.  You should not modify the section
-  headings, without first discussing the change with the course instructor.
-  Modification means you are not following the template, which loses some of the
-  advantage of a template, especially standardization.}
-
-\plt{Feel free to change the appearance of the report by modifying the LaTeX
-  commands.}
-
-\plt{This template document assumes that a single program is being documented.
-  If you are documenting a family of models, you should start with a commonality
-  analysis.}
-
-\plt{The SRS is not generally written, or read, sequentially.  The SRS is a
-  reference document.  It is generally read in an ad hoc order, as the need
-  arises.}
-
-\plt{Guiding principles for the SRS document:
-\begin{itemize}
-\item Do not repeat the same information at the same abstraction level.  If
-  information is repeated, the repetition should be at a different abstraction
-  level.
-\end{itemize}
-}
-
-\plt{The template description comments should be disabled before submitting this
-  document for grading.}
-
-\plt{You can borrow any wording from the text given in the template.  It is part
-  of the template, and not considered an instance of academic integrity.  Of
-  course, you need to cite the source of the template.}
-
-\plt{When the documentation is done, it should be possible to trace back to the
-  source of every piece of information.  Some information will come from
-  external sources, like terminology.}
-
-\plt{An SRS document should have the following qualities: unambiguous,
-  consistent, complete, validatable, abstract and traceable.}
-
-\plt{The overall goal of the SRS is that someone can learn,
-  understand and verify the captured domain knowledge.  They should not have to
-  trust the authors of the SRS on any statements.  They should be able to
-  independently verify/derive every statement made.}
-
 % ============================================================== 
 \section{Introduction} 
 % =======================================================
-
 
 \subsection{Purpose}
 
@@ -185,7 +137,6 @@ Expected benefits for a player perspective include the boosted engagement of aut
 
 To further clarify the scope, \progname{} is intended to be used as a tool for Care Team members rather than a replacement for professional expertise. Within the timeline of Capstone, the software will not retain functionality for Care Team members to create their own brand new game types, design of their own tailored maps for games, or designing cosmetic rewards from scratch. The software will also not include a competitive component for players to compete against each other's scores.
 
-
 \subsection{Stakeholders}
 \begin{itemize}
 \item Autistic Learners are a primary stakeholder and an end user group. They play the games and their skill growth is the main objective of the product. Accessibility, engagement and comfort are the priorities for this stakeholder group.
@@ -193,8 +144,6 @@ To further clarify the scope, \progname{} is intended to be used as a tool for C
 \item Care Team Members are another end user group that are primary stakeholders. They are the ones familiar with the autistic learner. Consequently, they use both administrative privileges to customize games and the dashboard to read or analyze student-specific data. They are the main decision makers for the autistic learner's learning path and progress, and therefore consulted by the development team for the latter to prioritize the most important tailoring features.
 \item Domain Experts are the final stakeholder group, falling into the secondary category. They are consulted by the development team to ensure the designed software is appropriate for autistic learners; aiding their progress and steering clear of any unintended harm. 
 \end{itemize}
-
-
 
 \subsection{Definitions and Acronyms}
 
@@ -683,7 +632,6 @@ CTM
 
 \end{itemize}
 
-
 \textbf{Postconditions}
 \begin{itemize}
 \item Learner profile has been created in relationship with the CTM's account.
@@ -725,7 +673,6 @@ CTM
 \item 8.1: CTM sets a specific timeline to view the Learner's score such (eg. October 6 - October 15).
 
 \end{itemize}
-
 
 \textbf{Postconditions}
 \begin{itemize}
@@ -771,7 +718,6 @@ CTM
 
 \item 8.1: CTM does not change the default intensity.
 \end{itemize}
-
 
 \textbf{Postconditions}
 \begin{itemize}
@@ -821,7 +767,6 @@ CTM
 
 \end{itemize}
 
-
 \textbf{Postconditions}
 \begin{itemize}
 \item CTM has successfully created, assigned and saved the template.
@@ -867,9 +812,7 @@ Learner
 
 \item 7.1: Learner chooses to browse further items.
 
-
 \end{itemize}
-
 
 \textbf{Postconditions}
 \begin{itemize}
@@ -920,7 +863,6 @@ CTM
 
 \end{itemize}
 
-
 \textbf{Postconditions}
 \begin{itemize}
 \item System has successfully saved the newly created CTM account into the database.
@@ -958,9 +900,7 @@ CTM
 
 6.2: System restores Learner data and cancels scheduled deletion.
 
-
 \end{itemize}
-
 
 \textbf{Postconditions}
 \begin{itemize}
@@ -1059,7 +999,6 @@ Primary CTM
 \item The selected CTM's permissions are changed.
 \item There is exactly one Primary CTM for the Learner.
 \end{itemize}
-
 
 % ============================================================== 
 \section{Functional Requirements}
@@ -1186,7 +1125,6 @@ Primary CTM
 
 \item[\refstepcounter{reqnum}\thereqnum \label{FR-PLAY-10}:] The system shall allow the Learner to return to the game suite screen after a completed game.
 
-
 \textbf{Rewards \& Cosmetics}
 \setcounter{reqnum}{0}\renewcommand{\thereqnum}{FR-RWD-\arabic{reqnum}}
 
@@ -1301,7 +1239,6 @@ isPrimary & Boolean & Whether the CTM is the primary CTM for this learner\\
 permissions & Enum & Permission granted by the CTM regarding this learner's profile\\
 joinedAt & DateTime & Time of joining the Learner's care team\\
 
-
 \bottomrule
 \caption{Care Team Membership} \label{tab:Care Team Membership}
 \end{longtable}
@@ -1314,7 +1251,6 @@ gameId & UUID & Unique Game identifier\\
 gameName & String & Game display name\\
 gameDesc & String & Description of game\\
 defaultSettings & JSON & Settings applied by default\\
-
 
 \bottomrule
 \caption{Game} \label{tab:Game}
@@ -1415,8 +1351,6 @@ createdAt & DateTime & When the code was generated\\
 \bottomrule
 \caption{Access Code} \label{tab:AccessCode}
 \end{longtable}
-
-
 
 \subsection{Privacy and Data Retention}
 \label{7.3: Privacy and Data Retention}
@@ -1579,18 +1513,6 @@ N/A
 % ============================================================== 
 \section{Requirements Traceability Matrices}
 
-\plt{The Requirements Traceability Matrix (RTM) is a table that shows the
-relationship between different types of requirements. It is used to ensure that
-all requirements are traceable and that no requirements are missed. The typical
-flow is: Stakeholder Need -> Use Case -> Requirement}
-
-\plt{There is also a traceability matrix between functional and nonfunctional
-  requirements. The purpose of some FRs is to satisfy NFRs.  Therefore, it is
-  important to show the relationship between the two.}
-
-\plt{Further traceability to test cases and modules will be given in other
-documents.}
-
 \begin{longtable}{p{0.3\textwidth} p{0.3\textwidth} p{0.3\textwidth} p{0.3\textwidth}}
 
 \toprule
@@ -1715,16 +1637,11 @@ Regarding the extensive personalization and template feature: autistic learners 
 
 THe gameplay is designed to be low-pressure with the ability to pause, abort and find help all afforded to the Learner by default. This further emphasizes the experience of the Learner and the self-applied guardrails we've employed to not cause a Learner any unintended distress. The Learner's data section regarding these games is also crucial for the CTMs to assess the Learner's current skillset and for progress tracking. The reward system is another method by which we plan to boost the Learner's engagement and positive reinforcement instead of repetitive educational gameplay they may easily be bored by.\\
 
-
 The data requirements follow suit to what the functional requirements say about the system. The major data entities can be seen as nouns in the functional requirements for the most part. The Learner Game Configuration is a table designed to hold the Learner's configured settings for each game by the CTM's authorization. Device and Access Code are two entities that operate together in the case of the Learner's device pairing, though the Access Code table doubles as an invite system for CTMs to join a care team. 
 
 The data system is decomposed in such a way that objects created from these entities do not destroy other objects upon deletion. For example, despite the CTM account 'owning' the Learner profile, deleting the CTM account should not also delete a Learner's profile. Even with data entities such as Learner Inventory; the aim is to not create objects that are inefficient for a database to query what it requires. It is more efficient to have a Learner Inventory entity than to have either the Learner store their cosmetic items in the same table, whether they are equipped or not etc.\\
 
-
 There are no AI requirements because we are not employing a machine learning model in Spectropica.
-
-
-
 
 \section{Likely Changes}
 
@@ -2180,8 +2097,6 @@ Despite having a C++ background, I am not familiar with game engines and their q
 
 I also need to acquire the macrosystem understanding of backend engineering, with the game engine, with the frontend and the account management altogether wrapped up. I need to acquire the skill of planning a system that expansive and complex.
 
-
-
 \item \textbf{How will you acquire these skills, and which approach will you
 choose?}
 
@@ -2240,7 +2155,6 @@ I will acquire the skill of dealing with the Godot engine by doing a volume of d
 
 Regarding the macrosystem understanding and planning, I will ask some colleagues and friends I have that are veterans in the field of designing large systems and handling sensitive data, of which some are older and more experienced. I will create mock plans for mock project to practice the skill of system decomposition and system design, to then apply it the Spectropica context.
 
-
 \end{enumerate}
 
 \newpage
@@ -2249,6 +2163,5 @@ Regarding the macrosystem understanding and planning, I will ask some colleagues
 \bibliography {../../refs/References}
 
 \newpage
-
 
 \end{document}
