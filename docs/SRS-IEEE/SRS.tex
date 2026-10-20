@@ -1649,12 +1649,26 @@ Functional Req & Nonfunctional Req \\
 
 \section{Rationale}
 
-\plt{Provide a rationale for the decisions made in the documentation.  Rationale
-should be provided for scope decisions, functional requirements, nonfunctioanl
-requirements, data requirements, and AI requirements.  You don't need a
-rationale for everything, ust the major decisions that are not obvious.  You
-should have traceability to the entities in the document that you are
-referencing.}
+For functional requirements regarding CTMs, we are allowing CTM's to delete and restore their accounts or Learners for which they are authorized to do so to comply with industry standard privacy policies for handling user data. 
+
+For functional requirements regarding Learner profiles, we've decided to not give the Learner a typical login-style account. This is because we do not want the Learner, who may be young or possess untrained memory skills, to remember their login every time. Therefore, we have created a device pairing system for the Learner to play on their authorized device(s) when setting up, not requiring any further admin steps after that.
+
+For the decision to make a primary CTM, we wanted to avoid conflicting decisions in the Care Team to affect the Learner. We also wanted to give an assured way for legal guardians to be comfortable with allowing a specialist, educator or therapist to adjust settings without feeling powerless to revert their changes or remove them from handling the Learner profile altogether. In this manner, the legal guardian has the right to remove other CTMs who are no longer affiliated with the Learner's learning path, instead inviting a new CTM for example. The granularity of the permissions the primary CTM can invoke on each CTM should further comfort a legal guardian in their control over who can affect the Learner's experience.
+
+Regarding the extensive personalization and template feature: autistic learners specifically are more easily prone to either understimulation or overstimulation. In that case, we should not adopt a one-size-fits-all gameplay experience as a typical educational game suite would, but rather allow the CTMs that are most knowledgeable about the Learner to have stronger capability to tailor the experience for the Learner.
+
+THe gameplay is designed to be low-pressure with the ability to pause, abort and find help all afforded to the Learner by default. This further emphasizes the experience of the Learner and the self-applied guardrails we've employed to not cause a Learner any unintended distress. The Learner's data section regarding these games is also crucial for the CTMs to assess the Learner's current skillset and for progress tracking. The reward system is another method by which we plan to boost the Learner's engagement and positive reinforcement instead of repetitive educational gameplay they may easily be bored by.\\
+
+
+The data requirements follow suit to what the functional requirements say about the system. The major data entities can be seen as nouns in the functional requirements for the most part. The Learner Game Configuration is a table designed to hold the Learner's configured settings for each game by the CTM's authorization. Device and Access Code are two entities that operate together in the case of the Learner's device pairing, though the Access Code table doubles as an invite system for CTMs to join a care team. 
+
+The data system is decomposed in such a way that objects created from these entities do not destroy other objects upon deletion. For example, despite the CTM account 'owning' the Learner profile, deleting the CTM account should not also delete a Learner's profile. Even with data entities such as Learner Inventory; the aim is to not create objects that are inefficient for a database to query what it requires. It is more efficient to have a Learner Inventory entity than to have either the Learner store their cosmetic items in the same table, whether they are equipped or not etc.\\
+
+
+There are no AI requirements because we are not employing a machine learning model in Spectropica.
+
+
+
 
 \section{Likely Changes}    
 
