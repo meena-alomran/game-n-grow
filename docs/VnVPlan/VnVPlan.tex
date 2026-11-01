@@ -315,6 +315,50 @@ failing test. Every surviving fault leads to a new or strengthened test.
 walkthrough.  There is also a possibility of using the final presentation (in
 CAS741) for a partial usability survey.}
 
+\label{sec:impl-ver}
+
+The implementation will be verified dynamically and statically.
+
+\paragraph{Dynamic verification.} The system tests in Section 4 and the unit
+tests in Section 5 are the primary evidence for functional and nonfunctional
+requirements. Automated tests run in continuous integration on every pull
+request (Section~\ref{sec:tools}). Manual system tests are run by a team member
+who did not implement the feature, before the Rev 0 demo and again before the
+final demo.
+
+\paragraph{Pull-request review.} Every pull request needs an approving review
+from a member other than its author, following the rotation in
+Section~\ref{sec:team}. The reviewer confirms that the change follows the
+coding standard, uses static typing, includes or updates tests, contains no
+credentials, and respects the relevant safety requirements. For example, no
+audio or animation may start before the Learner's start cue (SR-5), and Learner
+error messages must be calm and short (SR-7).
+
+\paragraph{Code walkthroughs.} The team holds a 60-minute walkthrough for each
+of these safety- or privacy-critical areas: access control and permissions,
+pairing and invite codes with lockout, deletion and retention, offline queue
+and synchronization, session recording, and data export. The author presents
+the code, at least two other members inspect it against the requirements it
+supports, and defects become issues. Areas that exist at Rev 0 are walked
+through before the Rev 0 demo, and the rest before the final demo.
+
+\paragraph{Static analysis.} Lint and format checks, strict typing warnings,
+dependency scanning, and secret scanning run automatically
+(Table~\ref{tab:tools}). A pull request cannot be merged while these checks
+fail.
+
+\paragraph{Inspection of Learner-facing assets.} Screen captures are recorded to count flashes in every one-second window to check
+SR-6 (no more than three). The the default settings stored for each game are reviewed for low stimulation, volume, and celebration intensity (SR-4), and every task is checked so that it can be completed with touch or mouse input (SR-10).
+
+\paragraph{Platform verification.} The manual platform matrix for
+NFR-PORT-1 to NFR-PORT-3 is run on physical tablets owned by the team, and iOS and Android
+simulators or emulators for older operating system versions, and Chrome,
+Firefox, and Edge.
+
+\paragraph{Out of scope.} The Godot engine and third-party libraries are
+assumed to have been verified by their maintainers. The team tests only how
+\progname{} uses them.
+
 \subsection{Automated Testing and Verification Tools}
 
 \wss{What tools are you using for automated testing.  Likely a unit testing
