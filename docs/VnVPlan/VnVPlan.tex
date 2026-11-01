@@ -322,7 +322,7 @@ The implementation will be verified dynamically and statically.
 \paragraph{Dynamic verification.} The system tests in Section 4 and the unit
 tests in Section 5 are the primary evidence for functional and nonfunctional
 requirements. Automated tests run in continuous integration on every pull
-request (Section~\ref{sec:tools}). Manual system tests are run by a team member
+request (Section~\ref{sec:automated-tools}). Manual system tests are run by a team member
 who did not implement the feature, before the Rev 0 demo and again before the
 final demo.
 
@@ -360,6 +360,7 @@ assumed to have been verified by their maintainers. The team tests only how
 \progname{} uses them.
 
 \subsection{Automated Testing and Verification Tools}
+\label{sec:automated-tools} 
 
 \wss{What tools are you using for automated testing.  Likely a unit testing
   framework and maybe a profiling tool, like ValGrind.  Other possible tools
@@ -375,6 +376,61 @@ that document.}
 
 \wss{The details of this section will likely evolve as you get closer to the
   implementation.}
+
+
+The team will use three automated tools for the Godot client, all of which run
+from the command line so that they can be used locally and before a pull
+request is merged. The commands are documented in the project
+repository, and every team member runs them before submitting a pull request.
+A change is ready to merge only when all tests pass, the linter reports no
+errors, the formatter reports no differences, and Godot reports no warnings.
+
+\paragraph{GUT (Godot Unit Test).} GUT is the unit testing framework for
+GDScript. It is installed as an add-on in the project's \texttt{addons}
+directory. Test scripts live in a \texttt{test} directory, extend
+\texttt{GutTest}, and are named \texttt{test\_*.gd}. Each test function is
+named \texttt{test\_<unit>\_<condition>\_<expected result>}, and a comment above
+it gives the test ID from Sections 4 and 5 and the requirement ID it supports,
+so that the traceability tables can be checked against the code. The team will use three GUT features in particular:
+\begin{itemize}
+  \item doubles and stubs replace the server connection, so that behaviour such
+  as queuing results when the connection is lost (FR-DATA-8, SR-9) can be tested
+  without a network;
+  \item parameterized tests run the same check over several inputs, such as
+  correct, incorrect, expired, and reused pairing and invite codes (FR-DEV-4,
+  FR-TEAM-1); and
+  \item signal watching confirms that game state changes, such as pausing,
+  restarting, and aborting, emit the expected signals (FR-PLAY-5 to FR-PLAY-7).
+\end{itemize}
+
+\paragraph{gdlint and gdformat.} These two command-line tools come from
+gdtoolkit, and the team will install the release that matches the Godot major
+version used by the project. \texttt{gdlint} checks GDScript files against
+naming, ordering, and design rules, with the team's chosen settings stored in a
+\texttt{.gdlintrc} file in the repository. \texttt{gdformat} reformats files to a
+single style. Team members run \texttt{gdformat} on the files they changed
+before committing, and the pull-request check runs \texttt{gdformat --check}
+and \texttt{gdlint} on the whole project. The check fails on any lint error or
+any file that is not formatted. A consistent style keeps code reviews focused on
+behaviour, and the lint rules catch problems such as unused or badly named
+code before a reviewer has to.
+
+\paragraph{GDScript warnings.} Godot's GDScript warnings are configured under
+\emph{Project Settings} $\rightarrow$ \emph{Debug} $\rightarrow$
+\emph{GDScript}, and the settings are saved in \texttt{project.godot}, so the
+whole team shares them. Several useful warnings are ignored by default, so the
+team enables them and turns on the option to treat warnings as errors. The
+enabled warnings include untyped declarations, unsafe property access, unsafe
+method access, unsafe casts, unused variables, shadowed variables, integer
+division, and narrowing conversions. Together these make the team declare types
+for variables and function signatures, which lets Godot find many type mistakes before the game runs.
+
+\paragraph{Limits of these tools.} Passing these checks does not show that
+\progname{} is correct. Lint, format, and warning checks find only style and
+type problems, and GUT tests find only the faults they were written to detect.
+The system tests in Section 4, the reviews and walkthroughs in
+Section~\ref{sec:impl-ver}, and the fault-injection exercise in
+Section~\ref{sec:plan-ver} supply the rest of the evidence.
 
 \subsection{Software Validation}
 
