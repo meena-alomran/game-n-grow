@@ -247,6 +247,61 @@ verified.  Techniques for this include review and mutation testing.}
 
 \wss{Create a checklists?}
 
+\label{sec:plan-ver}
+
+\paragraph{Checklist review.} The team and classmate reviewers apply
+Table~\ref{tab:vv-checklist} before each submission of this plan.
+
+\begin{table}[htbp]
+\centering\small
+\caption{VnV plan verification checklist}
+\label{tab:vv-checklist}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabularx}{\textwidth}{l >{\raggedright\arraybackslash}X}
+\toprule
+\textbf{ID} & \textbf{Check}\\
+\midrule
+P1 & Every functional, nonfunctional, and safety requirement in the SRS appears
+in the traceability table of Section 4.3 or has a named static verification
+method.\\
+P2 & Each system test states its control (manual or automatic), initial state,
+concrete input data, expected output, derivation, and procedure, so that a
+team member who did not write it can run it.\\
+P3 & Expected outputs are derived from the requirements and use cases, not from
+what the implementation currently does.\\
+P4 & Nonfunctional tests have measurable pass criteria, a sample size, and a
+survey in the appendix where one is needed (NFR-USE-1 to NFR-USE-5,
+NFR-PERF-1).\\
+P5 & The plan is feasible: the devices, participants, and person-hours it
+assumes are available to the team.\\
+P6 & Terminology matches the SRS, and the document meets the course template
+(title page, tables of contents, numbered and captioned tables and figures,
+revision history, appendices).\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\paragraph{Requirement-coverage check.} The traceability script from
+Section~\ref{sec:srs-ver} is also run on this plan to list requirement IDs
+that no test references (check P1).
+
+\paragraph{Supervisor input.} The supervisor is asked to confirm that the
+usability survey and the Learner-facing safety tests are appropriate for the
+intended Learners, and that the participant recruitment plan in
+Section~\ref{sec:validation} is reasonable.
+
+\paragraph{Manual fault injection.} No mutation testing tool is assumed to be
+available for GDScript, so once the tests are implemented the team will measure
+test-suite strength by hand. A team member who did not write the code
+introduces one small fault at a time in a separate branch and runs the full
+suite. The faults target at least ten critical rules: the permission check
+(FR-TEAM-7), the pairing-code retry limit (FR-DEV-4), the 30-day grace period
+(FR-LRN-6), incomplete-session handling (SR-8), the hidden-item filter (SR-12),
+the flash limit (SR-6), the export record count (SR-16), the low defaults
+(SR-4), the invite-code expiry check (FR-TEAM-1), and the start-cue gate
+(SR-5). The mutation score is the fraction of faults detected by at least one
+failing test. Every surviving fault leads to a new or strengthened test.
+
 \subsection{Implementation Verification}
 
 \wss{You should at least point to the tests listed in this document and the unit
