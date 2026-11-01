@@ -166,6 +166,78 @@ issue tracker?}
 
 \wss{Create a checklists?}
 
+\label{sec:design-ver}
+
+The design to be verified consists of the Hazard Analysis, the module-level
+design documents that the team will write after the SRS and this plan, and
+low-fidelity wireframes of the Learner Game Suite and the CTM Dashboard. The
+design covers the Godot client and the server-side functionality described in
+SRS Section 2.3. Each review is held when the
+relevant design material is drafted and before the parts of the implementation
+that depend on it are started. The checks below are written in terms of the
+design itself, so they apply regardless of how the module-level documents are
+structured.
+
+\paragraph{Checklist review.} The team will review the module-level
+design against Table~\ref{tab:design-checklist}. Then the
+wireframes are checked against the same checklist, and classmate reviewers receive it as
+well. Findings are recorded as issues labelled \texttt{design-review}.
+
+\begin{table}[htbp]
+\centering\small
+\caption{Design verification checklist}
+\label{tab:design-checklist}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabularx}{\textwidth}{l >{\raggedright\arraybackslash}X}
+\toprule
+\textbf{ID} & \textbf{Check}\\
+\midrule
+D1 & Every functional, nonfunctional, and safety requirement is allocated to at
+least one part of the design, and every part of the design supports at least
+one requirement.\\
+D2 & Each part of the design hides one design decision. Each likely change LC1
+to LC8 (SRS Section 12) is confined to a few identifiable parts, so that
+NFR-MAINT-1 (effort below 1/6 of the original development time) is
+plausible.\\
+D3 & Every CTM action passes through one permission check (FR-TEAM-7, SR-3),
+and Learner devices store only configurations, inventory, and queued session
+data (SRS Section 7.3).\\
+D4 & Every entity and attribute in the data dictionary (SRS Section 7.2) is
+mapped to storage. Deleting a CTM account does not delete a Learner profile,
+and Learner deletion removes all data after the 30-day grace period
+(FR-LRN-6, SR-18).\\
+D5 & Failure handling is designed: offline queue (FR-DATA-8, SR-9), saves
+confirmed only after verification (SR-13), crashed or aborted sessions flagged
+incomplete (SR-8), and backup and restore (SR-17).\\
+D6 & Encryption in transit and at rest, password hashing, and the rule that
+imported files are never executed (SR-15) are each assigned to a specific
+part of the design.\\
+D7 & Interfaces between parts of the design use the types in the data
+dictionary and match how the other parts call them.\\
+D8 & The gameplay states in Figure 2 of the SRS (loading, ready, playing,
+paused, reward, load error) appear in the design of the game flow.\\
+D9 & Every hazard in the Hazard Analysis has at least one design element that
+mitigates it.\\
+D10 & The design can be built and tested on iPadOS, Android, and web exports of
+Godot.\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\paragraph{Use-case walkthroughs.} The team traces four scenarios through the
+design on sequence diagrams to find missing responsibilities or interfaces:
+UC1 including loss of connection (alternative flow 6.1--6.2), UC2 including
+pairing-code lockout, UC8 including restoration during the grace period, and
+UC9 including expired and reused invite codes.
+
+\paragraph{Wireframe review with the supervisor.} Before the user interface is
+implemented, the team presents wireframes of the Game Suite, a gameplay screen
+with the pause, restart, and exit controls, a Learner error message, and the
+CTM settings screen from UC4. The supervisor is asked whether each screen is
+uncluttered, whether instructions are unambiguous, and whether anything could
+overwhelm a Learner (SR-LRN-1 to SR-LRN-3, SR-DOM-3, SR-4 to SR-7, SR-11).
+
+
 \subsection{Verification and Validation Plan Verification}
 
 \wss{The verification and validation plan is an artifact that should also be
