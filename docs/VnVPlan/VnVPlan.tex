@@ -139,12 +139,14 @@ how they relate to your VnV efforts.}
   come.}
 
 \subsection{Verification and Validation Team}
+\label{sec:team}
 
 \wss{Your teammates.  Maybe your supervisor.
   You should do more than list names.  You should say what each person's role is
   for the project's verification.  A table is a good way to summarize this information.}
 
 \subsection{SRS Verification}
+\label{sec:srs-ver}
 
 \wss{List any approaches you intend to use for SRS verification.  This may
   include ad hoc feedback from reviewers, like your classmates (like your
@@ -344,7 +346,7 @@ through before the Rev 0 demo, and the rest before the final demo.
 
 \paragraph{Static analysis.} Lint and format checks, strict typing warnings,
 dependency scanning, and secret scanning run automatically
-(Table~\ref{tab:tools}). A pull request cannot be merged while these checks
+(Section~\ref{sec:automated-tools}). A pull request cannot be merged while these checks
 fail.
 
 \paragraph{Inspection of Learner-facing assets.} Screen captures are recorded to count flashes in every one-second window to check
@@ -451,6 +453,88 @@ The feedback from your supervisor will be very useful for improving your project
 as a Rev 0 demo for the supervisor.}
 
 \wss{This section might reference back to the SRS verification section.}
+
+\label{sec:validation}
+
+For external data that can be used for validation, \progname{} can be validated via the Ontario elementary curriculum for Grades 3 to 5 (NFR-ACCU-2), the WCAG~2.x flashing
+criterion (SR-6), PIPEDA, GDPR, and app store rules for children's apps (SRS
+Section 7.3). Table~\ref{tab:validation} lists the validation activities and
+the stakeholder requirements from SRS Section 3 that each one addresses.
+
+\begin{table}[htbp]
+\centering\small
+\caption{Validation activities}
+\label{tab:validation}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabularx}{\textwidth}{l >{\raggedright\arraybackslash}p{0.27\textwidth} >{\raggedright\arraybackslash}p{0.2\textwidth} >{\raggedright\arraybackslash}X}
+\toprule
+\textbf{ID} & \textbf{Activity} & \textbf{Participants} & \textbf{Validates}\\
+\midrule
+V1 & SRS task-based review (Section~\ref{sec:srs-ver}) & Supervisor & All
+stakeholder requirements\\
+V2 & Rev 0 demo to supervisor & Supervisor & SR-LRN, SR-CTM, SR-DOM,
+SR-CUST\\
+V3 & CTM usability sessions and survey & At least 10 adults in CTM-like roles &
+SR-CTM-5, SR-CTM-6, SR-CUST-1; NFR-USE-1 to NFR-USE-4, NFR-PERF-1\\
+V4 & Learner-facing proxy play-testing & Supervisor and special-education
+educators & SR-LRN-1 to SR-LRN-4, SR-DOM-2, SR-DOM-3; NFR-USE-5\\
+V5 & Curriculum alignment review & Supervisor, and an educator where
+available & SR-CTM-1, SR-DOM-1, SR-DOM-4; NFR-ACCU-2\\
+V6 & Non-clinical wording review & Team and supervisor & SRS Section 2.1 and
+ULC8\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\paragraph{V2: Rev 0 demo to the supervisor.} The team will demonstrate
+\progname{} to the supervisor shortly after the scheduled Rev 0 demo. The
+demonstration follows five scripted scenarios: (1)~a CTM registers (UC7), adds
+a Learner, and pairs a tablet (UC2); (2)~the CTM personalizes settings (UC4)
+and creates and assigns a Template (UC5); (3)~the Learner plays a game, using
+pause and the guide, and claims a reward (UC1, UC6); (4)~the CTM reviews and
+exports the Learner's data (UC3); and (5)~the Primary CTM invites another CTM
+and edits their permissions (UC9, UC10). Afterward the supervisor completes a
+feedback form that rates each stakeholder requirement in SRS Section 3 as
+satisfied, partly satisfied, or not satisfied, with comments. Every
+partial or unsatisfied rating is turned into an issue labelled \texttt{validation}, and
+the team prioritizes these with the supervisor and resolves them before the
+final demo. Changes to requirements are recorded in the SRS revision history.
+
+\paragraph{V3: CTM usability sessions.} At least 10 adults will be recruited
+in roles close to the CTM personas, such as parents, educators, and
+special-education staff, through the supervisor and the team's contacts. At least 10 are needed to be able to satisfy the 90\% requirement in NFR-USE-1-4. 
+Each participant attempts these tasks while an observer records time, errors, and
+comments: create an account, add and pair a Learner, invite a CTM, personalize a
+game, and read the dashboard. Participants then complete the survey in the
+Appendix. A second session at least one day later repeats the tasks to measure
+memorability (NFR-USE-3).
+
+\paragraph{V4: Learner-facing validation.} Testing with children is research
+involving human participants and would need ethics clearance, so the team will
+not run sessions with Learners unless the supervisor advises it and clearance is
+obtained in time. By default, the supervisor and special-education educators
+play-test the games as proxies, using an observation guide that asks whether
+anything would overstimulate or understimulate a Learner, whether instructions
+are unambiguous, and whether a Learner could retry freely and feel a sense of
+accomplishment. Their findings stand in for the Learner measurement in
+NFR-USE-5, and the report of that measurement states that proxies were used.
+
+\paragraph{V5: Curriculum alignment review.} A table is made that maps the content and each difficulty level of every game to Grade 3 to 5 curriculum
+expectations from the Ontario Ministry of Education. The supervisor reviews the
+table for appropriateness to the intended Learners, and educators outside the
+team review it where available.
+
+\paragraph{V6: Non-clinical wording review.} Before each demo, the team checks
+user-visible text and dashboard labels to confirm that they describe
+performance inside the games only and do not claim diagnosis or broader
+developmental improvement (SRS Section 2.1 and ULC8). The supervisor reviews any
+wording the team is unsure about.
+
+\paragraph{Compliance check.} Each commitment in SRS Section 7.3 is mapped to
+the relevant PIPEDA and GDPR principles and to the app store children's-app
+rules, and then verifies that the implementation provides the corresponding
+behaviour.
+
 
 \section{System Tests}
 
