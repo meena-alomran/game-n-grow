@@ -3,6 +3,9 @@
 \usepackage{booktabs}
 \usepackage{tabularx}
 \usepackage{hyperref}
+\usepackage{longtable}
+\usepackage{caption}
+\usepackage{enumitem}
 \hypersetup{
     colorlinks,
     citecolor=blue,
@@ -64,14 +67,16 @@ in.}
 
 \section{Symbols, Abbreviations, and Acronyms}
 
-\renewcommand{\arraystretch}{1.2}
-\begin{tabular}{l l} 
-  \toprule		
-  \textbf{symbol} & \textbf{description}\\
-  \midrule 
-  T & Test\\
-  \bottomrule
-\end{tabular}\\
+\renewcommand{\arraystretch}{1.2} 
+\begin{tabular}{l p{13cm}}
+\toprule 
+\textbf{symbol} & \textbf{description}\\ 
+\midrule 
+CTM & Care Team Member, an account type with specific authorizations to manage a Learner profile(s)\\ 
+Primary CTM & a role belonging to only one CTM associated with a Learner's profile with all permissions and controls\\ 
+\bottomrule 
+\end{tabular}
+
 
 \wss{symbols, abbreviations, or acronyms --- you can simply reference the SRS
   \citep{SRS} tables, if appropriate}
@@ -232,57 +237,75 @@ the contents of the subsections.}
 
 \subsection{Tests for Functional Requirements}
 
-\wss{Subsets of the tests may be in related, so this section is divided into
-  different areas.  If there are no identifiable subsets for the tests, this
-  level of document structure can be removed.}
-
 \wss{Include a blurb here to explain why the subsections below
   cover the requirements.  References to the SRS would be good here.}
 
-\subsubsection{Area of Testing1}
+The following categorization of testing areas is grouped by similarity of behaviours rather than directly correlating with the split in Section 6 of the SRS regarding functional requirements.
+
+\subsubsection{Accounts \& Profiles}
 
 \wss{It would be nice to have a blurb here to explain why the subsections below
   cover the requirements.  References to the SRS would be good here.  If a section
   covers tests for input constraints, you should reference the data constraints
   table in the SRS.}
 		
-\paragraph{Title for Test}
+\paragraph{CTM Registration}
 
 \begin{enumerate}
 
-\item{test-id1\\}
+\item{test-ctm-1}
 
-Control: Manual versus Automatic
-					
-Initial State: 
-					
-Input: 
-					
-Output: \wss{The expected result for the given inputs.  Output is not how you
-are going to return the results of the test.  The output is the expected
-result.}
+\begin{description}[leftmargin=4cm, labelindent=0pt, labelwidth=!, style=nextline, font=\normalfont\bfseries, before=\raggedright]
+  \item[Control] Manual
+  \item[Initial State] The application is on the CTM registration page. No account exists for \texttt{newctm@example.com}.
+  \item[Input] Name: Test CTM; email: \texttt{newctm@example.com}. Each of the following is submitted separately, with all other fields valid:
+    \begin{enumerate}[label=(\alph*), nosep]
+      \item a password shorter than \texttt{MIN\_PASSWORD\_LENGTH}
+      \item a password of valid length that does not meet the SR-1 standard
+      \item a re-typed password that does not match
+      \item terms \& conditions not accepted
+    \end{enumerate}
+  \item[Output] The account is not created and no verification email is sent. The system displays an error stating that account creation failed, with a reason that matches the source of the failure. 
+  \item[Derivation] FR-CTM-1 requires registration input to be validated, FR-CTM-2 requires the reason for an error to be displayed, and SR-1 requires password strength to be enforced on account creation. An invalid password, a mismatched password, or not accepting the terms \& conditions must therefore block account creation and display a matching reason.
+  \item[Test Procedure] For each case (a)--(d), a tester enters and submits the input on the registration page. The tester confirms the correct error message is shown, checks that no CTM record with this email exists in the database, and checks that the test inbox received no verification email.
+\end{description}
 
-Test Case Derivation: \wss{Justify the expected value given in the Output field}
-					
-How test will be performed: 
-					
-\item{test-id2\\}
+\vspace{0.05cm}
 
-Control: Manual versus Automatic
-					
-Initial State: 
-					
-Input: 
-					
-Output: \wss{The expected result for the given inputs}
+\item{test-ctm-2}
 
-Test Case Derivation: \wss{Justify the expected value given in the Output field}
-
-How test will be performed: 
+\begin{description}[leftmargin=4cm, labelindent=0pt, labelwidth=!, style=nextline, font=\normalfont\bfseries, before=\raggedright]
+  \item[Control] Manual
+  \item[Initial State] The application is on the CTM registration page. No account exists for \texttt{newctm@example.com}.
+  \item[Input] Name: Test CTM; email: \texttt{newctm@example.com}. Password \& re-typed password is valid, terms \& conditions are accepted, and email is not already in use. This is followed by acknowledging the verification email, then logging in with the previously entered credentials.
+  \item[Output] The verification email is acknowledged, the account is created, and the tester is logged in to the account. The system displays a message confirming account creation.
+  \item[Derivation] FR-CTM-3 says that a verified email is followed by the account being created. FR-CTM-4 specifies that the CTM can log in to their account using the information verified in registration.
+  \item[Test Procedure] The tester enters the valid registration information outlined in the input. Upon submitting, the tester opens the email's inbox to acknowledge a verification email. The tester then attempts to log in to this account using the registration information.
+\end{description}
 
 \end{enumerate}
 
-\subsubsection{Area of Testing2}
+\subsubsection{Care Team \& Permissions}
+
+...
+
+\subsubsection{Gameplay}
+
+...
+
+\subsubsection{Reward System}
+
+... 
+
+\subsubsection{Learner Profiles}
+
+...
+
+\subsubsection{Learner Data}
+
+...
+
+\subsubsection{Game Configuration}
 
 ...
 
@@ -483,12 +506,18 @@ How test will be performed:
 
 \section{Appendix}
 
-This is where you can place additional information.
+Additional Information.
 
 \subsection{Symbolic Parameters}
 
-The definition of the test cases will call for SYMBOLIC\_CONSTANTS.
-Their values are defined in this section for easy maintenance.
+\begin{longtable}{p{0.6\textwidth} p{0.4\textwidth}}
+\toprule
+Parameter & Value\\
+\midrule
+MIN\_PASSWORD\_LENGTH & 12 characters\\
+\bottomrule
+\caption{Symbolic Parameters} \label{tab:SymbolicParameters}
+\end{longtable}
 
 \subsection{Usability Survey Questions?}
 
