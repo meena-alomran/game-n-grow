@@ -144,12 +144,14 @@ how they relate to your VnV efforts.}
   come.}
 
 \subsection{Verification and Validation Team}
+\label{sec:team}
 
 \wss{Your teammates.  Maybe your supervisor.
   You should do more than list names.  You should say what each person's role is
   for the project's verification.  A table is a good way to summarize this information.}
 
 \subsection{SRS Verification}
+\label{sec:srs-ver}
 
 \wss{List any approaches you intend to use for SRS verification.  This may
   include ad hoc feedback from reviewers, like your classmates (like your
@@ -171,6 +173,78 @@ issue tracker?}
 
 \wss{Create a checklists?}
 
+\label{sec:design-ver}
+
+The design to be verified consists of the Hazard Analysis, the module-level
+design documents that the team will write after the SRS and this plan, and
+low-fidelity wireframes of the Learner Game Suite and the CTM Dashboard. The
+design covers the Godot client and the server-side functionality described in
+SRS Section 2.3. Each review is held when the
+relevant design material is drafted and before the parts of the implementation
+that depend on it are started. The checks below are written in terms of the
+design itself, so they apply regardless of how the module-level documents are
+structured.
+
+\paragraph{Checklist review.} The team will review the module-level
+design against Table~\ref{tab:design-checklist}. Then the
+wireframes are checked against the same checklist, and classmate reviewers receive it as
+well. Findings are recorded as issues labelled \texttt{design-review}.
+
+\begin{table}[htbp]
+\centering\small
+\caption{Design verification checklist}
+\label{tab:design-checklist}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabularx}{\textwidth}{l >{\raggedright\arraybackslash}X}
+\toprule
+\textbf{ID} & \textbf{Check}\\
+\midrule
+D1 & Every functional, nonfunctional, and safety requirement is allocated to at
+least one part of the design, and every part of the design supports at least
+one requirement.\\
+D2 & Each part of the design hides one design decision. Each likely change LC1
+to LC8 (SRS Section 12) is confined to a few identifiable parts, so that
+NFR-MAINT-1 (effort below 1/6 of the original development time) is
+plausible.\\
+D3 & Every CTM action passes through one permission check (FR-TEAM-7, SR-3),
+and Learner devices store only configurations, inventory, and queued session
+data (SRS Section 7.3).\\
+D4 & Every entity and attribute in the data dictionary (SRS Section 7.2) is
+mapped to storage. Deleting a CTM account does not delete a Learner profile,
+and Learner deletion removes all data after the 30-day grace period
+(FR-LRN-6, SR-18).\\
+D5 & Failure handling is designed: offline queue (FR-DATA-8, SR-9), saves
+confirmed only after verification (SR-13), crashed or aborted sessions flagged
+incomplete (SR-8), and backup and restore (SR-17).\\
+D6 & Encryption in transit and at rest, password hashing, and the rule that
+imported files are never executed (SR-15) are each assigned to a specific
+part of the design.\\
+D7 & Interfaces between parts of the design use the types in the data
+dictionary and match how the other parts call them.\\
+D8 & The gameplay states in Figure 2 of the SRS (loading, ready, playing,
+paused, reward, load error) appear in the design of the game flow.\\
+D9 & Every hazard in the Hazard Analysis has at least one design element that
+mitigates it.\\
+D10 & The design can be built and tested on iPadOS, Android, and web exports of
+Godot.\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\paragraph{Use-case walkthroughs.} The team traces four scenarios through the
+design on sequence diagrams to find missing responsibilities or interfaces:
+UC1 including loss of connection (alternative flow 6.1--6.2), UC2 including
+pairing-code lockout, UC8 including restoration during the grace period, and
+UC9 including expired and reused invite codes.
+
+\paragraph{Wireframe review with the supervisor.} Before the user interface is
+implemented, the team presents wireframes of the Game Suite, a gameplay screen
+with the pause, restart, and exit controls, a Learner error message, and the
+CTM settings screen from UC4. The supervisor is asked whether each screen is
+uncluttered, whether instructions are unambiguous, and whether anything could
+overwhelm a Learner (SR-LRN-1 to SR-LRN-3, SR-DOM-3, SR-4 to SR-7, SR-11).
+
+
 \subsection{Verification and Validation Plan Verification}
 
 \wss{The verification and validation plan is an artifact that should also be
@@ -179,6 +253,61 @@ verified.  Techniques for this include review and mutation testing.}
 \wss{The review will include reviews by your classmates}
 
 \wss{Create a checklists?}
+
+\label{sec:plan-ver}
+
+\paragraph{Checklist review.} The team and classmate reviewers apply
+Table~\ref{tab:vv-checklist} before each submission of this plan.
+
+\begin{table}[htbp]
+\centering\small
+\caption{VnV plan verification checklist}
+\label{tab:vv-checklist}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabularx}{\textwidth}{l >{\raggedright\arraybackslash}X}
+\toprule
+\textbf{ID} & \textbf{Check}\\
+\midrule
+P1 & Every functional, nonfunctional, and safety requirement in the SRS appears
+in the traceability table of Section 4.3 or has a named static verification
+method.\\
+P2 & Each system test states its control (manual or automatic), initial state,
+concrete input data, expected output, derivation, and procedure, so that a
+team member who did not write it can run it.\\
+P3 & Expected outputs are derived from the requirements and use cases, not from
+what the implementation currently does.\\
+P4 & Nonfunctional tests have measurable pass criteria, a sample size, and a
+survey in the appendix where one is needed (NFR-USE-1 to NFR-USE-5,
+NFR-PERF-1).\\
+P5 & The plan is feasible: the devices, participants, and person-hours it
+assumes are available to the team.\\
+P6 & Terminology matches the SRS, and the document meets the course template
+(title page, tables of contents, numbered and captioned tables and figures,
+revision history, appendices).\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\paragraph{Requirement-coverage check.} The traceability script from
+Section~\ref{sec:srs-ver} is also run on this plan to list requirement IDs
+that no test references (check P1).
+
+\paragraph{Supervisor input.} The supervisor is asked to confirm that the
+usability survey and the Learner-facing safety tests are appropriate for the
+intended Learners, and that the participant recruitment plan in
+Section~\ref{sec:validation} is reasonable.
+
+\paragraph{Manual fault injection.} No mutation testing tool is assumed to be
+available for GDScript, so once the tests are implemented the team will measure
+test-suite strength by hand. A team member who did not write the code
+introduces one small fault at a time in a separate branch and runs the full
+suite. The faults target at least ten critical rules: the permission check
+(FR-TEAM-7), the pairing-code retry limit (FR-DEV-4), the 30-day grace period
+(FR-LRN-6), incomplete-session handling (SR-8), the hidden-item filter (SR-12),
+the flash limit (SR-6), the export record count (SR-16), the low defaults
+(SR-4), the invite-code expiry check (FR-TEAM-1), and the start-cue gate
+(SR-5). The mutation score is the fraction of faults detected by at least one
+failing test. Every surviving fault leads to a new or strengthened test.
 
 \subsection{Implementation Verification}
 
@@ -193,7 +322,52 @@ verified.  Techniques for this include review and mutation testing.}
 walkthrough.  There is also a possibility of using the final presentation (in
 CAS741) for a partial usability survey.}
 
+\label{sec:impl-ver}
+
+The implementation will be verified dynamically and statically.
+
+\paragraph{Dynamic verification.} The system tests in Section 4 and the unit
+tests in Section 5 are the primary evidence for functional and nonfunctional
+requirements. Automated tests run in continuous integration on every pull
+request (Section~\ref{sec:automated-tools}). Manual system tests are run by a team member
+who did not implement the feature, before the Rev 0 demo and again before the
+final demo.
+
+\paragraph{Pull-request review.} Every pull request needs an approving review
+from a member other than its author, following the rotation in
+Section~\ref{sec:team}. The reviewer confirms that the change follows the
+coding standard, uses static typing, includes or updates tests, contains no
+credentials, and respects the relevant safety requirements. For example, no
+audio or animation may start before the Learner's start cue (SR-5), and Learner
+error messages must be calm and short (SR-7).
+
+\paragraph{Code walkthroughs.} The team holds a 60-minute walkthrough for each
+of these safety- or privacy-critical areas: access control and permissions,
+pairing and invite codes with lockout, deletion and retention, offline queue
+and synchronization, session recording, and data export. The author presents
+the code, at least two other members inspect it against the requirements it
+supports, and defects become issues. Areas that exist at Rev 0 are walked
+through before the Rev 0 demo, and the rest before the final demo.
+
+\paragraph{Static analysis.} Lint and format checks, strict typing warnings,
+dependency scanning, and secret scanning run automatically
+(Section~\ref{sec:automated-tools}). A pull request cannot be merged while these checks
+fail.
+
+\paragraph{Inspection of Learner-facing assets.} Screen captures are recorded to count flashes in every one-second window to check
+SR-6 (no more than three). The the default settings stored for each game are reviewed for low stimulation, volume, and celebration intensity (SR-4), and every task is checked so that it can be completed with touch or mouse input (SR-10).
+
+\paragraph{Platform verification.} The manual platform matrix for
+NFR-PORT-1 to NFR-PORT-3 is run on physical tablets owned by the team, and iOS and Android
+simulators or emulators for older operating system versions, and Chrome,
+Firefox, and Edge.
+
+\paragraph{Out of scope.} The Godot engine and third-party libraries are
+assumed to have been verified by their maintainers. The team tests only how
+\progname{} uses them.
+
 \subsection{Automated Testing and Verification Tools}
+\label{sec:automated-tools} 
 
 \wss{What tools are you using for automated testing.  Likely a unit testing
   framework and maybe a profiling tool, like ValGrind.  Other possible tools
@@ -209,6 +383,61 @@ that document.}
 
 \wss{The details of this section will likely evolve as you get closer to the
   implementation.}
+
+
+The team will use three automated tools for the Godot client, all of which run
+from the command line so that they can be used locally and before a pull
+request is merged. The commands are documented in the project
+repository, and every team member runs them before submitting a pull request.
+A change is ready to merge only when all tests pass, the linter reports no
+errors, the formatter reports no differences, and Godot reports no warnings.
+
+\paragraph{GUT (Godot Unit Test).} GUT is the unit testing framework for
+GDScript. It is installed as an add-on in the project's \texttt{addons}
+directory. Test scripts live in a \texttt{test} directory, extend
+\texttt{GutTest}, and are named \texttt{test\_*.gd}. Each test function is
+named \texttt{test\_<unit>\_<condition>\_<expected result>}, and a comment above
+it gives the test ID from Sections 4 and 5 and the requirement ID it supports,
+so that the traceability tables can be checked against the code. The team will use three GUT features in particular:
+\begin{itemize}
+  \item doubles and stubs replace the server connection, so that behaviour such
+  as queuing results when the connection is lost (FR-DATA-8, SR-9) can be tested
+  without a network;
+  \item parameterized tests run the same check over several inputs, such as
+  correct, incorrect, expired, and reused pairing and invite codes (FR-DEV-4,
+  FR-TEAM-1); and
+  \item signal watching confirms that game state changes, such as pausing,
+  restarting, and aborting, emit the expected signals (FR-PLAY-5 to FR-PLAY-7).
+\end{itemize}
+
+\paragraph{gdlint and gdformat.} These two command-line tools come from
+gdtoolkit, and the team will install the release that matches the Godot major
+version used by the project. \texttt{gdlint} checks GDScript files against
+naming, ordering, and design rules, with the team's chosen settings stored in a
+\texttt{.gdlintrc} file in the repository. \texttt{gdformat} reformats files to a
+single style. Team members run \texttt{gdformat} on the files they changed
+before committing, and the pull-request check runs \texttt{gdformat --check}
+and \texttt{gdlint} on the whole project. The check fails on any lint error or
+any file that is not formatted. A consistent style keeps code reviews focused on
+behaviour, and the lint rules catch problems such as unused or badly named
+code before a reviewer has to.
+
+\paragraph{GDScript warnings.} Godot's GDScript warnings are configured under
+\emph{Project Settings} $\rightarrow$ \emph{Debug} $\rightarrow$
+\emph{GDScript}, and the settings are saved in \texttt{project.godot}, so the
+whole team shares them. Several useful warnings are ignored by default, so the
+team enables them and turns on the option to treat warnings as errors. The
+enabled warnings include untyped declarations, unsafe property access, unsafe
+method access, unsafe casts, unused variables, shadowed variables, integer
+division, and narrowing conversions. Together these make the team declare types
+for variables and function signatures, which lets Godot find many type mistakes before the game runs.
+
+\paragraph{Limits of these tools.} Passing these checks does not show that
+\progname{} is correct. Lint, format, and warning checks find only style and
+type problems, and GUT tests find only the faults they were written to detect.
+The system tests in Section 4, the reviews and walkthroughs in
+Section~\ref{sec:impl-ver}, and the fault-injection exercise in
+Section~\ref{sec:plan-ver} supply the rest of the evidence.
 
 \subsection{Software Validation}
 
@@ -229,6 +458,88 @@ The feedback from your supervisor will be very useful for improving your project
 as a Rev 0 demo for the supervisor.}
 
 \wss{This section might reference back to the SRS verification section.}
+
+\label{sec:validation}
+
+For external data that can be used for validation, \progname{} can be validated via the Ontario elementary curriculum for Grades 3 to 5 (NFR-ACCU-2), the WCAG~2.x flashing
+criterion (SR-6), PIPEDA, GDPR, and app store rules for children's apps (SRS
+Section 7.3). Table~\ref{tab:validation} lists the validation activities and
+the stakeholder requirements from SRS Section 3 that each one addresses.
+
+\begin{table}[htbp]
+\centering\small
+\caption{Validation activities}
+\label{tab:validation}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabularx}{\textwidth}{l >{\raggedright\arraybackslash}p{0.27\textwidth} >{\raggedright\arraybackslash}p{0.2\textwidth} >{\raggedright\arraybackslash}X}
+\toprule
+\textbf{ID} & \textbf{Activity} & \textbf{Participants} & \textbf{Validates}\\
+\midrule
+V1 & SRS task-based review (Section~\ref{sec:srs-ver}) & Supervisor & All
+stakeholder requirements\\
+V2 & Rev 0 demo to supervisor & Supervisor & SR-LRN, SR-CTM, SR-DOM,
+SR-CUST\\
+V3 & CTM usability sessions and survey & At least 10 adults in CTM-like roles &
+SR-CTM-5, SR-CTM-6, SR-CUST-1; NFR-USE-1 to NFR-USE-4, NFR-PERF-1\\
+V4 & Learner-facing proxy play-testing & Supervisor and special-education
+educators & SR-LRN-1 to SR-LRN-4, SR-DOM-2, SR-DOM-3; NFR-USE-5\\
+V5 & Curriculum alignment review & Supervisor, and an educator where
+available & SR-CTM-1, SR-DOM-1, SR-DOM-4; NFR-ACCU-2\\
+V6 & Non-clinical wording review & Team and supervisor & SRS Section 2.1 and
+ULC8\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\paragraph{V2: Rev 0 demo to the supervisor.} The team will demonstrate
+\progname{} to the supervisor shortly after the scheduled Rev 0 demo. The
+demonstration follows five scripted scenarios: (1)~a CTM registers (UC7), adds
+a Learner, and pairs a tablet (UC2); (2)~the CTM personalizes settings (UC4)
+and creates and assigns a Template (UC5); (3)~the Learner plays a game, using
+pause and the guide, and claims a reward (UC1, UC6); (4)~the CTM reviews and
+exports the Learner's data (UC3); and (5)~the Primary CTM invites another CTM
+and edits their permissions (UC9, UC10). Afterward the supervisor completes a
+feedback form that rates each stakeholder requirement in SRS Section 3 as
+satisfied, partly satisfied, or not satisfied, with comments. Every
+partial or unsatisfied rating is turned into an issue labelled \texttt{validation}, and
+the team prioritizes these with the supervisor and resolves them before the
+final demo. Changes to requirements are recorded in the SRS revision history.
+
+\paragraph{V3: CTM usability sessions.} At least 10 adults will be recruited
+in roles close to the CTM personas, such as parents, educators, and
+special-education staff, through the supervisor and the team's contacts. At least 10 are needed to be able to satisfy the 90\% requirement in NFR-USE-1-4. 
+Each participant attempts these tasks while an observer records time, errors, and
+comments: create an account, add and pair a Learner, invite a CTM, personalize a
+game, and read the dashboard. Participants then complete the survey in the
+Appendix. A second session at least one day later repeats the tasks to measure
+memorability (NFR-USE-3).
+
+\paragraph{V4: Learner-facing validation.} Testing with children is research
+involving human participants and would need ethics clearance, so the team will
+not run sessions with Learners unless the supervisor advises it and clearance is
+obtained in time. By default, the supervisor and special-education educators
+play-test the games as proxies, using an observation guide that asks whether
+anything would overstimulate or understimulate a Learner, whether instructions
+are unambiguous, and whether a Learner could retry freely and feel a sense of
+accomplishment. Their findings stand in for the Learner measurement in
+NFR-USE-5, and the report of that measurement states that proxies were used.
+
+\paragraph{V5: Curriculum alignment review.} A table is made that maps the content and each difficulty level of every game to Grade 3 to 5 curriculum
+expectations from the Ontario Ministry of Education. The supervisor reviews the
+table for appropriateness to the intended Learners, and educators outside the
+team review it where available.
+
+\paragraph{V6: Non-clinical wording review.} Before each demo, the team checks
+user-visible text and dashboard labels to confirm that they describe
+performance inside the games only and do not claim diagnosis or broader
+developmental improvement (SRS Section 2.1 and ULC8). The supervisor reviews any
+wording the team is unsure about.
+
+\paragraph{Compliance check.} Each commitment in SRS Section 7.3 is mapped to
+the relevant PIPEDA and GDPR principles and to the app store children's-app
+rules, and then verifies that the implementation provides the corresponding
+behaviour.
+
 
 \section{System Tests}
 
