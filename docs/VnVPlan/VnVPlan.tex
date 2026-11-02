@@ -178,16 +178,60 @@ needs.
 
 \subsection{Relevant Documentation}
 
-\wss{Reference relevant documentation.  This will definitely include your SRS
-  and your other project documents (design documents, like MG, MIS, etc).  You
-  can include these even before they are written, since by the time the project
-  is done, they will be written.  You can create BibTeX entries for your
-  documents and within those entries include a hyperlink to the documents.}
+The following documents provide the requirements, design information, and
+evaluation criteria used to guide Spectropica's verification and validation
+activities.
 
-\citet{SRS}
+\textbf{\href{https://github.com/meena-alomran/game-n-grow/blob/main/docs/SRS-IEEE/SRS.tex}{Software
+Requirements Specification (SRS)}:} The SRS serves as the primary reference for
+verification by defining the system's functional, non-functional, safety,
+security, and data requirements. These requirements establish the expected
+behaviour and acceptance criteria against which the implementation will be
+evaluated. They also provide the basis for requirements traceability and test
+case development.
 
-\wss{Don't just list the other documents.  You should explain why they are relevant and 
-how they relate to your VnV efforts.}
+\textbf{\href{https://github.com/meena-alomran/game-n-grow/blob/main/docs/HazardAnalysis/HazardAnalysis.tex}{Hazard
+Analysis}:} The Hazard Analysis identifies potential failures that could affect
+Learner wellbeing, privacy, system reliability, and data integrity. Its hazards,
+safety requirements, and recommended mitigations help determine which areas
+require the greatest attention during verification and validation. It also
+provides a basis for developing safety-related tests and reviewing how the
+system responds to potentially harmful conditions.
+
+\textbf{\href{https://github.com/meena-alomran/game-n-grow/blob/main/docs/ProblemStatementAndGoals/ProblemStatement.tex}{Problem
+Statement and Goals}:} This document describes the problem Spectropica aims to
+address, its intended users, and the project's goals and success criteria. It
+supports validation by establishing the purpose of the system and the user needs
+that the completed software should address. It also identifies the approved
+custom documents.
+
+\textbf{\href{https://github.com/meena-alomran/game-n-grow/blob/main/docs/DevelopmentPlan/DevelopmentPlan.tex}{Development
+Plan}:} The Development Plan describes the team's development process, tools,
+and implementation approach. It informs the selection of appropriate
+verification activities, including code reviews, automated testing, integration
+testing, and other quality assurance practices used throughout development.
+
+\textbf{Module Guide (MG) and Module Interface Specification (MIS):} These
+design documents will provide information about Spectropica's module structure,
+responsibilities, interfaces, and interactions. They will support design
+verification by allowing the team to review whether the proposed architecture
+satisfies the requirements and whether module interfaces are defined
+consistently. They will also inform module-level and integration testing.
+
+\textbf{Interview Report:} The Interview Report will document stakeholder
+feedback gathered during the Fall semester. Its findings will help the team
+assess whether the system's requirements and design decisions reflect the needs
+of Learners and CTMs.
+
+\textbf{Usability Evaluation Report:} The Usability Evaluation Report will
+document the results of the Winter semester usability activities, including CTM
+testing and Learner-focused evaluations. It will provide evidence for assessing
+usability requirements, identifying areas for improvement, and explaining any
+limitations of the validation results.
+
+Together, these documents will support a requirements-based VnV process by
+connecting the project's goals, specifications, design decisions,
+implementation, and evaluation results.
 
 \section{Plan}
 
