@@ -94,22 +94,47 @@ This document ... \wss{provide an introductory blurb and roadmap of the
 
 \subsection{Objectives}
 
-\wss{State what is intended to be accomplished.  The objective will be around
-  the qualities that are most important for your project.  You might have
-  something like: ``build confidence in the software correctness,''
-  ``demonstrate adequate usability.'' etc.  You won't list all of the qualities,
-  just those that are most important.}
+The objective of the Verification and Validation (VnV) Plan is to build confidence that Spectropica meets its documented requirements and is suitable for its intended users. Verification will assess whether the system has been developed according to its specifications, while validation will evaluate whether it meets the needs of Learners and CTMs.
 
-\wss{You should also list the objectives that are out of scope.  You don't have 
-the resources to do everything, so what will you be leaving out.  For instance, 
-if you are not going to verify the quality of usability, state this.  It is also 
-worthwhile to justify why the objectives are left out.}
+The VnV activities will prioritize the qualities identified as most important in the Software Requirements Specification (SRS) and Hazard Analysis. In particular, the Hazard Analysis prioritizes Learner wellbeing and privacy because failures in these areas could result in significant harm. As a result, particular attention will be given to preventing inappropriate sensory stimulation, unauthorized access to Learner information, incorrect gameplay configurations, and inaccurate or lost performance records.
 
-\wss{The objectives are important because they highlight that you are aware of 
-limitations in your resources for verification and validation.  You can't do everything, 
-so what are you going to prioritize?  As an example, if your system depends on an 
-external library, you can explicitly state that you will assume that external library 
-has already been verified by its implementation team.}
+The primary VnV objectives are outlined below.
+
+\begin{description}
+
+  \item[Learner Wellbeing, Accessibility, and Usability.] Establish confidence that Spectropica provides an accessible, understandable, and appropriate environment for Learners. Verification will examine sensory stimulation, gameplay initiation, flashing restrictions, error messages, and gameplay controls, as specified in SR-4 through SR-7 and SR-11. Validation will include CTM usability testing and Learner-focused evaluations. By default, the supervisor and special-education educators will play-test the games as proxies to evaluate sensory suitability, clarity of instructions, accessibility, and opportunities for independent participation. Direct testing with autistic Learners will only be conducted if recommended by the supervisor and the necessary ethics clearance and participant access are obtained. These activities will support evaluation of NFR-USE-1 through NFR-USE-5, with the limitations of proxy testing clearly documented.
+
+  \item[Functional Correctness and Configuration.] Verify that the games, Learner profiles, Templates, rewards, and CTM permissions function according to the SRS. Testing will focus on ensuring that CTMs can correctly configure and assign games, that the selected settings are applied during gameplay, and that Learners can interact with the games as intended. Requirements-based testing, design reviews, and implementation checks will be used to identify inconsistencies between expected and actual system behaviour.
+
+  \item[Privacy, Security, and Data Integrity.] Establish confidence that Learner information and gameplay records are protected against unauthorized access, loss, and corruption. Verification will examine CTM permissions (FR-TEAM-7), security requirements (NFR-SEC-1 through NFR-SEC-3), and the privacy and data-handling commitments in SRS Section 7.3. Particular attention will be given to incomplete-session handling, successful data saves, accurate exports, backups, and deletion procedures, as addressed by SR-8, SR-13, and SR-16 through SR-18. The system's implementation will also be reviewed against the applicable privacy and children's-app requirements identified in the SRS.
+
+  \item[Reliability and Recovery.] Verify that Spectropica behaves predictably during interrupted gameplay, connectivity loss, and unsuccessful data operations. Testing will assess whether incomplete sessions are handled appropriately, authorized gameplay can continue during connectivity interruptions using available cached settings, and data is only reported as saved when the operation has been confirmed. These objectives are supported by SR-8, SR-9, and SR-13.
+
+  \item[Educational Content Suitability.] Evaluate whether the content and difficulty levels of the games align with Ontario's Grades 3--5 elementary curriculum, as required by NFR-ACCU-2. Each game's content and difficulty levels will be mapped to relevant curriculum expectations and reviewed with the supervisor, with additional educator input where available. This will help establish that the games are appropriate for their intended educational purpose, rather than only confirming that they function correctly.
+
+  \item[CTM Usability and Performance.] Evaluate whether CTMs can complete common tasks efficiently and understand the information presented by the system. Usability testing will involve at least 10 adults in CTM-like roles, such as parents, caregivers, educators, and special-education staff. Participants will complete representative tasks involving account creation, Learner setup, device pairing, CTM permissions, game configuration, and Dashboard interpretation. Their performance, feedback, and survey responses will be used to assess NFR-USE-1 through NFR-USE-4 and NFR-PERF-1. Repeated sessions will also help evaluate how easily CTMs remember how to use the system.
+
+  \item[Stakeholder Validation.] Validate that Spectropica addresses its intended purpose through supervisor and domain expert feedback, prototype demonstrations, CTM usability sessions, and Learner-focused evaluations. Reviews with the supervisor will assess whether the system meets stakeholder expectations and identify requirements that need improvement. CTM testing will provide direct feedback on configuration, navigation, and progress tracking, while educator and expert proxy evaluations will assess Learner-facing gameplay. Direct Learner participation will remain conditional on supervisor guidance and ethics clearance. Findings from these activities will be documented and used to guide improvements to the system.
+
+\end{description}
+
+All requirements in the SRS are included within the planned academic-year scope, with no requirements intentionally deferred. However, the team recognizes that not all requirements can necessarily be supported by the same type of evidence. Design reviews will assess whether planned components and interfaces are appropriately specified, while implementation and system testing will assess their actual behaviour. Validation results will also distinguish between feedback from intended users and feedback from experts acting as proxies. In particular, proxy evaluations can identify potential usability concerns but cannot independently establish that the 80\% Learner participation target in NFR-USE-5 has been achieved. Any requirements that cannot be fully verified or validated will be identified along with the limitations of the available evidence.
+
+\subsubsection*{Objectives Outside the Scope of VnV}
+
+Although all SRS requirements remain within the project scope, the following broader objectives are excluded from VnV:
+
+\begin{itemize}
+
+  \item \textbf{Clinical or long-term developmental effectiveness:} The team will not attempt to establish whether Spectropica produces clinical improvements or long-term developmental outcomes. Doing so would require specialized studies beyond the project's educational purpose and available resources.
+
+  \item \textbf{Exhaustive verification of third-party software and infrastructure:} The team will not independently verify the internal correctness of external components such as the Godot engine, operating systems, or hosting services. However, Spectropica's integration with these components and its behaviour during relevant failures will still be tested.
+
+  \item \textbf{Compatibility with unsupported platforms:} Verification will focus on the platforms and environments specified for Spectropica. Comprehensive compatibility testing across devices, operating systems, and browsers outside the supported scope is excluded due to the project's time and resource constraints.
+
+\end{itemize}
+
+These exclusions allow the team to focus its VnV efforts on the correctness, safety, privacy, usability, and educational suitability of Spectropica while remaining realistic about the limitations of an academic-year project.
 
 \subsection{Custom Documents}
 
