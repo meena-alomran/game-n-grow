@@ -63,17 +63,61 @@
 
 % Used so that cross-references have a meaningful prefix
 
-\newcounter{srnum} %Stakeholder Requirement (SR) Number
-\newcommand{\srthesrnum}{SR\thesrnum}
-\newcommand{\srref}[1]{SR\ref{#1}}
+\newcounter{srnumL} %Stakeholder Requirement (SR) Number
+\newcommand{\srthesrnumL}{SR\thesrnumL}
+\newcommand{\srrefL}[1]{SR\ref{#1}}
+
+\newcounter{srnumCU} %Stakeholder Requirement (SR) Number
+\newcommand{\srthesrnumCU}{SR\thesrnumCU}
+\newcommand{\srrefCU}[1]{SR\ref{#1}}
+
+\newcounter{srnumC} %Stakeholder Requirement (SR) Number
+\newcommand{\srthesrnumC}{SR\thesrnumC}
+\newcommand{\srrefC}[1]{SR\ref{#1}}
+
+\newcounter{srnumD} %Stakeholder Requirement (SR) Number
+\newcommand{\srthesrnumD}{SR\thesrnumD}
+\newcommand{\srrefD}[1]{SR\ref{#1}}
 
 \newcounter{ucnum} %Use Case (UC) Number
 \newcommand{\uctheucnum}{UC\theucnum}
 \newcommand{\ucref}[1]{UC\ref{#1}}
 
-\newcounter{reqnum} %Functional Requirement (FR) Number
-\newcommand{\rthereqnum}{FR\thereqnum}
-\newcommand{\rref}[1]{\ref{#1}}
+\newcounter{reqnumA} %Functional Requirement (FR) Number
+\newcommand{\rthereqnumA}{FR\thereqnumA}
+\newcommand{\rrefA}[1]{\ref{#1}}
+
+\newcounter{reqnumL} %Functional Requirement (FR) Number
+\newcommand{\rthereqnumL}{FR\thereqnumL}
+\newcommand{\rrefL}[1]{\ref{#1}}
+
+\newcounter{reqnumD} %Functional Requirement (FR) Number
+\newcommand{\rthereqnumD}{FR\thereqnumD}
+\newcommand{\rrefD}[1]{\ref{#1}}
+
+\newcounter{reqnumC} %Functional Requirement (FR) Number
+\newcommand{\rthereqnumC}{FR\thereqnumC}
+\newcommand{\rrefC}[1]{\ref{#1}}
+
+\newcounter{reqnumP} %Functional Requirement (FR) Number
+\newcommand{\rthereqnumP}{FR\thereqnumP}
+\newcommand{\rrefP}[1]{\ref{#1}}
+
+\newcounter{reqnumT} %Functional Requirement (FR) Number
+\newcommand{\rthereqnumT}{FR\thereqnumT}
+\newcommand{\rrefT}[1]{\ref{#1}}
+
+\newcounter{reqnumG} %Functional Requirement (FR) Number
+\newcommand{\rthereqnumG}{FR\thereqnumG}
+\newcommand{\rrefG}[1]{\ref{#1}}
+
+\newcounter{reqnumR} %Functional Requirement (FR) Number
+\newcommand{\rthereqnumR}{FR\thereqnumR}
+\newcommand{\rrefR}[1]{\ref{#1}}
+
+\newcounter{reqnumlD} %Functional Requirement (FR) Number
+\newcommand{\rthereqnumLD}{FR\thereqnumLD}
+\newcommand{\rrefLD}[1]{\ref{#1}}
 
 \newcounter{nfrnum} %Non-Functional Requirement (NFR) Number
 \newcommand{\rthenfrnum}{NFR\thenfrnum}
@@ -447,55 +491,68 @@ results but does not establish full offline operation.
 %they should be verifiable.}
 
 %\plt{The stakeholder requirements are numbered so that you can have traceability to other parts of your document.}
-\textbf{Autistic Learners}
+\noindent \textbf{Autistic Learners}
 
 \noindent \begin{itemize}
-\setcounter{srnum}{0}\renewcommand{\thesrnum}{SR-LRN-\arabic{srnum}}
+  
+  \setcounter{srnumL}{0}\renewcommand{\thesrnumL}{SR-LRN-\arabic{srnumL}}
+  \item[\refstepcounter{srnumL}\thesrnumL \label{SR-LRN-1}:] Games are not overstimulating or understimulating for Learners with sensory hypersensitivity or hyposensitivity, respectively \citep{forbrainAutismLearning}
 
-\item[\refstepcounter{srnum}\thesrnum \label{SR-LRN-1}:] Games are not overstimulating or understimulating for Learners with sensory hypersensitivity or hyposensitivity, respectively \citep{forbrainAutismLearning}
+  \item[\refstepcounter{srnumL}\thesrnumL \label{SR-LRN-2}:] Games are unambiguous with clear rules and instructions \citep{fratnowAutismGaming}
 
-\item[\refstepcounter{srnum}\thesrnum \label{SR-LRN-2}:] Games are unambiguous with clear rules and instructions \citep{fratnowAutismGaming}
+  \item[\refstepcounter{srnumL}\thesrnumL \label{SR-LRN-3}:] Games are a safe space for Learners, allowing them to take their time and retry if needed \citep{fratnowAutismGaming}
 
-\item[\refstepcounter{srnum}\thesrnum \label{SR-LRN-3}:] Games are a safe space for Learners, allowing them to take their time and retry if needed \citep{fratnowAutismGaming}
-
-\item[\refstepcounter{srnum}\thesrnum \label{SR-LRN-4}:] Games are fun and engaging for Learners and give them a sense of accomplishment
-
-\textbf{Customers}
-\setcounter{srnum}{0}\renewcommand{\thesrnum}{SR-CUST-\arabic{srnum}}
-
-\item[\refstepcounter{srnum}\thesrnum \label{SR-CUST-1}:] System is easy to install, implement, and manage for varying levels of technical literacy
-
-\item[\refstepcounter{srnum}\thesrnum \label{SR-CUST-2}:] System is highly reliable from a technological point of view
-
-\item[\refstepcounter{srnum}\thesrnum \label{SR-CUST-3}:] System must be safe for autistic children to use and avoid elements that can trigger emotional or physical distress in Learners
-
-\textbf{Care Team Members}
-\setcounter{srnum}{0}\renewcommand{\thesrnum}{SR-CTM-\arabic{srnum}}
-\item[\refstepcounter{srnum}\thesrnum \label{SR-CTM-1}:] Game content is educational and aids Learners with their skill development
-
-\item[\refstepcounter{srnum}\thesrnum \label{SR-CTM-2}:] Gameplay settings such as noise can be configured for a Learner's specific needs
-
-\item[\refstepcounter{srnum}\thesrnum \label{SR-CTM-3}:] Aspects of game content (such as a vocabulary list in a reading game) can be tailored towards a specific Learner
-
-\item[\refstepcounter{srnum}\thesrnum \label{SR-CTM-4}:] Learners' progression in games can be viewed and tracked over time
-
-\item[\refstepcounter{srnum}\thesrnum \label{SR-CTM-5}:] Multiple CTMs are able to collaborate in managing a Learner's profile
-
-\item[\refstepcounter{srnum}\thesrnum \label{SR-CTM-6}:] The primary CTM can manage other CTMs' permissions on a Learner's profile and control what can be accessed and changed
-
-\textbf{Domain Experts}
-\setcounter{srnum}{0}\renewcommand{\thesrnum}{SR-DOM-\arabic{srnum}}
-\item[\refstepcounter{srnum}\thesrnum \label{SR-DOM-1}:] Educational aspect of game content is in line with intended age group's school curriculum
-
-\item[\refstepcounter{srnum}\thesrnum \label{SR-DOM-2}:] Games interest Learners and retain their attention
-
-\item[\refstepcounter{srnum}\thesrnum \label{SR-DOM-3}:] Games consider and support idiosyncracity of autistic individuals' sensory processing
-
-\item[\refstepcounter{srnum}\thesrnum \label{SR-DOM-4}:] Games are not static; they allow for progression of difficulty
+  \item[\refstepcounter{srnumL}\thesrnumL \label{SR-LRN-4}:] Games are fun and engaging for Learners and give them a sense of accomplishment
 
 \end{itemize}
 
-Note that there is some natural overlap between stakeholders' requirements. Requirements were categorized under what the development team considers the most relevant stakeholder to them.
+\noindent \textbf{Customers}
+
+\noindent \begin{itemize}
+
+  \setcounter{srnumCU}{0}\renewcommand{\thesrnumCU}{SR-CUST-\arabic{srnumCU}}
+  \item[\refstepcounter{srnumCU}\thesrnumCU \label{SR-CUST-1}:] System is easy to install, implement, and manage for varying levels of technical literacy
+
+  \item[\refstepcounter{srnumCU}\thesrnumCU \label{SR-CUST-2}:] System is highly reliable from a technological point of view
+
+  \item[\refstepcounter{srnumCU}\thesrnumCU \label{SR-CUST-3}:] System must be safe for autistic children to use and avoid elements that can trigger emotional or physical distress in Learners
+\end{itemize}
+
+\noindent \textbf{Care Team Members}
+
+\noindent \begin{itemize}
+
+  \setcounter{srnumC}{0}\renewcommand{\thesrnumC}{SR-CTM-\arabic{srnumC}}
+  \item[\refstepcounter{srnumC}\thesrnumC \label{SR-CTM-1}:] Game content is educational and aids Learners with their skill development
+
+  \item[\refstepcounter{srnumC}\thesrnumC \label{SR-CTM-2}:] Gameplay settings such as noise can be configured for a Learner's specific needs
+
+  \item[\refstepcounter{srnumC}\thesrnumC \label{SR-CTM-3}:] Aspects of game content (such as a vocabulary list in a reading game) can be tailored towards a specific Learner
+
+  \item[\refstepcounter{srnumC}\thesrnumC \label{SR-CTM-4}:] Learners' progression in games can be viewed and tracked over time
+
+  \item[\refstepcounter{srnumC}\thesrnumC \label{SR-CTM-5}:] Multiple CTMs are able to collaborate in managing a Learner's profile
+
+  \item[\refstepcounter{srnumC}\thesrnumC \label{SR-CTM-6}:] The primary CTM can manage other CTMs' permissions on a Learner's profile and control what can be accessed and changed
+
+\end{itemize}
+
+\noindent \textbf{Domain Experts}
+
+\noindent \begin{itemize}
+
+  \setcounter{srnumD}{0}\renewcommand{\thesrnumD}{SR-DOM-\arabic{srnumD}}
+  \item[\refstepcounter{srnumD}\thesrnumD \label{SR-DOM-1}:] Educational aspect of game content is in line with intended age group's school curriculum
+
+  \item[\refstepcounter{srnumD}\thesrnumD \label{SR-DOM-2}:] Games interest Learners and retain their attention
+
+  \item[\refstepcounter{srnumD}\thesrnumD \label{SR-DOM-3}:] Games consider and support idiosyncracity of autistic individuals' sensory processing
+
+  \item[\refstepcounter{srnumD}\thesrnumD \label{SR-DOM-4}:] Games are not static; they allow for progression of difficulty
+
+\end{itemize}
+
+\noindent Note that there is some natural overlap between stakeholders' requirements. Requirements were categorized under what the development team considers the most relevant stakeholder to them.
 
 %\plt{You should give your SRs meaningful labels, so that you can refer to them
 %in other parts of the SRS.  The label names should be meaningful mnemonics, not
@@ -1002,165 +1059,195 @@ Primary CTM
 % ============================================================== 
 \section{Functional Requirements}
 
-\textbf{CTM Accounts}
+\noindent textbf{CTM Accounts}
+
+\noindent \begin{itemize}
+  \setcounter{reqnumA}{0}\renewcommand{\thereqnumA}{FR-CTM-\arabic{reqnum}}
+
+  \item[\refstepcounter{reqnumA}\thereqnumA \label{FR-CTM-1}:] The system shall check a CTM's account registration to validate entered information.
+
+  \item[\refstepcounter{reqnumA}\thereqnumA \label{FR-CTM-2}:] The system shall display reasons for errors in the CTM registration process.
+
+  \item[\refstepcounter{reqnumA}\thereqnumA \label{FR-CTM-3}:] The system shall create the CTM's account after they verify their email.
+
+  \item[\refstepcounter{reqnumA}\thereqnumA \label{FR-CTM-4}:] The system shall allow a CTM to log in using the information verified in the registration process.
+
+  \item[\refstepcounter{reqnumA}\thereqnumA \label{FR-CTM-5}:] The system shall allow a CTM to delete their account with a scheduled grace period, un-linking all Learners and templates.
+
+  \item[\refstepcounter{reqnumA}\thereqnumA \label{FR-CTM-6}:] The system shall allow a CTM to restore their account during the grace period.
+
+\end{itemize}
+
+\noindent \textbf{Learner Profiles}
 
 \noindent \begin{itemize}
 
-\setcounter{reqnum}{0}\renewcommand{\thereqnum}{FR-CTM-\arabic{reqnum}}
+  \setcounter{reqnumL}{0}\renewcommand{\thereqnumL}{FR-LRN-\arabic{reqnumL}}
 
-\item[\refstepcounter{reqnum}\thereqnum \label{FR-CTM-1}:] The system shall check a CTM's account registration to validate entered information.
+  \item[\refstepcounter{reqnumL}\thereqnumL \label{FR-LRN-1}:] The system shall allow a CTM to create a new Learner profile under their account.
 
-\item[\refstepcounter{reqnum}\thereqnum \label{FR-CTM-2}:] The system shall display reasons for errors in the CTM registration process.
+  \item[\refstepcounter{reqnumL}\thereqnumL \label{FR-LRN-2}:] The system shall designate the CTM that created the Learner profile as the primary CTM.
 
-\item[\refstepcounter{reqnum}\thereqnum \label{FR-CTM-3}:] The system shall create the CTM's account after they verify their email.
+  \item[\refstepcounter{reqnumL}\thereqnumL \label{FR-LRN-3}:] The system shall allow a CTM to input the Learner's specific information.
 
-\item[\refstepcounter{reqnum}\thereqnum \label{FR-CTM-4}:] The system shall allow a CTM to log in using the information verified in the registration process.
+  \item[\refstepcounter{reqnumL}\thereqnumL \label{FR-LRN-4}:] The system shall allow the primary CTM to delete a Learner's profile with a scheduled grace period.
 
-\item[\refstepcounter{reqnum}\thereqnum \label{FR-CTM-5}:] The system shall allow a CTM to delete their account with a scheduled grace period, un-linking all Learners and templates.
+  \item[\refstepcounter{reqnumL}\thereqnumL \label{FR-LRN-5}:] The system shall allow the primary CTM to export a Learner's data prior to deletion.
 
-\item[\refstepcounter{reqnum}\thereqnum \label{FR-CTM-6}:] The system shall allow a CTM to restore their account during the grace period.
+  \item[\refstepcounter{reqnumL}\thereqnumL \label{FR-LRN-6}:] The system shall delete all Learner-related data after the deletion grace period.
 
-\textbf{Learner Profiles}
-\setcounter{reqnum}{0}\renewcommand{\thereqnum}{FR-LRN-\arabic{reqnum}}
+  \item[\refstepcounter{reqnumL}\thereqnumL \label{FR-LRN-7}:] The system shall allow the primary CTM to restore a Learner's profile during the grace period.
 
-\item[\refstepcounter{reqnum}\thereqnum \label{FR-LRN-1}:] The system shall allow a CTM to create a new Learner profile under their account.
+  \item[\refstepcounter{reqnumL}\thereqnumL \label{FR-LRN-8}:] The system shall not allow a Learner to access their deleted profile.
 
-\item[\refstepcounter{reqnum}\thereqnum \label{FR-LRN-2}:] The system shall designate the CTM that created the Learner profile as the primary CTM.
+\end{itemize}
 
-\item[\refstepcounter{reqnum}\thereqnum \label{FR-LRN-3}:] The system shall allow a CTM to input the Learner's specific information.
+\noindent \textbf{Device Pairing}
 
-\item[\refstepcounter{reqnum}\thereqnum \label{FR-LRN-4}:] The system shall allow the primary CTM to delete a Learner's profile with a scheduled grace period.
+\noindent \begin{itemize}
+  \setcounter{reqnumD}{0}\renewcommand{\thereqnumD}{FR-DEV-\arabic{reqnum}}
 
-\item[\refstepcounter{reqnum}\thereqnum \label{FR-LRN-5}:] The system shall allow the primary CTM to export a Learner's data prior to deletion.
+  \item[\refstepcounter{reqnumD}\thereqnumD \label{FR-DEV-1}:] The system shall allow a Learner to pair multiple devices.
 
-\item[\refstepcounter{reqnum}\thereqnum \label{FR-LRN-6}:] The system shall delete all Learner-related data after the deletion grace period.
+  \item[\refstepcounter{reqnumD}\thereqnumD \label{FR-DEV-2}:] The system shall confirm the successful pairing of each device to both parties.
 
-\item[\refstepcounter{reqnum}\thereqnum \label{FR-LRN-7}:] The system shall allow the primary CTM to restore a Learner's profile during the grace period.
+  \item[\refstepcounter{reqnumD}\thereqnumD \label{FR-DEV-3}:] The system shall allow a CTM to generate a new code for the Learner's device pairing.
 
-\item[\refstepcounter{reqnum}\thereqnum \label{FR-LRN-8}:] The system shall not allow a Learner to access their deleted profile.
+  \item[\refstepcounter{reqnumD}\thereqnumD \label{FR-DEV-4}:] The system shall allow a specific amount of retries before the pairing method is nullified.
 
-\textbf{Device Pairing}
-\setcounter{reqnum}{0}\renewcommand{\thereqnum}{FR-DEV-\arabic{reqnum}}
+  \item[\refstepcounter{reqnumD}\thereqnumD \label{FR-DEV-5}:] The system shall block further pairing attempts for a period of time after the retry limit is reached.
 
-\item[\refstepcounter{reqnum}\thereqnum \label{FR-DEV-1}:] The system shall allow a Learner to pair multiple devices.
+\end{itemize}
 
-\item[\refstepcounter{reqnum}\thereqnum \label{FR-DEV-2}:] The system shall confirm the successful pairing of each device to both parties.
+\noindent \textbf{Care Team \& Permissions}
 
-\item[\refstepcounter{reqnum}\thereqnum \label{FR-DEV-3}:] The system shall allow a CTM to generate a new code for the Learner's device pairing.
+\noindent \begin{itemize}
+  \setcounter{reqnumC}{0}\renewcommand{\thereqnumC}{FR-TEAM-\arabic{reqnum}}
 
-\item[\refstepcounter{reqnum}\thereqnum \label{FR-DEV-4}:] The system shall allow a specific amount of retries before the pairing method is nullified.
+  \item[\refstepcounter{reqnumC}\thereqnumC \label{FR-TEAM-1}:] The system shall allow the primary CTM to add other CTM's to the Learner's care team via invite code.
 
-\item[\refstepcounter{reqnum}\thereqnum \label{FR-DEV-5}:] The system shall block further pairing attempts for a period of time after the retry limit is reached.
+  \item[\refstepcounter{reqnumC}\thereqnumC \label{FR-TEAM-2}:] The system shall allow the primary CTM to cancel an outgoing invite.
 
-\textbf{Care Team \& Permissions}
-\setcounter{reqnum}{0}\renewcommand{\thereqnum}{FR-TEAM-\arabic{reqnum}}
+  \item[\refstepcounter{reqnumC}\thereqnumC \label{FR-TEAM-3}:] The system shall allow the primary CTM to generate a new invite.
 
-\item[\refstepcounter{reqnum}\thereqnum \label{FR-TEAM-1}:] The system shall allow the primary CTM to add other CTM's to the Learner's care team via invite code.
+  \item[\refstepcounter{reqnumC}\thereqnumC \label{FR-TEAM-4}:] The system shall allow the primary CTM to edit the permission of other CTMs in the Learner's care team.
 
-\item[\refstepcounter{reqnum}\thereqnum \label{FR-TEAM-2}:] The system shall allow the primary CTM to cancel an outgoing invite.
+  \item[\refstepcounter{reqnumC}\thereqnumC \label{FR-TEAM-5}:] The system shall allow the primary CTM to remove another CTM from the Learner's care team.
 
-\item[\refstepcounter{reqnum}\thereqnum \label{FR-TEAM-3}:] The system shall allow the primary CTM to generate a new invite.
+  \item[\refstepcounter{reqnumC}\thereqnumC \label{FR-TEAM-6}:] The system shall allow a CTM to transfer ownership of a Learner's profile from another CTM.
 
-\item[\refstepcounter{reqnum}\thereqnum \label{FR-TEAM-4}:] The system shall allow the primary CTM to edit the permission of other CTMs in the Learner's care team.
+  \item[\refstepcounter{reqnumC}\thereqnumC \label{FR-TEAM-7}:] The system shall not allow a CTM to perform actions they do not explicitly have permission to do.
+\end{itemize}
 
-\item[\refstepcounter{reqnum}\thereqnum \label{FR-TEAM-5}:] The system shall allow the primary CTM to remove another CTM from the Learner's care team.
+\noindent \textbf{Personalization}
+\noindent \begin{itemize}
+  \setcounter{reqnumP}{0}\renewcommand{\thereqnumP}{FR-PERS-\arabic{reqnum}}
 
-\item[\refstepcounter{reqnum}\thereqnum \label{FR-TEAM-6}:] The system shall allow a CTM to transfer ownership of a Learner's profile from another CTM.
+  \item[\refstepcounter{reqnumP}\thereqnumP \label{FR-PERS-1}:] The system shall allow a CTM to toggle the authorization of specific games for a Learner.
 
-\item[\refstepcounter{reqnum}\thereqnum \label{FR-TEAM-7}:] The system shall not allow a CTM to perform actions they do not explicitly have permission to do.
+  \item[\refstepcounter{reqnumP}\thereqnumP \label{FR-PERS-2}:] The system shall allow an authorized CTM to toggle the authorization of specific difficulties of a game for a Learner.
 
-\textbf{Personalization}
-\setcounter{reqnum}{0}\renewcommand{\thereqnum}{FR-PERS-\arabic{reqnum}}
+  \item[\refstepcounter{reqnumP}\thereqnumP \label{FR-PERS-3}:] The system shall allow an authorized CTM to choose specific personalized settings of a game for a Learner.
 
-\item[\refstepcounter{reqnum}\thereqnum \label{FR-PERS-1}:] The system shall allow a CTM to toggle the authorization of specific games for a Learner.
+  \item[\refstepcounter{reqnumP}\thereqnumP \label{FR-PERS-4}:] The system shall always load the personalized settings for a game when a Learner plays it, unless a template is assigned.
+\end{itemize}
+\noindent \textbf{Templates}
 
-\item[\refstepcounter{reqnum}\thereqnum \label{FR-PERS-2}:] The system shall allow an authorized CTM to toggle the authorization of specific difficulties of a game for a Learner.
+\noindent \begin {itemize} 
+  \setcounter{reqnumT}{0}\renewcommand{\thereqnumT}{FR-TMPL-\arabic{reqnum}}
 
-\item[\refstepcounter{reqnum}\thereqnum \label{FR-PERS-3}:] The system shall allow an authorized CTM to choose specific personalized settings of a game for a Learner.
+  \item[\refstepcounter{reqnumT}\thereqnumT \label{FR-TMPL-1}:] The system shall allow an authorized CTM to create a new template from an existing game in their saved templates.
 
-\item[\refstepcounter{reqnum}\thereqnum \label{FR-PERS-4}:] The system shall always load the personalized settings for a game when a Learner plays it, unless a template is assigned.
+  \item[\refstepcounter{reqnumT}\thereqnumT \label{FR-TMPL-2}:] The system shall allow an authorized CTM to import a template from another CTM.
 
-\textbf{Templates}
-\setcounter{reqnum}{0}\renewcommand{\thereqnum}{FR-TMPL-\arabic{reqnum}}
+  \item[\refstepcounter{reqnumT}\thereqnumT \label{FR-TMPL-3}:] The system shall allow a CTM to add, change or remove default contents within a template.
 
-\item[\refstepcounter{reqnum}\thereqnum \label{FR-TMPL-1}:] The system shall allow an authorized CTM to create a new template from an existing game in their saved templates.
+  \item[\refstepcounter{reqnumT}\thereqnumT \label{FR-TMPL-4}:] The system shall allow a CTM to tailor settings for this template.
 
-\item[\refstepcounter{reqnum}\thereqnum \label{FR-TMPL-2}:] The system shall allow an authorized CTM to import a template from another CTM.
+  \item[\refstepcounter{reqnumT}\thereqnumT \label{FR-TMPL-5}:] The system shall allow a CTM to assign a difficulty for a template.
 
-\item[\refstepcounter{reqnum}\thereqnum \label{FR-TMPL-3}:] The system shall allow a CTM to add, change or remove default contents within a template.
+  \item[\refstepcounter{reqnumT}\thereqnumT \label{FR-TMPL-6}:] The system shall allow a CTM to assign the template to Learner(s), overriding any previous settings.
 
-\item[\refstepcounter{reqnum}\thereqnum \label{FR-TMPL-4}:] The system shall allow a CTM to tailor settings for this template.
+  \item[\refstepcounter{reqnumT}\thereqnumT \label{FR-TMPL-7}:] The system shall allow a CTM to un-assign a template to Learner(s), restoring previous settings.
 
-\item[\refstepcounter{reqnum}\thereqnum \label{FR-TMPL-5}:] The system shall allow a CTM to assign a difficulty for a template.
+  item[\refstepcounter{reqnumT}\thereqnumT \label{FR-TMPL-8}:] The system shall allow a CTM to delete a template which un-assigns it from any associated Learner(s).
 
-\item[\refstepcounter{reqnum}\thereqnum \label{FR-TMPL-6}:] The system shall allow a CTM to assign the template to Learner(s), overriding any previous settings.
+  \item[\refstepcounter{reqnumT}\thereqnumT \label{FR-TMPL-9}:] The system shall allow a CTM to create folders that can hold more than one template.
+\end{itemize}
 
-\item[\refstepcounter{reqnum}\thereqnum \label{FR-TMPL-7}:] The system shall allow a CTM to un-assign a template to Learner(s), restoring previous settings.
+\noindent \textbf{Gameplay}
 
-\item[\refstepcounter{reqnum}\thereqnum \label{FR-TMPL-8}:] The system shall allow a CTM to delete a template which un-assigns it from any associated Learner(s).
+\noindent \begin{itemize}
+  \setcounter{reqnumG}{0}\renewcommand{\thereqnumG}{FR-PLAY-\arabic{reqnum}}
 
-\item[\refstepcounter{reqnum}\thereqnum \label{FR-TMPL-9}:] The system shall allow a CTM to create folders that can hold more than one template.
+  \item[\refstepcounter{reqnumG}\thereqnumG \label{FR-PLAY-1}:] The system shall not allow the Learner to play the games they are not explicitly authorized to play.
 
-\textbf{Gameplay}
-\setcounter{reqnum}{0}\renewcommand{\thereqnum}{FR-PLAY-\arabic{reqnum}}
+  \item[\refstepcounter{reqnumG}\thereqnumG \label{FR-PLAY-2}:] The system shall not start a game until it receives a cue that the Learner is ready.
 
-\item[\refstepcounter{reqnum}\thereqnum \label{FR-PLAY-1}:] The system shall not allow the Learner to play the games they are not explicitly authorized to play.
+  \item[\refstepcounter{reqnumG}\thereqnuG \label{FR-PLAY-3}:] The system shall only present the next task once it verifies the Learner has completed the current task.
 
-\item[\refstepcounter{reqnum}\thereqnum \label{FR-PLAY-2}:] The system shall not start a game until it receives a cue that the Learner is ready.
+  \item[\refstepcounter{reqnumG}\thereqnumG \label{FR-PLAY-4}:] The system shall allow the Learner to read a guide regarding the current instruction if permitted by the CTM.
 
-\item[\refstepcounter{reqnum}\thereqnum \label{FR-PLAY-3}:] The system shall only present the next task once it verifies the Learner has completed the current task.
+  \item[\refstepcounter{reqnumG}\thereqnumG \label{FR-PLAY-5}:] The system shall allow the Learner to pause an ongoing game.
 
-\item[\refstepcounter{reqnum}\thereqnum \label{FR-PLAY-4}:] The system shall allow the Learner to read a guide regarding the current instruction if permitted by the CTM.
+  \item[\refstepcounter{reqnumG}\thereqnumG \label{FR-PLAY-6}:] The system shall allow the Learner to restart an ongoing game.
 
-\item[\refstepcounter{reqnum}\thereqnum \label{FR-PLAY-5}:] The system shall allow the Learner to pause an ongoing game.
+  \item[\refstepcounter{reqnumG}\thereqnumG \label{FR-PLAY-7}:] The system shall allow the Learner to abort an ongoing game.
 
-\item[\refstepcounter{reqnum}\thereqnum \label{FR-PLAY-6}:] The system shall allow the Learner to restart an ongoing game.
+  \item[\refstepcounter{reqnumG}\thereqnumG \label{FR-PLAY-8}:] The system shall allow the CTM to abort a Learner's ongoing game.
 
-\item[\refstepcounter{reqnum}\thereqnum \label{FR-PLAY-7}:] The system shall allow the Learner to abort an ongoing game.
+  \item[\refstepcounter{reqnumG}\thereqnumG \label{FR-PLAY-9}:] The system shall allow the Learner to play again after a completed game if permitted by the CTM.
 
-\item[\refstepcounter{reqnum}\thereqnum \label{FR-PLAY-8}:] The system shall allow the CTM to abort a Learner's ongoing game.
+  \item[\refstepcounter{reqnumG}\thereqnumG \label{FR-PLAY-10}:] The system shall allow the Learner to return to the game suite screen after a completed game.
+\end{itemize}
 
-\item[\refstepcounter{reqnum}\thereqnum \label{FR-PLAY-9}:] The system shall allow the Learner to play again after a completed game if permitted by the CTM.
+\noindent \textbf{Rewards \& Cosmetics}
 
-\item[\refstepcounter{reqnum}\thereqnum \label{FR-PLAY-10}:] The system shall allow the Learner to return to the game suite screen after a completed game.
+\noindent \begin{itemize}
+  \setcounter{reqnumR}{0}\renewcommand{\thereqnumR}{FR-RWD-\arabic{reqnum}}
 
+<<<<<<< Updated upstream
 \textbf{Rewards \& Cosmetics}
 \setcounter{reqnum}{0}\renewcommand{\thereqnum}{FR-RWD-\arabic{reqnum}}
+=======
+  \item[\refstepcounter{reqnumR}\thereqnumR \label{FR-RWD-1}:] The system shall allow a Learner to claim an in-game reward after their completed game.
 
-\item[\refstepcounter{reqnum}\thereqnum \label{FR-RWD-1}:] The system shall allow a Learner to claim an in-game reward after their completed game.
+  \item[\refstepcounter{reqnumR}\thereqnumR \label{FR-RWD-2}:] The system shall not offer duplicate items as rewards.
+>>>>>>> Stashed changes
 
-\item[\refstepcounter{reqnum}\thereqnum \label{FR-RWD-2}:] The system shall not offer duplicate items as rewards.
+  \item[\refstepcounter{reqnumR}\thereqnumR \label{FR-RWD-3}:] The system shall allow a Learner to view cosmetic items in the items screen.
 
-\item[\refstepcounter{reqnum}\thereqnum \label{FR-RWD-3}:] The system shall allow a Learner to view cosmetic items in the items screen.
+  \item[\refstepcounter{reqnumR}\thereqnumR \label{FR-RWD-4}:] The system shall allow a Learner to unlock an item they meet the conditions for.
 
-\item[\refstepcounter{reqnum}\thereqnum \label{FR-RWD-4}:] The system shall allow a Learner to unlock an item they meet the conditions for.
+  \item[\refstepcounter{reqnumR}\thereqnumR \label{FR-RWD-5}:] The system shall allow a Learner to equip an item they already own.
 
-\item[\refstepcounter{reqnum}\thereqnum \label{FR-RWD-5}:] The system shall allow a Learner to equip an item they already own.
+  \item[\refstepcounter{reqnumR}\thereqnumR \label{FR-RWD-6}:] The system shall display a reason for when an item cannot be unlocked while outlining the conditions for unlocking.
 
-\item[\refstepcounter{reqnum}\thereqnum \label{FR-RWD-6}:] The system shall display a reason for when an item cannot be unlocked while outlining the conditions for unlocking.
+  \item[\refstepcounter{reqnumR}\thereqnumR \label{FR-RWD-7}:] The system shall display alternatives for an item that could not be unlocked when buyable alternatives exist.
+\end{itemize}
 
-\item[\refstepcounter{reqnum}\thereqnum \label{FR-RWD-7}:] The system shall display alternatives for an item that could not be unlocked when buyable alternatives exist.
+\noindent \textbf{Learner Data}
 
-\textbf{Learner Data}
-\setcounter{reqnum}{0}\renewcommand{\thereqnum}{FR-DATA-\arabic{reqnum}}
+\noindent \begin{itemize}
+  \setcounter{reqnumLD}{0}\renewcommand{\thereqnumLD}{FR-DATA-\arabic{reqnum}}
 
-\item[\refstepcounter{reqnum}\thereqnum \label{FR-DATA-1}:] The system shall allow an authorized CTM to view a Learner's general data.
+  \item[\refstepcounter{reqnumLD}\thereqnumLD \label{FR-DATA-1}:] The system shall allow an authorized CTM to view a Learner's general data.
 
-\item[\refstepcounter{reqnum}\thereqnum \label{FR-DATA-2}:] The system shall display an expandable overview of the Learner's game history.
+  \item[\refstepcounter{reqnumLD}\thereqnumLD \label{FR-DATA-2}:] The system shall display an expandable overview of the Learner's game history.
 
-\item[\refstepcounter{reqnum}\thereqnum \label{FR-DATA-3}:] The system shall allow an authorized CTM to view a Learner's game history between specific dates.
+  \item[\refstepcounter{reqnumLD}\thereqnumLD \label{FR-DATA-3}:] The system shall allow an authorized CTM to view a Learner's game history between specific dates.
 
-\item[\refstepcounter{reqnum}\thereqnum \label{FR-DATA-4}:] The system shall allow an authorized CTM to view a Learner's game-specific data.
+  \item[\refstepcounter{reqnumLD}\thereqnumLD \label{FR-DATA-4}:] The system shall allow an authorized CTM to view a Learner's game-specific data.
 
-\item[\refstepcounter{reqnum}\thereqnum \label{FR-DATA-5}:] The system shall offer multiple data representations of the Learner's game-specific data.
+  \item[\refstepcounter{reqnumLD}\thereqnumLD \label{FR-DATA-5}:] The system shall offer multiple data representations of the Learner's game-specific data.
 
-\item[\refstepcounter{reqnum}\thereqnum \label{FR-DATA-6}:] The system shall allow an authorized CTM to export a Learner's game data.
+  \item[\refstepcounter{reqnumLD}\thereqnumLD \label{FR-DATA-6}:] The system shall allow an authorized CTM to export a Learner's game data.
 
-\item[\refstepcounter{reqnum}\thereqnum \label{FR-DATA-7}:] The system shall save the Learner's performance in the game session into the correct data tables.
+  \item[\refstepcounter{reqnumLD}\thereqnumLD \label{FR-DATA-7}:] The system shall save the Learner's performance in the game session into the correct data tables.
 
-\item[\refstepcounter{reqnum}\thereqnum \label{FR-DATA-8}:] The system shall queue the Learner's performance locally for future syncing if it does not have a stable connection.
+  \item[\refstepcounter{reqnumLD}\thereqnumLD \label{FR-DATA-8}:] The system shall queue the Learner's performance locally for future syncing if it does not have a stable connection.
 
-\item[\refstepcounter{reqnum}\thereqnum \label{FR-DATA-9}:] The system shall not gather any data more than what is required to fulfill the purpose of loading the correct game configurations, cosmetic items and uploading session data.
+  \item[\refstepcounter{reqnumLD}\thereqnumLD \label{FR-DATA-9}:] The system shall not gather any data more than what is required to fulfill the purpose of loading the correct game configurations, cosmetic items and uploading session data.
 
 \end{itemize}
 
