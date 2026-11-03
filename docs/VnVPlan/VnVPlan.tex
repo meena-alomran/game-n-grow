@@ -4,6 +4,10 @@
 \usepackage{tabularx}
 \usepackage{hyperref}
 \usepackage{xr-hyper}
+\usepackage{longtable}
+\usepackage{caption}
+\usepackage{enumitem}
+\externaldocument[SRS-]{../SRS-IEEE/SRS}
 \hypersetup{
     colorlinks,
     citecolor=blue,
@@ -11,6 +15,13 @@
     linkcolor=red,
     urlcolor=blue
 }
+\newcommand{\srsref}[1]{\hyperref[SRS-#1]{#1}}
+\newcounter{validation}
+\renewcommand{\thevalidation}{V\arabic{validation}}
+\newcommand{\valref}[1]{\hyperref[val:V#1]{\ref*{val:V#1}}}
+\newcommand{\srsucref}[1]{\hyperref[SRS-UC_Label#1]{UC\ref*{SRS-UC_Label#1}}}
+\newcommand{\srssectionref}[1]{\hyperref[SRS-#1]{SRS Section~\ref*{SRS-#1}}}
+\newcommand{\srsnamedref}[2]{\hyperref[SRS-#1]{#2}}
 \externaldocument[SRS-]{../SRS-IEEE/SRS}
 \newcommand{\srsreq}[1]{\hyperref[SRS-#1]{#1}}
 \newcommand{\srsreqtext}[2]{\hyperref[SRS-#1]{#2}}
@@ -34,11 +45,10 @@
 
 \section*{Revision History}
 
-\begin{tabularx}{\textwidth}{p{3cm}p{2cm}X}
+\begin{tabularx}{\textwidth}{p{4cm}p{2cm}X}
 \toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
 \midrule
-Date 1 & 1.0 & Notes\\
-Date 2 & 1.1 & Notes\\
+November 2nd 2026 & 1.0 & Notes\\
 \bottomrule
 \end{tabularx}
 
@@ -71,14 +81,16 @@ in.}
 
 \section{Symbols, Abbreviations, and Acronyms}
 
-\renewcommand{\arraystretch}{1.2}
-\begin{tabular}{l l} 
-  \toprule		
-  \textbf{symbol} & \textbf{description}\\
-  \midrule 
-  T & Test\\
-  \bottomrule
-\end{tabular}\\
+\renewcommand{\arraystretch}{1.2} 
+\begin{tabular}{l p{13cm}}
+\toprule 
+\textbf{symbol} & \textbf{description}\\ 
+\midrule 
+CTM & Care Team Member, an account type with specific authorizations to manage a Learner profile(s)\\ 
+Primary CTM & a role belonging to only one CTM associated with a Learner's profile with all permissions and controls\\ 
+\bottomrule 
+\end{tabular}
+
 
 \wss{symbols, abbreviations, or acronyms --- you can simply reference the \srsdoc{}
   tables, if appropriate}
@@ -248,24 +260,85 @@ implementation, and evaluation results.
 \subsection{Verification and Validation Team}
 \label{sec:team}
 
-\wss{Your teammates.  Maybe your supervisor.
-  You should do more than list names.  You should say what each person's role is
-  for the project's verification.  A table is a good way to summarize this information.}
+Table~\ref{tab:vv-team} lists the members of the verification and validation team and their responsibilities. Each team member owns a set of tests, reviews and activities. Owning a test means writing it, keeping it up to date with the SRS, and making sure it is run before each demo. It does not mean running it: following Section~\ref{sec:impl-ver}, manual system tests are run by a team member who did not implement the feature under test. The supervisor, classmate reviewers and external participants also take part in verification and validation, as described below the table.
+
+\begin{table}[htbp]
+\centering\small
+\caption{Verification and validation team}
+\label{tab:vv-team}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{0.17\textwidth} >{\raggedright\arraybackslash}p{0.2\textwidth} >{\raggedright\arraybackslash}X}
+\toprule
+\textbf{Member} & \textbf{Role} & \textbf{Responsibilities}\\
+\midrule
+Omar Ghoneim & Security and privacy lead & Leads the compliance check in Section~\ref{sec:validation}, and presents the code walkthroughs for access control and permissions, and for deletion and retention.\\
+Meena Al Omran & Accounts and platforms lead & Runs the platform verification in Section~\ref{sec:impl-ver}, and presents the code walkthrough for pairing and invite codes.\\
+Marko Popovic & Data and synchronization lead & Presents the code walkthroughs for the offline queue and synchronization, session recording, and data export. Coordinates the manual fault injection in Section~\ref{sec:plan-ver}.\\
+Maya Azar & Validation lead & Leads the CTM usability sessions (\valref{3}), including participant recruitment, and the usability survey. Prepares the ethics application for any sessions involving Learners, and tracks the issues raised by the Rev 0 demo feedback (\valref{2}).\\
+Amirah Abdelrahman & Learner experience lead & Leads the inspection of Learner-facing assets in Section~\ref{sec:impl-ver}, prepares the observation guide for proxy play-testing (\valref{4}), and coordinates the curriculum alignment review (\valref{5}).\\
+\midrule
+Project supervisor & Domain expert & Expert in psychology and autism. Completes the SRS task-based review (\valref{1}), gives feedback after the Rev 0 demo (\valref{2}), play-tests the games as a proxy for Learners (\valref{4}), and reviews the curriculum alignment table (\valref{5}) and any uncertain wording (\valref{6}). Advises the team on whether sessions with Learners should be pursued.\\
+Classmate reviewers & Peer reviewers & Review the SRS, the design, and this plan using the checklists in Sections~\ref{sec:srs-ver}, \ref{sec:design-ver} and \ref{sec:plan-ver}, and record findings as issues in the project repository.\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\paragraph{External participants.} Two groups of participants outside the team take part in validation. The first group is at least 10 adults in roles close to the CTM personas, such as parents, educators and special-education staff, who take part in the CTM usability sessions (\valref{3}). The second group is special-education educators who play-test the games as proxies for Learners alongside the supervisor (\valref{4}). Sessions with Learners are not planned by default. They are run only if the supervisor advises it and ethics clearance is obtained in time, and the ethics board may limit participants to neurotypical or neurodivergent children of the target age.
+
+\paragraph{Review rotation.} Every pull request needs an approving review from a member other than its author. Reviews follow a fixed rotation in the order of Table~\ref{tab:vv-team}: each member's pull requests are reviewed by the next member in the table, and the last member's are reviewed by the first. If the assigned reviewer is unavailable, the following member in the rotation reviews instead. A pull request that touches an area owned by another lead in Table~\ref{tab:vv-team} also needs that lead's approval.
 
 \subsection{\srsdoc{} Verification}
 \label{sec:srs-ver}
 
-\wss{List any approaches you intend to use for \srsdoc{} verification.  This may
-  include ad hoc feedback from reviewers, like your classmates (like your
-  primary reviewer), or you may plan for something more rigorous/systematic.}
+The SRS is verified in three ways: a checklist review by the team and classmate reviewers, a task-based review with the supervisor, and an automated traceability check. The reviews are applied to the submitted SRS, and their findings feed its next revision. Every finding is recorded as an issue labelled \texttt{srs-review} in the project repository, citing the affected requirement or section and the checklist item it fails. Accepted changes are recorded in the SRS revision history.
 
-\wss{If you have a supervisor for the project, you shouldn't just say they will
-read over the \srsdoc{}.  You should explain your structured approach to the review.
-Will you have a meeting?  What will you present?  What questions will you ask?
-Will you give them instructions for a task-based inspection?  Will you use your
-issue tracker?}
+\paragraph{Checklist review.} The team and classmate reviewers review the SRS against the course SRS checklist. Each classmate reviewer files at least five issues. The following checklist items are given particular attention, because they apply directly to \progname{}'s SRS:
+\begin{itemize}
+  \item literal values are replaced by symbolic constants defined in the SRS appendix;
+  \item nonfunctional requirements are verifiable, with fit criteria where appropriate;
+  \item the SRS is consistent, unambiguous and traceable; and
+  \item rationale is given for non-obvious requirements and scope decisions.
+\end{itemize}
+The reviewers also apply the project-specific checks in Table~\ref{tab:srs-checklist}, which cover parts of the SRS that the course checklist does not address directly.
 
-\wss{Maybe create a \srsdoc{} checklist?}
+\begin{table}[htbp]
+\centering\small
+\caption{Project-specific SRS checks}
+\label{tab:srs-checklist}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabularx}{\textwidth}{l >{\raggedright\arraybackslash}X}
+\toprule
+\textbf{ID} & \textbf{Check}\\
+\midrule
+S1 & Use cases agree with the functional requirements on actors, permissions and outcomes.\\
+S2 & The data dictionary (SRS Section 7.2) contains every entity, attribute and value that the functional and safety requirements use.\\
+S3 & Every stakeholder requirement (\srssectionref{sec:stakeholder-requirements}) appears in the traceability matrix and traces to at least one functional or nonfunctional requirement.\\
+S4 & Every hazard in the Hazard Analysis maps to at least one safety requirement, and no requirement or Learner-facing wording implies a clinical diagnosis or developmental conclusion (\srssectionref{sec_SystemProblem} and \srsnamedref{ULC_NonClinicalPurpose}{ULC Non-Clinical Purpose}).\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\paragraph{Task-based review with the supervisor.} The supervisor reviews the SRS in a 60-minute meeting (\valref{1} in Section~\ref{sec:validation}). Rather than reading the SRS and giving general comments, the supervisor completes the following tasks with the SRS open, while a team member records their answers:
+\begin{enumerate}[label=T\arabic*., nosep]
+  \item Trace SR-LRN-1 to the functional requirements that support it, and judge whether they would protect a Learner with sensory hypersensitivity.
+  \item Find the requirements that prevent a game from startling a Learner, such as sudden audio or flashing content.
+  \item Review the default settings and reward approach, and judge whether they are appropriate for the intended Learners.
+  \item Identify any requirement or wording that implies a diagnosis or a broader developmental conclusion.
+  \item Identify any need of autistic Learners or CTMs that is missing from the stakeholder requirements.
+\end{enumerate}
+Each answer that points to a missing, incorrect or unclear requirement becomes an issue. The team then discusses with the supervisor which issues to resolve in the next revision of the SRS.
+
+\paragraph{Traceability script.} A Python script in the project repository collects every requirement ID defined in the SRS and searches the SRS traceability matrices, the use cases, and the test cases and traceability tables of this plan for each one. It reports every requirement that is not referenced, and every test ID in a traceability table that has no matching test case. The script is run before each submission of the SRS and of this plan, and each gap it reports becomes an issue. The same script provides check P1 in Section~\ref{sec:plan-ver}.
+
+\paragraph{Findings so far.} Writing the system tests in Section 4 was used as an early review of the SRS, and surfaced the following defects. These are filed as the first \texttt{srs-review} issues.
+\begin{itemize}
+  \item \textbf{Consistency (S1):} \srsucref{8} allows any authorized CTM to delete a Learner profile, while \srsref{FR-LRN-4} allows only the Primary CTM.
+  \item \textbf{Data dictionary (S2):} the outcome attribute of a Game Session has no value for incomplete sessions, which SR-8 requires.
+  \item \textbf{Traceability (S3):} SR-LRN-2, SR-CUST-1, SR-CUST-2, SR-CTM-1 and SR-DOM-1 do not appear in the SRS traceability matrix, and the change log described in \srssectionref{sec:privacy-data-retention} has no corresponding functional requirement.
+  \item \textbf{Symbolic constants:} the 30-day grace period and the percentages in NFR-USE-1 to NFR-USE-5 are literal values, and the backup retention period referenced by SR-18 is missing from the SRS appendix.
+  \item \textbf{Verifiability:} NFR-EFF-1, NFR-RELY-1 and NFR-PERF-2 have no fit criteria.
+  \item \textbf{Ambiguity:} FR-CTM-5 does not state who becomes the Primary CTM when a Primary CTM deletes their account, FR-PLAY-8 does not state where the CTM aborts a game from, FR-RWD-2 does not cover a Learner who already owns every reward item, and SR-12 does not state what happens to a hidden item that is already equipped.
+\end{itemize}
 
 \subsection{Design Verification}
 
@@ -344,17 +417,10 @@ implemented, the team presents wireframes of the Game Suite, a gameplay screen
 with the pause, restart, and exit controls, a Learner error message, and the
 CTM settings screen from \srsuc{4}. The supervisor is asked whether each screen is
 uncluttered, whether instructions are unambiguous, and whether anything could
-overwhelm a Learner (\srsreq{SR-LRN-1} to \srsreq{SR-LRN-3}, \srsreq{SR-DOM-3}, \srsreq{SR-4} to \srsreq{SR-7}, \srsreq{SR-11}).
+overwhelm a Learner (\srsref{SR-LRN-1} to \srsref{SR-LRN-3}, \srsref{SR-DOM-3}, \srsref{SR-4} to \srsref{SR-7}, \srsref{SR-11}).
 
 
 \subsection{Verification and Validation Plan Verification}
-
-\wss{The verification and validation plan is an artifact that should also be
-verified.  Techniques for this include review and mutation testing.}
-
-\wss{The review will include reviews by your classmates}
-
-\wss{Create a checklists?}
 
 \label{sec:plan-ver}
 
@@ -379,8 +445,8 @@ team member who did not write it can run it.\\
 P3 & Expected outputs are derived from the requirements and use cases, not from
 what the implementation currently does.\\
 P4 & Nonfunctional tests have measurable pass criteria, a sample size, and a
-survey in the appendix where one is needed (\srsreq{NFR-USE-1} to \srsreq{NFR-USE-5},
-\srsreq{NFR-PERF-1}).\\
+survey in the appendix where one is needed (\srsref{NFR-USE-1} to \srsref{NFR-USE-5},
+\srsref{NFR-PERF-1}).\\
 P5 & The plan is feasible: the devices, participants, and person-hours it
 assumes are available to the team.\\
 P6 & Terminology matches the \srsdoc{}, and the document meets the course template
@@ -404,25 +470,14 @@ available for GDScript, so once the tests are implemented the team will measure
 test-suite strength by hand. A team member who did not write the code
 introduces one small fault at a time in a separate branch and runs the full
 suite. The faults target at least ten critical rules: the permission check
-(\srsreq{FR-TEAM-7}), the pairing-code retry limit (\srsreq{FR-DEV-4}), the 30-day grace period
-(\srsreq{FR-LRN-6}), incomplete-session handling (\srsreq{SR-8}), the hidden-item filter (\srsreq{SR-12}),
-the flash limit (\srsreq{SR-6}), the export record count (\srsreq{SR-16}), the low defaults
-(\srsreq{SR-4}), the invite-code expiry check (\srsreq{FR-TEAM-1}), and the start-cue gate
-(\srsreq{SR-5}). The mutation score is the fraction of faults detected by at least one
+(\srsref{FR-TEAM-7}), the pairing-code retry limit (\srsref{FR-DEV-4}), the 30-day grace period
+(\srsref{FR-LRN-6}), incomplete-session handling (\srsref{SR-8}), the hidden-item filter (\srsref{SR-12}),
+the flash limit (\srsref{SR-6}), the export record count (\srsref{SR-16}), the low defaults
+(\srsref{SR-4}), the invite-code expiry check (\srsref{FR-TEAM-1}), and the start-cue gate
+(\srsref{SR-5}). The mutation score is the fraction of faults detected by at least one
 failing test. Every surviving fault leads to a new or strengthened test.
 
 \subsection{Implementation Verification}
-
-\wss{You should at least point to the tests listed in this document and the unit
-  testing plan.}
-
-\wss{In this section you would also give any details of any plans for static
-  verification of the implementation.  Potential techniques include code
-  walkthroughs, code inspection, static analyzers, etc.}
-
-\wss{The final class presentation in CAS 741 could be used as a code
-walkthrough.  There is also a possibility of using the final presentation (in
-CAS741) for a partial usability survey.}
 
 \label{sec:impl-ver}
 
@@ -440,8 +495,8 @@ from a member other than its author, following the rotation in
 Section~\ref{sec:team}. The reviewer confirms that the change follows the
 coding standard, uses static typing, includes or updates tests, contains no
 credentials, and respects the relevant safety requirements. For example, no
-audio or animation may start before the Learner's start cue (\srsreq{SR-5}), and Learner
-error messages must be calm and short (\srsreq{SR-7}).
+audio or animation may start before the Learner's start cue (\srsref{SR-5}), and Learner
+error messages must be calm and short (\srsref{SR-7}).
 
 \paragraph{Code walkthroughs.} The team holds a 60-minute walkthrough for each
 of these safety- or privacy-critical areas: access control and permissions,
@@ -457,10 +512,10 @@ dependency scanning, and secret scanning run automatically
 fail.
 
 \paragraph{Inspection of Learner-facing assets.} Screen captures are recorded to count flashes in every one-second window to check
-\srsreq{SR-6} (no more than three). The the default settings stored for each game are reviewed for low stimulation, volume, and celebration intensity (\srsreq{SR-4}), and every task is checked so that it can be completed with touch or mouse input (\srsreq{SR-10}).
+\srsref{SR-6} (no more than three). The the default settings stored for each game are reviewed for low stimulation, volume, and celebration intensity (\srsref{SR-4}), and every task is checked so that it can be completed with touch or mouse input (\srsref{SR-10}).
 
 \paragraph{Platform verification.} The manual platform matrix for
-\srsreq{NFR-PORT-1} to \srsreq{NFR-PORT-3} is run on physical tablets owned by the team, and iOS and Android
+\srsref{NFR-PORT-1} to \srsref{NFR-PORT-3} is run on physical tablets owned by the team, and iOS and Android
 simulators or emulators for older operating system versions, and Chrome,
 Firefox, and Edge.
 
@@ -470,21 +525,6 @@ assumed to have been verified by their maintainers. The team tests only how
 
 \subsection{Automated Testing and Verification Tools}
 \label{sec:automated-tools} 
-
-\wss{What tools are you using for automated testing.  Likely a unit testing
-  framework and maybe a profiling tool, like ValGrind.  Other possible tools
-  include a static analyzer, make, continuous integration tools, test coverage
-  tools, etc.  Explain your plans for summarizing code coverage metrics.
-  Linters are another important class of tools.  For the programming language
-  you select, you should look at the available linters.  There may also be tools
-  that verify that coding standards have been respected, like flake9 for
-  Python.}
-
-\wss{If you have already done this in the development plan, you can point to
-that document.}
-
-\wss{The details of this section will likely evolve as you get closer to the
-  implementation.}
 
 
 The team will use three automated tools for the Godot client, all of which run
@@ -503,13 +543,13 @@ it gives the test ID from Sections 4 and 5 and the requirement ID it supports,
 so that the traceability tables can be checked against the code. The team will use three GUT features in particular:
 \begin{itemize}
   \item doubles and stubs replace the server connection, so that behaviour such
-  as queuing results when the connection is lost (\srsreq{FR-DATA-8}, \srsreq{SR-9}) can be tested
+  as queuing results when the connection is lost (\srsref{FR-DATA-8}, \srsref{SR-9}) can be tested
   without a network;
   \item parameterized tests run the same check over several inputs, such as
-  correct, incorrect, expired, and reused pairing and invite codes (\srsreq{FR-DEV-4},
-  \srsreq{FR-TEAM-1}); and
+  correct, incorrect, expired, and reused pairing and invite codes (\srsref{FR-DEV-4},
+  \srsref{FR-TEAM-1}); and
   \item signal watching confirms that game state changes, such as pausing,
-  restarting, and aborting, emit the expected signals (\srsreq{FR-PLAY-5} to \srsreq{FR-PLAY-7}).
+  restarting, and aborting, emit the expected signals (\srsref{FR-PLAY-5} to \srsref{FR-PLAY-7}).
 \end{itemize}
 
 \paragraph{gdlint and gdformat.} These two command-line tools come from
@@ -543,30 +583,11 @@ Section~\ref{sec:plan-ver} supply the rest of the evidence.
 
 \subsection{Software Validation}
 
-\wss{If there is any external data that can be used for validation, you should
-  point to it here.  If there are no plans for validation, you should state that
-  here.}
-
-\wss{You might want to use review sessions with the stakeholder to check that
-the requirements document captures the right requirements.  Maybe task based
-inspection?}
-
-\wss{For those capstone teams with an external supervisor, the Rev 0 demo should 
-be used as an opportunity to validate the requirements.  You should plan on 
-demonstrating your project to your supervisor shortly after the scheduled Rev 0 demo.  
-The feedback from your supervisor will be very useful for improving your project.}
-
-\wss{For teams without an external supervisor, user testing can serve the same purpose 
-as a Rev 0 demo for the supervisor.}
-
-\wss{This section might reference back to the \srsdoc{} verification section.}
-
 \label{sec:validation}
 
-For external data that can be used for validation, \progname{} can be validated via the Ontario elementary curriculum for Grades 3 to 5 (\srsreq{NFR-ACCU-2}), the WCAG~2.x flashing
-criterion (\srsreq{SR-6}), PIPEDA, GDPR, and app store rules for children's apps (\srsdoc{}
-Section 7.3). Table~\ref{tab:validation} lists the validation activities and
-the stakeholder requirements from \srsdoc{} Section 3 that each one addresses.
+For external data that can be used for validation, \progname{} can be validated via the Ontario elementary curriculum for Grades 3 to 5 (\srsref{NFR-ACCU-2}), the WCAG~2.x flashing
+criterion (\srsref{SR-6}), PIPEDA, GDPR, and app store rules for children's apps (\srssectionref{sec:privacy-data-retention}). Table~\ref{tab:validation} lists the validation activities and
+the stakeholder requirements from \srssectionref{sec:stakeholder-requirements} that each one addresses.
 
 \begin{table}[htbp]
 \centering\small
@@ -577,67 +598,67 @@ the stakeholder requirements from \srsdoc{} Section 3 that each one addresses.
 \toprule
 \textbf{ID} & \textbf{Activity} & \textbf{Participants} & \textbf{Validates}\\
 \midrule
-V1 & \srsdoc{} task-based review (Section~\ref{sec:srs-ver}) & Supervisor & All
-stakeholder requirements\\
-V2 & Rev 0 demo to supervisor & Supervisor & \srsreqtext{SR-LRN-1}{SR-LRN}, \srsreqtext{SR-CTM-1}{SR-CTM}, \srsreqtext{SR-DOM-1}{SR-DOM},
-\srsreqtext{SR-CUST-1}{SR-CUST}\\
-V3 & CTM usability sessions and survey & At least 10 adults in CTM-like roles &
-\srsreq{SR-CTM-5}, \srsreq{SR-CTM-6}, \srsreq{SR-CUST-1}; \srsreq{NFR-USE-1} to \srsreq{NFR-USE-4}, \srsreq{NFR-PERF-1}\\
-V4 & Learner-facing proxy play-testing & Supervisor and special-education
-educators & \srsreq{SR-LRN-1} to \srsreq{SR-LRN-4}, \srsreq{SR-DOM-2}, \srsreq{SR-DOM-3}; \srsreq{NFR-USE-5}\\
-V5 & Curriculum alignment review & Supervisor, and an educator where
-available & \srsreq{SR-CTM-1}, \srsreq{SR-DOM-1}, \srsreq{SR-DOM-4}; \srsreq{NFR-ACCU-2}\\
-V6 & Non-clinical wording review & Team and supervisor & \srsdoc{} Section 2.1 and
-\srsulc\\
+\refstepcounter{validation}\label{val:V1}\ref{val:V1} & SRS task-based review (Section~\ref{sec:srs-ver}; UCs~\srsucref{1}--\srsucref{10}) & Supervisor &
+\srsref{SR-LRN-1}--\srsref{SR-LRN-4}; \srsref{SR-CUST-1}--\srsref{SR-CUST-3}; \srsref{SR-CTM-1}--\srsref{SR-CTM-6}; \srsref{SR-DOM-1}--\srsref{SR-DOM-4}\\
+\refstepcounter{validation}\label{val:V2}\ref{val:V2} & Rev 0 demo to supervisor (UCs~\srsucref{1}, \srsucref{2}, \srsucref{3}, \srsucref{4}, \srsucref{5}, \srsucref{6}, \srsucref{7}, \srsucref{9}, \srsucref{10}) & Supervisor &
+\srsref{SR-LRN-1}--\srsref{SR-LRN-4}; \srsref{SR-CUST-1}--\srsref{SR-CUST-3}; \srsref{SR-CTM-1}--\srsref{SR-CTM-6}; \srsref{SR-DOM-1}--\srsref{SR-DOM-4}\\
+\refstepcounter{validation}\label{val:V3}\ref{val:V3} & CTM usability sessions and survey (UCs~\srsucref{2}, \srsucref{3}, \srsucref{4}, \srsucref{7}, \srsucref{9}) & At least 10 adults in CTM-like roles &
+\srsref{SR-CTM-5}, \srsref{SR-CTM-6}, \srsref{SR-CUST-1}; \srsref{NFR-USE-1} to \srsref{NFR-USE-4}, \srsref{NFR-PERF-1}\\
+\refstepcounter{validation}\label{val:V4}\ref{val:V4} & Learner-facing proxy play-testing (UCs~\srsucref{1}, \srsucref{6}) & Supervisor and special-education
+educators & \srsref{SR-LRN-1} to \srsref{SR-LRN-4}, \srsref{SR-DOM-2}, \srsref{SR-DOM-3}; \srsref{NFR-USE-5}\\
+\refstepcounter{validation}\label{val:V5}\ref{val:V5} & Curriculum alignment review (UCs~\srsucref{1}, \srsucref{4}, \srsucref{5}) & Supervisor, and an educator where
+available & \srsref{SR-CTM-1}, \srsref{SR-DOM-1}, \srsref{SR-DOM-4}; \srsref{NFR-ACCU-2}\\
+\refstepcounter{validation}\label{val:V6}\ref{val:V6} & Non-clinical wording review (SRS Section~2.1; UCs~\srsucref{1}--\srsucref{10}) & Team and supervisor & \srssectionref{sec_SystemProblem} and
+\srsnamedref{ULC_NonClinicalPurpose}{ULC Non-Clinical Purpose}\\
 \bottomrule
 \end{tabularx}
 \end{table}
 
-\paragraph{V2: Rev 0 demo to the supervisor.} The team will demonstrate
+\paragraph{\valref{2}: Rev 0 demo to the supervisor.} The team will demonstrate
 \progname{} to the supervisor shortly after the scheduled Rev 0 demo. The
-demonstration follows five scripted scenarios: (1)~a CTM registers (\srsuc{7}), adds
-a Learner, and pairs a tablet (\srsuc{2}); (2)~the CTM personalizes settings (\srsuc{4})
-and creates and assigns a Template (\srsuc{5}); (3)~the Learner plays a game, using
-pause and the guide, and claims a reward (\srsuc{1}, \srsuc{6}); (4)~the CTM reviews and
-exports the Learner's data (\srsuc{3}); and (5)~the Primary CTM invites another CTM
-and edits their permissions (\srsuc{9}, \srsuc{10}). Afterward the supervisor completes a
-feedback form that rates each stakeholder requirement in \srsdoc{} Section 3 as
+demonstration follows five scripted scenarios: (1)~a CTM registers (\srsucref{7}), adds
+a Learner, and pairs a tablet (\srsucref{2}); (2)~the CTM personalizes settings (\srsucref{4})
+and creates and assigns a Template (\srsucref{5}); (3)~the Learner plays a game, using
+pause and the guide, and claims a reward (\srsucref{1}, \srsucref{6}); (4)~the CTM reviews and
+exports the Learner's data (\srsucref{3}); and (5)~the Primary CTM invites another CTM
+and edits their permissions (\srsucref{9}, \srsucref{10}). Afterward the supervisor completes a
+feedback form that rates each stakeholder requirement in \srssectionref{sec:stakeholder-requirements} as
 satisfied, partly satisfied, or not satisfied, with comments. Every
 partial or unsatisfied rating is turned into an issue labelled \texttt{validation}, and
 the team prioritizes these with the supervisor and resolves them before the
 final demo. Changes to requirements are recorded in the \srsdoc{} revision history.
 
-\paragraph{V3: CTM usability sessions.} At least 10 adults will be recruited
+\paragraph{\valref{3}: CTM usability sessions.} At least 10 adults will be recruited
 in roles close to the CTM personas, such as parents, educators, and
-special-education staff, through the supervisor and the team's contacts. At least 10 are needed to be able to satisfy the 90\% requirement in \srsreq{NFR-USE-1} to \srsreq{NFR-USE-4}.
+special-education staff, through the supervisor and the team's contacts. At least 10 are needed to be able to satisfy the 90\% target across \srsref{NFR-USE-1}--\srsref{NFR-USE-4}.
 Each participant attempts these tasks while an observer records time, errors, and
 comments: create an account, add and pair a Learner, invite a CTM, personalize a
-game, and read the dashboard. Participants then complete the survey in the
+game, and read the dashboard (\srsucref{7}, \srsucref{2}, \srsucref{9}, \srsucref{4}, and \srsucref{3}, respectively). Participants then complete the survey in the
 Appendix. A second session at least one day later repeats the tasks to measure
-memorability (\srsreq{NFR-USE-3}).
+memorability (\srsref{NFR-USE-3}).
 
-\paragraph{V4: Learner-facing validation.} Testing with children is research
+\paragraph{\valref{4}: Learner-facing validation.} Testing with children is research
 involving human participants and would need ethics clearance, so the team will
 not run sessions with Learners unless the supervisor advises it and clearance is
 obtained in time. By default, the supervisor and special-education educators
-play-test the games as proxies, using an observation guide that asks whether
+play-test the games in \srsucref{1} and \srsucref{6} as proxies, using an observation guide that asks whether
 anything would overstimulate or understimulate a Learner, whether instructions
 are unambiguous, and whether a Learner could retry freely and feel a sense of
 accomplishment. Their findings stand in for the Learner measurement in
-\srsreq{NFR-USE-5}, and the report of that measurement states that proxies were used.
+\srsref{NFR-USE-5}, and the report of that measurement states that proxies were used.
 
-\paragraph{V5: Curriculum alignment review.} A table is made that maps the content and each difficulty level of every game to Grade 3 to 5 curriculum
+\paragraph{\valref{5}: Curriculum alignment review.} A table is made that maps the content and each difficulty level of every game to Grade 3 to 5 curriculum
 expectations from the Ontario Ministry of Education. The supervisor reviews the
-table for appropriateness to the intended Learners, and educators outside the
+table for appropriateness to the intended Learners (including the game and customization flows in \srsucref{1}, \srsucref{4}, and \srsucref{5}), and educators outside the
 team review it where available.
 
-\paragraph{V6: Non-clinical wording review.} Before each demo, the team checks
+\paragraph{\valref{6}: Non-clinical wording review.} Before each demo, the team checks
 user-visible text and dashboard labels to confirm that they describe
 performance inside the games only and do not claim diagnosis or broader
-developmental improvement (\srsdoc{} Section 2.1 and \srsulc). The supervisor reviews any
+developmental improvement (\srssectionref{sec_SystemProblem} and \srsnamedref{ULC_NonClinicalPurpose}{ULC Non-Clinical Purpose}). The supervisor reviews any
 wording the team is unsure about.
 
-\paragraph{Compliance check.} Each commitment in \srsdoc{} Section 7.3 is mapped to
+\paragraph{Compliance check.} Each commitment in \srssectionref{sec:privacy-data-retention} is mapped to
 the relevant PIPEDA and GDPR principles and to the app store children's-app
 rules, and then verifies that the implementation provides the corresponding
 behaviour.
@@ -645,129 +666,792 @@ behaviour.
 
 \section{System Tests}
 
-\wss{There should be text between all headings, even if it is just a roadmap of
-the contents of the subsections.}
+The following tests concern the system itself, covering functional and non-functional requirements.
 
 \subsection{Tests for Functional Requirements}
 
-\wss{Subsets of the tests may be in related, so this section is divided into
-  different areas.  If there are no identifiable subsets for the tests, this
-  level of document structure can be removed.}
+The following categorization of testing areas is grouped by similarity of behaviours rather than directly correlating with the split in Section 6 of the SRS regarding functional requirements.
 
-\wss{Include a blurb here to explain why the subsections below
-  cover the requirements.  References to the \srsdoc{} would be good here.}
+\subsubsection{Accounts \& Profiles}
 
-\subsubsection{Area of Testing1}
+This testing area covers the lifecycle of CTM accounts and Learner profiles with their paired devices. The tests trace to the FR-CTM, FR-LRN and FR-DEV requirements in Section 6 of the SRS.
 
-\wss{It would be nice to have a blurb here to explain why the subsections below
-  cover the requirements.  References to the \srsdoc{} would be good here.  If a section
-  covers tests for input constraints, you should reference the data constraints
-  table in the \srsdoc{}.}
-		
-\paragraph{Title for Test}
+\paragraph{CTM Accounts}
 
 \begin{enumerate}
 
-\item{test-id1\\}
+\item\label{test-fr-ctm-1} test-fr-ctm-1\\
 
-Control: Manual versus Automatic
-					
-Initial State: 
-					
-Input: 
-					
-Output: \wss{The expected result for the given inputs.  Output is not how you
-are going to return the results of the test.  The output is the expected
-result.}
+\begin{description}[leftmargin=4cm, labelindent=0pt, labelwidth=!, style=nextline, font=\normalfont\bfseries, before=\raggedright]
+  \item[Control] Manual
+  \item[Initial State] The application is on the CTM registration page. No account exists for \texttt{newctm@example.com}. A verified account already exists for \texttt{existingctm@example.com}.
+  \item[Input] Name: Test CTM; email: \texttt{newctm@example.com}. Each of the following is submitted separately, with all other fields valid:
+    \begin{enumerate}[label=(\alph*), nosep]
+      \item a password shorter than \texttt{MIN\_PASSWORD\_LENGTH}
+      \item a password of valid length that does not meet the \srsref{SR-1} standard
+      \item a re-typed password that does not match
+      \item terms \& conditions not accepted
+      \item the email \texttt{existingctm@example.com} in place of \texttt{newctm@example.com}
+    \end{enumerate}
+  \item[Output] The account is not created and no verification email is sent. The system displays an error stating that account creation failed, with a reason that matches the source of the failure. For case (e), the system also prompts the tester to log in to the existing account.
+  \item[Derivation] \srsref{FR-CTM-1} requires registration input to be validated, \srsref{FR-CTM-2} requires the reason for an error to be displayed, and \srsref{SR-1} requires password strength to be enforced on account creation. An invalid password, a mismatched password, or not accepting the terms \& conditions must therefore block account creation and display a matching reason. UC7 alternative flow 4.2 also specifies that an email already associated with an account leads to a prompt to log in.
+  \item[Test Procedure] For each case (a)--(e), a tester enters and submits the input on the registration page. The tester confirms the correct error message is shown, checks that no new CTM record with the submitted email exists in the database, and checks that the test inbox received no verification email.
+\end{description}
 
-Test Case Derivation: \wss{Justify the expected value given in the Output field}
-					
-How test will be performed: 
-					
-\item{test-id2\\}
+\vspace{0.05cm}
 
-Control: Manual versus Automatic
-					
-Initial State: 
-					
-Input: 
-					
-Output: \wss{The expected result for the given inputs}
+\item\label{test-fr-ctm-2} test-fr-ctm-2\\
 
-Test Case Derivation: \wss{Justify the expected value given in the Output field}
+\begin{description}[leftmargin=4cm, labelindent=0pt, labelwidth=!, style=nextline, font=\normalfont\bfseries, before=\raggedright]
+  \item[Control] Manual
+  \item[Initial State] The application is on the CTM registration page. No account exists for \texttt{newctm@example.com}.
+  \item[Input] Name: Test CTM; email: \texttt{newctm@example.com}. Password \& re-typed password is valid, terms \& conditions are accepted, and email is not already in use. This is followed by acknowledging the verification email, then logging in with the previously entered credentials.
+  \item[Output] The verification email is acknowledged, the account is created, and the tester is logged in to the account. The system displays a message confirming account creation.
+  \item[Derivation] \srsref{FR-CTM-3} says that a verified email is followed by the account being created. \srsref{FR-CTM-4} specifies that the CTM can log in to their account using the information verified in registration.
+  \item[Test Procedure] The tester enters the valid registration information outlined in the input. Upon submitting, the tester opens the email's inbox to acknowledge a verification email. The tester then attempts to log in to this account using the registration information.
+\end{description}
 
-How test will be performed: 
+\vspace{0.05cm}
+
+\item\label{test-fr-ctm-3} test-fr-ctm-3\\
+
+\begin{description}[leftmargin=4cm, labelindent=0pt, labelwidth=!, style=nextline, font=\normalfont\bfseries, before=\raggedright]
+  \item[Control] Manual
+  \item[Initial State] CTM A is logged in. CTM A is a non-primary member of Learner L1's care team and owns a template that is assigned to L1. CTM B is the Primary CTM of L1.
+  \item[Input] CTM A chooses to delete their account. When asked to re-enter their password, CTM A first enters an incorrect password, then the correct password, and confirms the deletion.
+  \item[Output] With the incorrect password, the deletion is refused and the account is unchanged. With the correct password, the account is scheduled for deletion after \texttt{GRACE\_PERIOD} and CTM A is logged out. CTM A no longer appears in L1's care team and their template is no longer assigned to L1. L1's profile and data still exist and remain accessible to CTM B.
+  \item[Derivation] \srsref{FR-CTM-5} says that a CTM can delete their account with a scheduled grace period, un-linking all Learners and templates. \srsref{SR-3} requires the password to be re-entered before an account is deleted. SRS Section 11 specifies that deleting a CTM account does not delete a Learner's profile.
+  \item[Test Procedure] The tester logs in as CTM A and chooses to delete the account, entering an incorrect password first and confirming that the deletion is refused. The tester then repeats the deletion with the correct password. The tester checks that the CTM record has a deletion time set to \texttt{GRACE\_PERIOD} from now, then logs in as CTM B to confirm that L1's profile and data are unchanged, CTM A is absent from the care team, and the template is no longer assigned to L1.
+\end{description}
+
+\vspace{0.05cm}
+
+\item\label{test-fr-ctm-4} test-fr-ctm-4\\
+
+\begin{description}[leftmargin=4cm, labelindent=0pt, labelwidth=!, style=nextline, font=\normalfont\bfseries, before=\raggedright]
+  \item[Control] Manual
+  \item[Initial State] CTM A's account is scheduled for deletion and is still within \texttt{GRACE\_PERIOD}.
+  \item[Input] CTM A logs in with their credentials and chooses to restore their account. The test server's clock is then advanced past the original deletion time.
+  \item[Output] The account is restored and is no longer scheduled for deletion. The account still exists after the original deletion time has passed, and CTM A can log in and use the application normally.
+  \item[Derivation] \srsref{FR-CTM-6} says that a CTM can restore their account during the grace period. \srssectionref{sec:privacy-data-retention} specifies that data restored within the grace period is no longer scheduled for deletion.
+  \item[Test Procedure] The tester logs in as CTM A and restores the account. The tester checks that the deletion time of the CTM record is cleared, advances the test server's clock past the original deletion time, and confirms that the account still exists by logging in as CTM A again.
+\end{description}
+
+\vspace{0.05cm}
+
+\item\label{test-fr-ctm-5} test-fr-ctm-5\\
+
+\begin{description}[leftmargin=4cm, labelindent=0pt, labelwidth=!, style=nextline, font=\normalfont\bfseries, before=\raggedright]
+  \item[Control] Manual
+  \item[Initial State] CTM A is logged in and is on the Dashboard.
+  \item[Input] No interaction with the application for \texttt{INACTIVITY\_TIMEOUT}, followed by an attempt to open a Learner's settings.
+  \item[Output] The session has ended. The system returns the tester to the login page and does not display the Learner's settings.
+  \item[Derivation] \srsref{SR-2} requires the system to end a CTM's session after a period of inactivity, so no Learner information should be accessible once the session has ended.
+  \item[Test Procedure] The tester logs in as CTM A, leaves the application idle for \texttt{INACTIVITY\_TIMEOUT}, then attempts to open a Learner's settings. The tester confirms that the login page is shown and that no Learner information was displayed.
+\end{description}
 
 \end{enumerate}
 
-\subsubsection{Area of Testing2}
+\paragraph{Learner Profiles}
 
-...
+\begin{enumerate}
+
+\item\label{test-fr-lrn-1} test-fr-lrn-1\\
+
+\begin{description}[leftmargin=4cm, labelindent=0pt, labelwidth=!, style=nextline, font=\normalfont\bfseries, before=\raggedright]
+  \item[Control] Manual
+  \item[Initial State] CTM A is logged in and has no Learners on their account.
+  \item[Input] CTM A chooses to add a Learner, enters the name Test Learner, confirms they are the Learner's legal guardian, and authorizes one game with default settings.
+  \item[Output] The Learner profile is created under CTM A's account, and CTM A is shown as the Primary CTM of the Learner. The authorized game appears in the Learner's game configuration, and the system displays a pairing code for the Learner's devices.
+  \item[Derivation] \srsref{FR-LRN-1} says that a CTM can create a new Learner profile under their account, \srsref{FR-LRN-2} designates the creator as the Primary CTM, and \srsref{FR-LRN-3} allows the CTM to input the Learner's information. UC2 specifies that a pairing code is displayed once the Learner's information is entered.
+  \item[Test Procedure] The tester logs in as CTM A and completes the steps outlined in the input. The tester confirms that the Learner appears on CTM A's account, checks that the care team membership record marks CTM A as the Primary CTM, and checks that a pairing code is displayed.
+\end{description}
+
+\vspace{0.05cm}
+
+\item\label{test-fr-lrn-2} test-fr-lrn-2\\
+
+\begin{description}[leftmargin=4cm, labelindent=0pt, labelwidth=!, style=nextline, font=\normalfont\bfseries, before=\raggedright]
+  \item[Control] Manual
+  \item[Initial State] CTM A is logged in and is the Primary CTM of Learner L1. CTM B is a member of L1's care team with permission to view L1's data. L1 is paired to tablet T1 and has recorded game sessions.
+  \item[Input] CTM A chooses to delete L1's profile, accepts the offer to export L1's data, re-enters their password, and confirms the deletion.
+  \item[Output] The export contains L1's data. L1's profile is scheduled for deletion after \texttt{GRACE\_PERIOD}, and CTM A receives a confirmation of the deletion. T1 is unlinked and can no longer open L1's profile. CTM B no longer sees L1 on their account.
+  \item[Derivation] \srsref{FR-LRN-4} says that the Primary CTM can delete a Learner's profile with a scheduled grace period, and \srsref{FR-LRN-5} allows the Learner's data to be exported before deletion. \srsref{SR-3} requires the password to be re-entered before a Learner profile is deleted. \srsref{FR-LRN-8} says that a Learner cannot access their deleted profile, and UC8 specifies that paired devices are unlinked and other CTMs lose access.
+  \item[Test Procedure] The tester logs in as CTM A and completes the steps outlined in the input. The tester opens the exported file to confirm it contains L1's data, then checks that L1's record has a deletion time set to \texttt{GRACE\_PERIOD} from now. The tester confirms that T1 can no longer open L1's profile, and logs in as CTM B to confirm that L1 no longer appears.
+\end{description}
+
+\vspace{0.05cm}
+
+\item\label{test-fr-lrn-3} test-fr-lrn-3\\
+
+\begin{description}[leftmargin=4cm, labelindent=0pt, labelwidth=!, style=nextline, font=\normalfont\bfseries, before=\raggedright]
+  \item[Control] Manual
+  \item[Initial State] CTM A is logged in and is the Primary CTM of Learner L1. L1's profile is scheduled for deletion and is still within \texttt{GRACE\_PERIOD}.
+  \item[Input] CTM A chooses to restore L1's profile. The test server's clock is then advanced past the original deletion time.
+  \item[Output] L1's profile and recorded game sessions are restored, and the profile is no longer scheduled for deletion. The profile still exists after the original deletion time has passed.
+  \item[Derivation] \srsref{FR-LRN-7} says that the Primary CTM can restore a Learner's profile during the grace period. UC8 alternative flow 6.2 specifies that restoring the profile restores the Learner's data and cancels the scheduled deletion.
+  \item[Test Procedure] The tester logs in as CTM A and restores L1's profile. The tester confirms that L1's game sessions are shown again and that the deletion time of L1's record is cleared, then advances the test server's clock past the original deletion time and confirms that L1's profile still exists.
+\end{description}
+
+\vspace{0.05cm}
+
+\item\label{test-fr-lrn-4} test-fr-lrn-4\\
+
+\begin{description}[leftmargin=4cm, labelindent=0pt, labelwidth=!, style=nextline, font=\normalfont\bfseries, before=\raggedright]
+  \item[Control] Manual
+  \item[Initial State] Learner L1's profile is scheduled for deletion and has recorded game sessions, game configurations, inventory items, a paired device and a care team. A backup of the stored data was taken after the deletion was scheduled.
+  \item[Input] The test server's clock is advanced past \texttt{GRACE\_PERIOD}.
+  \item[Output] No record associated with L1 remains in the database or in any backup, and L1's profile can no longer be restored.
+  \item[Derivation] \srsref{FR-LRN-6} says that all Learner-related data is deleted after the grace period. \srsref{SR-18} requires the system to verify that the deletion has completed and to remove the data from backups. \srssectionref{sec:privacy-data-retention} specifies that permanent deletion includes all backups.
+  \item[Test Procedure] The tester advances the test server's clock past \texttt{GRACE\_PERIOD} and queries every table holding a Learner identifier for L1's identifier, confirming that no records are returned. The tester repeats the query on the latest backup, then logs in as L1's former Primary CTM to confirm that no option to restore L1 is shown.
+\end{description}
+
+\end{enumerate}
+
+\paragraph{Device Pairing}
+
+\begin{enumerate}
+
+\item\label{test-fr-dev-1} test-fr-dev-1\\
+
+\begin{description}[leftmargin=4cm, labelindent=0pt, labelwidth=!, style=nextline, font=\normalfont\bfseries, before=\raggedright]
+  \item[Control] Manual
+  \item[Initial State] CTM A is the Primary CTM of Learner L1, and a pairing code for L1 is displayed on CTM A's account. Tablets T1 and T2 are unpaired, with the application open on the pairing screen.
+  \item[Input] The pairing code is entered on T1. CTM A then generates a new pairing code, which is entered on T2.
+  \item[Output] Each pairing is confirmed on both the device and CTM A's account. T1 and T2 both show L1's Learner screen with the same authorized games, and both devices are listed under L1 on CTM A's account.
+  \item[Derivation] \srsref{FR-DEV-1} says that a Learner can pair multiple devices, \srsref{FR-DEV-2} requires each pairing to be confirmed to both parties, and \srsref{FR-DEV-3} allows a CTM to generate a new pairing code. UC2 specifies that the Learner can see the correct Learner screen on their paired devices.
+  \item[Test Procedure] The tester enters the pairing code on T1 and confirms the pairing message on T1 and on CTM A's account. The tester generates a new code from CTM A's account, enters it on T2, and confirms the pairing message again. The tester then compares the Learner screens on T1 and T2 and checks that both devices are listed under L1.
+\end{description}
+
+\vspace{0.05cm}
+
+\item\label{test-fr-dev-2} test-fr-dev-2\\
+
+\begin{description}[leftmargin=4cm, labelindent=0pt, labelwidth=!, style=nextline, font=\normalfont\bfseries, before=\raggedright]
+  \item[Control] Manual
+  \item[Initial State] CTM A is the Primary CTM of Learner L1, and a pairing code for L1 is active. Tablet T1 is unpaired, with the application open on the pairing screen.
+  \item[Input] An incorrect code is entered on T1 \texttt{PAIRING\_RETRY\_LIMIT} times, followed by the correct code. After \texttt{PAIRING\_LOCKOUT\_DURATION} has passed, the original code is entered again. CTM A then generates a new code, which is entered on T1.
+  \item[Output] Once the retry limit is reached, further pairing attempts on T1 are blocked, and the correct code is refused. After the lockout period, the original code is still refused because it has been nullified. The new code pairs T1 successfully.
+  \item[Derivation] \srsref{FR-DEV-4} says that the pairing method is nullified after a specific number of retries, and \srsref{FR-DEV-5} requires further attempts to be blocked for a period of time after the retry limit is reached. \srsref{FR-DEV-3} allows a CTM to generate a new code, which UC2 alternative flow 6.3 uses to recover from failed attempts.
+  \item[Test Procedure] The tester enters an incorrect code on T1 until the retry limit is reached, then enters the correct code and confirms that it is refused. The tester advances the test server's clock past \texttt{PAIRING\_LOCKOUT\_DURATION}, enters the original code again, and confirms that it is still refused. The tester generates a new code from CTM A's account, enters it on T1, and confirms that T1 is paired.
+\end{description}
+
+\end{enumerate}
+
+\subsubsection{Care Team \& Permissions}
+
+This testing area covers how CTMs join, are managed within, and leave a Learner's care team, as well as how permissions restrict what each CTM can do. The tests trace to the FR-TEAM requirements in Section 6 of the SRS.
+
+\paragraph{Joining a Care Team}
+
+\begin{enumerate}
+
+\item\label{test-fr-team-1} test-fr-team-1\\
+
+\begin{description}[leftmargin=4cm, labelindent=0pt, labelwidth=!, style=nextline, font=\normalfont\bfseries, before=\raggedright]
+  \item[Control] Manual
+  \item[Initial State] CTM A is logged in and is the Primary CTM of Learner L1. CTM C has a verified account and is not part of L1's care team.
+  \item[Input] CTM A chooses to add a CTM to L1's care team, selects permission to view L1's data only, and shares the generated invite code with CTM C. CTM C enters the invite code on their account.
+  \item[Output] The system generates an invite code that expires after \texttt{INVITE\_EXPIRY}. CTM C is added to L1's care team with only the selected permission, L1 appears on CTM C's account, and CTM A is notified that CTM C has joined.
+  \item[Derivation] \srsref{FR-TEAM-1} says that the Primary CTM can add other CTMs to the Learner's care team via invite code. UC9 specifies that the invite code has an expiry time, that the new CTM is limited to the permissions selected by the Primary CTM, and that the Primary CTM is notified when the new CTM joins.
+  \item[Test Procedure] The tester logs in as CTM A and generates an invite with the permission outlined in the input, then checks that the code's expiry is set to \texttt{INVITE\_EXPIRY} from now. The tester logs in as CTM C, enters the code, and confirms that L1 appears on the account. The tester checks that the care team membership record for CTM C holds only the selected permission, and confirms that CTM A received a notification.
+\end{description}
+
+\vspace{0.05cm}
+
+\item\label{test-fr-team-2} test-fr-team-2\\
+
+\begin{description}[leftmargin=4cm, labelindent=0pt, labelwidth=!, style=nextline, font=\normalfont\bfseries, before=\raggedright]
+  \item[Control] Manual
+  \item[Initial State] CTM A is the Primary CTM of Learner L1. CTM C is logged in and is not part of L1's care team. CTM D has already joined L1's care team using an earlier invite code.
+  \item[Input] CTM C attempts to join L1's care team in each of the following cases separately:
+    \begin{enumerate}[label=(\alph*), nosep]
+      \item an incorrect code is entered \texttt{INVITE\_RETRY\_LIMIT} times, followed by the correct code
+      \item the correct code is entered after \texttt{INVITE\_EXPIRY} has passed
+      \item the code already used by CTM D is entered
+      \item the correct code is entered after CTM A has cancelled the invite
+    \end{enumerate}
+  After each case, CTM A generates a new invite code, which CTM C enters.
+  \item[Output] In every case, CTM C is not added to L1's care team and the system displays a reason for the failure. In case (a), further attempts are blocked for \texttt{INVITE\_LOCKOUT\_DURATION} once the retry limit is reached, and the correct code is refused. The newly generated code adds CTM C to L1's care team.
+  \item[Derivation] \srsref{FR-TEAM-1} says that CTMs join a care team via invite code, \srsref{FR-TEAM-2} allows the Primary CTM to cancel an outgoing invite, and \srsref{FR-TEAM-3} allows the Primary CTM to generate a new invite. UC9 alternative flows 7.1--7.3 specify that an incorrect, expired or used code is rejected, that retries are limited before further attempts are blocked, and that the Primary CTM can generate a new code.
+  \item[Test Procedure] For each case (a)--(d), the tester sets up the code as outlined in the input, advancing the test server's clock past \texttt{INVITE\_EXPIRY} for case (b), and logs in as CTM C to enter it. The tester confirms that a failure reason is shown and that no membership record exists for CTM C on L1. The tester then generates a new code as CTM A, enters it as CTM C, and confirms that CTM C joins L1's care team. Before the next case, CTM C is removed from L1's care team.
+\end{description}
+
+\end{enumerate}
+
+\paragraph{Managing a Care Team}
+
+\begin{enumerate}
+
+\item\label{test-fr-team-3} test-fr-team-3\\
+
+\begin{description}[leftmargin=4cm, labelindent=0pt, labelwidth=!, style=nextline, font=\normalfont\bfseries, before=\raggedright]
+  \item[Control] Manual
+  \item[Initial State] CTM A is logged in and is the Primary CTM of Learner L1. CTM B is a member of L1's care team with permission to view L1's data and to personalize L1's settings, and is logged in on a separate device with L1's settings open.
+  \item[Input] CTM A removes CTM B's permission to personalize settings and saves the change. CTM B then attempts to save a change to L1's settings. CTM A then chooses to remove CTM B from L1's care team, re-enters their password, and confirms the removal.
+  \item[Output] After the permission change, CTM B's attempt to save is refused, and CTM B is notified that their permissions have changed. After the removal, L1 no longer appears on CTM B's account and CTM B is notified of the removal.
+  \item[Derivation] \srsref{FR-TEAM-4} says that the Primary CTM can edit the permissions of other CTMs, and UC10 specifies that new permissions are applied immediately and the affected CTM is notified. \srsref{FR-TEAM-5} says that the Primary CTM can remove another CTM from the care team, and \srsref{SR-3} requires the password to be re-entered before a CTM is removed.
+  \item[Test Procedure] The tester logs in as CTM A on one device and as CTM B on another. The tester changes CTM B's permissions as CTM A, then attempts to save a setting as CTM B without reloading, and confirms that the save is refused and the setting is unchanged. The tester then removes CTM B as CTM A, and confirms on CTM B's device that L1 is no longer shown and that both notifications were received.
+\end{description}
+
+\vspace{0.05cm}
+
+\item\label{test-fr-team-4} test-fr-team-4\\
+
+\begin{description}[leftmargin=4cm, labelindent=0pt, labelwidth=!, style=nextline, font=\normalfont\bfseries, before=\raggedright]
+  \item[Control] Manual
+  \item[Initial State] CTM A is the Primary CTM of Learner L1. CTM B is a member of L1's care team.
+  \item[Input] CTM B requests to transfer ownership of L1's profile to their account. CTM A first declines the request. CTM B then requests the transfer again, and CTM A accepts it and re-enters their password.
+  \item[Output] When CTM A declines, ownership is unchanged. When CTM A accepts, CTM B becomes the Primary CTM of L1 and CTM A is no longer the Primary CTM. L1 has exactly one Primary CTM.
+  \item[Derivation] \srsref{FR-TEAM-6} says that a CTM can transfer ownership of a Learner's profile from another CTM, and UC2 alternative flows 1.1--1.2 specify that the current owner must confirm the transfer. \srsref{SR-3} requires the password to be re-entered before ownership is transferred. UC10 specifies that there is exactly one Primary CTM for a Learner.
+  \item[Test Procedure] The tester logs in as CTM B and requests the transfer, then logs in as CTM A and declines it, confirming that CTM A is still shown as the Primary CTM. The tester repeats the request as CTM B and accepts it as CTM A with the password. The tester confirms that CTM B is shown as the Primary CTM and checks that only one care team membership record for L1 is marked as primary.
+\end{description}
+
+\vspace{0.05cm}
+
+\item\label{test-fr-team-5} test-fr-team-5\\
+
+\begin{description}[leftmargin=4cm, labelindent=0pt, labelwidth=!, style=nextline, font=\normalfont\bfseries, before=\raggedright]
+  \item[Control] Manual
+  \item[Initial State] CTM A is the Primary CTM of Learner L1. CTM B is a member of L1's care team with permission to view L1's data only. CTM C has a verified account and is not part of L1's care team.
+  \item[Input] CTM B and CTM C each attempt the following actions on L1:
+    \begin{enumerate}[label=(\alph*), nosep]
+      \item change a personalized setting
+      \item assign a template
+      \item invite a CTM to the care team
+      \item delete the profile
+    \end{enumerate}
+  CTM B attempts each action through the application, and CTM B and CTM C each attempt it by sending the request directly to the server.
+  \item[Output] Every attempt is refused and L1's data is unchanged. CTM B can still view L1's data.
+  \item[Derivation] \srsref{FR-TEAM-7} says that a CTM cannot perform actions they do not explicitly have permission to do. \srsref{FR-LRN-4} and \srsref{FR-TEAM-1} also limit deleting a Learner's profile and inviting CTMs to the Primary CTM. Hiding an action in the application does not satisfy \srsref{FR-TEAM-7} on its own, so the server must also refuse the request.
+  \item[Test Procedure] For each action (a)--(d), the tester logs in as CTM B and attempts the action through the application, then sends the same request directly to the server using CTM B's session, then using CTM C's session. The tester confirms that every attempt is refused and checks that L1's records in the database are unchanged. The tester then confirms that CTM B can still open L1's data.
+\end{description}
+
+\end{enumerate}
+
+\subsubsection{Gameplay}
+
+This testing area covers a Learner's experience during a game, from selecting a game in the game suite to completing or leaving it, including how the system behaves when the connection is lost or the game fails to load. The tests trace to the FR-PLAY requirements in Section 6 of the SRS, \srsref{FR-DATA-7} and \srsref{FR-DATA-8}, and the safety requirements \srsref{SR-5}, \srsref{SR-7}, \srsref{SR-8}, \srsref{SR-9} and \srsref{SR-11}. The tests follow UC1 and the gameplay states in Figure 2 of the SRS.
+
+\paragraph{Playing a Game}
+
+\begin{enumerate}
+
+\item\label{test-fr-play-1} test-fr-play-1\\
+
+\begin{description}[leftmargin=4cm, labelindent=0pt, labelwidth=!, style=nextline, font=\normalfont\bfseries, before=\raggedright]
+  \item[Control] Manual
+  \item[Initial State] Learner L1 is paired to tablet T1. L1 is authorized to play game G1 with personalized settings and is not authorized to play game G2. The application on T1 is on the game suite.
+  \item[Input] The Learner selects G1, gives the start cue, completes every task, and exits to the game suite from the completion screen.
+  \item[Output] The game suite shows G1 and does not show G2. G1 loads with L1's personalized settings and the completion screen is shown after the final task. The session is recorded as completed, with the settings used and the scores of each task.
+  \item[Derivation] \srsref{FR-PLAY-1} says that a Learner cannot play games they are not explicitly authorized to play, and \srsref{FR-PERS-4} says that the personalized settings are loaded when a Learner plays a game. \srsref{FR-DATA-7} requires the Learner's performance in the session to be saved. UC1 specifies the flow from selecting a game to exiting it.
+  \item[Test Procedure] The tester confirms that only G1 appears in the game suite on T1, then plays G1 to completion as outlined in the input. The tester checks that the settings shown in the game match L1's personalized settings, then checks that the session record for L1 has a completed outcome, the settings used, and a score for each task.
+\end{description}
+
+\vspace{0.05cm}
+
+\item\label{test-fr-play-2} test-fr-play-2\\
+
+\begin{description}[leftmargin=4cm, labelindent=0pt, labelwidth=!, style=nextline, font=\normalfont\bfseries, before=\raggedright]
+  \item[Control] Manual
+  \item[Initial State] Learner L1 is paired to tablet T1 and is authorized to play game G1, with music and sound effects set above zero. The device volume on T1 is turned up.
+  \item[Input] The Learner selects G1 and waits without giving the start cue. The Learner then gives the start cue and attempts to move to the next task before completing the current one, then completes the current task.
+  \item[Output] Before the start cue, the game does not start and no audio or animation is played. After the start cue, the game begins. The next task is not presented while the current task is incomplete, and is presented once it is completed.
+  \item[Derivation] \srsref{FR-PLAY-2} says that a game does not start until the Learner gives a cue that they are ready, and \srsref{SR-5} requires that no game audio or animation begins before this cue. \srsref{FR-PLAY-3} says that the next task is only presented once the current task is completed.
+  \item[Test Procedure] The tester records the screen and audio of T1 while selecting G1 and waiting without giving the start cue, then gives the cue and attempts to skip ahead before completing the first task. The tester reviews the recording to confirm that there is no audio or animation before the start cue, and confirms that the second task appeared only after the first was completed.
+\end{description}
+
+\vspace{0.05cm}
+
+\item\label{test-fr-play-3} test-fr-play-3\\
+
+\begin{description}[leftmargin=4cm, labelindent=0pt, labelwidth=!, style=nextline, font=\normalfont\bfseries, before=\raggedright]
+  \item[Control] Manual
+  \item[Initial State] Learner L1 is paired to tablet T1 and is playing game G1. CTM A, the Primary CTM of L1, has permitted the guide and playing again for G1.
+  \item[Input] Each of the following is performed separately during a game of G1:
+    \begin{enumerate}[label=(\alph*), nosep]
+      \item the Learner pauses the game, then resumes it
+      \item the Learner restarts the game
+      \item the Learner aborts the game
+      \item the Learner opens the guide for the current instruction, then closes it
+      \item CTM A aborts the game from T1
+      \item the Learner completes the game, chooses to play again, then completes it and returns to the game suite
+      \item cases (d) and (f) are repeated after CTM A has disallowed the guide and playing again
+    \end{enumerate}
+  \item[Output] Pause, restart and exit controls are visible and responsive throughout. In case (a), the game stops and resumes on the same task. In case (b), the game starts again from the first task and the earlier session is recorded as restarted. In cases (c) and (e), the Learner returns to the game suite and the session is recorded as incomplete. In case (d), the guide for the current instruction is shown and closing it returns to the same task. In case (f), a new session starts and the Learner returns to the game suite afterward. In case (g), the guide and play again options are not available.
+  \item[Derivation] \srsref{FR-PLAY-4} allows the Learner to read a guide if permitted by the CTM, \srsref{FR-PLAY-5} to \srsref{FR-PLAY-7} allow the Learner to pause, restart and abort a game, and \srsref{FR-PLAY-8} allows the CTM to abort a Learner's game. \srsref{FR-PLAY-9} allows the Learner to play again if permitted by the CTM, and \srsref{FR-PLAY-10} allows the Learner to return to the game suite. \srsref{SR-11} requires the pause, restart and exit controls to be visible and responsive at all times, and \srsref{SR-8} requires aborted sessions to be recorded as incomplete.
+  \item[Test Procedure] For each case (a)--(g), the tester starts G1 on T1 and performs the actions outlined in the input, confirming that the pause, restart and exit controls remain visible and respond throughout. The tester confirms the behaviour described in the output for each case, then checks the outcome recorded for each session in the database.
+\end{description}
+
+\vspace{0.05cm}
+
+\item\label{test-fr-play-4} test-fr-play-4\\
+
+\begin{description}[leftmargin=4cm, labelindent=0pt, labelwidth=!, style=nextline, font=\normalfont\bfseries, before=\raggedright]
+  \item[Control] Manual
+  \item[Initial State] Learner L1 is paired to tablet T1 and is authorized to play game G1, with L1's settings already stored on T1. T1 is connected to the network.
+  \item[Input] Each of the following is performed separately:
+    \begin{enumerate}[label=(\alph*), nosep]
+      \item T1's network connection is turned off after the start cue, the Learner completes G1, and the connection is turned back on
+      \item T1's network connection is turned off before the application is opened, the Learner plays G1 to completion, and the connection is turned back on
+      \item the application is force-closed during G1, then reopened with the network connected
+    \end{enumerate}
+  \item[Output] In cases (a) and (b), the game plays without interruption using the settings stored on T1. The session results are kept on T1 until the connection returns, are then uploaded and recorded as completed, and are removed from T1's local storage. In case (c), the session is recorded as incomplete.
+  \item[Derivation] \srsref{SR-9} requires that a loss of connection does not interrupt a session in progress or prevent a Learner from playing authorized games with settings already stored on the device. \srsref{FR-DATA-8} requires performance to be queued locally for future syncing without a stable connection, and \srssectionref{sec:privacy-data-retention} specifies that queued data is deleted from local storage after syncing. \srsref{SR-8} requires sessions that end through a crash to be recorded as incomplete.
+  \item[Test Procedure] For cases (a) and (b), the tester plays G1 as outlined in the input and confirms that the game is not interrupted. While the connection is off, the tester checks that no new session record exists in the database. After reconnecting, the tester checks that the session record appears with a completed outcome and that T1's local queue is empty. For case (c), the tester force-closes the application, reopens it, and checks that the session is recorded as incomplete.
+\end{description}
+
+\vspace{0.05cm}
+
+\item\label{test-fr-play-5} test-fr-play-5\\
+
+\begin{description}[leftmargin=4cm, labelindent=0pt, labelwidth=!, style=nextline, font=\normalfont\bfseries, before=\raggedright]
+  \item[Control] Manual
+  \item[Initial State] Learner L1 is paired to tablet T1 and is authorized to play game G1. A test build is installed on T1 in which G1 is set to fail when loading.
+  \item[Input] The Learner selects G1 from the game suite, then selects the action shown in the error message.
+  \item[Output] The system displays a short, calm error message with no alarming sounds or visuals, offering a single action to return to the game suite. Selecting the action returns the Learner to the game suite.
+  \item[Derivation] \srsref{SR-7} requires error messages shown to a Learner to be calm and short, to avoid alarming sounds or visuals, and to offer a single action to return to the game suite. UC1 alternative flow 2.1 specifies that a game may fail to load with the correct settings.
+  \item[Test Procedure] The tester records the screen and audio of T1 while selecting G1. The tester confirms that one error message with a single action is shown, reviews the recording for alarming sounds or visuals, and selects the action to confirm that it returns to the game suite.
+\end{description}
+
+\end{enumerate}
+
+\subsubsection{Game Configuration}
+
+This testing area covers how CTMs tailor games for a Learner, through game and difficulty authorizations, personalized settings, and templates. The tests trace to the FR-PERS and FR-TMPL requirements in Section 6 of the SRS.
+
+\paragraph{Personalization}
+
+\begin{enumerate}
+
+\item\label{test-fr-cfg-1} test-fr-cfg-1\\
+
+\begin{description}[leftmargin=4cm, labelindent=0pt, labelwidth=!, style=nextline, font=\normalfont\bfseries, before=\raggedright]
+  \item[Control] Manual
+  \item[Initial State] CTM A is logged in and is the Primary CTM of Learner L1. L1 is paired to tablet T1, is authorized to play game G1 at every difficulty, and is not authorized to play game G2.
+  \item[Input] CTM A performs each of the following in order:
+    \begin{enumerate}[label=(\alph*), nosep]
+      \item authorizes G2 for L1
+      \item removes the authorization of G1 for L1
+      \item makes only one difficulty of G2 available to L1
+    \end{enumerate}
+  \item[Output] In case (a), G2 appears in L1's game suite on T1. In case (b), G1 no longer appears in L1's game suite and cannot be launched. In case (c), only the selected difficulty of G2 can be chosen on T1.
+  \item[Derivation] \srsref{FR-PERS-1} says that a CTM can toggle the authorization of specific games for a Learner, and \srsref{FR-PLAY-1} says that a Learner cannot play games they are not explicitly authorized to play. \srsref{FR-PERS-2} says that an authorized CTM can toggle the authorization of specific difficulties of a game for a Learner.
+  \item[Test Procedure] For each case (a)--(c), the tester makes the change as CTM A, then checks the game suite on T1. For case (b), the tester also attempts to launch G1 from a game suite screen that was open before the change, and confirms that the game does not start. For case (c), the tester opens G2 on T1 and confirms that only the selected difficulty is available.
+\end{description}
+
+\vspace{0.05cm}
+
+\item\label{test-fr-cfg-2} test-fr-cfg-2\\
+
+\begin{description}[leftmargin=4cm, labelindent=0pt, labelwidth=!, style=nextline, font=\normalfont\bfseries, before=\raggedright]
+  \item[Control] Manual
+  \item[Initial State] CTM A is logged in and is the Primary CTM of Learner L1, which was just created and has never had its settings changed. L1 is paired to tablet T1 and is authorized to play game G1.
+  \item[Input] CTM A opens L1's settings for G1. CTM A changes the stimulation level, reward, prompt level, volume levels and celebration intensity, and saves the settings. The Learner then plays G1 on T1. CTM A then makes the server unreachable from their device, changes the stimulation level again, and saves.
+  \item[Output] Before any changes, the stimulation level, volume levels and celebration intensity are set to their low default values. The first save is confirmed, and the session on T1 uses the new settings. The second save is not confirmed, the CTM is informed that it failed, and the previous settings are kept.
+  \item[Derivation] \srsref{SR-4} requires the default stimulation level, volume and celebration intensity to be low until a CTM changes them. \srsref{FR-PERS-3} says that an authorized CTM can choose personalized settings of a game for a Learner, and \srsref{FR-PERS-4} says that these settings are loaded when the Learner plays the game. \srsref{SR-13} requires a save to be confirmed only after it has been verified, and the previous values to be kept if saving fails. UC4 specifies the settings that can be personalized.
+  \item[Test Procedure] The tester logs in as CTM A, opens L1's settings for G1, and confirms that the stimulation level, volume levels and celebration intensity match the low defaults. The tester makes and saves the changes outlined in the input, plays G1 on T1, and checks that the settings recorded for the session match the saved settings. The tester then disconnects CTM A's device from the server, makes and saves another change, and confirms that a failure message is shown and that L1's stored settings are unchanged.
+\end{description}
+
+\end{enumerate}
+
+\paragraph{Templates}
+
+\begin{enumerate}
+
+\item\label{test-fr-tmpl-1} test-fr-tmpl-1\\
+
+\begin{description}[leftmargin=4cm, labelindent=0pt, labelwidth=!, style=nextline, font=\normalfont\bfseries, before=\raggedright]
+  \item[Control] Manual
+  \item[Initial State] CTM A is logged in and is the Primary CTM of Learners L1 and L2. L1 has personalized settings for game G1 and no assigned template. L2 already has another template assigned for G1. L1 is paired to tablet T1.
+  \item[Input] CTM A creates template TP1 from G1, adds, changes and removes one content item each, changes the colour palette and volume levels, chooses a difficulty, and saves TP1 in a new folder named Folder 1. CTM A then assigns TP1 to L1 and L2, reviews the preview, confirms the assignment, and confirms that L2's existing template should be replaced. The Learner then plays G1 on T1.
+  \item[Output] TP1 is saved in Folder 1 with the changed content, settings and difficulty. Before the assignment, the system shows a preview of TP1 and lists L1 and L2 along with what will be replaced for each, and requires confirmation. The system also asks whether to replace L2's existing template. After confirmation, TP1 is assigned to both Learners. The session on T1 uses TP1's content, settings and difficulty instead of L1's personalized settings.
+  \item[Derivation] \srsref{FR-TMPL-1} says that a CTM can create a template from an existing game, \srsref{FR-TMPL-3} to \srsref{FR-TMPL-5} allow the CTM to change the template's content, settings and difficulty, and \srsref{FR-TMPL-9} allows templates to be organized in folders. \srsref{FR-TMPL-6} says that assigning a template to a Learner overrides any previous settings, and \srsref{FR-PERS-4} says that personalized settings are not loaded when a template is assigned. \srsref{SR-14} requires the affected Learners, what will be replaced, and a preview to be shown before assignment, and UC5 alternative flow 6.1 specifies that the CTM is asked before an existing template is replaced.
+  \item[Test Procedure] The tester logs in as CTM A and creates TP1 as outlined in the input, then confirms that TP1 appears in Folder 1 with the changes made. The tester assigns TP1 to L1 and L2, confirming that the preview, the list of affected Learners and the replacement prompt for L2 are shown before the assignment takes effect. The tester then plays G1 on T1, confirms that TP1's content and difficulty are presented, and checks that the session record references TP1 and the settings used match TP1's settings.
+\end{description}
+
+\vspace{0.05cm}
+
+\item\label{test-fr-tmpl-2} test-fr-tmpl-2\\
+
+\begin{description}[leftmargin=4cm, labelindent=0pt, labelwidth=!, style=nextline, font=\normalfont\bfseries, before=\raggedright]
+  \item[Control] Manual
+  \item[Initial State] CTM A is logged in and is the Primary CTM of Learners L1 and L2. Template TP1 for game G1 is assigned to both Learners, and each Learner had different personalized settings for G1 before the assignment. L1 is paired to tablet T1 and L2 is paired to tablet T2.
+  \item[Input] CTM A un-assigns TP1 from L1, reviews the preview, and confirms. The Learner then plays G1 on T1. CTM A then deletes TP1, reviews the preview, and confirms. The Learner then plays G1 on T2.
+  \item[Output] Before each change, the system shows a preview of TP1, the affected Learners and what will be replaced, and requires confirmation. After the un-assignment, the session on T1 uses L1's previous personalized settings. After the deletion, TP1 no longer appears in CTM A's templates and the session on T2 uses L2's previous personalized settings.
+  \item[Derivation] \srsref{FR-TMPL-7} says that un-assigning a template from a Learner restores their previous settings, and \srsref{FR-TMPL-8} says that deleting a template un-assigns it from any associated Learners. \srsref{SR-14} requires the affected Learners, what will be replaced, and a preview to be shown before a template is un-assigned or deleted.
+  \item[Test Procedure] The tester records L1's and L2's personalized settings for G1 before the test. The tester un-assigns TP1 from L1 as CTM A, confirming that the preview and affected Learners are shown, then plays G1 on T1 and checks that the settings recorded for the session match L1's earlier settings exactly. The tester then deletes TP1 as CTM A in the same way, confirms that TP1 is no longer listed, plays G1 on T2, and checks that the settings recorded for the session match L2's earlier settings exactly.
+\end{description}
+
+\vspace{0.05cm}
+
+\item\label{test-fr-tmpl-3} test-fr-tmpl-3\\
+
+\begin{description}[leftmargin=4cm, labelindent=0pt, labelwidth=!, style=nextline, font=\normalfont\bfseries, before=\raggedright]
+  \item[Control] Manual
+  \item[Initial State] CTM A owns template TP1. CTM C is logged in and has no templates. Two test files are prepared: a truncated template file, and a template file with a script placed in a content field that would write a marker file if executed.
+  \item[Input] Each of the following is performed separately:
+    \begin{enumerate}[label=(\alph*), nosep]
+      \item CTM A exports TP1, and CTM C imports the exported file
+      \item CTM C imports the truncated template file
+      \item CTM C imports the template file containing a script
+    \end{enumerate}
+  \item[Output] In case (a), CTM C has a template with the same content, settings and difficulty as TP1. In cases (b) and (c), the import is rejected with a reason and no template is created. In case (c), the script is not executed.
+  \item[Derivation] \srsref{FR-TMPL-2} says that a CTM can import a template from another CTM, and UC5 specifies that a template can be exported to a file. \srsref{SR-15} requires imported files to be treated as untrusted data and never executed.
+  \item[Test Procedure] For case (a), the tester exports TP1 as CTM A, imports the file as CTM C, and compares the two templates' content, settings and difficulty. For cases (b) and (c), the tester imports each file as CTM C, confirms that a failure reason is shown, and checks that no template was added to CTM C's account. For case (c), the tester also checks that the marker file was not created on the device or the server.
+\end{description}
+
+\end{enumerate}
+
+\subsubsection{Reward System}
+
+This testing area covers how a Learner earns rewards from games and unlocks, equips and views cosmetic items, as well as how CTMs limit which items are available. The tests trace to the FR-RWD requirements in Section 6 of the SRS.
+
+\paragraph{Earning Rewards}
+
+\begin{enumerate}
+
+\item\label{test-fr-rwd-1} test-fr-rwd-1\\
+
+\begin{description}[leftmargin=4cm, labelindent=0pt, labelwidth=!, style=nextline, font=\normalfont\bfseries, before=\raggedright]
+  \item[Control] Manual
+  \item[Initial State] Learner L1 is paired to tablet T1 and is authorized to play game G1. L1 owns every item in G1's reward pool except item I1.
+  \item[Input] The Learner completes G1 and claims the reward. The Learner then starts G1 again and aborts it.
+  \item[Output] After the completed game, the reward offered is I1, and claiming it adds I1 to L1's inventory as a game reward. After the aborted game, no reward is offered and L1's inventory is unchanged.
+  \item[Derivation] \srsref{FR-RWD-1} says that a Learner can claim a reward after a completed game, and UC1 specifies that the reward is claimed after the completion screen. \srsref{FR-RWD-2} says that duplicate items are not offered as rewards, so the only item that can be offered is the one L1 does not own.
+  \item[Test Procedure] The tester plays G1 to completion on T1, confirms that I1 is the reward offered, and claims it. The tester checks that L1's inventory records contain I1 with a game reward source. The tester then starts G1 again, aborts it, and confirms that no reward is offered and that L1's inventory records are unchanged.
+\end{description}
+
+\end{enumerate}
+
+\paragraph{Cosmetic Items}
+
+\begin{enumerate}
+
+\item\label{test-fr-rwd-2} test-fr-rwd-2\\
+
+\begin{description}[leftmargin=4cm, labelindent=0pt, labelwidth=!, style=nextline, font=\normalfont\bfseries, before=\raggedright]
+  \item[Control] Manual
+  \item[Initial State] Learner L1 is paired to tablets T1 and T2 and has a known currency balance. Item I2 costs less than the balance, item I3 costs more than the balance, and item I4 is in the same category as I3 and costs less than the balance. L1 owns item I5, which is not equipped. The application on T1 is on the items screen.
+  \item[Input] Each of the following is performed separately on T1:
+    \begin{enumerate}[label=(\alph*), nosep]
+      \item the Learner buys I2
+      \item the Learner equips I5
+      \item the Learner attempts to unlock I3
+      \item the Learner equips I2 while the server is unreachable
+    \end{enumerate}
+  \item[Output] In case (a), I2 is added to L1's inventory and the cost is deducted from the balance. In case (b), I5 is shown as equipped on T1, and also on T2. In case (c), I3 is not unlocked, and the system displays the reason, the conditions for unlocking I3, and I4 as an alternative. In case (d), the save fails, I5 remains equipped, and the Learner is informed with a calm, short message.
+  \item[Derivation] \srsref{FR-RWD-3} allows a Learner to view cosmetic items, \srsref{FR-RWD-4} allows a Learner to unlock an item they meet the conditions for, and \srsref{FR-RWD-5} allows a Learner to equip an item they own. \srsref{FR-RWD-6} and \srsref{FR-RWD-7} require a reason, the unlock conditions, and buyable alternatives to be shown when an item cannot be unlocked. \srsref{SR-13} requires the previous values to be kept and the Learner informed if saving fails, and \srsref{SR-7} requires error messages shown to a Learner to be calm and short. UC6 specifies that currency is deducted when an item is bought.
+  \item[Test Procedure] For each case (a)--(d), the tester performs the action on T1 as outlined in the input. For case (a), the tester checks L1's inventory records and balance. For case (b), the tester confirms that I5 is shown as equipped on T1 and on T2. For case (c), the tester confirms the reason, conditions and alternative shown. For case (d), the tester disconnects T1 from the server before equipping I2, confirms the message shown, and checks that I5 is still recorded as equipped.
+\end{description}
+
+\vspace{0.05cm}
+
+\item\label{test-fr-rwd-3} test-fr-rwd-3\\
+
+\begin{description}[leftmargin=4cm, labelindent=0pt, labelwidth=!, style=nextline, font=\normalfont\bfseries, before=\raggedright]
+  \item[Control] Manual
+  \item[Initial State] CTM A is logged in and is the Primary CTM of Learner L1. L1 is paired to tablets T1 and T2, owns item I5 and has it equipped. L1 does not own item I6 and has enough currency to buy it.
+  \item[Input] CTM A hides I5 and I6 from L1's items screen. The Learner then opens the items screen on T1 and on T2. Requests to buy I6 and to equip I5 are then sent directly to the server using L1's device session.
+  \item[Output] I5 and I6 do not appear on the items screen on either tablet, and I5 is no longer equipped. The direct requests are refused, and L1's inventory and balance are unchanged.
+  \item[Derivation] \srsref{SR-12} requires cosmetic items hidden by a CTM to be hidden from the items screen and not to be purchasable or equippable by the Learner. UC6 specifies that the items screen applies any filters set by the CTM.
+  \item[Test Procedure] The tester hides I5 and I6 as CTM A, then opens the items screen on T1 and on T2 and confirms that neither item appears and that I5 is not shown as equipped. The tester sends the buy and equip requests directly to the server using L1's device session, confirms that both are refused, and checks that L1's inventory records and balance are unchanged.
+\end{description}
+
+\end{enumerate}
+
+\subsubsection{Learner Data}
+
+This testing area covers how CTMs view, filter and export a Learner's recorded game data, and how access to that data is restricted. The tests trace to the FR-DATA requirements in Section 6 of the SRS and to the safety requirements \srsref{SR-8} and \srsref{SR-16}.
+
+\paragraph{Viewing and Exporting Data}
+
+\begin{enumerate}
+
+\item\label{test-fr-data-1} test-fr-data-1\\
+
+\begin{description}[leftmargin=4cm, labelindent=0pt, labelwidth=!, style=nextline, font=\normalfont\bfseries, before=\raggedright]
+  \item[Control] Manual
+  \item[Initial State] CTM A is logged in and is the Primary CTM of Learner L1. L1 has a seeded history of 10 sessions of game G1 and 4 sessions of game G2 between October 1 and October 20. The G1 sessions include sessions on October 6 and October 15, and two aborted sessions. The expected averages and statistics are computed by hand from the seeded scores before the test.
+  \item[Input] CTM A opens L1's data and expands the game history. CTM A then filters the history to October 6 -- October 15, opens the data for G1, and switches between each available data representation.
+  \item[Output] The main page shows L1's most recent sessions and the average performance for each game, matching the hand-computed values. The expanded history lists all 14 sessions. The filtered history lists exactly the sessions between October 6 and October 15, including those on both dates. The G1 data shows L1's statistics and session history, and every representation shows the same values. The aborted sessions appear in the history as incomplete and are not counted in the averages.
+  \item[Derivation] \srsref{FR-DATA-1} allows an authorized CTM to view a Learner's general data, \srsref{FR-DATA-2} requires an expandable overview of the game history, and \srsref{FR-DATA-3} allows the history to be viewed between specific dates. \srsref{FR-DATA-4} and \srsref{FR-DATA-5} allow game-specific data to be viewed in multiple representations. \srsref{SR-8} requires incomplete sessions not to be counted in a Learner's performance averages. UC3 specifies the flow for viewing a Learner's data.
+  \item[Test Procedure] The tester loads the seeded history and logs in as CTM A. The tester compares the main page, the expanded history and the filtered history against the seeded sessions and the hand-computed values. The tester then opens the G1 data, switches between each representation, and confirms that each one shows the same values and that the aborted sessions are marked incomplete and left out of the averages.
+\end{description}
+
+\vspace{0.05cm}
+
+\item\label{test-fr-data-2} test-fr-data-2\\
+
+\begin{description}[leftmargin=4cm, labelindent=0pt, labelwidth=!, style=nextline, font=\normalfont\bfseries, before=\raggedright]
+  \item[Control] Manual
+  \item[Initial State] CTM A is logged in and is the Primary CTM of Learner L1, which has the seeded history from test-data-1.
+  \item[Input] CTM A selects G1 and the dates October 6 -- October 15 on the dashboard, then exports L1's data for this selection.
+  \item[Output] The export contains every G1 session record for L1 between October 6 and October 15 and no other records. The record count reported by the export matches the count shown on the dashboard for the same selection.
+  \item[Derivation] \srsref{FR-DATA-6} allows an authorized CTM to export a Learner's game data. \srsref{SR-16} requires an export to contain every record for the selected Learner, game and date range, and to report a record count that matches the dashboard for the same selection.
+  \item[Test Procedure] The tester notes the record count shown on the dashboard for the selection, then exports the data. The tester opens the exported file, compares its records against the seeded G1 sessions between October 6 and October 15, and confirms that the reported count matches the dashboard count.
+\end{description}
+
+\vspace{0.05cm}
+
+\item\label{test-fr-data-3} test-fr-data-3\\
+
+\begin{description}[leftmargin=4cm, labelindent=0pt, labelwidth=!, style=nextline, font=\normalfont\bfseries, before=\raggedright]
+  \item[Control] Manual
+  \item[Initial State] Learner L1 has the seeded history from test-data-1. CTM C is logged in and is not part of L1's care team.
+  \item[Input] CTM C looks for L1 on their account. Requests to view and export L1's data are then sent directly to the server using CTM C's session and L1's identifier.
+  \item[Output] L1 does not appear on CTM C's account. The direct requests are refused and no Learner data is returned.
+  \item[Derivation] \srsref{FR-DATA-1} and \srsref{FR-DATA-6} limit viewing and exporting a Learner's data to authorized CTMs, and \srsref{FR-TEAM-7} says that a CTM cannot perform actions they do not explicitly have permission to do.
+  \item[Test Procedure] The tester logs in as CTM C and confirms that L1 does not appear on the account. The tester then sends the view and export requests directly to the server using CTM C's session, and confirms that both are refused and that the responses contain none of L1's data.
+\end{description}
+
+\end{enumerate}
 
 \subsection{Tests for Nonfunctional Requirements}
 
-\wss{The nonfunctional requirements for accuracy will likely just reference the
-  appropriate functional tests from above.  The test cases should mention
-  reporting the relative error for these tests.  Not all projects will
-  necessarily have nonfunctional requirements related to accuracy.}
+The following subsections map to the different categories of nonfunctional requirements in \href{../../pdfs/SRS-IEEE/SRS.pdf}{section 8 of the SRS}, with some combined with each other due to overlap in testing strategies.
+Note that the carrying out of tests requiring a Learner's participation will be left to the discretion of the project supervisor and may be omitted if there are ethical or safety concerns.
 
-\wss{For some nonfunctional tests, you won't be setting a target threshold for
-passing the test, but rather describing the experiment you will do to measure
-the quality for different inputs.  For instance, you could measure speed versus
-the problem size.  The output of the test isn't pass/fail, but rather a summary
-table or graph.}
-
-\wss{Tests related to usability could include conducting a usability test and
-  survey.  The survey will be in the Appendix.}
-
-\wss{Static tests, review, inspections, and walkthroughs, will not follow the
-format for the tests given below.}
-
-\wss{If you introduce static tests in your plan, you need to provide details.
-How will they be done?  In cases like code (or document) walkthroughs, who will
-be involved? Be specific.}
-
-\subsubsection{Area of Testing1}
-		
-\paragraph{Title for Test}
+\subsubsection{Usability and Performance}
 
 \begin{enumerate}
 
-\item{test-id1\\}
+\item\label{test-nfr-use-1} test-nfr-use-1\\
 
-Type: Functional, Dynamic, Manual, Static etc.
+Type: Functional, Manual, Dynamic
 					
-Initial State: 
+Initial State: Software is running on a compatible device, with no account logged in.
 					
-Input/Condition: 
+Input/Condition: At least 10 individuals in the age range of a potential CTM (20-50) go through the account setup process, inputting their information and proceeding through the steps. Participants complete a usability survey afterwards.
 					
-Output/Result: 
+Output/Result: Accounts are created with the individuals' information. At least 80\% of participants report an average 8/10 ease of use and satisfaction with performance.
 					
-How test will be performed: 
-					
-\item{test-id2\\}
+How test will be performed: In-person sessions will be scheduled with participants. The developers will facilitate the test with their personal device and administer the survey afterwards on the same device through a Google form.
 
-Type: Functional, Dynamic, Manual, Static etc.
+\item\label{test-nfr-use-2} test-nfr-use-2\\
+
+Type: Functional, Manual, Dynamic
 					
-Initial State: 
+Initial State: Software is running on a compatible device, with a sample CTM account signed in and a sample Learner device paired.
 					
-Input: 
+Input/Condition: At least 10 individuals in the age range of a potential CTM (20-50) are given a series of actions to complete on the software such as navigating to a view or changing a setting. Participants will be asked to do each action three times total. Participants will complete a usability survey afterwards.
 					
-Output: 
+Output/Result: The participants are able to complete the specified actions. There is a 50\% increase of speed in completing these actions when doing so for the third time. At least 80\% of participants report an average of 8/10 or more ease in doing and learning these actions.
 					
-How test will be performed: 
+How test will be performed: In-person sessions will be scheduled with participants. The developers will facilitate the test with their personal devices, time how long the participants take to complete actions, and administer the survey afterwards on the same device through a Google form.
+
+\item\label{test-nfr-use-3} test-nfr-use-3\\
+
+Type: Functional, Manual, Dynamic
+					
+Initial State: Software is running on a compatible device, with a sample CTM account signed in and a sample Learner device paired.
+					
+Input/Condition: At least 10 CTM's for an autistic child (referred to as the Learner) in the intended range of 8-10 facilitates playing one game. Both CTM and Learner complete a usability survey afterwards.
+					
+Output/Result: The game is completed. At least 80\% of CTM participants report an average of 8/10 ease in facilitating gameplay. At least 80\% of Learner participants report an average of 8/10 or more ease of participating in gameplay (the CTM may answer on their behalf).
+					
+How test will be performed: In-person sessions will be scheduled with participants. The developers will facilitate the test with their personal devices and administer the surveys afterwards on the same device through Google forms.
 
 \end{enumerate}
 
-\subsubsection{Area of Testing2}
+\subsubsection{Accuracy and Efficiency}
 
-...
+\begin{enumerate}
+
+\item\label{test-nfr-acc-1} test-nfr-acc-1\\
+
+Type: Functional, Manual, Dynamic
+
+Initial State: Software is running on a compatible device, with a sample CTM account signed in and a sample Learner device paired.
+					
+Input/Condition: 1-2 developers will simulate gameplay data for a chosen game, recording the sessions.
+
+Output/Result: The data view for the game contains these sessions' data. The data is visualized in this view across at least 2 metrics. Observations of trends made by 2 developers who did not participate in simulating data are aligned with the gameplay sessions.
+					
+How test will be performed: 3-4 developers will carry out the test in-person using 2 of their personal devices (one for the CTM account and one for the Learner device). The developers will spend 15 minutes reviewing the data to measure whether data is indeed quickly understood through visualizations.
+
+\item\label{test-nfr-acc-2} test-nfr-acc-2\\
+
+Type: Non-functional, Manual, Static
+
+Initial State: The contents of the games implemented within the scope of capstone are summarized in a document by the developers.
+
+How test will be performed: 5 educators in Ontario who have taught or are currently teaching students in intended grade target of 3-5 will review the document outlined above within a week.
+
+Result: The participants will confirm that the games' educational aspects are aligned with Ontario's curriculum for grades 3-5.
+ 
+\end{enumerate}
+
+\subsubsection{Portability}
+
+\begin{enumerate}
+
+\item\label{test-nfr-port-1} test-nfr-port-1\\
+
+Type: Non-functional, Manual, Dynamic
+
+Initial State: An iPad running iPadOS 27 is available for developers' use.
+					
+Input/Condition: The software will be installed on the device.
+
+Output/Result: The software is successfully installed and ran on the device.
+					
+How test will be performed: 1 developer will carry through the test on the device.
+
+\item\label{test-nfr-port-2} test-nfr-port-2\\
+
+Type: Non-functional, Manual, Dynamic
+
+Initial State: An Android Tablet running Android 17 is available for developers' use.
+					
+Input/Condition: The software will be installed on the device.
+
+Output/Result: The software is successfully installed and ran on the device.
+					
+How test will be performed: 1 developer will carry out the test on the device.
+
+\item\label{test-nfr-port-3} test-nfr-port-3\\
+
+Type: Non-functional, Manual, Dynamic
+
+Initial State: A laptop is available for developers' use; will likely be a personal laptop.
+					
+Input/Condition: Running the software will be attempted on the following browsers: Google Chrome, Mozilla Firefox, and Microsoft Edge.
+
+Output/Result: The software successfully runs on the browsers.
+					
+How test will be performed: 1 developer will carry out the test on the laptop.
+
+\end{enumerate}
+
+\subsubsection{Security}
+
+\begin{enumerate}
+
+\item\label{test-nfr-sec-1} test-nfr-sec-1\\
+
+Type: Non-functional, Manual, Static
+					
+How test will be performed: 2 developers who did not work on the account section of the software will do a code walkthrough of the processes for creating and logging into an account, as well as how the associated information is stored.
+
+Output/Result: The developers confirm that the privacy and data retention requirements outlined in section 7.3 of the \href{../../pdfs/SRS-IEEE/SRS.pdf}{SRS}; specifically regarding what information is stored and how for CTM's and Learners.
+
+\item\label{test-nfr-sec-2} test-nfr-sec-2\\
+
+Type: Functional, Manual, Dynamic
+
+Initial State: The software is running on a compatible device, with a sample CTM account set up and a sample Learner device linked. Another sample CTM account is also set up and linked to the Learner.
+					
+Input/Condition: From the second CTM's account, some settings for the Learner device are changed.
+
+Output/Result: From the Primary CTM's account, these actions are recorded and visible in the log referenced in the SRS.
+					
+How test will be performed: 2 developers will carry out the test in-person using their personal devices to simulate the scenario.
+
+\end{enumerate}
+
+\subsubsection{Reliability}
+
+\begin{enumerate}
+
+\item\label{test-nfr-rely-1} test-nfr-rely-1\\
+
+Type: Non-functional, Automatic, Dynamic
+
+Initial State: At least one game has been implemented in the software.
+					
+Input/Condition: Response times within gameplay are recorded and stored.
+
+Output/Result: Response times are consistent with each other, with a standard deviation of +-0.5 seconds.
+					
+How test will be performed: These measures are written into the implementation code and stored, being accessible to the developers through export in table form.
+
+\end{enumerate}
+
+Note: \srsref{NFR-ACCESS-1} and \srsref{NFR-ACCESS-2} do not need to be tested as they will implicitly be implemented.
+\srsref{NFR-MAINT-1} cannot be tested as it requires implementing a major change.
 
 \subsection{Traceability Between Test Cases and Requirements}
 
-\wss{Provide a table that shows which test cases are supporting which
-  requirements.}
+\begin{longtable}{p{0.25\textwidth} p{0.7\textwidth}}
 
+\toprule
+Test Case & Functional Requirements \\
+\midrule
+\ref{test-fr-ctm-1} & \srsref{FR-CTM-1}, \srsref{FR-CTM-2}, \srsref{SR-1} \\
+\ref{test-fr-ctm-2} & \srsref{FR-CTM-3}, \srsref{FR-CTM-4} \\
+\ref{test-fr-ctm-3} & \srsref{FR-CTM-5}, \srsref{SR-3} \\
+\ref{test-fr-ctm-4} & \srsref{FR-CTM-6} \\
+\ref{test-fr-ctm-5} & \srsref{SR-2} \\
+\midrule
+\ref{test-fr-lrn-1} & \srsref{FR-LRN-1}, \srsref{FR-LRN-2}, \srsref{FR-LRN-3} \\
+\ref{test-fr-lrn-2} & \srsref{FR-LRN-4}, \srsref{FR-LRN-5}, \srsref{FR-LRN-8}, \srsref{SR-3} \\
+\ref{test-fr-lrn-3} & \srsref{FR-LRN-7} \\
+\ref{test-fr-lrn-4} & \srsref{FR-LRN-6}, \srsref{SR-18} \\
+\midrule
+\ref{test-fr-dev-1} & \srsref{FR-DEV-1}, \srsref{FR-DEV-2}, \srsref{FR-DEV-3} \\
+\ref{test-fr-dev-2} & \srsref{FR-DEV-3}, \srsref{FR-DEV-4}, \srsref{FR-DEV-5} \\
+\midrule
+\ref{test-fr-team-1} & \srsref{FR-TEAM-1} \\
+\ref{test-fr-team-2} & \srsref{FR-TEAM-1}, \srsref{FR-TEAM-2}, \srsref{FR-TEAM-3} \\
+\ref{test-fr-team-3} & \srsref{FR-TEAM-4}, \srsref{FR-TEAM-5}, \srsref{SR-3} \\
+\ref{test-fr-team-4} & \srsref{FR-TEAM-6}, \srsref{SR-3} \\
+\ref{test-fr-team-5} & \srsref{FR-TEAM-1}, \srsref{FR-TEAM-7}, \srsref{FR-LRN-4} \\
+\midrule
+\ref{test-fr-play-1} & \srsref{FR-PLAY-1}, \srsref{FR-PERS-4}, \srsref{FR-DATA-7} \\
+\ref{test-fr-play-2} & \srsref{FR-PLAY-2}, \srsref{FR-PLAY-3}, \srsref{SR-5} \\
+\ref{test-fr-play-3} & \srsref{FR-PLAY-4}, \srsref{FR-PLAY-5}, \srsref{FR-PLAY-6}, \srsref{FR-PLAY-7}, \srsref{FR-PLAY-8}, \srsref{FR-PLAY-9}, \srsref{FR-PLAY-10}, \srsref{SR-8}, \srsref{SR-11} \\
+\ref{test-fr-play-4} & \srsref{FR-DATA-8}, \srsref{SR-8}, \srsref{SR-9} \\
+\ref{test-fr-play-5} & \srsref{SR-7} \\
+\midrule
+\ref{test-fr-cfg-1} & \srsref{FR-PERS-1}, \srsref{FR-PERS-2}, \srsref{FR-PLAY-1} \\
+\ref{test-fr-cfg-2} & \srsref{FR-PERS-3}, \srsref{FR-PERS-4}, \srsref{SR-4}, \srsref{SR-13} \\
+\ref{test-fr-tmpl-1} & \srsref{FR-TMPL-1}, \srsref{FR-TMPL-3}, \srsref{FR-TMPL-4}, \srsref{FR-TMPL-5}, \srsref{FR-TMPL-6}, \srsref{FR-TMPL-9}, \srsref{FR-PERS-4}, \srsref{SR-14} \\
+\ref{test-fr-tmpl-2} & \srsref{FR-TMPL-7}, \srsref{FR-TMPL-8}, \srsref{SR-14} \\
+\ref{test-fr-tmpl-3} & \srsref{FR-TMPL-2}, \srsref{SR-15} \\
+\midrule
+\ref{test-fr-rwd-1} & \srsref{FR-RWD-1}, \srsref{FR-RWD-2} \\
+\ref{test-fr-rwd-2} & \srsref{FR-RWD-3}, \srsref{FR-RWD-4}, \srsref{FR-RWD-5}, \srsref{FR-RWD-6}, \srsref{FR-RWD-7}, \srsref{SR-7}, \srsref{SR-13} \\
+\ref{test-fr-rwd-3} & \srsref{SR-12} \\
+\midrule
+\ref{test-fr-data-1} & \srsref{FR-DATA-1}, \srsref{FR-DATA-2}, \srsref{FR-DATA-3}, \srsref{FR-DATA-4}, \srsref{FR-DATA-5}, \srsref{SR-8} \\
+\ref{test-fr-data-2} & \srsref{FR-DATA-6}, \srsref{SR-16} \\
+\ref{test-fr-data-3} & \srsref{FR-DATA-1}, \srsref{FR-DATA-6}, \srsref{FR-TEAM-7} \\
+\bottomrule
+\caption{Traceability Between Test Cases and Functional Requirements}
+\label{tab:TC2NFRtm}
+
+\end{longtable}
+
+\begin{longtable}{p{0.25\textwidth} p{0.7\textwidth}}
+
+\toprule
+Test Case & Non-Functional Requirements \\
+\midrule
+\ref{test-nfr-use-1} & \srsref{NFR-USE-1}, \srsref{NFR-PERF-1} \\
+\ref{test-nfr-use-2} & \srsref{NFR-USE-2}, \srsref{NFR-USE-3} \\
+\ref{test-nfr-use-3} & \srsref{NFR-USE-4}, \srsref{NFR-PERF-2} \\
+\midrule
+\ref{test-nfr-acc-1} & \srsref{NFR-EFF-1}, \srsref{NFR-ACCU-1} \\
+\ref{test-nfr-acc-2} & \srsref{NFR-ACCU-2} \\
+\midrule
+\ref{test-nfr-port-1} & \srsref{NFR-PORT-1} \\
+\ref{test-nfr-port-2} & \srsref{NFR-PORT-2} \\
+\ref{test-nfr-port-3} & \srsref{NFR-PORT-3} \\
+\midrule
+\ref{test-nfr-sec-1} & \srsref{NFR-SEC-1}, \srsref{NFR-SEC-2} \\
+\ref{test-nfr-sec-2} & \srsref{NFR-SEC-1}, \srsref{NFR-SEC-2} \\
+\midrule
+\ref{test-nfr-rely-1} \srsref{NFR-RELY-1} \\
+\ref{test-fr-tmpl-1} & \srsref{NFR-ACCESS-3} \\
+\ref{test-fr-play-3} & \srsref{NFR-ACCESS-4} \\
+\midrule
+
+\bottomrule
+\caption{Traceability Between Test Cases and Non-Functional Requirements}
+\label{tab:TC2FRtm}
+
+\end{longtable}
 \section{Unit Test Description}
 
 \wss{This section should not be filled in until after the MIS (detailed design
@@ -901,16 +1585,99 @@ How test will be performed:
 
 \section{Appendix}
 
-This is where you can place additional information.
+Additional Information.
 
 \subsection{Symbolic Parameters}
 
-The definition of the test cases will call for SYMBOLIC\_CONSTANTS.
-Their values are defined in this section for easy maintenance.
+\begin{longtable}{p{0.6\textwidth} p{0.4\textwidth}}
+\toprule
+Parameter & Value\\
+\midrule
+MIN\_PASSWORD\_LENGTH & 12 characters\\
+INACTIVITY\_TIMEOUT & 30 minutes\\
+GRACE\_PERIOD & 30 days\\
+PAIRING\_RETRY\_LIMIT & 5 attempts\\
+PAIRING\_LOCKOUT\_DURATION & 15 minutes\\
+INVITE\_EXPIRY & 48 hours\\
+INVITE\_RETRY\_LIMIT & 5 attempts\\
+INVITE\_LOCKOUT\_DURATION & 15 minutes\\
+\bottomrule
+\caption{Symbolic Parameters} \label{tab:SymbolicParameters}
+\end{longtable}
 
-\subsection{Usability Survey Questions?}
+\subsection{Usability Survey Questions}
 
-\wss{This is a section that would be appropriate for some projects.}
+The following survey is completed by participants in the CTM usability sessions (\valref{3} in Section~\ref{sec:validation}), through a Google Form on the facilitating developer's device at the end of each session. No identifying information is collected. Rated questions use a scale from 1 (very difficult or very unsatisfied) to 10 (very easy or very satisfied). A rating of 8 or higher counts as experiencing little to no difficulty for the nonfunctional requirement that the question measures.
+
+\begin{table}[htbp]
+\centering\small
+\caption{CTM usability survey}
+\label{tab:ctm-survey}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabularx}{\textwidth}{l >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}p{0.13\textwidth} >{\raggedright\arraybackslash}p{0.14\textwidth}}
+\toprule
+\textbf{ID} & \textbf{Question} & \textbf{Response} & \textbf{Measures}\\
+\midrule
+\multicolumn{4}{l}{\emph{Background}}\\
+Q1 & Which best describes your role: parent or guardian, educator, special-education staff, or other? & Choice & --\\
+Q2 & How comfortable are you using tablets and computer applications? & 1--10 & --\\
+Q3 & Have you supported an autistic child's learning before? & Yes / No & --\\
+\midrule
+\multicolumn{4}{l}{\emph{Setup}}\\
+Q4 & How easy was it to create your account? & 1--10 & \srsref{NFR-USE-1}\\
+Q5 & How easy was it to add a Learner and pair their device? & 1--10 & \srsref{NFR-USE-1}\\
+Q6 & How easy was it to invite another CTM to the Learner's care team? & 1--10 & \srsref{NFR-USE-1}\\
+\midrule
+\multicolumn{4}{l}{\emph{Navigation}}\\
+Q7 & How easy was it to find a Learner's settings? & 1--10 & \srsref{NFR-USE-2}\\
+Q8 & How easy was it to find where to start a game for a Learner? & 1--10 & \srsref{NFR-USE-2}\\
+Q9 & How easy was it to personalize a game's settings for a Learner? & 1--10 & \srsref{NFR-USE-2}\\
+\midrule
+\multicolumn{4}{l}{\emph{Facilitating gameplay}}\\
+Q10 & How easy was it to set up and start a game for a Learner? & 1--10 & \srsref{NFR-USE-4}\\
+Q11 & How confident would you feel supervising a Learner during a game, including pausing, stopping or helping them? & 1--10 & \srsref{NFR-USE-4}\\
+\midrule
+\multicolumn{4}{l}{\emph{Dashboard and response time}}\\
+Q12 & How easy was it to understand the Learner's performance from the dashboard? & 1--10 & \srsref{NFR-EFF-1}\\
+Q13 & How satisfied were you with how quickly the application responded when logging in and opening a Learner's data? & 1--10 & \srsref{NFR-PERF-1}\\
+\midrule
+\multicolumn{4}{l}{\emph{Open feedback}}\\
+Q14 & What, if anything, was confusing or frustrating? & Free text & --\\
+Q15 & What would you change about the application? & Free text & --\\
+\midrule
+\multicolumn{4}{l}{\emph{Second session only}}\\
+Q16 & Compared to your first session, how much easier was it to complete the same tasks? & 1--10 & \srsref{NFR-USE-3}\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\paragraph{Observer record.} During each session, an observer records the following for each task (creating an account, adding and pairing a Learner, inviting a CTM, personalizing a game, and reading the dashboard): the time taken, the number of errors, whether the participant needed help, and any comments. The times from the first and second sessions are compared to measure memorability (\srsref{NFR-USE-3}), alongside Q16.
+
+\subsection{Learner Proxy Observation Guide}
+
+The following guide is used by the supervisor and special-education educators when play-testing each game as proxies for Learners (\valref{4} in Section~\ref{sec:validation}). The guide is completed once per game. Rated questions use the same 1--10 scale as the usability survey, and a rating of 8 or higher counts as a Learner being easily able to participate for \srsref{NFR-USE-5}. If sessions with Learners are approved by the ethics board, the same guide is completed by an observer during those sessions, and the report states which kind of participant each result comes from.
+
+\begin{table}[htbp]
+\centering\small
+\caption{Learner proxy observation guide}
+\label{tab:proxy-guide}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabularx}{\textwidth}{l >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}p{0.15\textwidth} >{\raggedright\arraybackslash}p{0.15\textwidth}}
+\toprule
+\textbf{ID} & \textbf{Question} & \textbf{Response} & \textbf{Measures}\\
+\midrule
+O1 & Could any visual, sound or animation overstimulate a Learner with sensory hypersensitivity? If so, where? & Yes / No, with notes & \srsref{SR-LRN-1}, \srsref{SR-DOM-3}\\
+O2 & Could the game understimulate a Learner with sensory hyposensitivity? If so, where? & Yes / No, with notes & \srsref{SR-LRN-1}, \srsref{SR-DOM-3}\\
+O3 & How clear are the rules and instructions for a Learner who may not read independently? & 1--10 & \srsref{SR-LRN-2}\\
+O4 & Could a Learner take their time and retry without feeling pressured? & Yes / No, with notes & \srsref{SR-LRN-3}\\
+O5 & How likely is the game to give a Learner a sense of accomplishment? & 1--10 & \srsref{SR-LRN-4}\\
+O6 & How likely is the game to hold a Learner's attention? & 1--10 & \srsref{SR-DOM-2}\\
+O7 & How easily could a Learner participate in the game without frustration or confusion? & 1--10 & \srsref{NFR-USE-5}\\
+O8 & Any other observations about the game's suitability for autistic Learners. & Free text & --\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
 
 \newpage{}
 
