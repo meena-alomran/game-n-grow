@@ -148,24 +148,85 @@ how they relate to your VnV efforts.}
 \subsection{Verification and Validation Team}
 \label{sec:team}
 
-\wss{Your teammates.  Maybe your supervisor.
-  You should do more than list names.  You should say what each person's role is
-  for the project's verification.  A table is a good way to summarize this information.}
+Table~\ref{tab:vv-team} lists the members of the verification and validation team and their responsibilities. Each team member owns a set of tests, reviews and activities. Owning a test means writing it, keeping it up to date with the SRS, and making sure it is run before each demo. It does not mean running it: following Section~\ref{sec:impl-ver}, manual system tests are run by a team member who did not implement the feature under test. The supervisor, classmate reviewers and external participants also take part in verification and validation, as described below the table.
+
+\begin{table}[htbp]
+\centering\small
+\caption{Verification and validation team}
+\label{tab:vv-team}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{0.17\textwidth} >{\raggedright\arraybackslash}p{0.2\textwidth} >{\raggedright\arraybackslash}X}
+\toprule
+\textbf{Member} & \textbf{Role} & \textbf{Responsibilities}\\
+\midrule
+Omar Ghoneim & Security and privacy lead & Leads the compliance check in Section~\ref{sec:validation}, and presents the code walkthroughs for access control and permissions, and for deletion and retention.\\
+Meena Al Omran & Accounts and platforms lead & Runs the platform verification in Section~\ref{sec:impl-ver}, and presents the code walkthrough for pairing and invite codes.\\
+Marko Popovic & Data and synchronization lead & Presents the code walkthroughs for the offline queue and synchronization, session recording, and data export. Coordinates the manual fault injection in Section~\ref{sec:plan-ver}.\\
+Maya Azar & Validation lead & Leads the CTM usability sessions (V3), including participant recruitment, and the usability survey. Prepares the ethics application for any sessions involving Learners, and tracks the issues raised by the Rev 0 demo feedback (V2).\\
+Amirah Abdelrahman & Learner experience lead & Leads the inspection of Learner-facing assets in Section~\ref{sec:impl-ver}, prepares the observation guide for proxy play-testing (V4), and coordinates the curriculum alignment review (V5).\\
+\midrule
+Project supervisor & Domain expert & Expert in psychology and autism. Completes the SRS task-based review (V1), gives feedback after the Rev 0 demo (V2), play-tests the games as a proxy for Learners (V4), and reviews the curriculum alignment table (V5) and any uncertain wording (V6). Advises the team on whether sessions with Learners should be pursued.\\
+Classmate reviewers & Peer reviewers & Review the SRS, the design, and this plan using the checklists in Sections~\ref{sec:srs-ver}, \ref{sec:design-ver} and \ref{sec:plan-ver}, and record findings as issues in the project repository.\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\paragraph{External participants.} Two groups of participants outside the team take part in validation. The first group is at least 10 adults in roles close to the CTM personas, such as parents, educators and special-education staff, who take part in the CTM usability sessions (V3). The second group is special-education educators who play-test the games as proxies for Learners alongside the supervisor (V4). Sessions with Learners are not planned by default. They are run only if the supervisor advises it and ethics clearance is obtained in time, and the ethics board may limit participants to neurotypical or neurodivergent children of the target age.
+
+\paragraph{Review rotation.} Every pull request needs an approving review from a member other than its author. Reviews follow a fixed rotation in the order of Table~\ref{tab:vv-team}: each member's pull requests are reviewed by the next member in the table, and the last member's are reviewed by the first. If the assigned reviewer is unavailable, the following member in the rotation reviews instead. A pull request that touches an area owned by another lead in Table~\ref{tab:vv-team} also needs that lead's approval.
 
 \subsection{SRS Verification}
 \label{sec:srs-ver}
 
-\wss{List any approaches you intend to use for SRS verification.  This may
-  include ad hoc feedback from reviewers, like your classmates (like your
-  primary reviewer), or you may plan for something more rigorous/systematic.}
+The SRS is verified in three ways: a checklist review by the team and classmate reviewers, a task-based review with the supervisor, and an automated traceability check. The reviews are applied to the submitted SRS, and their findings feed its next revision. Every finding is recorded as an issue labelled \texttt{srs-review} in the project repository, citing the affected requirement or section and the checklist item it fails. Accepted changes are recorded in the SRS revision history.
 
-\wss{If you have a supervisor for the project, you shouldn't just say they will
-read over the SRS.  You should explain your structured approach to the review.
-Will you have a meeting?  What will you present?  What questions will you ask?
-Will you give them instructions for a task-based inspection?  Will you use your
-issue tracker?}
+\paragraph{Checklist review.} The team and classmate reviewers review the SRS against the course SRS checklist. Each classmate reviewer files at least five issues. The following checklist items are given particular attention, because they apply directly to \progname{}'s SRS:
+\begin{itemize}
+  \item literal values are replaced by symbolic constants defined in the SRS appendix;
+  \item nonfunctional requirements are verifiable, with fit criteria where appropriate;
+  \item the SRS is consistent, unambiguous and traceable; and
+  \item rationale is given for non-obvious requirements and scope decisions.
+\end{itemize}
+The reviewers also apply the project-specific checks in Table~\ref{tab:srs-checklist}, which cover parts of the SRS that the course checklist does not address directly.
 
-\wss{Maybe create an SRS checklist?}
+\begin{table}[htbp]
+\centering\small
+\caption{Project-specific SRS checks}
+\label{tab:srs-checklist}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabularx}{\textwidth}{l >{\raggedright\arraybackslash}X}
+\toprule
+\textbf{ID} & \textbf{Check}\\
+\midrule
+S1 & Use cases agree with the functional requirements on actors, permissions and outcomes.\\
+S2 & The data dictionary (SRS Section 7.2) contains every entity, attribute and value that the functional and safety requirements use.\\
+S3 & Every stakeholder requirement (SRS Section 3) appears in the traceability matrix and traces to at least one functional or nonfunctional requirement.\\
+S4 & Every hazard in the Hazard Analysis maps to at least one safety requirement, and no requirement or Learner-facing wording implies a clinical diagnosis or developmental conclusion (SRS Section 2.1 and ULC8).\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\paragraph{Task-based review with the supervisor.} The supervisor reviews the SRS in a 60-minute meeting (V1 in Section~\ref{sec:validation}). Rather than reading the SRS and giving general comments, the supervisor completes the following tasks with the SRS open, while a team member records their answers:
+\begin{enumerate}[label=T\arabic*., nosep]
+  \item Trace SR-LRN-1 to the functional requirements that support it, and judge whether they would protect a Learner with sensory hypersensitivity.
+  \item Find the requirements that prevent a game from startling a Learner, such as sudden audio or flashing content.
+  \item Review the default settings and reward approach, and judge whether they are appropriate for the intended Learners.
+  \item Identify any requirement or wording that implies a diagnosis or a broader developmental conclusion.
+  \item Identify any need of autistic Learners or CTMs that is missing from the stakeholder requirements.
+\end{enumerate}
+Each answer that points to a missing, incorrect or unclear requirement becomes an issue. The team then discusses with the supervisor which issues to resolve in the next revision of the SRS.
+
+\paragraph{Traceability script.} A Python script in the project repository collects every requirement ID defined in the SRS and searches the SRS traceability matrices, the use cases, and the test cases and traceability tables of this plan for each one. It reports every requirement that is not referenced, and every test ID in a traceability table that has no matching test case. The script is run before each submission of the SRS and of this plan, and each gap it reports becomes an issue. The same script provides check P1 in Section~\ref{sec:plan-ver}.
+
+\paragraph{Findings so far.} Writing the system tests in Section 4 was used as an early review of the SRS, and surfaced the following defects. These are filed as the first \texttt{srs-review} issues.
+\begin{itemize}
+  \item \textbf{Consistency (S1):} UC8 allows any authorized CTM to delete a Learner profile, while FR-LRN-4 allows only the Primary CTM.
+  \item \textbf{Data dictionary (S2):} the outcome attribute of a Game Session has no value for incomplete sessions, which SR-8 requires.
+  \item \textbf{Traceability (S3):} SR-LRN-2, SR-CUST-1, SR-CUST-2, SR-CTM-1 and SR-DOM-1 do not appear in the SRS traceability matrix, and the change log described in SRS Section 7.3 has no corresponding functional requirement.
+  \item \textbf{Symbolic constants:} the 30-day grace period and the percentages in NFR-USE-1 to NFR-USE-5 are literal values, and the backup retention period referenced by SR-18 is missing from the SRS appendix.
+  \item \textbf{Verifiability:} NFR-EFF-1, NFR-RELY-1 and NFR-PERF-2 have no fit criteria.
+  \item \textbf{Ambiguity:} FR-CTM-5 does not state who becomes the Primary CTM when a Primary CTM deletes their account, FR-PLAY-8 does not state where the CTM aborts a game from, FR-RWD-2 does not cover a Learner who already owns every reward item, and SR-12 does not state what happens to a hidden item that is already equipped.
+\end{itemize}
 
 \subsection{Design Verification}
 
