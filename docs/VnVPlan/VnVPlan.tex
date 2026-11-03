@@ -1101,9 +1101,9 @@ Type: Functional, Manual, Dynamic
 					
 Initial State: Software is running on a compatible device, with no account logged in.
 					
-Input/Condition: 15 individuals in the age range of a potential CTM (20-50) go through the account setup process, inputting their information and proceeding through the steps. Participants complete a usability survey afterwards.
+Input/Condition: At least 10 individuals in the age range of a potential CTM (20-50) go through the account setup process, inputting their information and proceeding through the steps. Participants complete a usability survey afterwards.
 					
-Output/Result: Accounts are created with the individuals' information. At least 13/15 of participants report an average 8/10 ease of use and satisfaction with performance.
+Output/Result: Accounts are created with the individuals' information. At least 80\% of participants report an average 8/10 ease of use and satisfaction with performance.
 					
 How test will be performed: In-person sessions will be scheduled with participants. The developers will facilitate the test with their personal device and administer the survey afterwards on the same device through a Google form.
 
@@ -1113,9 +1113,9 @@ Type: Functional, Manual, Dynamic
 					
 Initial State: Software is running on a compatible device, with a sample CTM account signed in and a sample Learner device paired.
 					
-Input/Condition: 15 individuals in the age range of a potential CTM (20-50) are given a series of actions to complete on the software such as navigating to a view or changing a setting. Participants will be asked to do each action three times total. Participants will complete a usability survey afterwards.
+Input/Condition: At least 10 individuals in the age range of a potential CTM (20-50) are given a series of actions to complete on the software such as navigating to a view or changing a setting. Participants will be asked to do each action three times total. Participants will complete a usability survey afterwards.
 					
-Output/Result: The participants are able to complete the specified actions. There is a 50\% increase of speed in completing these actions when doing so for the third time. At least 13/15 of participants report an average of 8/10 or more ease in doing and learning these actions.
+Output/Result: The participants are able to complete the specified actions. There is a 50\% increase of speed in completing these actions when doing so for the third time. At least 80\% of participants report an average of 8/10 or more ease in doing and learning these actions.
 					
 How test will be performed: In-person sessions will be scheduled with participants. The developers will facilitate the test with their personal devices, time how long the participants take to complete actions, and administer the survey afterwards on the same device through a Google form.
 
@@ -1125,9 +1125,9 @@ Type: Functional, Manual, Dynamic
 					
 Initial State: Software is running on a compatible device, with a sample CTM account signed in and a sample Learner device paired.
 					
-Input/Condition: 15 CTM's for an autistic child (referred to as the Learner) in the intended range of 8-10 facilitates playing one game. Both CTM and Learner complete a usability survey afterwards.
+Input/Condition: At least 10 CTM's for an autistic child (referred to as the Learner) in the intended range of 8-10 facilitates playing one game. Both CTM and Learner complete a usability survey afterwards.
 					
-Output/Result: The game is completed. At least 13/15 of CTM participants report an average of 8/10 ease in facilitating gameplay. At least 13/15 of Learner participants report an average of 8/10 or more ease of participating in gameplay (the CTM may answer on their behalf).
+Output/Result: The game is completed. At least 80\% of CTM participants report an average of 8/10 ease in facilitating gameplay. At least 80\% of Learner participants report an average of 8/10 or more ease of participating in gameplay (the CTM may answer on their behalf).
 					
 How test will be performed: In-person sessions will be scheduled with participants. The developers will facilitate the test with their personal devices and administer the surveys afterwards on the same device through Google forms.
 
@@ -1247,6 +1247,9 @@ How test will be performed: These measures are written into the implementation c
 
 \end{enumerate}
 
+Note: \srsref{NFR-ACCESS-1} and \srsref{NFR-ACCESS-2} do not need to be tested as they will implicitly be implemented.
+\srsref{NFR-MAINt-1} cannot be tested as it requires implementing a major change.
+
 \subsection{Traceability Between Test Cases and Requirements}
 
 \begin{longtable}{p{0.25\textwidth} p{0.7\textwidth}}
@@ -1319,6 +1322,8 @@ Test Case & Non-Functional Requirements \\
 \ref{test-nfr-sec-2} & \srsref{NFR-SEC-1}, \srsref{NFR-SEC-2} \\
 \midrule
 \ref{test-nfr-rely-1} \srsref{NFR-RELY-1} \\
+\ref{test-fr-tmpl-1} & \srsref{NFR-ACCESS-3} \\
+\ref{test-fr-play-3} & \srsref{NFR-ACCESS-4} \\
 \midrule
 
 \bottomrule
