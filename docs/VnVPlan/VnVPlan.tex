@@ -3,6 +3,7 @@
 \usepackage{booktabs}
 \usepackage{tabularx}
 \usepackage{hyperref}
+\usepackage{xr-hyper}
 \hypersetup{
     colorlinks,
     citecolor=blue,
@@ -10,6 +11,12 @@
     linkcolor=red,
     urlcolor=blue
 }
+\externaldocument[SRS-]{../SRS-IEEE/SRS}
+\newcommand{\srsreq}[1]{\hyperref[SRS-#1]{#1}}
+\newcommand{\srsreqtext}[2]{\hyperref[SRS-#1]{#2}}
+\newcommand{\srsuc}[1]{\hyperref[SRS-UC_Label#1]{UC#1}}
+\newcommand{\srsulc}{\hyperref[SRS-ULC_NonClinicalPurpose]{ULC8}}
+\newcommand{\srsdoc}{\href{../../pdfs/SRS-IEEE/SRS.pdf}{SRS}}
 \usepackage[round]{natbib}
 
 \input{../Comments.text}
@@ -73,8 +80,8 @@ in.}
   \bottomrule
 \end{tabular}\\
 
-\wss{symbols, abbreviations, or acronyms --- you can simply reference the SRS
-  \citep{SRS} tables, if appropriate}
+\wss{symbols, abbreviations, or acronyms --- you can simply reference the \srsdoc{}
+  tables, if appropriate}
 
 \wss{Remove this section if it isn't needed}
 
@@ -122,13 +129,13 @@ Repos.csv) if your plan changes as a result of the VnV planning exercise.}
 
 \subsection{Relevant Documentation}
 
-\wss{Reference relevant documentation.  This will definitely include your SRS
+\wss{Reference relevant documentation.  This will definitely include your \srsdoc{}
   and your other project documents (design documents, like MG, MIS, etc).  You
   can include these even before they are written, since by the time the project
   is done, they will be written.  You can create BibTeX entries for your
   documents and within those entries include a hyperlink to the documents.}
 
-\citet{SRS}
+\srsdoc
 
 \wss{Don't just list the other documents.  You should explain why they are relevant and 
 how they relate to your VnV efforts.}
@@ -145,20 +152,20 @@ how they relate to your VnV efforts.}
   You should do more than list names.  You should say what each person's role is
   for the project's verification.  A table is a good way to summarize this information.}
 
-\subsection{SRS Verification}
+\subsection{\srsdoc{} Verification}
 \label{sec:srs-ver}
 
-\wss{List any approaches you intend to use for SRS verification.  This may
+\wss{List any approaches you intend to use for \srsdoc{} verification.  This may
   include ad hoc feedback from reviewers, like your classmates (like your
   primary reviewer), or you may plan for something more rigorous/systematic.}
 
 \wss{If you have a supervisor for the project, you shouldn't just say they will
-read over the SRS.  You should explain your structured approach to the review.
+read over the \srsdoc{}.  You should explain your structured approach to the review.
 Will you have a meeting?  What will you present?  What questions will you ask?
 Will you give them instructions for a task-based inspection?  Will you use your
 issue tracker?}
 
-\wss{Maybe create an SRS checklist?}
+\wss{Maybe create a \srsdoc{} checklist?}
 
 \subsection{Design Verification}
 
@@ -171,10 +178,10 @@ issue tracker?}
 \label{sec:design-ver}
 
 The design to be verified consists of the Hazard Analysis, the module-level
-design documents that the team will write after the SRS and this plan, and
+design documents that the team will write after the \srsdoc{} and this plan, and
 low-fidelity wireframes of the Learner Game Suite and the CTM Dashboard. The
 design covers the Godot client and the server-side functionality described in
-SRS Section 2.3. Each review is held when the
+\srsdoc{} Section 2.3. Each review is held when the
 relevant design material is drafted and before the parts of the implementation
 that depend on it are started. The checks below are written in terms of the
 design itself, so they apply regardless of how the module-level documents are
@@ -198,25 +205,25 @@ D1 & Every functional, nonfunctional, and safety requirement is allocated to at
 least one part of the design, and every part of the design supports at least
 one requirement.\\
 D2 & Each part of the design hides one design decision. Each likely change LC1
-to LC8 (SRS Section 12) is confined to a few identifiable parts, so that
-NFR-MAINT-1 (effort below 1/6 of the original development time) is
+to LC8 (\srsdoc{} Section 12) is confined to a few identifiable parts, so that
+\srsreq{NFR-MAINT-1} (effort below 1/6 of the original development time) is
 plausible.\\
-D3 & Every CTM action passes through one permission check (FR-TEAM-7, SR-3),
+D3 & Every CTM action passes through one permission check (\srsreq{FR-TEAM-7}, \srsreq{SR-3}),
 and Learner devices store only configurations, inventory, and queued session
-data (SRS Section 7.3).\\
-D4 & Every entity and attribute in the data dictionary (SRS Section 7.2) is
+data (\srsdoc{} Section 7.3).\\
+D4 & Every entity and attribute in the data dictionary (\srsdoc{} Section 7.2) is
 mapped to storage. Deleting a CTM account does not delete a Learner profile,
 and Learner deletion removes all data after the 30-day grace period
-(FR-LRN-6, SR-18).\\
-D5 & Failure handling is designed: offline queue (FR-DATA-8, SR-9), saves
-confirmed only after verification (SR-13), crashed or aborted sessions flagged
-incomplete (SR-8), and backup and restore (SR-17).\\
+(\srsreq{FR-LRN-6}, \srsreq{SR-18}).\\
+D5 & Failure handling is designed: offline queue (\srsreq{FR-DATA-8}, \srsreq{SR-9}), saves
+confirmed only after verification (\srsreq{SR-13}), crashed or aborted sessions flagged
+incomplete (\srsreq{SR-8}), and backup and restore (\srsreq{SR-17}).\\
 D6 & Encryption in transit and at rest, password hashing, and the rule that
-imported files are never executed (SR-15) are each assigned to a specific
+imported files are never executed (\srsreq{SR-15}) are each assigned to a specific
 part of the design.\\
 D7 & Interfaces between parts of the design use the types in the data
 dictionary and match how the other parts call them.\\
-D8 & The gameplay states in Figure 2 of the SRS (loading, ready, playing,
+D8 & The gameplay states in Figure 2 of the \srsdoc{} (loading, ready, playing,
 paused, reward, load error) appear in the design of the game flow.\\
 D9 & Every hazard in the Hazard Analysis has at least one design element that
 mitigates it.\\
@@ -228,16 +235,16 @@ Godot.\\
 
 \paragraph{Use-case walkthroughs.} The team traces four scenarios through the
 design on sequence diagrams to find missing responsibilities or interfaces:
-UC1 including loss of connection (alternative flow 6.1--6.2), UC2 including
-pairing-code lockout, UC8 including restoration during the grace period, and
-UC9 including expired and reused invite codes.
+\srsuc{1} including loss of connection (alternative flow 6.1--6.2), \srsuc{2} including
+pairing-code lockout, \srsuc{8} including restoration during the grace period, and
+\srsuc{9} including expired and reused invite codes.
 
 \paragraph{Wireframe review with the supervisor.} Before the user interface is
 implemented, the team presents wireframes of the Game Suite, a gameplay screen
 with the pause, restart, and exit controls, a Learner error message, and the
-CTM settings screen from UC4. The supervisor is asked whether each screen is
+CTM settings screen from \srsuc{4}. The supervisor is asked whether each screen is
 uncluttered, whether instructions are unambiguous, and whether anything could
-overwhelm a Learner (SR-LRN-1 to SR-LRN-3, SR-DOM-3, SR-4 to SR-7, SR-11).
+overwhelm a Learner (\srsreq{SR-LRN-1} to \srsreq{SR-LRN-3}, \srsreq{SR-DOM-3}, \srsreq{SR-4} to \srsreq{SR-7}, \srsreq{SR-11}).
 
 
 \subsection{Verification and Validation Plan Verification}
@@ -263,7 +270,7 @@ Table~\ref{tab:vv-checklist} before each submission of this plan.
 \toprule
 \textbf{ID} & \textbf{Check}\\
 \midrule
-P1 & Every functional, nonfunctional, and safety requirement in the SRS appears
+P1 & Every functional, nonfunctional, and safety requirement in the \srsdoc{} appears
 in the traceability table of Section 4.3 or has a named static verification
 method.\\
 P2 & Each system test states its control (manual or automatic), initial state,
@@ -272,11 +279,11 @@ team member who did not write it can run it.\\
 P3 & Expected outputs are derived from the requirements and use cases, not from
 what the implementation currently does.\\
 P4 & Nonfunctional tests have measurable pass criteria, a sample size, and a
-survey in the appendix where one is needed (NFR-USE-1 to NFR-USE-5,
-NFR-PERF-1).\\
+survey in the appendix where one is needed (\srsreq{NFR-USE-1} to \srsreq{NFR-USE-5},
+\srsreq{NFR-PERF-1}).\\
 P5 & The plan is feasible: the devices, participants, and person-hours it
 assumes are available to the team.\\
-P6 & Terminology matches the SRS, and the document meets the course template
+P6 & Terminology matches the \srsdoc{}, and the document meets the course template
 (title page, tables of contents, numbered and captioned tables and figures,
 revision history, appendices).\\
 \bottomrule
@@ -297,11 +304,11 @@ available for GDScript, so once the tests are implemented the team will measure
 test-suite strength by hand. A team member who did not write the code
 introduces one small fault at a time in a separate branch and runs the full
 suite. The faults target at least ten critical rules: the permission check
-(FR-TEAM-7), the pairing-code retry limit (FR-DEV-4), the 30-day grace period
-(FR-LRN-6), incomplete-session handling (SR-8), the hidden-item filter (SR-12),
-the flash limit (SR-6), the export record count (SR-16), the low defaults
-(SR-4), the invite-code expiry check (FR-TEAM-1), and the start-cue gate
-(SR-5). The mutation score is the fraction of faults detected by at least one
+(\srsreq{FR-TEAM-7}), the pairing-code retry limit (\srsreq{FR-DEV-4}), the 30-day grace period
+(\srsreq{FR-LRN-6}), incomplete-session handling (\srsreq{SR-8}), the hidden-item filter (\srsreq{SR-12}),
+the flash limit (\srsreq{SR-6}), the export record count (\srsreq{SR-16}), the low defaults
+(\srsreq{SR-4}), the invite-code expiry check (\srsreq{FR-TEAM-1}), and the start-cue gate
+(\srsreq{SR-5}). The mutation score is the fraction of faults detected by at least one
 failing test. Every surviving fault leads to a new or strengthened test.
 
 \subsection{Implementation Verification}
@@ -333,8 +340,8 @@ from a member other than its author, following the rotation in
 Section~\ref{sec:team}. The reviewer confirms that the change follows the
 coding standard, uses static typing, includes or updates tests, contains no
 credentials, and respects the relevant safety requirements. For example, no
-audio or animation may start before the Learner's start cue (SR-5), and Learner
-error messages must be calm and short (SR-7).
+audio or animation may start before the Learner's start cue (\srsreq{SR-5}), and Learner
+error messages must be calm and short (\srsreq{SR-7}).
 
 \paragraph{Code walkthroughs.} The team holds a 60-minute walkthrough for each
 of these safety- or privacy-critical areas: access control and permissions,
@@ -350,10 +357,10 @@ dependency scanning, and secret scanning run automatically
 fail.
 
 \paragraph{Inspection of Learner-facing assets.} Screen captures are recorded to count flashes in every one-second window to check
-SR-6 (no more than three). The the default settings stored for each game are reviewed for low stimulation, volume, and celebration intensity (SR-4), and every task is checked so that it can be completed with touch or mouse input (SR-10).
+\srsreq{SR-6} (no more than three). The the default settings stored for each game are reviewed for low stimulation, volume, and celebration intensity (\srsreq{SR-4}), and every task is checked so that it can be completed with touch or mouse input (\srsreq{SR-10}).
 
 \paragraph{Platform verification.} The manual platform matrix for
-NFR-PORT-1 to NFR-PORT-3 is run on physical tablets owned by the team, and iOS and Android
+\srsreq{NFR-PORT-1} to \srsreq{NFR-PORT-3} is run on physical tablets owned by the team, and iOS and Android
 simulators or emulators for older operating system versions, and Chrome,
 Firefox, and Edge.
 
@@ -396,13 +403,13 @@ it gives the test ID from Sections 4 and 5 and the requirement ID it supports,
 so that the traceability tables can be checked against the code. The team will use three GUT features in particular:
 \begin{itemize}
   \item doubles and stubs replace the server connection, so that behaviour such
-  as queuing results when the connection is lost (FR-DATA-8, SR-9) can be tested
+  as queuing results when the connection is lost (\srsreq{FR-DATA-8}, \srsreq{SR-9}) can be tested
   without a network;
   \item parameterized tests run the same check over several inputs, such as
-  correct, incorrect, expired, and reused pairing and invite codes (FR-DEV-4,
-  FR-TEAM-1); and
+  correct, incorrect, expired, and reused pairing and invite codes (\srsreq{FR-DEV-4},
+  \srsreq{FR-TEAM-1}); and
   \item signal watching confirms that game state changes, such as pausing,
-  restarting, and aborting, emit the expected signals (FR-PLAY-5 to FR-PLAY-7).
+  restarting, and aborting, emit the expected signals (\srsreq{FR-PLAY-5} to \srsreq{FR-PLAY-7}).
 \end{itemize}
 
 \paragraph{gdlint and gdformat.} These two command-line tools come from
@@ -452,14 +459,14 @@ The feedback from your supervisor will be very useful for improving your project
 \wss{For teams without an external supervisor, user testing can serve the same purpose 
 as a Rev 0 demo for the supervisor.}
 
-\wss{This section might reference back to the SRS verification section.}
+\wss{This section might reference back to the \srsdoc{} verification section.}
 
 \label{sec:validation}
 
-For external data that can be used for validation, \progname{} can be validated via the Ontario elementary curriculum for Grades 3 to 5 (NFR-ACCU-2), the WCAG~2.x flashing
-criterion (SR-6), PIPEDA, GDPR, and app store rules for children's apps (SRS
+For external data that can be used for validation, \progname{} can be validated via the Ontario elementary curriculum for Grades 3 to 5 (\srsreq{NFR-ACCU-2}), the WCAG~2.x flashing
+criterion (\srsreq{SR-6}), PIPEDA, GDPR, and app store rules for children's apps (\srsdoc{}
 Section 7.3). Table~\ref{tab:validation} lists the validation activities and
-the stakeholder requirements from SRS Section 3 that each one addresses.
+the stakeholder requirements from \srsdoc{} Section 3 that each one addresses.
 
 \begin{table}[htbp]
 \centering\small
@@ -470,44 +477,44 @@ the stakeholder requirements from SRS Section 3 that each one addresses.
 \toprule
 \textbf{ID} & \textbf{Activity} & \textbf{Participants} & \textbf{Validates}\\
 \midrule
-V1 & SRS task-based review (Section~\ref{sec:srs-ver}) & Supervisor & All
+V1 & \srsdoc{} task-based review (Section~\ref{sec:srs-ver}) & Supervisor & All
 stakeholder requirements\\
-V2 & Rev 0 demo to supervisor & Supervisor & SR-LRN, SR-CTM, SR-DOM,
-SR-CUST\\
+V2 & Rev 0 demo to supervisor & Supervisor & \srsreqtext{SR-LRN-1}{SR-LRN}, \srsreqtext{SR-CTM-1}{SR-CTM}, \srsreqtext{SR-DOM-1}{SR-DOM},
+\srsreqtext{SR-CUST-1}{SR-CUST}\\
 V3 & CTM usability sessions and survey & At least 10 adults in CTM-like roles &
-SR-CTM-5, SR-CTM-6, SR-CUST-1; NFR-USE-1 to NFR-USE-4, NFR-PERF-1\\
+\srsreq{SR-CTM-5}, \srsreq{SR-CTM-6}, \srsreq{SR-CUST-1}; \srsreq{NFR-USE-1} to \srsreq{NFR-USE-4}, \srsreq{NFR-PERF-1}\\
 V4 & Learner-facing proxy play-testing & Supervisor and special-education
-educators & SR-LRN-1 to SR-LRN-4, SR-DOM-2, SR-DOM-3; NFR-USE-5\\
+educators & \srsreq{SR-LRN-1} to \srsreq{SR-LRN-4}, \srsreq{SR-DOM-2}, \srsreq{SR-DOM-3}; \srsreq{NFR-USE-5}\\
 V5 & Curriculum alignment review & Supervisor, and an educator where
-available & SR-CTM-1, SR-DOM-1, SR-DOM-4; NFR-ACCU-2\\
-V6 & Non-clinical wording review & Team and supervisor & SRS Section 2.1 and
-ULC8\\
+available & \srsreq{SR-CTM-1}, \srsreq{SR-DOM-1}, \srsreq{SR-DOM-4}; \srsreq{NFR-ACCU-2}\\
+V6 & Non-clinical wording review & Team and supervisor & \srsdoc{} Section 2.1 and
+\srsulc\\
 \bottomrule
 \end{tabularx}
 \end{table}
 
 \paragraph{V2: Rev 0 demo to the supervisor.} The team will demonstrate
 \progname{} to the supervisor shortly after the scheduled Rev 0 demo. The
-demonstration follows five scripted scenarios: (1)~a CTM registers (UC7), adds
-a Learner, and pairs a tablet (UC2); (2)~the CTM personalizes settings (UC4)
-and creates and assigns a Template (UC5); (3)~the Learner plays a game, using
-pause and the guide, and claims a reward (UC1, UC6); (4)~the CTM reviews and
-exports the Learner's data (UC3); and (5)~the Primary CTM invites another CTM
-and edits their permissions (UC9, UC10). Afterward the supervisor completes a
-feedback form that rates each stakeholder requirement in SRS Section 3 as
+demonstration follows five scripted scenarios: (1)~a CTM registers (\srsuc{7}), adds
+a Learner, and pairs a tablet (\srsuc{2}); (2)~the CTM personalizes settings (\srsuc{4})
+and creates and assigns a Template (\srsuc{5}); (3)~the Learner plays a game, using
+pause and the guide, and claims a reward (\srsuc{1}, \srsuc{6}); (4)~the CTM reviews and
+exports the Learner's data (\srsuc{3}); and (5)~the Primary CTM invites another CTM
+and edits their permissions (\srsuc{9}, \srsuc{10}). Afterward the supervisor completes a
+feedback form that rates each stakeholder requirement in \srsdoc{} Section 3 as
 satisfied, partly satisfied, or not satisfied, with comments. Every
 partial or unsatisfied rating is turned into an issue labelled \texttt{validation}, and
 the team prioritizes these with the supervisor and resolves them before the
-final demo. Changes to requirements are recorded in the SRS revision history.
+final demo. Changes to requirements are recorded in the \srsdoc{} revision history.
 
 \paragraph{V3: CTM usability sessions.} At least 10 adults will be recruited
 in roles close to the CTM personas, such as parents, educators, and
-special-education staff, through the supervisor and the team's contacts. At least 10 are needed to be able to satisfy the 90\% requirement in NFR-USE-1-4. 
+special-education staff, through the supervisor and the team's contacts. At least 10 are needed to be able to satisfy the 90\% requirement in \srsreq{NFR-USE-1} to \srsreq{NFR-USE-4}.
 Each participant attempts these tasks while an observer records time, errors, and
 comments: create an account, add and pair a Learner, invite a CTM, personalize a
 game, and read the dashboard. Participants then complete the survey in the
 Appendix. A second session at least one day later repeats the tasks to measure
-memorability (NFR-USE-3).
+memorability (\srsreq{NFR-USE-3}).
 
 \paragraph{V4: Learner-facing validation.} Testing with children is research
 involving human participants and would need ethics clearance, so the team will
@@ -517,7 +524,7 @@ play-test the games as proxies, using an observation guide that asks whether
 anything would overstimulate or understimulate a Learner, whether instructions
 are unambiguous, and whether a Learner could retry freely and feel a sense of
 accomplishment. Their findings stand in for the Learner measurement in
-NFR-USE-5, and the report of that measurement states that proxies were used.
+\srsreq{NFR-USE-5}, and the report of that measurement states that proxies were used.
 
 \paragraph{V5: Curriculum alignment review.} A table is made that maps the content and each difficulty level of every game to Grade 3 to 5 curriculum
 expectations from the Ontario Ministry of Education. The supervisor reviews the
@@ -527,10 +534,10 @@ team review it where available.
 \paragraph{V6: Non-clinical wording review.} Before each demo, the team checks
 user-visible text and dashboard labels to confirm that they describe
 performance inside the games only and do not claim diagnosis or broader
-developmental improvement (SRS Section 2.1 and ULC8). The supervisor reviews any
+developmental improvement (\srsdoc{} Section 2.1 and \srsulc). The supervisor reviews any
 wording the team is unsure about.
 
-\paragraph{Compliance check.} Each commitment in SRS Section 7.3 is mapped to
+\paragraph{Compliance check.} Each commitment in \srsdoc{} Section 7.3 is mapped to
 the relevant PIPEDA and GDPR principles and to the app store children's-app
 rules, and then verifies that the implementation provides the corresponding
 behaviour.
@@ -548,14 +555,14 @@ the contents of the subsections.}
   level of document structure can be removed.}
 
 \wss{Include a blurb here to explain why the subsections below
-  cover the requirements.  References to the SRS would be good here.}
+  cover the requirements.  References to the \srsdoc{} would be good here.}
 
 \subsubsection{Area of Testing1}
 
 \wss{It would be nice to have a blurb here to explain why the subsections below
-  cover the requirements.  References to the SRS would be good here.  If a section
+  cover the requirements.  References to the \srsdoc{} would be good here.  If a section
   covers tests for input constraints, you should reference the data constraints
-  table in the SRS.}
+  table in the \srsdoc{}.}
 		
 \paragraph{Title for Test}
 
