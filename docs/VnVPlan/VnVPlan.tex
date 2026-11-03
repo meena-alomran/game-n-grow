@@ -96,49 +96,149 @@ This document ... \wss{provide an introductory blurb and roadmap of the
 
 \subsection{Summary}
 
-\wss{Say what software is being tested.  Give its name and a brief overview of
-  its general functions.}
+Spectropica is a customizable educational game suite designed to help autistic
+Learners practise skills through interactive activities. The initial games focus
+on routine sequencing, functional communication, and short-term memory. Care
+Team Members (CTMs), including parents, caregivers, and educators, can
+personalize the games based on each Learner's needs, preferences, and abilities.
+
+The system includes Learner profiles, configurable game settings, reusable
+Templates, rewards, and a Dashboard for reviewing gameplay results. CTMs can
+manage Learner profiles, assign games, adjust settings, and control access
+permissions. Learners can participate in games using features such as
+instructions, pause and restart controls, and rewards. Spectropica also supports
+device pairing, gameplay data storage, and synchronization. The system
+prioritizes iPadOS and Android tablets, with web access also planned.
+
+Spectropica is intended to provide educational practice and activity-specific
+performance information. It is not designed for clinical diagnosis or to
+establish broader developmental improvements.
 
 \subsection{Objectives}
 
-\wss{State what is intended to be accomplished.  The objective will be around
-  the qualities that are most important for your project.  You might have
-  something like: ``build confidence in the software correctness,''
-  ``demonstrate adequate usability.'' etc.  You won't list all of the qualities,
-  just those that are most important.}
+The objective of the Verification and Validation (VnV) Plan is to build confidence that Spectropica meets its documented requirements and is suitable for its intended users. Verification will assess whether the system has been developed according to its specifications, while validation will evaluate whether it meets the needs of Learners and CTMs.
 
-\wss{You should also list the objectives that are out of scope.  You don't have 
-the resources to do everything, so what will you be leaving out.  For instance, 
-if you are not going to verify the quality of usability, state this.  It is also 
-worthwhile to justify why the objectives are left out.}
+The VnV activities will prioritize the qualities identified as most important in the Software Requirements Specification (SRS) and Hazard Analysis. In particular, the Hazard Analysis prioritizes Learner wellbeing and privacy because failures in these areas could result in significant harm. As a result, particular attention will be given to preventing inappropriate sensory stimulation, unauthorized access to Learner information, incorrect gameplay configurations, and inaccurate or lost performance records.
 
-\wss{The objectives are important because they highlight that you are aware of 
-limitations in your resources for verification and validation.  You can't do everything, 
-so what are you going to prioritize?  As an example, if your system depends on an 
-external library, you can explicitly state that you will assume that external library 
-has already been verified by its implementation team.}
+The primary VnV objectives are outlined below.
+
+\begin{description}
+
+  \item[Learner Wellbeing, Accessibility, and Usability.] Establish confidence that Spectropica provides an accessible, understandable, and appropriate environment for Learners. Verification will examine sensory stimulation, gameplay initiation, flashing restrictions, error messages, and gameplay controls, as specified in SR-4 through SR-7 and SR-11. Validation will include CTM usability testing and Learner-focused evaluations. By default, the supervisor and special-education educators will play-test the games as proxies to evaluate sensory suitability, clarity of instructions, accessibility, and opportunities for independent participation. Direct testing with autistic Learners will only be conducted if recommended by the supervisor and the necessary ethics clearance and participant access are obtained. These activities will support evaluation of NFR-USE-1 through NFR-USE-5, with the limitations of proxy testing clearly documented.
+
+  \item[Functional Correctness and Configuration.] Verify that the games, Learner profiles, Templates, rewards, and CTM permissions function according to the SRS. Testing will focus on ensuring that CTMs can correctly configure and assign games, that the selected settings are applied during gameplay, and that Learners can interact with the games as intended. Requirements-based testing, design reviews, and implementation checks will be used to identify inconsistencies between expected and actual system behaviour.
+
+  \item[Privacy, Security, and Data Integrity.] Establish confidence that Learner information and gameplay records are protected against unauthorized access, loss, and corruption. Verification will examine CTM permissions (FR-TEAM-7), security requirements (NFR-SEC-1 through NFR-SEC-3), and the privacy and data-handling commitments in SRS Section 7.3. Particular attention will be given to incomplete-session handling, successful data saves, accurate exports, backups, and deletion procedures, as addressed by SR-8, SR-13, and SR-16 through SR-18. The system's implementation will also be reviewed against the applicable privacy and children's-app requirements identified in the SRS.
+
+  \item[Reliability and Recovery.] Verify that Spectropica behaves predictably during interrupted gameplay, connectivity loss, and unsuccessful data operations. Testing will assess whether incomplete sessions are handled appropriately, authorized gameplay can continue during connectivity interruptions using available cached settings, and data is only reported as saved when the operation has been confirmed. These objectives are supported by SR-8, SR-9, and SR-13.
+
+  \item[Educational Content Suitability.] Evaluate whether the content and difficulty levels of the games align with Ontario's Grades 3--5 elementary curriculum, as required by NFR-ACCU-2. Each game's content and difficulty levels will be mapped to relevant curriculum expectations and reviewed with the supervisor, with additional educator input where available. This will help establish that the games are appropriate for their intended educational purpose, rather than only confirming that they function correctly.
+
+  \item[CTM Usability and Performance.] Evaluate whether CTMs can complete common tasks efficiently and understand the information presented by the system. Usability testing will involve at least 10 adults in CTM-like roles, such as parents, caregivers, educators, and special-education staff. Participants will complete representative tasks involving account creation, Learner setup, device pairing, CTM permissions, game configuration, and Dashboard interpretation. Their performance, feedback, and survey responses will be used to assess NFR-USE-1 through NFR-USE-4 and NFR-PERF-1. Repeated sessions will also help evaluate how easily CTMs remember how to use the system.
+
+  \item[Stakeholder Validation.] Validate that Spectropica addresses its intended purpose through supervisor and domain expert feedback, prototype demonstrations, CTM usability sessions, and Learner-focused evaluations. Reviews with the supervisor will assess whether the system meets stakeholder expectations and identify requirements that need improvement. CTM testing will provide direct feedback on configuration, navigation, and progress tracking, while educator and expert proxy evaluations will assess Learner-facing gameplay. Direct Learner participation will remain conditional on supervisor guidance and ethics clearance. Findings from these activities will be documented and used to guide improvements to the system.
+
+\end{description}
+
+All requirements in the SRS are included within the planned academic-year scope, with no requirements intentionally deferred. However, the team recognizes that not all requirements can necessarily be supported by the same type of evidence. Design reviews will assess whether planned components and interfaces are appropriately specified, while implementation and system testing will assess their actual behaviour. Validation results will also distinguish between feedback from intended users and feedback from experts acting as proxies. In particular, proxy evaluations can identify potential usability concerns but cannot independently establish that the 80\% Learner participation target in NFR-USE-5 has been achieved. Any requirements that cannot be fully verified or validated will be identified along with the limitations of the available evidence.
+
+\subsubsection*{Objectives Outside the Scope of VnV}
+
+Although all SRS requirements remain within the project scope, the following broader objectives are excluded from VnV:
+
+\begin{itemize}
+
+  \item \textbf{Clinical or long-term developmental effectiveness:} The team will not attempt to establish whether Spectropica produces clinical improvements or long-term developmental outcomes. Doing so would require specialized studies beyond the project's educational purpose and available resources.
+
+  \item \textbf{Exhaustive verification of third-party software and infrastructure:} The team will not independently verify the internal correctness of external components such as the Godot engine, operating systems, or hosting services. However, Spectropica's integration with these components and its behaviour during relevant failures will still be tested.
+
+  \item \textbf{Compatibility with unsupported platforms:} Verification will focus on the platforms and environments specified for Spectropica. Comprehensive compatibility testing across devices, operating systems, and browsers outside the supported scope is excluded due to the project's time and resource constraints.
+
+\end{itemize}
+
+These exclusions allow the team to focus its VnV efforts on the correctness, safety, privacy, usability, and educational suitability of Spectropica while remaining realistic about the limitations of an academic-year project.
 
 \subsection{Custom Documents}
 
-\wss{Summarize the CDs (Custom Documents) that were tackled by this project.  CDs 
-can include usability testing, code walkthroughs, user documentation, formal
-proof, GenderMag personas, Design Thinking, etc.  CDs should have already
-been approved by the course instructor as included in your problem statement.
-You can use a pull request to update your CDs (in TeamComposition.csv or
-Repos.csv) if your plan changes as a result of the VnV planning exercise.}
+Two custom documents were approved for Spectropica, as identified in the
+\href{https://github.com/meena-alomran/game-n-grow/blob/main/docs/ProblemStatementAndGoals/ProblemStatement.tex}{Problem
+Statement and Goals}.
+
+\textbf{Interview Report - Fall Semester:} This document will summarize
+stakeholder interviews and feedback regarding the needs, preferences, and
+expectations of Learners and CTMs. It will help the team better understand
+accessibility considerations, gameplay expectations, and progress-tracking
+needs. The findings will support validation of the project's requirements and
+inform design improvements.
+
+\textbf{Usability Evaluation Report - Winter Semester:} This document will
+present the results of usability evaluations involving CTMs and Learner-focused
+testing. It will examine how users interact with the prototype, including CTM
+configuration tasks, Dashboard interpretation, and the accessibility and
+suitability of Learner-facing games. The report will document observations,
+participant feedback, identified usability concerns, improvements, and any
+limitations of the evaluation methods.
+
+Together, these documents will provide evidence that Spectropica has been
+developed with consideration for its intended users and evaluated against their
+needs.
 
 \subsection{Relevant Documentation}
 
-\wss{Reference relevant documentation.  This will definitely include your \srsdoc{}
-  and your other project documents (design documents, like MG, MIS, etc).  You
-  can include these even before they are written, since by the time the project
-  is done, they will be written.  You can create BibTeX entries for your
-  documents and within those entries include a hyperlink to the documents.}
+The following documents provide the requirements, design information, and
+evaluation criteria used to guide Spectropica's verification and validation
+activities.
 
-\srsdoc
+\textbf{\href{https://github.com/meena-alomran/game-n-grow/blob/main/docs/SRS-IEEE/SRS.tex}{Software
+Requirements Specification (SRS)}:} The SRS serves as the primary reference for
+verification by defining the system's functional, non-functional, safety,
+security, and data requirements. These requirements establish the expected
+behaviour and acceptance criteria against which the implementation will be
+evaluated. They also provide the basis for requirements traceability and test
+case development.
 
-\wss{Don't just list the other documents.  You should explain why they are relevant and 
-how they relate to your VnV efforts.}
+\textbf{\href{https://github.com/meena-alomran/game-n-grow/blob/main/docs/HazardAnalysis/HazardAnalysis.tex}{Hazard
+Analysis}:} The Hazard Analysis identifies potential failures that could affect
+Learner wellbeing, privacy, system reliability, and data integrity. Its hazards,
+safety requirements, and recommended mitigations help determine which areas
+require the greatest attention during verification and validation. It also
+provides a basis for developing safety-related tests and reviewing how the
+system responds to potentially harmful conditions.
+
+\textbf{\href{https://github.com/meena-alomran/game-n-grow/blob/main/docs/ProblemStatementAndGoals/ProblemStatement.tex}{Problem
+Statement and Goals}:} This document describes the problem Spectropica aims to
+address, its intended users, and the project's goals and success criteria. It
+supports validation by establishing the purpose of the system and the user needs
+that the completed software should address. It also identifies the approved
+custom documents.
+
+\textbf{\href{https://github.com/meena-alomran/game-n-grow/blob/main/docs/DevelopmentPlan/DevelopmentPlan.tex}{Development
+Plan}:} The Development Plan describes the team's development process, tools,
+and implementation approach. It informs the selection of appropriate
+verification activities, including code reviews, automated testing, integration
+testing, and other quality assurance practices used throughout development.
+
+\textbf{Module Guide (MG) and Module Interface Specification (MIS):} These
+design documents will provide information about Spectropica's module structure,
+responsibilities, interfaces, and interactions. They will support design
+verification by allowing the team to review whether the proposed architecture
+satisfies the requirements and whether module interfaces are defined
+consistently. They will also inform module-level and integration testing.
+
+\textbf{Interview Report:} The Interview Report will document stakeholder
+feedback gathered during the Fall semester. Its findings will help the team
+assess whether the system's requirements and design decisions reflect the needs
+of Learners and CTMs.
+
+\textbf{Usability Evaluation Report:} The Usability Evaluation Report will
+document the results of the Winter semester usability activities, including CTM
+testing and Learner-focused evaluations. It will provide evidence for assessing
+usability requirements, identifying areas for improvement, and explaining any
+limitations of the validation results.
+
+Together, these documents will support a requirements-based VnV process by
+connecting the project's goals, specifications, design decisions,
+implementation, and evaluation results.
 
 \section{Plan}
 
@@ -816,61 +916,165 @@ Their values are defined in this section for easy maintenance.
 
 \section{Appendix --- Generative AI Use Disclosure}
 
-\wss{ChatGPT (version 5) was used to brainstorm ideas for the template for this disclose section.}
+This appendix describes the artificial intelligence (AI) tools used during
+document preparation, their uses, and how the team reviewed the resulting edits.
 
 \subsection{AI Tools Used}
 
-\wss{Give the name of the AI tool(s) used and the version.}
+The team used ChatGPT (OpenAI, GPT-6) to assist with document preparation and
+proofreading.
 
 \subsection{How and Where Used}
 
-\wss{Explain what the tool(s) were used for.  Examples include: brainstorming,
-explaining a technical concept, reviewing the document, generating or modifying
-text, generating or modifying diagrams, identifying errors or omissions or
-inconsistencies.}
-
-\wss{For each of the uses, identify which parts of the document were affected.}
-
-\wss{You do not need to report every interaction, but you should disclose the 
-uses that materially contributed to your work}
+ChatGPT assisted with \LaTeX{} formatting, grammar, spelling, and
+clarity edits to existing text throughout the VnV Plan. The team developed all
+technical content, requirements, and testing approaches; the tools were used
+only to format and refine the wording of that content.
 
 \subsection{Verification of AI-Generated Content}
 
-\wss{\begin{itemize}
-    \item Describe how the team checked AI-generated or AI-assisted material
-    before including it in the document.
-    \item In particular, verify factual claims, technical assertions,
-    requirements, calculations, references, and other information for which an
-    AI system may produce incorrect or fabricated results.
-    \item \textbf{The team is responsible for the accuracy, completeness,
-consistency, and appropriateness of the submitted document, regardless of
-whether material was generated by a human or an AI system.}
-\end{itemize}}
+The team reviewed all AI-assisted formatting and language edits before including
+them in the final document. The review checked that edits preserved the original
+meaning and that technical information, requirement references, and testing
+details remained accurate and consistent with the project's documentation. The
+team takes full responsibility for the accuracy, completeness, consistency, and
+quality of the submitted VnV Plan.
 
 \newpage{}
 
 \section{Appendix --- Reflection}
 
-\wss{This section is not required for CAS 741}
-
-The information in this section will be used to evaluate the team members on the
-graduate attribute of Lifelong Learning.
-
-\input{../Reflection.text}
+The following responses reflect on preparing the verification and validation
+(VnV) Plan and the skills needed to carry out the planned activities.
 
 \begin{enumerate}
-  \item What went well while writing this deliverable? 
-  \item What pain points did you experience during this deliverable, and how
-    did you resolve them?
-  \item What knowledge and skills will the team collectively need to acquire to
-  successfully complete the verification and validation of your project?
-  Examples of possible knowledge and skills include dynamic testing knowledge,
-  static testing knowledge, specific tool usage, Valgrind etc.  You should look to
-  identify at least one item for each team member.
-  \item For each of the knowledge areas and skills identified in the previous
-  question, what are at least two approaches to acquiring the knowledge or
-  mastering the skill?  Of the identified approaches, which will each team
-  member pursue, and why did they make this choice?
+
+\item \textbf{What went well while writing this deliverable?}
+
+One aspect that went well while working on the VnV Plan was completing the
+deliverable ahead of schedule. This gave our team additional time to peer review
+each other's sections, provide feedback, and make revisions before submission.
+Having this extra time allowed us to identify areas that needed clarification
+and ensure that the different sections were consistent with one another. Another
+positive aspect was the opportunity to meet with our supervisor and domain
+expert, who provided valuable feedback that we were able to incorporate into the
+deliverable. Her insight helped us better understand the needs of our intended
+users and consider important factors when developing our verification and
+validation plans. Overall, completing the deliverable early and incorporating
+feedback from both our team members and supervisor helped us strengthen the
+quality of our work.
+
+\item \textbf{What pain points did you experience during this deliverable, and
+how did you resolve them?}
+
+One of the main challenges we encountered was deciding which testing methods and
+test cases would be most appropriate for Spectropica. Since our system includes
+several different features and user interactions, it was difficult to determine
+how to evaluate everything thoroughly while keeping our testing plans realistic
+and achievable within the project timeline.
+
+To address this, we focused on identifying the most important features of our
+system and prioritizing the testing activities associated with them. We also
+considered the feedback provided by our supervisor to help guide our decisions.
+This process helped us recognize that an effective VnV Plan is not simply about
+including as many tests as possible, but about selecting meaningful tests that
+address the system's requirements and most important risks.
+
+\item \textbf{What knowledge and skills will the team collectively need to
+acquire to successfully complete the verification and validation of the
+project?}
+
+\textbf{Amirah --- Test Planning and Requirements-Based Verification}
+
+One skill I would like to further develop is designing effective test cases and
+selecting appropriate verification methods based on software requirements.
+Although I have experience working with software requirements and testing
+concepts, applying them to a larger project with multiple interconnected
+features requires additional consideration. Developing this skill will help me
+identify which requirements need particular attention, establish clear expected
+outcomes, and ensure that our testing activities provide meaningful evidence of
+whether Spectropica meets its intended objectives.
+
+\textbf{Maya --- Usability Test Design}
+
+I would like to improve my ability to turn usability requirements into clear
+tasks and measurable results. Spectropica's SRS includes goals such as CTMs
+being able to configure Learner profiles with little difficulty, but evaluating
+this requires defining what counts as difficulty and how it will be recorded.
+Learning to design task-based usability evaluations would help me choose
+appropriate observations and questions, avoid leading participants, and
+distinguish problems with the interface from differences in users' experience.
+
+\textbf{Meena --- System and Integration Testing}
+
+Although I have a lot of experience from both university and co-op in writing unit tests and doing smoke testing,
+I haven't done a lot of larger-scale tests like integration tests and system tests. It will be new to have to test,
+both manually and through automation, that the larger components fit together. I also usually did not have to think
+about usability in my co-op. I was always just carrying out the specifications made by the UI/UX team. I will have to think
+critically about this aspect, especially while designing for children.
+
+\textbf{Marko --- Godot Specific Testing}
+
+I already have experience and knowledge with Godot's systems, but as for testing and validation I have only used basic debugging tools and relying on players to catch bugs. I have yet to work on something that requires this much care in regards to the amount of important requirements and things that require validation.
+
+
+\textbf{Omar --- Full Stack Testing}
+
+I have experience building full stack web applications, but I have never used a game engine to export or import data and interact with databases in real time. Debugging a frontend-backend issue has been a skill I've developed over time, but across a game engine with highly sensitive information, it is definitely a new level of security and privacy management I will acquire over the course of the project.
+
+
+\item \textbf{For each knowledge area or skill identified in Question 3, what
+are at least two ways to acquire it? Which approach will each team member
+pursue, and why?}
+
+\textbf{Amirah --- Test Planning and Requirements-Based Verification}
+
+Two ways I could further develop this skill are reviewing software testing
+resources and examples of requirements-based test plans, or gaining hands-on
+experience by developing test cases directly from Spectropica's SRS.
+
+My preferred approach would be to work directly with our project's requirements
+and develop test cases based on the functionality and expected behaviour
+described in the SRS. This would allow me to apply testing concepts to our
+actual system rather than learning them only in theory. I could also use
+relevant course materials and examples as references when I encounter unfamiliar
+testing methods. I believe this approach would be the most beneficial because it
+would help me strengthen my understanding of verification and validation while
+directly contributing to our project's testing efforts.
+
+\textbf{Maya --- Usability Test Design}
+
+Two approaches I could take are studying usability-testing guides and example
+evaluations, or developing a small evaluation for one Spectropica workflow and
+practising it with a teammate.
+
+I would choose the practical approach, supported by relevant guides. For
+example, I could write a task for adding and pairing a Learner, define what
+successful completion looks like, and record errors, requests for help, and
+participant feedback during a trial run. Reviewing the trial would help me
+identify unclear instructions or measurements before using the procedure with
+intended users. A teammate's trial would help improve the evaluation method, but
+would not replace testing with CTMs or Learners.
+
+\textbf{Meena --- Research and Studying}
+
+To learn more about system and integration testing, I will have to do some research - especially
+regarding the specific tech stack that we are using. There is most likely documentation available online, and I think
+it would also help a lot to study open-source projects that are using our same technologies. I can also review my notes
+from SFWRENG 3SO3, in which we studied all kinds of testing. For usability, we are studying this in our SFWRENG 3HC3 course (human-computer interfaces).
+So that course can be a helpful frame of referenes for what kinds of considerations I need to make.
+
+\textbf{Marko --- Godot Specific Testing}
+
+One approach I could use is researching the best practices for GUT and integrating it with the rest of the tech stack. I also know that for different types of games, testing comes in different forms. I can try and figure out specific testing approaches that other similar games use and see if they can be implemented into ours.
+Another approach in tandem with the first would be to create a small practice project on the side with a similar tech stack and situation to Spectropica, so as to gain actual experience and skill.
+
+\textbf{Omar --- Full Stack Testing}
+
+The approach in this case is to read about how other systems handle sensitive data, perhaps in the medical field. I am also taking a Data Privacy elective next semester that will aid me in understanding conventions that are applicable to this project.
+
+Regarding design, I will join groups and read forums regarding how game developers are able to debug across a wide range of tools without getting lost trying to find a bug across several platforms. It is fundamentally similar to the full stack debugging in web development, but the structure and process likely has conventions that I do not know of.
+
 \end{enumerate}
 
 \end{document}
