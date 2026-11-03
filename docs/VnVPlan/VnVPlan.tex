@@ -1111,41 +1111,163 @@ format for the tests given below.}
 How will they be done?  In cases like code (or document) walkthroughs, who will
 be involved? Be specific.}
 
-\subsubsection{Area of Testing1}
-		
-\paragraph{Title for Test}
+The following subsections map to the different categories of nonfunctional requirements in \href{../../pdfs/SRS-IEEE/SRS.pdf}{section 8 of the SRS}, with some combined with each other due to overlap in testing strategies.
+
+\subsubsection{Usability and Performance}
 
 \begin{enumerate}
 
-\item{test-id1\\}
+\item{test-nfr-use-1\\}
 
-Type: Functional, Dynamic, Manual, Static etc.
+Type: Functional, Manual, Dynamic
 					
-Initial State: 
+Initial State: Software is running on a compatible device, with no account logged in.
 					
-Input/Condition: 
+Input/Condition: (symb const) individuals in the age range (symb const) of a potential CTM go through the account setup process, inputting their information and proceeding through the steps. Participants complete a usability survey afterwards.
 					
-Output/Result: 
+Output/Result: Accounts are created with the individuals' information. (Symb const)\% of participants report (symb const) ease of use and satisfaction with performance.
 					
-How test will be performed: 
-					
-\item{test-id2\\}
+How test will be performed: In-person sessions will be scheduled with participants. The developers will facilitate the test with their personal device and administer the survey afterwards on the same device through a Google form.
 
-Type: Functional, Dynamic, Manual, Static etc.
+\item{test-nfr-use-2\\}
+
+Type: Functional, Manual, Dynamic
 					
-Initial State: 
+Initial State: Software is running on a compatible device, with a sample CTM account signed in and a sample Learner device paired.
 					
-Input: 
+Input/Condition: (symb const) individuals in the age range (symb const) of a potential CTM are given a series of actions to complete on the software such as navigating to a view or changing a setting. Participants will be asked to do each action three times total. Participants will complete a usability survey afterwards.
 					
-Output: 
+Output/Result: The participants are able to complete the specified actions. There is a (symb const) increase of speed in completing these actions when doing so for the third time. (Symb const)\% of participants report (symb const) ease in doing and learning these actions.
 					
-How test will be performed: 
+How test will be performed: In-person sessions will be scheduled with participants. The developers will facilitate the test with their personal devices, time how long the participants take to complete actions, and administer the survey afterwards on the same device through a Google form.
+
+\item{test-nfr-use-3\\}
+
+Type: Functional, Manual, Dynamic
+					
+Initial State: Software is running on a compatible device, with a sample CTM account signed in and a sample Learner device paired.
+					
+Input/Condition: (symb const) CTM's for an autistic child (who we will refer to as the Learner) in the intended age range (symb const) facilitates playing one game. Both CTM and Learner complete a usability survey afterwards.
+					
+Output/Result: The game is completed. (Symb const)\% of CTM participants report (symb const) ease in facilitating gameplay. (Symb const) of Learner participants report (symb const) ease of participating in gameplay (the CTM may answer on their behalf).
+					
+How test will be performed: In-person sessions will be scheduled with participants. The developers will facilitate the test with their personal devices and administer the surveys afterwards on the same device through Google forms.
 
 \end{enumerate}
 
-\subsubsection{Area of Testing2}
+\subsubsection{Accuracy and Efficiency}
 
-...
+\begin{enumerate}
+
+\item{test-nfr-acc-1\\}
+
+Type: Functional, Manual, Dynamic
+
+Initial State: Software is running on a compatible device, with a sample CTM account signed in and a sample Learner device paired.
+					
+Input/Condition: 1-2 developers will simulate gameplay data for a chosen game, recording the sessions.
+
+Output/Result: The data view for the game contains these sessions' data. The data is visualized in this view across at least 2 metrics. Observations of trends made by 2 developers who did not participate in simulating data are aligned with the gameplay sessions.
+					
+How test will be performed: 3-4 developers will carry out the test in-person using 2 of their personal devices (one for the CTM account and one for the Learner device). The developers will spend 15 minutes reviewing the data to measure whether data is indeed quickly understood through visualizations.
+
+\item{test-nfr-acc-2\\}
+
+Type: Non-functional, Manual, Static
+
+Initial State: The contents of the games implemented within the scope of capstone are summarized in a document by the developers.
+
+How test will be performed: (Symb const) educators in Ontario who have taught or are currently teaching students in intended age group (Const) will review the document outlined above within a week.
+
+Result: The participants will confirm that the games' educational aspects are aligned with Ontario's curriculum for (intended age group).
+ 
+\end{enumerate}
+
+\subsubsection{Portability}
+
+\begin{enumerate}
+
+\item{test-nfr-port-1\\}
+
+Type: Non-functional, Manual, Dynamic
+
+Initial State: An iPad running iPadOS 27 is available for developers' use.
+					
+Input/Condition: The software will be installed on the device.
+
+Output/Result: The software is successfully installed and ran on the device.
+					
+How test will be performed: 1 developer will carry through the test on the device.
+
+\item{test-nfr-port-2\\}
+
+Type: Non-functional, Manual, Dynamic
+
+Initial State: An Android Tablet running Android 17 is available for developers' use.
+					
+Input/Condition: The software will be installed on the device.
+
+Output/Result: The software is successfully installed and ran on the device.
+					
+How test will be performed: 1 developer will carry out the test on the device.
+
+\item{test-nfr-port-2\\}
+
+Type: Non-functional, Manual, Dynamic
+
+Initial State: A laptop is available for developers' use; will likely be a personal laptop.
+					
+Input/Condition: Running the software will be attempted on the following browsers: Google Chrome, Mozilla Firefox, and Microsoft Edge.
+
+Output/Result: The software successfully runs on the browsers.
+					
+How test will be performed: 1 developer will carry out the test on the laptop.
+
+\end{enumerate}
+
+\subsubsection{Security}
+
+\begin{enumerate}
+
+\item{test-nfr-sec-1\\}
+
+Type: Non-functional, Manual, Static
+					
+How test will be performed: 2 developers who did not work on the account section of the software will do a code walkthrough of the processes for creating and logging into an account, as well as how the associated information is stored.
+
+Output/Result: The developers confirm that the privacy and data retention requirements outlined in (ref) section 7.3 of the SRS are followed; specifically regarding what information is stored and how for CTM's and Learners.
+
+\item{test-nfr-sec-2\\}
+
+Type: Functional, Manual, Dynamic
+
+Initial State: The software is running on a compatible device, with a sample CTM account set up and a sample Learner device linked. Another sample CTM account is also set up and linked to the Learner.
+					
+Input/Condition: From the second CTM's account, some settings for the Learner device are changed.
+
+Output/Result: From the Primary CTM's account, these actions are recorded and visible in the log referenced in the SRS.
+					
+How test will be performed: 2 developers will carry out the test in-person using their personal devices to simulate the scenario.
+
+\end{enumerate}
+
+\subsubsection{Reliability}
+
+\begin{enumerate}
+
+\item{test-nfr-rely-1\\}
+
+Type: Non-functional, Automatic, Dynamic
+
+Initial State: At least one game has been implemented in the software.
+					
+Input/Condition: Response times within gameplay are recorded and stored.
+
+Output/Result: Response times are consistent with each other, with a standard deviation of +-0.5 seconds.
+					
+How test will be performed: This will be written into the code for each game.
+
+\end{enumerate}
 
 \subsection{Traceability Between Test Cases and Requirements}
 
