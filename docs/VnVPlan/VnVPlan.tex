@@ -542,13 +542,9 @@ behaviour.
 
 \section{System Tests}
 
-\wss{There should be text between all headings, even if it is just a roadmap of
-the contents of the subsections.}
+The following tests concern the system itself, covering functional and non-functional requirements.
 
 \subsection{Tests for Functional Requirements}
-
-\wss{Include a blurb here to explain why the subsections below
-  cover the requirements.  References to the SRS would be good here.}
 
 The following categorization of testing areas is grouped by similarity of behaviours rather than directly correlating with the split in Section 6 of the SRS regarding functional requirements.
 
@@ -1089,28 +1085,8 @@ This testing area covers how CTMs view, filter and export a Learner's recorded g
 
 \subsection{Tests for Nonfunctional Requirements}
 
-\wss{The nonfunctional requirements for accuracy will likely just reference the
-  appropriate functional tests from above.  The test cases should mention
-  reporting the relative error for these tests.  Not all projects will
-  necessarily have nonfunctional requirements related to accuracy.}
-
-\wss{For some nonfunctional tests, you won't be setting a target threshold for
-passing the test, but rather describing the experiment you will do to measure
-the quality for different inputs.  For instance, you could measure speed versus
-the problem size.  The output of the test isn't pass/fail, but rather a summary
-table or graph.}
-
-\wss{Tests related to usability could include conducting a usability test and
-  survey.  The survey will be in the Appendix.}
-
-\wss{Static tests, review, inspections, and walkthroughs, will not follow the
-format for the tests given below.}
-
-\wss{If you introduce static tests in your plan, you need to provide details.
-How will they be done?  In cases like code (or document) walkthroughs, who will
-be involved? Be specific.}
-
 The following subsections map to the different categories of nonfunctional requirements in \href{../../pdfs/SRS-IEEE/SRS.pdf}{section 8 of the SRS}, with some combined with each other due to overlap in testing strategies.
+Note that the carrying out of tests requiring a Learner's participation will be left to the discretion of the project supervisor and may be omitted if there are ethical or safety concerns.
 
 \subsubsection{Usability and Performance}
 
@@ -1122,9 +1098,9 @@ Type: Functional, Manual, Dynamic
 					
 Initial State: Software is running on a compatible device, with no account logged in.
 					
-Input/Condition: (symb const) individuals in the age range (symb const) of a potential CTM go through the account setup process, inputting their information and proceeding through the steps. Participants complete a usability survey afterwards.
+Input/Condition: 15 individuals in the age range of a potential CTM (20-50) go through the account setup process, inputting their information and proceeding through the steps. Participants complete a usability survey afterwards.
 					
-Output/Result: Accounts are created with the individuals' information. (Symb const)\% of participants report (symb const) ease of use and satisfaction with performance.
+Output/Result: Accounts are created with the individuals' information. At least 13/15 of participants report an average 8/10 ease of use and satisfaction with performance.
 					
 How test will be performed: In-person sessions will be scheduled with participants. The developers will facilitate the test with their personal device and administer the survey afterwards on the same device through a Google form.
 
@@ -1134,9 +1110,9 @@ Type: Functional, Manual, Dynamic
 					
 Initial State: Software is running on a compatible device, with a sample CTM account signed in and a sample Learner device paired.
 					
-Input/Condition: (symb const) individuals in the age range (symb const) of a potential CTM are given a series of actions to complete on the software such as navigating to a view or changing a setting. Participants will be asked to do each action three times total. Participants will complete a usability survey afterwards.
+Input/Condition: 15 individuals in the age range of a potential CTM (20-50) are given a series of actions to complete on the software such as navigating to a view or changing a setting. Participants will be asked to do each action three times total. Participants will complete a usability survey afterwards.
 					
-Output/Result: The participants are able to complete the specified actions. There is a (symb const) increase of speed in completing these actions when doing so for the third time. (Symb const)\% of participants report (symb const) ease in doing and learning these actions.
+Output/Result: The participants are able to complete the specified actions. There is a 50\% increase of speed in completing these actions when doing so for the third time. At least 13/15 of participants report an average of 8/10 or more ease in doing and learning these actions.
 					
 How test will be performed: In-person sessions will be scheduled with participants. The developers will facilitate the test with their personal devices, time how long the participants take to complete actions, and administer the survey afterwards on the same device through a Google form.
 
@@ -1146,9 +1122,9 @@ Type: Functional, Manual, Dynamic
 					
 Initial State: Software is running on a compatible device, with a sample CTM account signed in and a sample Learner device paired.
 					
-Input/Condition: (symb const) CTM's for an autistic child (who we will refer to as the Learner) in the intended age range (symb const) facilitates playing one game. Both CTM and Learner complete a usability survey afterwards.
+Input/Condition: 15 CTM's for an autistic child (referred to as the Learner) in the intended range of 8-10 facilitates playing one game. Both CTM and Learner complete a usability survey afterwards.
 					
-Output/Result: The game is completed. (Symb const)\% of CTM participants report (symb const) ease in facilitating gameplay. (Symb const) of Learner participants report (symb const) ease of participating in gameplay (the CTM may answer on their behalf).
+Output/Result: The game is completed. At least 13/15 of CTM participants report an average of 8/10 ease in facilitating gameplay. At least 13/15 of Learner participants report an average of 8/10 or more ease of participating in gameplay (the CTM may answer on their behalf).
 					
 How test will be performed: In-person sessions will be scheduled with participants. The developers will facilitate the test with their personal devices and administer the surveys afterwards on the same device through Google forms.
 
@@ -1176,9 +1152,9 @@ Type: Non-functional, Manual, Static
 
 Initial State: The contents of the games implemented within the scope of capstone are summarized in a document by the developers.
 
-How test will be performed: (Symb const) educators in Ontario who have taught or are currently teaching students in intended age group (Const) will review the document outlined above within a week.
+How test will be performed: 5 educators in Ontario who have taught or are currently teaching students in intended grade target of 3-5 will review the document outlined above within a week.
 
-Result: The participants will confirm that the games' educational aspects are aligned with Ontario's curriculum for (intended age group).
+Result: The participants will confirm that the games' educational aspects are aligned with Ontario's curriculum for grades 3-5.
  
 \end{enumerate}
 
@@ -1234,7 +1210,7 @@ Type: Non-functional, Manual, Static
 					
 How test will be performed: 2 developers who did not work on the account section of the software will do a code walkthrough of the processes for creating and logging into an account, as well as how the associated information is stored.
 
-Output/Result: The developers confirm that the privacy and data retention requirements outlined in (ref) section 7.3 of the SRS are followed; specifically regarding what information is stored and how for CTM's and Learners.
+Output/Result: The developers confirm that the privacy and data retention requirements outlined in section 7.3 of the \href{../../pdfs/SRS-IEEE/SRS.pdf}{SRS}; specifically regarding what information is stored and how for CTM's and Learners.
 
 \item\label{test-nfr-sec-2} test-nfr-sec-2\\
 
@@ -1264,19 +1240,16 @@ Input/Condition: Response times within gameplay are recorded and stored.
 
 Output/Result: Response times are consistent with each other, with a standard deviation of +-0.5 seconds.
 					
-How test will be performed: This will be written into the code for each game.
+How test will be performed: These measures are written into the implementation code and stored, being accessible to the developers through export in table form.
 
 \end{enumerate}
 
 \subsection{Traceability Between Test Cases and Requirements}
 
-\wss{Provide a table that shows which test cases are supporting which
-  requirements.}
-
 \begin{longtable}{p{0.25\textwidth} p{0.7\textwidth}}
 
 \toprule
-Test Case & Requirements \\
+Test Case & Functional Requirements \\
 \midrule
 test-ctm-1 & FR-CTM-1, FR-CTM-2, SR-1 \\
 test-ctm-2 & FR-CTM-3, FR-CTM-4 \\
@@ -1475,7 +1448,7 @@ INVITE\_LOCKOUT\_DURATION & 15 minutes\\
 \caption{Symbolic Parameters} \label{tab:SymbolicParameters}
 \end{longtable}
 
-\subsection{Usability Survey Questions?}
+\subsection{Usability Survey Questions}
 
 \wss{This is a section that would be appropriate for some projects.}
 
