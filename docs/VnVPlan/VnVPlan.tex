@@ -1542,7 +1542,77 @@ INVITE\_LOCKOUT\_DURATION & 15 minutes\\
 
 \subsection{Usability Survey Questions}
 
-\wss{This is a section that would be appropriate for some projects.}
+The following survey is completed by participants in the CTM usability sessions (V3 in Section~\ref{sec:validation}), through a Google Form on the facilitating developer's device at the end of each session. No identifying information is collected. Rated questions use a scale from 1 (very difficult or very unsatisfied) to 10 (very easy or very satisfied). A rating of 8 or higher counts as experiencing little to no difficulty for the nonfunctional requirement that the question measures.
+
+\begin{table}[htbp]
+\centering\small
+\caption{CTM usability survey}
+\label{tab:ctm-survey}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabularx}{\textwidth}{l >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}p{0.13\textwidth} >{\raggedright\arraybackslash}p{0.14\textwidth}}
+\toprule
+\textbf{ID} & \textbf{Question} & \textbf{Response} & \textbf{Measures}\\
+\midrule
+\multicolumn{4}{l}{\emph{Background}}\\
+Q1 & Which best describes your role: parent or guardian, educator, special-education staff, or other? & Choice & --\\
+Q2 & How comfortable are you using tablets and computer applications? & 1--10 & --\\
+Q3 & Have you supported an autistic child's learning before? & Yes / No & --\\
+\midrule
+\multicolumn{4}{l}{\emph{Setup}}\\
+Q4 & How easy was it to create your account? & 1--10 & NFR-USE-1\\
+Q5 & How easy was it to add a Learner and pair their device? & 1--10 & NFR-USE-1\\
+Q6 & How easy was it to invite another CTM to the Learner's care team? & 1--10 & NFR-USE-1\\
+\midrule
+\multicolumn{4}{l}{\emph{Navigation}}\\
+Q7 & How easy was it to find a Learner's settings? & 1--10 & NFR-USE-2\\
+Q8 & How easy was it to find where to start a game for a Learner? & 1--10 & NFR-USE-2\\
+Q9 & How easy was it to personalize a game's settings for a Learner? & 1--10 & NFR-USE-2\\
+\midrule
+\multicolumn{4}{l}{\emph{Facilitating gameplay}}\\
+Q10 & How easy was it to set up and start a game for a Learner? & 1--10 & NFR-USE-4\\
+Q11 & How confident would you feel supervising a Learner during a game, including pausing, stopping or helping them? & 1--10 & NFR-USE-4\\
+\midrule
+\multicolumn{4}{l}{\emph{Dashboard and response time}}\\
+Q12 & How easy was it to understand the Learner's performance from the dashboard? & 1--10 & NFR-EFF-1\\
+Q13 & How satisfied were you with how quickly the application responded when logging in and opening a Learner's data? & 1--10 & NFR-PERF-1\\
+\midrule
+\multicolumn{4}{l}{\emph{Open feedback}}\\
+Q14 & What, if anything, was confusing or frustrating? & Free text & --\\
+Q15 & What would you change about the application? & Free text & --\\
+\midrule
+\multicolumn{4}{l}{\emph{Second session only}}\\
+Q16 & Compared to your first session, how much easier was it to complete the same tasks? & 1--10 & NFR-USE-3\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\paragraph{Observer record.} During each session, an observer records the following for each task (creating an account, adding and pairing a Learner, inviting a CTM, personalizing a game, and reading the dashboard): the time taken, the number of errors, whether the participant needed help, and any comments. The times from the first and second sessions are compared to measure memorability (NFR-USE-3), alongside Q16.
+
+\subsection{Learner Proxy Observation Guide}
+
+The following guide is used by the supervisor and special-education educators when play-testing each game as proxies for Learners (V4 in Section~\ref{sec:validation}). The guide is completed once per game. Rated questions use the same 1--10 scale as the usability survey, and a rating of 8 or higher counts as a Learner being easily able to participate for NFR-USE-5. If sessions with Learners are approved by the ethics board, the same guide is completed by an observer during those sessions, and the report states which kind of participant each result comes from.
+
+\begin{table}[htbp]
+\centering\small
+\caption{Learner proxy observation guide}
+\label{tab:proxy-guide}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabularx}{\textwidth}{l >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}p{0.15\textwidth} >{\raggedright\arraybackslash}p{0.15\textwidth}}
+\toprule
+\textbf{ID} & \textbf{Question} & \textbf{Response} & \textbf{Measures}\\
+\midrule
+O1 & Could any visual, sound or animation overstimulate a Learner with sensory hypersensitivity? If so, where? & Yes / No, with notes & SR-LRN-1, SR-DOM-3\\
+O2 & Could the game understimulate a Learner with sensory hyposensitivity? If so, where? & Yes / No, with notes & SR-LRN-1, SR-DOM-3\\
+O3 & How clear are the rules and instructions for a Learner who may not read independently? & 1--10 & SR-LRN-2\\
+O4 & Could a Learner take their time and retry without feeling pressured? & Yes / No, with notes & SR-LRN-3\\
+O5 & How likely is the game to give a Learner a sense of accomplishment? & 1--10 & SR-LRN-4\\
+O6 & How likely is the game to hold a Learner's attention? & 1--10 & SR-DOM-2\\
+O7 & How easily could a Learner participate in the game without frustration or confusion? & 1--10 & NFR-USE-5\\
+O8 & Any other observations about the game's suitability for autistic Learners. & Free text & --\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
 
 \newpage{}
 
