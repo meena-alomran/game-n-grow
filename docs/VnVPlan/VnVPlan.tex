@@ -54,29 +54,14 @@ November 2nd 2026 & 1.0 & Notes\\
 \end{tabularx}
 
 ~\\
-\wss{The intention of the VnV plan is to increase confidence in the software.
-However, this does not mean listing every verification and validation technique
-that has ever been devised.  The VnV plan should also be a \textbf{feasible}
-plan. Execution of the plan should be possible with the time and team available.
-If the full plan cannot be completed during the time available, it can either be
-modified to ``fake it'', or a better solution is to add a section describing
-what work has been completed and what work is still planned for the future.}
 
-\wss{The VnV plan is typically started after the requirements stage, but before
-the design stage.  This means that the sections related to unit testing cannot
-initially be completed.  The sections will be filled in after the design stage
-is complete.  the final version of the VnV plan should have all sections filled
-in.}
 
 \newpage
 
 \tableofcontents
 
 \listoftables
-\wss{Remove this section if it isn't needed}
 
-\listoffigures
-\wss{Remove this section if it isn't needed}
 
 \newpage
 
@@ -93,17 +78,11 @@ Primary CTM & a role belonging to only one CTM associated with a Learner's profi
 \end{tabular}
 
 
-\wss{symbols, abbreviations, or acronyms --- you can simply reference the \srsdoc{}
-  tables, if appropriate}
-
-\wss{Remove this section if it isn't needed}
-
 \newpage
 
 \pagenumbering{arabic}
 
-This document ... \wss{provide an introductory blurb and roadmap of the
-  Verification and Validation plan}
+This document describes the plan for verifying and validating \progname{}, a suite of customizable learning games for autistic Learners and the CTMs who support them. The plan builds confidence that \progname{} satisfies the requirements in the SRS, and that those requirements reflect what Learners, CTMs and domain experts need. Section 2 summarizes the software under test, the objectives of verification and validation, and the documents this plan relies on. Section 3 describes the verification and validation team and the approaches used to verify the SRS, the design, this plan and the implementation, along with the automated tools and the validation activities. Section 4 specifies the system tests for the functional and nonfunctional requirements and traces each test to the requirements it covers. Section 5 will describe the unit tests once the detailed design is complete. The appendices give the values of the symbolic parameters used in the tests, and the usability survey.
 
 \section{General Information}
 
@@ -255,8 +234,7 @@ implementation, and evaluation results.
 
 \section{Plan}
 
-\wss{Introduce this section.  You can provide a roadmap of the sections to
-  come.}
+This section describes how \progname{} and its documentation will be verified and validated. Section~\ref{sec:team} introduces the verification and validation team and each member's responsibilities. Sections~\ref{sec:srs-ver}, \ref{sec:design-ver} and \ref{sec:plan-ver} describe how the SRS, the design and this plan are verified through checklist reviews, walkthroughs and supervisor input. Section~\ref{sec:impl-ver} describes the dynamic and static verification of the implementation, and Section~\ref{sec:automated-tools} describes the automated tools that support it. Section~\ref{sec:validation} describes how the team will confirm, with the supervisor, educators and CTM-like participants, that \progname{} meets the needs of its stakeholders.
 
 \subsection{Verification and Validation Team}
 \label{sec:team}
@@ -342,12 +320,6 @@ Each answer that points to a missing, incorrect or unclear requirement becomes a
 \end{itemize}
 
 \subsection{Design Verification}
-
-\wss{Plans for design verification}
-
-\wss{The review will include reviews by your classmates}
-
-\wss{Create a checklists?}
 
 \label{sec:design-ver}
 
@@ -1532,13 +1504,6 @@ How test will be performed:
 
 \subsection{Tests for Nonfunctional Requirements}
 
-\wss{If there is a module that needs to be independently assessed for
-  performance, those test cases can go here.  In some projects, planning for
-  nonfunctional tests of units will not be that relevant.}
-
-\wss{These tests may involve collecting performance data from previously
-  mentioned functional tests.}
-
 \subsubsection{Module ?}
 		
 \begin{enumerate}
@@ -1653,8 +1618,6 @@ Q16 & Compared to your first session, how much easier was it to complete the sam
 \end{table}
 
 \paragraph{Observer record.} During each session, an observer records the following for each task (creating an account, adding and pairing a Learner, inviting a CTM, personalizing a game, and reading the dashboard): the time taken, the number of errors, whether the participant needed help, and any comments. The times from the first and second sessions are compared to measure memorability (\srsref{NFR-USE-3}), alongside Q16.
-
-\subsection{Learner Proxy Observation Guide}
 
 The following guide is used by the supervisor and special-education educators when play-testing each game as proxies for Learners (\valref{4} in Section~\ref{sec:validation}). The guide is completed once per game. Rated questions use the same 1--10 scale as the usability survey, and a rating of 8 or higher counts as a Learner being easily able to participate for \srsref{NFR-USE-5}. If sessions with Learners are approved by the ethics board, the same guide is completed by an observer during those sessions, and the report states which kind of participant each result comes from.
 
