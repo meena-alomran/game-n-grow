@@ -16,6 +16,12 @@
     urlcolor=blue
 }
 \newcommand{\srsref}[1]{\hyperref[SRS-#1]{#1}}
+\newcounter{validation}
+\renewcommand{\thevalidation}{V\arabic{validation}}
+\newcommand{\valref}[1]{\hyperref[val:V#1]{\ref*{val:V#1}}}
+\newcommand{\srsucref}[1]{\hyperref[SRS-UC_Label#1]{UC\ref*{SRS-UC_Label#1}}}
+\newcommand{\srssectionref}[1]{\hyperref[SRS-#1]{SRS Section~\ref*{SRS-#1}}}
+\newcommand{\srsnamedref}[2]{\hyperref[SRS-#1]{#2}}
 \usepackage[round]{natbib}
 
 \input{../Comments.text}
@@ -162,16 +168,16 @@ Table~\ref{tab:vv-team} lists the members of the verification and validation tea
 Omar Ghoneim & Security and privacy lead & Leads the compliance check in Section~\ref{sec:validation}, and presents the code walkthroughs for access control and permissions, and for deletion and retention.\\
 Meena Al Omran & Accounts and platforms lead & Runs the platform verification in Section~\ref{sec:impl-ver}, and presents the code walkthrough for pairing and invite codes.\\
 Marko Popovic & Data and synchronization lead & Presents the code walkthroughs for the offline queue and synchronization, session recording, and data export. Coordinates the manual fault injection in Section~\ref{sec:plan-ver}.\\
-Maya Azar & Validation lead & Leads the CTM usability sessions (V3), including participant recruitment, and the usability survey. Prepares the ethics application for any sessions involving Learners, and tracks the issues raised by the Rev 0 demo feedback (V2).\\
-Amirah Abdelrahman & Learner experience lead & Leads the inspection of Learner-facing assets in Section~\ref{sec:impl-ver}, prepares the observation guide for proxy play-testing (V4), and coordinates the curriculum alignment review (V5).\\
+Maya Azar & Validation lead & Leads the CTM usability sessions (\valref{3}), including participant recruitment, and the usability survey. Prepares the ethics application for any sessions involving Learners, and tracks the issues raised by the Rev 0 demo feedback (\valref{2}).\\
+Amirah Abdelrahman & Learner experience lead & Leads the inspection of Learner-facing assets in Section~\ref{sec:impl-ver}, prepares the observation guide for proxy play-testing (\valref{4}), and coordinates the curriculum alignment review (\valref{5}).\\
 \midrule
-Project supervisor & Domain expert & Expert in psychology and autism. Completes the SRS task-based review (V1), gives feedback after the Rev 0 demo (V2), play-tests the games as a proxy for Learners (V4), and reviews the curriculum alignment table (V5) and any uncertain wording (V6). Advises the team on whether sessions with Learners should be pursued.\\
+Project supervisor & Domain expert & Expert in psychology and autism. Completes the SRS task-based review (\valref{1}), gives feedback after the Rev 0 demo (\valref{2}), play-tests the games as a proxy for Learners (\valref{4}), and reviews the curriculum alignment table (\valref{5}) and any uncertain wording (\valref{6}). Advises the team on whether sessions with Learners should be pursued.\\
 Classmate reviewers & Peer reviewers & Review the SRS, the design, and this plan using the checklists in Sections~\ref{sec:srs-ver}, \ref{sec:design-ver} and \ref{sec:plan-ver}, and record findings as issues in the project repository.\\
 \bottomrule
 \end{tabularx}
 \end{table}
 
-\paragraph{External participants.} Two groups of participants outside the team take part in validation. The first group is at least 10 adults in roles close to the CTM personas, such as parents, educators and special-education staff, who take part in the CTM usability sessions (V3). The second group is special-education educators who play-test the games as proxies for Learners alongside the supervisor (V4). Sessions with Learners are not planned by default. They are run only if the supervisor advises it and ethics clearance is obtained in time, and the ethics board may limit participants to neurotypical or neurodivergent children of the target age.
+\paragraph{External participants.} Two groups of participants outside the team take part in validation. The first group is at least 10 adults in roles close to the CTM personas, such as parents, educators and special-education staff, who take part in the CTM usability sessions (\valref{3}). The second group is special-education educators who play-test the games as proxies for Learners alongside the supervisor (\valref{4}). Sessions with Learners are not planned by default. They are run only if the supervisor advises it and ethics clearance is obtained in time, and the ethics board may limit participants to neurotypical or neurodivergent children of the target age.
 
 \paragraph{Review rotation.} Every pull request needs an approving review from a member other than its author. Reviews follow a fixed rotation in the order of Table~\ref{tab:vv-team}: each member's pull requests are reviewed by the next member in the table, and the last member's are reviewed by the first. If the assigned reviewer is unavailable, the following member in the rotation reviews instead. A pull request that touches an area owned by another lead in Table~\ref{tab:vv-team} also needs that lead's approval.
 
@@ -200,13 +206,13 @@ The reviewers also apply the project-specific checks in Table~\ref{tab:srs-check
 \midrule
 S1 & Use cases agree with the functional requirements on actors, permissions and outcomes.\\
 S2 & The data dictionary (SRS Section 7.2) contains every entity, attribute and value that the functional and safety requirements use.\\
-S3 & Every stakeholder requirement (SRS Section 3) appears in the traceability matrix and traces to at least one functional or nonfunctional requirement.\\
-S4 & Every hazard in the Hazard Analysis maps to at least one safety requirement, and no requirement or Learner-facing wording implies a clinical diagnosis or developmental conclusion (SRS Section 2.1 and ULC8).\\
+S3 & Every stakeholder requirement (\srssectionref{sec:stakeholder-requirements}) appears in the traceability matrix and traces to at least one functional or nonfunctional requirement.\\
+S4 & Every hazard in the Hazard Analysis maps to at least one safety requirement, and no requirement or Learner-facing wording implies a clinical diagnosis or developmental conclusion (\srssectionref{sec_SystemProblem} and \srsnamedref{ULC_NonClinicalPurpose}{ULC Non-Clinical Purpose}).\\
 \bottomrule
 \end{tabularx}
 \end{table}
 
-\paragraph{Task-based review with the supervisor.} The supervisor reviews the SRS in a 60-minute meeting (V1 in Section~\ref{sec:validation}). Rather than reading the SRS and giving general comments, the supervisor completes the following tasks with the SRS open, while a team member records their answers:
+\paragraph{Task-based review with the supervisor.} The supervisor reviews the SRS in a 60-minute meeting (\valref{1} in Section~\ref{sec:validation}). Rather than reading the SRS and giving general comments, the supervisor completes the following tasks with the SRS open, while a team member records their answers:
 \begin{enumerate}[label=T\arabic*., nosep]
   \item Trace SR-LRN-1 to the functional requirements that support it, and judge whether they would protect a Learner with sensory hypersensitivity.
   \item Find the requirements that prevent a game from startling a Learner, such as sudden audio or flashing content.
@@ -220,9 +226,9 @@ Each answer that points to a missing, incorrect or unclear requirement becomes a
 
 \paragraph{Findings so far.} Writing the system tests in Section 4 was used as an early review of the SRS, and surfaced the following defects. These are filed as the first \texttt{srs-review} issues.
 \begin{itemize}
-  \item \textbf{Consistency (S1):} UC8 allows any authorized CTM to delete a Learner profile, while FR-LRN-4 allows only the Primary CTM.
+  \item \textbf{Consistency (S1):} \srsucref{8} allows any authorized CTM to delete a Learner profile, while \srsref{FR-LRN-4} allows only the Primary CTM.
   \item \textbf{Data dictionary (S2):} the outcome attribute of a Game Session has no value for incomplete sessions, which SR-8 requires.
-  \item \textbf{Traceability (S3):} SR-LRN-2, SR-CUST-1, SR-CUST-2, SR-CTM-1 and SR-DOM-1 do not appear in the SRS traceability matrix, and the change log described in SRS Section 7.3 has no corresponding functional requirement.
+  \item \textbf{Traceability (S3):} SR-LRN-2, SR-CUST-1, SR-CUST-2, SR-CTM-1 and SR-DOM-1 do not appear in the SRS traceability matrix, and the change log described in \srssectionref{sec:privacy-data-retention} has no corresponding functional requirement.
   \item \textbf{Symbolic constants:} the 30-day grace period and the percentages in NFR-USE-1 to NFR-USE-5 are literal values, and the backup retention period referenced by SR-18 is missing from the SRS appendix.
   \item \textbf{Verifiability:} NFR-EFF-1, NFR-RELY-1 and NFR-PERF-2 have no fit criteria.
   \item \textbf{Ambiguity:} FR-CTM-5 does not state who becomes the Primary CTM when a Primary CTM deletes their account, FR-PLAY-8 does not state where the CTM aborts a game from, FR-RWD-2 does not cover a Learner who already owns every reward item, and SR-12 does not state what happens to a hidden item that is already equipped.
@@ -271,7 +277,7 @@ to LC8 (SRS Section 12) is confined to a few identifiable parts, so that
 plausible.\\
 D3 & Every CTM action passes through one permission check (\srsref{FR-TEAM-7}, \srsref{SR-3}),
 and Learner devices store only configurations, inventory, and queued session
-data (SRS Section 7.3).\\
+data (\srssectionref{sec:privacy-data-retention}).\\
 D4 & Every entity and attribute in the data dictionary (SRS Section 7.2) is
 mapped to storage. Deleting a CTM account does not delete a Learner profile,
 and Learner deletion removes all data after the 30-day grace period
@@ -309,13 +315,6 @@ overwhelm a Learner (\srsref{SR-LRN-1} to \srsref{SR-LRN-3}, \srsref{SR-DOM-3}, 
 
 
 \subsection{Verification and Validation Plan Verification}
-
-\wss{The verification and validation plan is an artifact that should also be
-verified.  Techniques for this include review and mutation testing.}
-
-\wss{The review will include reviews by your classmates}
-
-\wss{Create a checklists?}
 
 \label{sec:plan-ver}
 
@@ -374,17 +373,6 @@ failing test. Every surviving fault leads to a new or strengthened test.
 
 \subsection{Implementation Verification}
 
-\wss{You should at least point to the tests listed in this document and the unit
-  testing plan.}
-
-\wss{In this section you would also give any details of any plans for static
-  verification of the implementation.  Potential techniques include code
-  walkthroughs, code inspection, static analyzers, etc.}
-
-\wss{The final class presentation in CAS 741 could be used as a code
-walkthrough.  There is also a possibility of using the final presentation (in
-CAS741) for a partial usability survey.}
-
 \label{sec:impl-ver}
 
 The implementation will be verified dynamically and statically.
@@ -431,21 +419,6 @@ assumed to have been verified by their maintainers. The team tests only how
 
 \subsection{Automated Testing and Verification Tools}
 \label{sec:automated-tools} 
-
-\wss{What tools are you using for automated testing.  Likely a unit testing
-  framework and maybe a profiling tool, like ValGrind.  Other possible tools
-  include a static analyzer, make, continuous integration tools, test coverage
-  tools, etc.  Explain your plans for summarizing code coverage metrics.
-  Linters are another important class of tools.  For the programming language
-  you select, you should look at the available linters.  There may also be tools
-  that verify that coding standards have been respected, like flake9 for
-  Python.}
-
-\wss{If you have already done this in the development plan, you can point to
-that document.}
-
-\wss{The details of this section will likely evolve as you get closer to the
-  implementation.}
 
 
 The team will use three automated tools for the Godot client, all of which run
@@ -504,30 +477,11 @@ Section~\ref{sec:plan-ver} supply the rest of the evidence.
 
 \subsection{Software Validation}
 
-\wss{If there is any external data that can be used for validation, you should
-  point to it here.  If there are no plans for validation, you should state that
-  here.}
-
-\wss{You might want to use review sessions with the stakeholder to check that
-the requirements document captures the right requirements.  Maybe task based
-inspection?}
-
-\wss{For those capstone teams with an external supervisor, the Rev 0 demo should 
-be used as an opportunity to validate the requirements.  You should plan on 
-demonstrating your project to your supervisor shortly after the scheduled Rev 0 demo.  
-The feedback from your supervisor will be very useful for improving your project.}
-
-\wss{For teams without an external supervisor, user testing can serve the same purpose 
-as a Rev 0 demo for the supervisor.}
-
-\wss{This section might reference back to the SRS verification section.}
-
 \label{sec:validation}
 
 For external data that can be used for validation, \progname{} can be validated via the Ontario elementary curriculum for Grades 3 to 5 (\srsref{NFR-ACCU-2}), the WCAG~2.x flashing
-criterion (\srsref{SR-6}), PIPEDA, GDPR, and app store rules for children's apps (SRS
-Section 7.3). Table~\ref{tab:validation} lists the validation activities and
-the stakeholder requirements from SRS Section 3 that each one addresses.
+criterion (\srsref{SR-6}), PIPEDA, GDPR, and app store rules for children's apps (\srssectionref{sec:privacy-data-retention}). Table~\ref{tab:validation} lists the validation activities and
+the stakeholder requirements from \srssectionref{sec:stakeholder-requirements} that each one addresses.
 
 \begin{table}[htbp]
 \centering\small
@@ -538,67 +492,67 @@ the stakeholder requirements from SRS Section 3 that each one addresses.
 \toprule
 \textbf{ID} & \textbf{Activity} & \textbf{Participants} & \textbf{Validates}\\
 \midrule
-V1 & SRS task-based review (Section~\ref{sec:srs-ver}) & Supervisor & All
-stakeholder requirements\\
-V2 & Rev 0 demo to supervisor & Supervisor & SR-LRN, SR-CTM, SR-DOM,
-SR-CUST\\
-V3 & CTM usability sessions and survey & At least 10 adults in CTM-like roles &
+\refstepcounter{validation}\label{val:V1}\ref{val:V1} & SRS task-based review (Section~\ref{sec:srs-ver}; UCs~\srsucref{1}--\srsucref{10}) & Supervisor &
+\srsref{SR-LRN-1}--\srsref{SR-LRN-4}; \srsref{SR-CUST-1}--\srsref{SR-CUST-3}; \srsref{SR-CTM-1}--\srsref{SR-CTM-6}; \srsref{SR-DOM-1}--\srsref{SR-DOM-4}\\
+\refstepcounter{validation}\label{val:V2}\ref{val:V2} & Rev 0 demo to supervisor (UCs~\srsucref{1}, \srsucref{2}, \srsucref{3}, \srsucref{4}, \srsucref{5}, \srsucref{6}, \srsucref{7}, \srsucref{9}, \srsucref{10}) & Supervisor &
+\srsref{SR-LRN-1}--\srsref{SR-LRN-4}; \srsref{SR-CUST-1}--\srsref{SR-CUST-3}; \srsref{SR-CTM-1}--\srsref{SR-CTM-6}; \srsref{SR-DOM-1}--\srsref{SR-DOM-4}\\
+\refstepcounter{validation}\label{val:V3}\ref{val:V3} & CTM usability sessions and survey (UCs~\srsucref{2}, \srsucref{3}, \srsucref{4}, \srsucref{7}, \srsucref{9}) & At least 10 adults in CTM-like roles &
 \srsref{SR-CTM-5}, \srsref{SR-CTM-6}, \srsref{SR-CUST-1}; \srsref{NFR-USE-1} to \srsref{NFR-USE-4}, \srsref{NFR-PERF-1}\\
-V4 & Learner-facing proxy play-testing & Supervisor and special-education
+\refstepcounter{validation}\label{val:V4}\ref{val:V4} & Learner-facing proxy play-testing (UCs~\srsucref{1}, \srsucref{6}) & Supervisor and special-education
 educators & \srsref{SR-LRN-1} to \srsref{SR-LRN-4}, \srsref{SR-DOM-2}, \srsref{SR-DOM-3}; \srsref{NFR-USE-5}\\
-V5 & Curriculum alignment review & Supervisor, and an educator where
+\refstepcounter{validation}\label{val:V5}\ref{val:V5} & Curriculum alignment review (UCs~\srsucref{1}, \srsucref{4}, \srsucref{5}) & Supervisor, and an educator where
 available & \srsref{SR-CTM-1}, \srsref{SR-DOM-1}, \srsref{SR-DOM-4}; \srsref{NFR-ACCU-2}\\
-V6 & Non-clinical wording review & Team and supervisor & SRS Section 2.1 and
-ULC8\\
+\refstepcounter{validation}\label{val:V6}\ref{val:V6} & Non-clinical wording review (SRS Section~2.1; UCs~\srsucref{1}--\srsucref{10}) & Team and supervisor & \srssectionref{sec_SystemProblem} and
+\srsnamedref{ULC_NonClinicalPurpose}{ULC Non-Clinical Purpose}\\
 \bottomrule
 \end{tabularx}
 \end{table}
 
-\paragraph{V2: Rev 0 demo to the supervisor.} The team will demonstrate
+\paragraph{\valref{2}: Rev 0 demo to the supervisor.} The team will demonstrate
 \progname{} to the supervisor shortly after the scheduled Rev 0 demo. The
-demonstration follows five scripted scenarios: (1)~a CTM registers (UC7), adds
-a Learner, and pairs a tablet (UC2); (2)~the CTM personalizes settings (UC4)
-and creates and assigns a Template (UC5); (3)~the Learner plays a game, using
-pause and the guide, and claims a reward (UC1, UC6); (4)~the CTM reviews and
-exports the Learner's data (UC3); and (5)~the Primary CTM invites another CTM
-and edits their permissions (UC9, UC10). Afterward the supervisor completes a
-feedback form that rates each stakeholder requirement in SRS Section 3 as
+demonstration follows five scripted scenarios: (1)~a CTM registers (\srsucref{7}), adds
+a Learner, and pairs a tablet (\srsucref{2}); (2)~the CTM personalizes settings (\srsucref{4})
+and creates and assigns a Template (\srsucref{5}); (3)~the Learner plays a game, using
+pause and the guide, and claims a reward (\srsucref{1}, \srsucref{6}); (4)~the CTM reviews and
+exports the Learner's data (\srsucref{3}); and (5)~the Primary CTM invites another CTM
+and edits their permissions (\srsucref{9}, \srsucref{10}). Afterward the supervisor completes a
+feedback form that rates each stakeholder requirement in \srssectionref{sec:stakeholder-requirements} as
 satisfied, partly satisfied, or not satisfied, with comments. Every
 partial or unsatisfied rating is turned into an issue labelled \texttt{validation}, and
 the team prioritizes these with the supervisor and resolves them before the
 final demo. Changes to requirements are recorded in the SRS revision history.
 
-\paragraph{V3: CTM usability sessions.} At least 10 adults will be recruited
+\paragraph{\valref{3}: CTM usability sessions.} At least 10 adults will be recruited
 in roles close to the CTM personas, such as parents, educators, and
 special-education staff, through the supervisor and the team's contacts. At least 10 are needed to be able to satisfy the 90\% target across \srsref{NFR-USE-1}--\srsref{NFR-USE-4}.
 Each participant attempts these tasks while an observer records time, errors, and
 comments: create an account, add and pair a Learner, invite a CTM, personalize a
-game, and read the dashboard. Participants then complete the survey in the
+game, and read the dashboard (\srsucref{7}, \srsucref{2}, \srsucref{9}, \srsucref{4}, and \srsucref{3}, respectively). Participants then complete the survey in the
 Appendix. A second session at least one day later repeats the tasks to measure
 memorability (\srsref{NFR-USE-3}).
 
-\paragraph{V4: Learner-facing validation.} Testing with children is research
+\paragraph{\valref{4}: Learner-facing validation.} Testing with children is research
 involving human participants and would need ethics clearance, so the team will
 not run sessions with Learners unless the supervisor advises it and clearance is
 obtained in time. By default, the supervisor and special-education educators
-play-test the games as proxies, using an observation guide that asks whether
+play-test the games in \srsucref{1} and \srsucref{6} as proxies, using an observation guide that asks whether
 anything would overstimulate or understimulate a Learner, whether instructions
 are unambiguous, and whether a Learner could retry freely and feel a sense of
 accomplishment. Their findings stand in for the Learner measurement in
 \srsref{NFR-USE-5}, and the report of that measurement states that proxies were used.
 
-\paragraph{V5: Curriculum alignment review.} A table is made that maps the content and each difficulty level of every game to Grade 3 to 5 curriculum
+\paragraph{\valref{5}: Curriculum alignment review.} A table is made that maps the content and each difficulty level of every game to Grade 3 to 5 curriculum
 expectations from the Ontario Ministry of Education. The supervisor reviews the
-table for appropriateness to the intended Learners, and educators outside the
+table for appropriateness to the intended Learners (including the game and customization flows in \srsucref{1}, \srsucref{4}, and \srsucref{5}), and educators outside the
 team review it where available.
 
-\paragraph{V6: Non-clinical wording review.} Before each demo, the team checks
+\paragraph{\valref{6}: Non-clinical wording review.} Before each demo, the team checks
 user-visible text and dashboard labels to confirm that they describe
 performance inside the games only and do not claim diagnosis or broader
-developmental improvement (SRS Section 2.1 and ULC8). The supervisor reviews any
+developmental improvement (\srssectionref{sec_SystemProblem} and \srsnamedref{ULC_NonClinicalPurpose}{ULC Non-Clinical Purpose}). The supervisor reviews any
 wording the team is unsure about.
 
-\paragraph{Compliance check.} Each commitment in SRS Section 7.3 is mapped to
+\paragraph{Compliance check.} Each commitment in \srssectionref{sec:privacy-data-retention} is mapped to
 the relevant PIPEDA and GDPR principles and to the app store children's-app
 rules, and then verifies that the implementation provides the corresponding
 behaviour.
@@ -673,7 +627,7 @@ This testing area covers the lifecycle of CTM accounts and Learner profiles with
   \item[Initial State] CTM A's account is scheduled for deletion and is still within \texttt{GRACE\_PERIOD}.
   \item[Input] CTM A logs in with their credentials and chooses to restore their account. The test server's clock is then advanced past the original deletion time.
   \item[Output] The account is restored and is no longer scheduled for deletion. The account still exists after the original deletion time has passed, and CTM A can log in and use the application normally.
-  \item[Derivation] \srsref{FR-CTM-6} says that a CTM can restore their account during the grace period. SRS Section 7.3 specifies that data restored within the grace period is no longer scheduled for deletion.
+  \item[Derivation] \srsref{FR-CTM-6} says that a CTM can restore their account during the grace period. \srssectionref{sec:privacy-data-retention} specifies that data restored within the grace period is no longer scheduled for deletion.
   \item[Test Procedure] The tester logs in as CTM A and restores the account. The tester checks that the deletion time of the CTM record is cleared, advances the test server's clock past the original deletion time, and confirms that the account still exists by logging in as CTM A again.
 \end{description}
 
@@ -742,7 +696,7 @@ This testing area covers the lifecycle of CTM accounts and Learner profiles with
   \item[Initial State] Learner L1's profile is scheduled for deletion and has recorded game sessions, game configurations, inventory items, a paired device and a care team. A backup of the stored data was taken after the deletion was scheduled.
   \item[Input] The test server's clock is advanced past \texttt{GRACE\_PERIOD}.
   \item[Output] No record associated with L1 remains in the database or in any backup, and L1's profile can no longer be restored.
-  \item[Derivation] \srsref{FR-LRN-6} says that all Learner-related data is deleted after the grace period. \srsref{SR-18} requires the system to verify that the deletion has completed and to remove the data from backups. SRS Section 7.3 specifies that permanent deletion includes all backups.
+  \item[Derivation] \srsref{FR-LRN-6} says that all Learner-related data is deleted after the grace period. \srsref{SR-18} requires the system to verify that the deletion has completed and to remove the data from backups. \srssectionref{sec:privacy-data-retention} specifies that permanent deletion includes all backups.
   \item[Test Procedure] The tester advances the test server's clock past \texttt{GRACE\_PERIOD} and queries every table holding a Learner identifier for L1's identifier, confirming that no records are returned. The tester repeats the query on the latest backup, then logs in as L1's former Primary CTM to confirm that no option to restore L1 is shown.
 \end{description}
 
@@ -937,7 +891,7 @@ This testing area covers a Learner's experience during a game, from selecting a 
       \item the application is force-closed during G1, then reopened with the network connected
     \end{enumerate}
   \item[Output] In cases (a) and (b), the game plays without interruption using the settings stored on T1. The session results are kept on T1 until the connection returns, are then uploaded and recorded as completed, and are removed from T1's local storage. In case (c), the session is recorded as incomplete.
-  \item[Derivation] \srsref{SR-9} requires that a loss of connection does not interrupt a session in progress or prevent a Learner from playing authorized games with settings already stored on the device. \srsref{FR-DATA-8} requires performance to be queued locally for future syncing without a stable connection, and SRS Section 7.3 specifies that queued data is deleted from local storage after syncing. \srsref{SR-8} requires sessions that end through a crash to be recorded as incomplete.
+  \item[Derivation] \srsref{SR-9} requires that a loss of connection does not interrupt a session in progress or prevent a Learner from playing authorized games with settings already stored on the device. \srsref{FR-DATA-8} requires performance to be queued locally for future syncing without a stable connection, and \srssectionref{sec:privacy-data-retention} specifies that queued data is deleted from local storage after syncing. \srsref{SR-8} requires sessions that end through a crash to be recorded as incomplete.
   \item[Test Procedure] For cases (a) and (b), the tester plays G1 as outlined in the input and confirms that the game is not interrupted. While the connection is off, the tester checks that no new session record exists in the database. After reconnecting, the tester checks that the session record appears with a completed outcome and that T1's local queue is empty. For case (c), the tester force-closes the application, reopens it, and checks that the session is recorded as incomplete.
 \end{description}
 
@@ -1309,7 +1263,7 @@ How test will be performed: These measures are written into the implementation c
 \end{enumerate}
 
 Note: \srsref{NFR-ACCESS-1} and \srsref{NFR-ACCESS-2} do not need to be tested as they will implicitly be implemented.
-\srsref{NFR-MAINt-1} cannot be tested as it requires implementing a major change.
+\srsref{NFR-MAINT-1} cannot be tested as it requires implementing a major change.
 
 \subsection{Traceability Between Test Cases and Requirements}
 
@@ -1359,7 +1313,7 @@ Test Case & Functional Requirements \\
 \ref{test-fr-data-3} & \srsref{FR-DATA-1}, \srsref{FR-DATA-6}, \srsref{FR-TEAM-7} \\
 \bottomrule
 \caption{Traceability Between Test Cases and Functional Requirements}
-\label{tab:TC2FRtm}
+\label{tab:TC2NFRtm}
 
 \end{longtable}
 
@@ -1547,7 +1501,7 @@ INVITE\_LOCKOUT\_DURATION & 15 minutes\\
 
 \subsection{Usability Survey Questions}
 
-The following survey is completed by participants in the CTM usability sessions (V3 in Section~\ref{sec:validation}), through a Google Form on the facilitating developer's device at the end of each session. No identifying information is collected. Rated questions use a scale from 1 (very difficult or very unsatisfied) to 10 (very easy or very satisfied). A rating of 8 or higher counts as experiencing little to no difficulty for the nonfunctional requirement that the question measures.
+The following survey is completed by participants in the CTM usability sessions (\valref{3} in Section~\ref{sec:validation}), through a Google Form on the facilitating developer's device at the end of each session. No identifying information is collected. Rated questions use a scale from 1 (very difficult or very unsatisfied) to 10 (very easy or very satisfied). A rating of 8 or higher counts as experiencing little to no difficulty for the nonfunctional requirement that the question measures.
 
 \begin{table}[htbp]
 \centering\small
@@ -1564,38 +1518,38 @@ Q2 & How comfortable are you using tablets and computer applications? & 1--10 & 
 Q3 & Have you supported an autistic child's learning before? & Yes / No & --\\
 \midrule
 \multicolumn{4}{l}{\emph{Setup}}\\
-Q4 & How easy was it to create your account? & 1--10 & NFR-USE-1\\
-Q5 & How easy was it to add a Learner and pair their device? & 1--10 & NFR-USE-1\\
-Q6 & How easy was it to invite another CTM to the Learner's care team? & 1--10 & NFR-USE-1\\
+Q4 & How easy was it to create your account? & 1--10 & \srsref{NFR-USE-1}\\
+Q5 & How easy was it to add a Learner and pair their device? & 1--10 & \srsref{NFR-USE-1}\\
+Q6 & How easy was it to invite another CTM to the Learner's care team? & 1--10 & \srsref{NFR-USE-1}\\
 \midrule
 \multicolumn{4}{l}{\emph{Navigation}}\\
-Q7 & How easy was it to find a Learner's settings? & 1--10 & NFR-USE-2\\
-Q8 & How easy was it to find where to start a game for a Learner? & 1--10 & NFR-USE-2\\
-Q9 & How easy was it to personalize a game's settings for a Learner? & 1--10 & NFR-USE-2\\
+Q7 & How easy was it to find a Learner's settings? & 1--10 & \srsref{NFR-USE-2}\\
+Q8 & How easy was it to find where to start a game for a Learner? & 1--10 & \srsref{NFR-USE-2}\\
+Q9 & How easy was it to personalize a game's settings for a Learner? & 1--10 & \srsref{NFR-USE-2}\\
 \midrule
 \multicolumn{4}{l}{\emph{Facilitating gameplay}}\\
-Q10 & How easy was it to set up and start a game for a Learner? & 1--10 & NFR-USE-4\\
-Q11 & How confident would you feel supervising a Learner during a game, including pausing, stopping or helping them? & 1--10 & NFR-USE-4\\
+Q10 & How easy was it to set up and start a game for a Learner? & 1--10 & \srsref{NFR-USE-4}\\
+Q11 & How confident would you feel supervising a Learner during a game, including pausing, stopping or helping them? & 1--10 & \srsref{NFR-USE-4}\\
 \midrule
 \multicolumn{4}{l}{\emph{Dashboard and response time}}\\
-Q12 & How easy was it to understand the Learner's performance from the dashboard? & 1--10 & NFR-EFF-1\\
-Q13 & How satisfied were you with how quickly the application responded when logging in and opening a Learner's data? & 1--10 & NFR-PERF-1\\
+Q12 & How easy was it to understand the Learner's performance from the dashboard? & 1--10 & \srsref{NFR-EFF-1}\\
+Q13 & How satisfied were you with how quickly the application responded when logging in and opening a Learner's data? & 1--10 & \srsref{NFR-PERF-1}\\
 \midrule
 \multicolumn{4}{l}{\emph{Open feedback}}\\
 Q14 & What, if anything, was confusing or frustrating? & Free text & --\\
 Q15 & What would you change about the application? & Free text & --\\
 \midrule
 \multicolumn{4}{l}{\emph{Second session only}}\\
-Q16 & Compared to your first session, how much easier was it to complete the same tasks? & 1--10 & NFR-USE-3\\
+Q16 & Compared to your first session, how much easier was it to complete the same tasks? & 1--10 & \srsref{NFR-USE-3}\\
 \bottomrule
 \end{tabularx}
 \end{table}
 
-\paragraph{Observer record.} During each session, an observer records the following for each task (creating an account, adding and pairing a Learner, inviting a CTM, personalizing a game, and reading the dashboard): the time taken, the number of errors, whether the participant needed help, and any comments. The times from the first and second sessions are compared to measure memorability (NFR-USE-3), alongside Q16.
+\paragraph{Observer record.} During each session, an observer records the following for each task (creating an account, adding and pairing a Learner, inviting a CTM, personalizing a game, and reading the dashboard): the time taken, the number of errors, whether the participant needed help, and any comments. The times from the first and second sessions are compared to measure memorability (\srsref{NFR-USE-3}), alongside Q16.
 
 \subsection{Learner Proxy Observation Guide}
 
-The following guide is used by the supervisor and special-education educators when play-testing each game as proxies for Learners (V4 in Section~\ref{sec:validation}). The guide is completed once per game. Rated questions use the same 1--10 scale as the usability survey, and a rating of 8 or higher counts as a Learner being easily able to participate for NFR-USE-5. If sessions with Learners are approved by the ethics board, the same guide is completed by an observer during those sessions, and the report states which kind of participant each result comes from.
+The following guide is used by the supervisor and special-education educators when play-testing each game as proxies for Learners (\valref{4} in Section~\ref{sec:validation}). The guide is completed once per game. Rated questions use the same 1--10 scale as the usability survey, and a rating of 8 or higher counts as a Learner being easily able to participate for \srsref{NFR-USE-5}. If sessions with Learners are approved by the ethics board, the same guide is completed by an observer during those sessions, and the report states which kind of participant each result comes from.
 
 \begin{table}[htbp]
 \centering\small
@@ -1606,13 +1560,13 @@ The following guide is used by the supervisor and special-education educators wh
 \toprule
 \textbf{ID} & \textbf{Question} & \textbf{Response} & \textbf{Measures}\\
 \midrule
-O1 & Could any visual, sound or animation overstimulate a Learner with sensory hypersensitivity? If so, where? & Yes / No, with notes & SR-LRN-1, SR-DOM-3\\
-O2 & Could the game understimulate a Learner with sensory hyposensitivity? If so, where? & Yes / No, with notes & SR-LRN-1, SR-DOM-3\\
-O3 & How clear are the rules and instructions for a Learner who may not read independently? & 1--10 & SR-LRN-2\\
-O4 & Could a Learner take their time and retry without feeling pressured? & Yes / No, with notes & SR-LRN-3\\
-O5 & How likely is the game to give a Learner a sense of accomplishment? & 1--10 & SR-LRN-4\\
-O6 & How likely is the game to hold a Learner's attention? & 1--10 & SR-DOM-2\\
-O7 & How easily could a Learner participate in the game without frustration or confusion? & 1--10 & NFR-USE-5\\
+O1 & Could any visual, sound or animation overstimulate a Learner with sensory hypersensitivity? If so, where? & Yes / No, with notes & \srsref{SR-LRN-1}, \srsref{SR-DOM-3}\\
+O2 & Could the game understimulate a Learner with sensory hyposensitivity? If so, where? & Yes / No, with notes & \srsref{SR-LRN-1}, \srsref{SR-DOM-3}\\
+O3 & How clear are the rules and instructions for a Learner who may not read independently? & 1--10 & \srsref{SR-LRN-2}\\
+O4 & Could a Learner take their time and retry without feeling pressured? & Yes / No, with notes & \srsref{SR-LRN-3}\\
+O5 & How likely is the game to give a Learner a sense of accomplishment? & 1--10 & \srsref{SR-LRN-4}\\
+O6 & How likely is the game to hold a Learner's attention? & 1--10 & \srsref{SR-DOM-2}\\
+O7 & How easily could a Learner participate in the game without frustration or confusion? & 1--10 & \srsref{NFR-USE-5}\\
 O8 & Any other observations about the game's suitability for autistic Learners. & Free text & --\\
 \bottomrule
 \end{tabularx}
