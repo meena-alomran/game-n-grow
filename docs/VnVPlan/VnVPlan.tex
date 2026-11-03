@@ -1152,6 +1152,55 @@ How test will be performed:
 \wss{Provide a table that shows which test cases are supporting which
   requirements.}
 
+\begin{longtable}{p{0.25\textwidth} p{0.7\textwidth}}
+
+\toprule
+Test Case & Requirements \\
+\midrule
+test-ctm-1 & FR-CTM-1, FR-CTM-2, SR-1 \\
+test-ctm-2 & FR-CTM-3, FR-CTM-4 \\
+test-ctm-3 & FR-CTM-5, SR-3 \\
+test-ctm-4 & FR-CTM-6 \\
+test-ctm-5 & SR-2 \\
+\midrule
+test-lrn-1 & FR-LRN-1, FR-LRN-2, FR-LRN-3 \\
+test-lrn-2 & FR-LRN-4, FR-LRN-5, FR-LRN-8, SR-3 \\
+test-lrn-3 & FR-LRN-7 \\
+test-lrn-4 & FR-LRN-6, SR-18 \\
+\midrule
+test-dev-1 & FR-DEV-1, FR-DEV-2, FR-DEV-3 \\
+test-dev-2 & FR-DEV-3, FR-DEV-4, FR-DEV-5 \\
+\midrule
+test-team-1 & FR-TEAM-1 \\
+test-team-2 & FR-TEAM-1, FR-TEAM-2, FR-TEAM-3 \\
+test-team-3 & FR-TEAM-4, FR-TEAM-5, SR-3 \\
+test-team-4 & FR-TEAM-6, SR-3 \\
+test-team-5 & FR-TEAM-1, FR-TEAM-7, FR-LRN-4 \\
+\midrule
+test-play-1 & FR-PLAY-1, FR-PERS-4, FR-DATA-7 \\
+test-play-2 & FR-PLAY-2, FR-PLAY-3, SR-5 \\
+test-play-3 & FR-PLAY-4, FR-PLAY-5, FR-PLAY-6, FR-PLAY-7, FR-PLAY-8, FR-PLAY-9, FR-PLAY-10, SR-8, SR-11 \\
+test-play-4 & FR-DATA-8, SR-8, SR-9 \\
+test-play-5 & SR-7 \\
+\midrule
+test-cfg-1 & FR-PERS-1, FR-PERS-2, FR-PLAY-1 \\
+test-cfg-2 & FR-PERS-3, FR-PERS-4, SR-4, SR-13 \\
+test-tmpl-1 & FR-TMPL-1, FR-TMPL-3, FR-TMPL-4, FR-TMPL-5, FR-TMPL-6, FR-TMPL-9, FR-PERS-4, SR-14 \\
+test-tmpl-2 & FR-TMPL-7, FR-TMPL-8, SR-14 \\
+test-tmpl-3 & FR-TMPL-2, SR-15 \\
+\midrule
+test-rwd-1 & FR-RWD-1, FR-RWD-2 \\
+test-rwd-2 & FR-RWD-3, FR-RWD-4, FR-RWD-5, FR-RWD-6, FR-RWD-7, SR-7, SR-13 \\
+test-rwd-3 & SR-12 \\
+\midrule
+test-data-1 & FR-DATA-1, FR-DATA-2, FR-DATA-3, FR-DATA-4, FR-DATA-5, SR-8 \\
+test-data-2 & FR-DATA-6, SR-16 \\
+test-data-3 & FR-DATA-1, FR-DATA-6, FR-TEAM-7 \\
+\bottomrule
+\caption{Traceability Between Test Cases and Functional Requirements}
+\label{tab:TC2FRtm}
+
+\end{longtable}
 \section{Unit Test Description}
 
 \wss{This section should not be filled in until after the MIS (detailed design
