@@ -555,12 +555,9 @@ The following categorization of testing areas is grouped by similarity of behavi
 
 \subsubsection{Accounts \& Profiles}
 
-\wss{It would be nice to have a blurb here to explain why the subsections below
-  cover the requirements.  References to the SRS would be good here.  If a section
-  covers tests for input constraints, you should reference the data constraints
-  table in the SRS.}
-		
-\paragraph{CTM Registration}
+This testing area covers the lifecycle of CTM accounts and Learner profiles with their paired devices. The tests trace to the FR-CTM, FR-LRN and FR-DEV requirements in Section 6 of the SRS.
+
+\paragraph{CTM Accounts}
 
 \begin{enumerate}
 
@@ -568,17 +565,18 @@ The following categorization of testing areas is grouped by similarity of behavi
 
 \begin{description}[leftmargin=4cm, labelindent=0pt, labelwidth=!, style=nextline, font=\normalfont\bfseries, before=\raggedright]
   \item[Control] Manual
-  \item[Initial State] The application is on the CTM registration page. No account exists for \texttt{newctm@example.com}.
+  \item[Initial State] The application is on the CTM registration page. No account exists for \texttt{newctm@example.com}. A verified account already exists for \texttt{existingctm@example.com}.
   \item[Input] Name: Test CTM; email: \texttt{newctm@example.com}. Each of the following is submitted separately, with all other fields valid:
     \begin{enumerate}[label=(\alph*), nosep]
       \item a password shorter than \texttt{MIN\_PASSWORD\_LENGTH}
       \item a password of valid length that does not meet the SR-1 standard
       \item a re-typed password that does not match
       \item terms \& conditions not accepted
+      \item the email \texttt{existingctm@example.com} in place of \texttt{newctm@example.com}
     \end{enumerate}
-  \item[Output] The account is not created and no verification email is sent. The system displays an error stating that account creation failed, with a reason that matches the source of the failure. 
-  \item[Derivation] FR-CTM-1 requires registration input to be validated, FR-CTM-2 requires the reason for an error to be displayed, and SR-1 requires password strength to be enforced on account creation. An invalid password, a mismatched password, or not accepting the terms \& conditions must therefore block account creation and display a matching reason.
-  \item[Test Procedure] For each case (a)--(d), a tester enters and submits the input on the registration page. The tester confirms the correct error message is shown, checks that no CTM record with this email exists in the database, and checks that the test inbox received no verification email.
+  \item[Output] The account is not created and no verification email is sent. The system displays an error stating that account creation failed, with a reason that matches the source of the failure. For case (e), the system also prompts the tester to log in to the existing account.
+  \item[Derivation] FR-CTM-1 requires registration input to be validated, FR-CTM-2 requires the reason for an error to be displayed, and SR-1 requires password strength to be enforced on account creation. An invalid password, a mismatched password, or not accepting the terms \& conditions must therefore block account creation and display a matching reason. UC7 alternative flow 4.2 also specifies that an email already associated with an account leads to a prompt to log in.
+  \item[Test Procedure] For each case (a)--(e), a tester enters and submits the input on the registration page. The tester confirms the correct error message is shown, checks that no new CTM record with the submitted email exists in the database, and checks that the test inbox received no verification email.
 \end{description}
 
 \vspace{0.05cm}
@@ -594,31 +592,501 @@ The following categorization of testing areas is grouped by similarity of behavi
   \item[Test Procedure] The tester enters the valid registration information outlined in the input. Upon submitting, the tester opens the email's inbox to acknowledge a verification email. The tester then attempts to log in to this account using the registration information.
 \end{description}
 
+\vspace{0.05cm}
+
+\item{test-ctm-3}
+
+\begin{description}[leftmargin=4cm, labelindent=0pt, labelwidth=!, style=nextline, font=\normalfont\bfseries, before=\raggedright]
+  \item[Control] Manual
+  \item[Initial State] CTM A is logged in. CTM A is a non-primary member of Learner L1's care team and owns a template that is assigned to L1. CTM B is the Primary CTM of L1.
+  \item[Input] CTM A chooses to delete their account. When asked to re-enter their password, CTM A first enters an incorrect password, then the correct password, and confirms the deletion.
+  \item[Output] With the incorrect password, the deletion is refused and the account is unchanged. With the correct password, the account is scheduled for deletion after \texttt{GRACE\_PERIOD} and CTM A is logged out. CTM A no longer appears in L1's care team and their template is no longer assigned to L1. L1's profile and data still exist and remain accessible to CTM B.
+  \item[Derivation] FR-CTM-5 says that a CTM can delete their account with a scheduled grace period, un-linking all Learners and templates. SR-3 requires the password to be re-entered before an account is deleted. SRS Section 11 specifies that deleting a CTM account does not delete a Learner's profile.
+  \item[Test Procedure] The tester logs in as CTM A and chooses to delete the account, entering an incorrect password first and confirming that the deletion is refused. The tester then repeats the deletion with the correct password. The tester checks that the CTM record has a deletion time set to \texttt{GRACE\_PERIOD} from now, then logs in as CTM B to confirm that L1's profile and data are unchanged, CTM A is absent from the care team, and the template is no longer assigned to L1.
+\end{description}
+
+\vspace{0.05cm}
+
+\item{test-ctm-4}
+
+\begin{description}[leftmargin=4cm, labelindent=0pt, labelwidth=!, style=nextline, font=\normalfont\bfseries, before=\raggedright]
+  \item[Control] Manual
+  \item[Initial State] CTM A's account is scheduled for deletion and is still within \texttt{GRACE\_PERIOD}.
+  \item[Input] CTM A logs in with their credentials and chooses to restore their account. The test server's clock is then advanced past the original deletion time.
+  \item[Output] The account is restored and is no longer scheduled for deletion. The account still exists after the original deletion time has passed, and CTM A can log in and use the application normally.
+  \item[Derivation] FR-CTM-6 says that a CTM can restore their account during the grace period. SRS Section 7.3 specifies that data restored within the grace period is no longer scheduled for deletion.
+  \item[Test Procedure] The tester logs in as CTM A and restores the account. The tester checks that the deletion time of the CTM record is cleared, advances the test server's clock past the original deletion time, and confirms that the account still exists by logging in as CTM A again.
+\end{description}
+
+\vspace{0.05cm}
+
+\item{test-ctm-5}
+
+\begin{description}[leftmargin=4cm, labelindent=0pt, labelwidth=!, style=nextline, font=\normalfont\bfseries, before=\raggedright]
+  \item[Control] Manual
+  \item[Initial State] CTM A is logged in and is on the Dashboard.
+  \item[Input] No interaction with the application for \texttt{INACTIVITY\_TIMEOUT}, followed by an attempt to open a Learner's settings.
+  \item[Output] The session has ended. The system returns the tester to the login page and does not display the Learner's settings.
+  \item[Derivation] SR-2 requires the system to end a CTM's session after a period of inactivity, so no Learner information should be accessible once the session has ended.
+  \item[Test Procedure] The tester logs in as CTM A, leaves the application idle for \texttt{INACTIVITY\_TIMEOUT}, then attempts to open a Learner's settings. The tester confirms that the login page is shown and that no Learner information was displayed.
+\end{description}
+
+\end{enumerate}
+
+\paragraph{Learner Profiles}
+
+\begin{enumerate}
+
+\item{test-lrn-1}
+
+\begin{description}[leftmargin=4cm, labelindent=0pt, labelwidth=!, style=nextline, font=\normalfont\bfseries, before=\raggedright]
+  \item[Control] Manual
+  \item[Initial State] CTM A is logged in and has no Learners on their account.
+  \item[Input] CTM A chooses to add a Learner, enters the name Test Learner, confirms they are the Learner's legal guardian, and authorizes one game with default settings.
+  \item[Output] The Learner profile is created under CTM A's account, and CTM A is shown as the Primary CTM of the Learner. The authorized game appears in the Learner's game configuration, and the system displays a pairing code for the Learner's devices.
+  \item[Derivation] FR-LRN-1 says that a CTM can create a new Learner profile under their account, FR-LRN-2 designates the creator as the Primary CTM, and FR-LRN-3 allows the CTM to input the Learner's information. UC2 specifies that a pairing code is displayed once the Learner's information is entered.
+  \item[Test Procedure] The tester logs in as CTM A and completes the steps outlined in the input. The tester confirms that the Learner appears on CTM A's account, checks that the care team membership record marks CTM A as the Primary CTM, and checks that a pairing code is displayed.
+\end{description}
+
+\vspace{0.05cm}
+
+\item{test-lrn-2}
+
+\begin{description}[leftmargin=4cm, labelindent=0pt, labelwidth=!, style=nextline, font=\normalfont\bfseries, before=\raggedright]
+  \item[Control] Manual
+  \item[Initial State] CTM A is logged in and is the Primary CTM of Learner L1. CTM B is a member of L1's care team with permission to view L1's data. L1 is paired to tablet T1 and has recorded game sessions.
+  \item[Input] CTM A chooses to delete L1's profile, accepts the offer to export L1's data, re-enters their password, and confirms the deletion.
+  \item[Output] The export contains L1's data. L1's profile is scheduled for deletion after \texttt{GRACE\_PERIOD}, and CTM A receives a confirmation of the deletion. T1 is unlinked and can no longer open L1's profile. CTM B no longer sees L1 on their account.
+  \item[Derivation] FR-LRN-4 says that the Primary CTM can delete a Learner's profile with a scheduled grace period, and FR-LRN-5 allows the Learner's data to be exported before deletion. SR-3 requires the password to be re-entered before a Learner profile is deleted. FR-LRN-8 says that a Learner cannot access their deleted profile, and UC8 specifies that paired devices are unlinked and other CTMs lose access.
+  \item[Test Procedure] The tester logs in as CTM A and completes the steps outlined in the input. The tester opens the exported file to confirm it contains L1's data, then checks that L1's record has a deletion time set to \texttt{GRACE\_PERIOD} from now. The tester confirms that T1 can no longer open L1's profile, and logs in as CTM B to confirm that L1 no longer appears.
+\end{description}
+
+\vspace{0.05cm}
+
+\item{test-lrn-3}
+
+\begin{description}[leftmargin=4cm, labelindent=0pt, labelwidth=!, style=nextline, font=\normalfont\bfseries, before=\raggedright]
+  \item[Control] Manual
+  \item[Initial State] CTM A is logged in and is the Primary CTM of Learner L1. L1's profile is scheduled for deletion and is still within \texttt{GRACE\_PERIOD}.
+  \item[Input] CTM A chooses to restore L1's profile. The test server's clock is then advanced past the original deletion time.
+  \item[Output] L1's profile and recorded game sessions are restored, and the profile is no longer scheduled for deletion. The profile still exists after the original deletion time has passed.
+  \item[Derivation] FR-LRN-7 says that the Primary CTM can restore a Learner's profile during the grace period. UC8 alternative flow 6.2 specifies that restoring the profile restores the Learner's data and cancels the scheduled deletion.
+  \item[Test Procedure] The tester logs in as CTM A and restores L1's profile. The tester confirms that L1's game sessions are shown again and that the deletion time of L1's record is cleared, then advances the test server's clock past the original deletion time and confirms that L1's profile still exists.
+\end{description}
+
+\vspace{0.05cm}
+
+\item{test-lrn-4}
+
+\begin{description}[leftmargin=4cm, labelindent=0pt, labelwidth=!, style=nextline, font=\normalfont\bfseries, before=\raggedright]
+  \item[Control] Manual
+  \item[Initial State] Learner L1's profile is scheduled for deletion and has recorded game sessions, game configurations, inventory items, a paired device and a care team. A backup of the stored data was taken after the deletion was scheduled.
+  \item[Input] The test server's clock is advanced past \texttt{GRACE\_PERIOD}.
+  \item[Output] No record associated with L1 remains in the database or in any backup, and L1's profile can no longer be restored.
+  \item[Derivation] FR-LRN-6 says that all Learner-related data is deleted after the grace period. SR-18 requires the system to verify that the deletion has completed and to remove the data from backups. SRS Section 7.3 specifies that permanent deletion includes all backups.
+  \item[Test Procedure] The tester advances the test server's clock past \texttt{GRACE\_PERIOD} and queries every table holding a Learner identifier for L1's identifier, confirming that no records are returned. The tester repeats the query on the latest backup, then logs in as L1's former Primary CTM to confirm that no option to restore L1 is shown.
+\end{description}
+
+\end{enumerate}
+
+\paragraph{Device Pairing}
+
+\begin{enumerate}
+
+\item{test-dev-1}
+
+\begin{description}[leftmargin=4cm, labelindent=0pt, labelwidth=!, style=nextline, font=\normalfont\bfseries, before=\raggedright]
+  \item[Control] Manual
+  \item[Initial State] CTM A is the Primary CTM of Learner L1, and a pairing code for L1 is displayed on CTM A's account. Tablets T1 and T2 are unpaired, with the application open on the pairing screen.
+  \item[Input] The pairing code is entered on T1. CTM A then generates a new pairing code, which is entered on T2.
+  \item[Output] Each pairing is confirmed on both the device and CTM A's account. T1 and T2 both show L1's Learner screen with the same authorized games, and both devices are listed under L1 on CTM A's account.
+  \item[Derivation] FR-DEV-1 says that a Learner can pair multiple devices, FR-DEV-2 requires each pairing to be confirmed to both parties, and FR-DEV-3 allows a CTM to generate a new pairing code. UC2 specifies that the Learner can see the correct Learner screen on their paired devices.
+  \item[Test Procedure] The tester enters the pairing code on T1 and confirms the pairing message on T1 and on CTM A's account. The tester generates a new code from CTM A's account, enters it on T2, and confirms the pairing message again. The tester then compares the Learner screens on T1 and T2 and checks that both devices are listed under L1.
+\end{description}
+
+\vspace{0.05cm}
+
+\item{test-dev-2}
+
+\begin{description}[leftmargin=4cm, labelindent=0pt, labelwidth=!, style=nextline, font=\normalfont\bfseries, before=\raggedright]
+  \item[Control] Manual
+  \item[Initial State] CTM A is the Primary CTM of Learner L1, and a pairing code for L1 is active. Tablet T1 is unpaired, with the application open on the pairing screen.
+  \item[Input] An incorrect code is entered on T1 \texttt{PAIRING\_RETRY\_LIMIT} times, followed by the correct code. After \texttt{PAIRING\_LOCKOUT\_DURATION} has passed, the original code is entered again. CTM A then generates a new code, which is entered on T1.
+  \item[Output] Once the retry limit is reached, further pairing attempts on T1 are blocked, and the correct code is refused. After the lockout period, the original code is still refused because it has been nullified. The new code pairs T1 successfully.
+  \item[Derivation] FR-DEV-4 says that the pairing method is nullified after a specific number of retries, and FR-DEV-5 requires further attempts to be blocked for a period of time after the retry limit is reached. FR-DEV-3 allows a CTM to generate a new code, which UC2 alternative flow 6.3 uses to recover from failed attempts.
+  \item[Test Procedure] The tester enters an incorrect code on T1 until the retry limit is reached, then enters the correct code and confirms that it is refused. The tester advances the test server's clock past \texttt{PAIRING\_LOCKOUT\_DURATION}, enters the original code again, and confirms that it is still refused. The tester generates a new code from CTM A's account, enters it on T1, and confirms that T1 is paired.
+\end{description}
+
 \end{enumerate}
 
 \subsubsection{Care Team \& Permissions}
 
-...
+This testing area covers how CTMs join, are managed within, and leave a Learner's care team, as well as how permissions restrict what each CTM can do. The tests trace to the FR-TEAM requirements in Section 6 of the SRS.
+
+\paragraph{Joining a Care Team}
+
+\begin{enumerate}
+
+\item{test-team-1}
+
+\begin{description}[leftmargin=4cm, labelindent=0pt, labelwidth=!, style=nextline, font=\normalfont\bfseries, before=\raggedright]
+  \item[Control] Manual
+  \item[Initial State] CTM A is logged in and is the Primary CTM of Learner L1. CTM C has a verified account and is not part of L1's care team.
+  \item[Input] CTM A chooses to add a CTM to L1's care team, selects permission to view L1's data only, and shares the generated invite code with CTM C. CTM C enters the invite code on their account.
+  \item[Output] The system generates an invite code that expires after \texttt{INVITE\_EXPIRY}. CTM C is added to L1's care team with only the selected permission, L1 appears on CTM C's account, and CTM A is notified that CTM C has joined.
+  \item[Derivation] FR-TEAM-1 says that the Primary CTM can add other CTMs to the Learner's care team via invite code. UC9 specifies that the invite code has an expiry time, that the new CTM is limited to the permissions selected by the Primary CTM, and that the Primary CTM is notified when the new CTM joins.
+  \item[Test Procedure] The tester logs in as CTM A and generates an invite with the permission outlined in the input, then checks that the code's expiry is set to \texttt{INVITE\_EXPIRY} from now. The tester logs in as CTM C, enters the code, and confirms that L1 appears on the account. The tester checks that the care team membership record for CTM C holds only the selected permission, and confirms that CTM A received a notification.
+\end{description}
+
+\vspace{0.05cm}
+
+\item{test-team-2}
+
+\begin{description}[leftmargin=4cm, labelindent=0pt, labelwidth=!, style=nextline, font=\normalfont\bfseries, before=\raggedright]
+  \item[Control] Manual
+  \item[Initial State] CTM A is the Primary CTM of Learner L1. CTM C is logged in and is not part of L1's care team. CTM D has already joined L1's care team using an earlier invite code.
+  \item[Input] CTM C attempts to join L1's care team in each of the following cases separately:
+    \begin{enumerate}[label=(\alph*), nosep]
+      \item an incorrect code is entered \texttt{INVITE\_RETRY\_LIMIT} times, followed by the correct code
+      \item the correct code is entered after \texttt{INVITE\_EXPIRY} has passed
+      \item the code already used by CTM D is entered
+      \item the correct code is entered after CTM A has cancelled the invite
+    \end{enumerate}
+  After each case, CTM A generates a new invite code, which CTM C enters.
+  \item[Output] In every case, CTM C is not added to L1's care team and the system displays a reason for the failure. In case (a), further attempts are blocked for \texttt{INVITE\_LOCKOUT\_DURATION} once the retry limit is reached, and the correct code is refused. The newly generated code adds CTM C to L1's care team.
+  \item[Derivation] FR-TEAM-1 says that CTMs join a care team via invite code, FR-TEAM-2 allows the Primary CTM to cancel an outgoing invite, and FR-TEAM-3 allows the Primary CTM to generate a new invite. UC9 alternative flows 7.1--7.3 specify that an incorrect, expired or used code is rejected, that retries are limited before further attempts are blocked, and that the Primary CTM can generate a new code.
+  \item[Test Procedure] For each case (a)--(d), the tester sets up the code as outlined in the input, advancing the test server's clock past \texttt{INVITE\_EXPIRY} for case (b), and logs in as CTM C to enter it. The tester confirms that a failure reason is shown and that no membership record exists for CTM C on L1. The tester then generates a new code as CTM A, enters it as CTM C, and confirms that CTM C joins L1's care team. Before the next case, CTM C is removed from L1's care team.
+\end{description}
+
+\end{enumerate}
+
+\paragraph{Managing a Care Team}
+
+\begin{enumerate}
+
+\item{test-team-3}
+
+\begin{description}[leftmargin=4cm, labelindent=0pt, labelwidth=!, style=nextline, font=\normalfont\bfseries, before=\raggedright]
+  \item[Control] Manual
+  \item[Initial State] CTM A is logged in and is the Primary CTM of Learner L1. CTM B is a member of L1's care team with permission to view L1's data and to personalize L1's settings, and is logged in on a separate device with L1's settings open.
+  \item[Input] CTM A removes CTM B's permission to personalize settings and saves the change. CTM B then attempts to save a change to L1's settings. CTM A then chooses to remove CTM B from L1's care team, re-enters their password, and confirms the removal.
+  \item[Output] After the permission change, CTM B's attempt to save is refused, and CTM B is notified that their permissions have changed. After the removal, L1 no longer appears on CTM B's account and CTM B is notified of the removal.
+  \item[Derivation] FR-TEAM-4 says that the Primary CTM can edit the permissions of other CTMs, and UC10 specifies that new permissions are applied immediately and the affected CTM is notified. FR-TEAM-5 says that the Primary CTM can remove another CTM from the care team, and SR-3 requires the password to be re-entered before a CTM is removed.
+  \item[Test Procedure] The tester logs in as CTM A on one device and as CTM B on another. The tester changes CTM B's permissions as CTM A, then attempts to save a setting as CTM B without reloading, and confirms that the save is refused and the setting is unchanged. The tester then removes CTM B as CTM A, and confirms on CTM B's device that L1 is no longer shown and that both notifications were received.
+\end{description}
+
+\vspace{0.05cm}
+
+\item{test-team-4}
+
+\begin{description}[leftmargin=4cm, labelindent=0pt, labelwidth=!, style=nextline, font=\normalfont\bfseries, before=\raggedright]
+  \item[Control] Manual
+  \item[Initial State] CTM A is the Primary CTM of Learner L1. CTM B is a member of L1's care team.
+  \item[Input] CTM B requests to transfer ownership of L1's profile to their account. CTM A first declines the request. CTM B then requests the transfer again, and CTM A accepts it and re-enters their password.
+  \item[Output] When CTM A declines, ownership is unchanged. When CTM A accepts, CTM B becomes the Primary CTM of L1 and CTM A is no longer the Primary CTM. L1 has exactly one Primary CTM.
+  \item[Derivation] FR-TEAM-6 says that a CTM can transfer ownership of a Learner's profile from another CTM, and UC2 alternative flows 1.1--1.2 specify that the current owner must confirm the transfer. SR-3 requires the password to be re-entered before ownership is transferred. UC10 specifies that there is exactly one Primary CTM for a Learner.
+  \item[Test Procedure] The tester logs in as CTM B and requests the transfer, then logs in as CTM A and declines it, confirming that CTM A is still shown as the Primary CTM. The tester repeats the request as CTM B and accepts it as CTM A with the password. The tester confirms that CTM B is shown as the Primary CTM and checks that only one care team membership record for L1 is marked as primary.
+\end{description}
+
+\vspace{0.05cm}
+
+\item{test-team-5}
+
+\begin{description}[leftmargin=4cm, labelindent=0pt, labelwidth=!, style=nextline, font=\normalfont\bfseries, before=\raggedright]
+  \item[Control] Manual
+  \item[Initial State] CTM A is the Primary CTM of Learner L1. CTM B is a member of L1's care team with permission to view L1's data only. CTM C has a verified account and is not part of L1's care team.
+  \item[Input] CTM B and CTM C each attempt the following actions on L1:
+    \begin{enumerate}[label=(\alph*), nosep]
+      \item change a personalized setting
+      \item assign a template
+      \item invite a CTM to the care team
+      \item delete the profile
+    \end{enumerate}
+  CTM B attempts each action through the application, and CTM B and CTM C each attempt it by sending the request directly to the server.
+  \item[Output] Every attempt is refused and L1's data is unchanged. CTM B can still view L1's data.
+  \item[Derivation] FR-TEAM-7 says that a CTM cannot perform actions they do not explicitly have permission to do. FR-LRN-4 and FR-TEAM-1 also limit deleting a Learner's profile and inviting CTMs to the Primary CTM. Hiding an action in the application does not satisfy FR-TEAM-7 on its own, so the server must also refuse the request.
+  \item[Test Procedure] For each action (a)--(d), the tester logs in as CTM B and attempts the action through the application, then sends the same request directly to the server using CTM B's session, then using CTM C's session. The tester confirms that every attempt is refused and checks that L1's records in the database are unchanged. The tester then confirms that CTM B can still open L1's data.
+\end{description}
+
+\end{enumerate}
 
 \subsubsection{Gameplay}
 
-...
+This testing area covers a Learner's experience during a game, from selecting a game in the game suite to completing or leaving it, including how the system behaves when the connection is lost or the game fails to load. The tests trace to the FR-PLAY requirements in Section 6 of the SRS, FR-DATA-7 and FR-DATA-8, and the safety requirements SR-5, SR-7, SR-8, SR-9 and SR-11. The tests follow UC1 and the gameplay states in Figure 2 of the SRS.
 
-\subsubsection{Reward System}
+\paragraph{Playing a Game}
 
-... 
+\begin{enumerate}
 
-\subsubsection{Learner Profiles}
+\item{test-play-1}
 
-...
+\begin{description}[leftmargin=4cm, labelindent=0pt, labelwidth=!, style=nextline, font=\normalfont\bfseries, before=\raggedright]
+  \item[Control] Manual
+  \item[Initial State] Learner L1 is paired to tablet T1. L1 is authorized to play game G1 with personalized settings and is not authorized to play game G2. The application on T1 is on the game suite.
+  \item[Input] The Learner selects G1, gives the start cue, completes every task, and exits to the game suite from the completion screen.
+  \item[Output] The game suite shows G1 and does not show G2. G1 loads with L1's personalized settings and the completion screen is shown after the final task. The session is recorded as completed, with the settings used and the scores of each task.
+  \item[Derivation] FR-PLAY-1 says that a Learner cannot play games they are not explicitly authorized to play, and FR-PERS-4 says that the personalized settings are loaded when a Learner plays a game. FR-DATA-7 requires the Learner's performance in the session to be saved. UC1 specifies the flow from selecting a game to exiting it.
+  \item[Test Procedure] The tester confirms that only G1 appears in the game suite on T1, then plays G1 to completion as outlined in the input. The tester checks that the settings shown in the game match L1's personalized settings, then checks that the session record for L1 has a completed outcome, the settings used, and a score for each task.
+\end{description}
 
-\subsubsection{Learner Data}
+\vspace{0.05cm}
 
-...
+\item{test-play-2}
+
+\begin{description}[leftmargin=4cm, labelindent=0pt, labelwidth=!, style=nextline, font=\normalfont\bfseries, before=\raggedright]
+  \item[Control] Manual
+  \item[Initial State] Learner L1 is paired to tablet T1 and is authorized to play game G1, with music and sound effects set above zero. The device volume on T1 is turned up.
+  \item[Input] The Learner selects G1 and waits without giving the start cue. The Learner then gives the start cue and attempts to move to the next task before completing the current one, then completes the current task.
+  \item[Output] Before the start cue, the game does not start and no audio or animation is played. After the start cue, the game begins. The next task is not presented while the current task is incomplete, and is presented once it is completed.
+  \item[Derivation] FR-PLAY-2 says that a game does not start until the Learner gives a cue that they are ready, and SR-5 requires that no game audio or animation begins before this cue. FR-PLAY-3 says that the next task is only presented once the current task is completed.
+  \item[Test Procedure] The tester records the screen and audio of T1 while selecting G1 and waiting without giving the start cue, then gives the cue and attempts to skip ahead before completing the first task. The tester reviews the recording to confirm that there is no audio or animation before the start cue, and confirms that the second task appeared only after the first was completed.
+\end{description}
+
+\vspace{0.05cm}
+
+\item{test-play-3}
+
+\begin{description}[leftmargin=4cm, labelindent=0pt, labelwidth=!, style=nextline, font=\normalfont\bfseries, before=\raggedright]
+  \item[Control] Manual
+  \item[Initial State] Learner L1 is paired to tablet T1 and is playing game G1. CTM A, the Primary CTM of L1, has permitted the guide and playing again for G1.
+  \item[Input] Each of the following is performed separately during a game of G1:
+    \begin{enumerate}[label=(\alph*), nosep]
+      \item the Learner pauses the game, then resumes it
+      \item the Learner restarts the game
+      \item the Learner aborts the game
+      \item the Learner opens the guide for the current instruction, then closes it
+      \item CTM A aborts the game from T1
+      \item the Learner completes the game, chooses to play again, then completes it and returns to the game suite
+      \item cases (d) and (f) are repeated after CTM A has disallowed the guide and playing again
+    \end{enumerate}
+  \item[Output] Pause, restart and exit controls are visible and responsive throughout. In case (a), the game stops and resumes on the same task. In case (b), the game starts again from the first task and the earlier session is recorded as restarted. In cases (c) and (e), the Learner returns to the game suite and the session is recorded as incomplete. In case (d), the guide for the current instruction is shown and closing it returns to the same task. In case (f), a new session starts and the Learner returns to the game suite afterward. In case (g), the guide and play again options are not available.
+  \item[Derivation] FR-PLAY-4 allows the Learner to read a guide if permitted by the CTM, FR-PLAY-5 to FR-PLAY-7 allow the Learner to pause, restart and abort a game, and FR-PLAY-8 allows the CTM to abort a Learner's game. FR-PLAY-9 allows the Learner to play again if permitted by the CTM, and FR-PLAY-10 allows the Learner to return to the game suite. SR-11 requires the pause, restart and exit controls to be visible and responsive at all times, and SR-8 requires aborted sessions to be recorded as incomplete.
+  \item[Test Procedure] For each case (a)--(g), the tester starts G1 on T1 and performs the actions outlined in the input, confirming that the pause, restart and exit controls remain visible and respond throughout. The tester confirms the behaviour described in the output for each case, then checks the outcome recorded for each session in the database.
+\end{description}
+
+\vspace{0.05cm}
+
+\item{test-play-4}
+
+\begin{description}[leftmargin=4cm, labelindent=0pt, labelwidth=!, style=nextline, font=\normalfont\bfseries, before=\raggedright]
+  \item[Control] Manual
+  \item[Initial State] Learner L1 is paired to tablet T1 and is authorized to play game G1, with L1's settings already stored on T1. T1 is connected to the network.
+  \item[Input] Each of the following is performed separately:
+    \begin{enumerate}[label=(\alph*), nosep]
+      \item T1's network connection is turned off after the start cue, the Learner completes G1, and the connection is turned back on
+      \item T1's network connection is turned off before the application is opened, the Learner plays G1 to completion, and the connection is turned back on
+      \item the application is force-closed during G1, then reopened with the network connected
+    \end{enumerate}
+  \item[Output] In cases (a) and (b), the game plays without interruption using the settings stored on T1. The session results are kept on T1 until the connection returns, are then uploaded and recorded as completed, and are removed from T1's local storage. In case (c), the session is recorded as incomplete.
+  \item[Derivation] SR-9 requires that a loss of connection does not interrupt a session in progress or prevent a Learner from playing authorized games with settings already stored on the device. FR-DATA-8 requires performance to be queued locally for future syncing without a stable connection, and SRS Section 7.3 specifies that queued data is deleted from local storage after syncing. SR-8 requires sessions that end through a crash to be recorded as incomplete.
+  \item[Test Procedure] For cases (a) and (b), the tester plays G1 as outlined in the input and confirms that the game is not interrupted. While the connection is off, the tester checks that no new session record exists in the database. After reconnecting, the tester checks that the session record appears with a completed outcome and that T1's local queue is empty. For case (c), the tester force-closes the application, reopens it, and checks that the session is recorded as incomplete.
+\end{description}
+
+\vspace{0.05cm}
+
+\item{test-play-5}
+
+\begin{description}[leftmargin=4cm, labelindent=0pt, labelwidth=!, style=nextline, font=\normalfont\bfseries, before=\raggedright]
+  \item[Control] Manual
+  \item[Initial State] Learner L1 is paired to tablet T1 and is authorized to play game G1. A test build is installed on T1 in which G1 is set to fail when loading.
+  \item[Input] The Learner selects G1 from the game suite, then selects the action shown in the error message.
+  \item[Output] The system displays a short, calm error message with no alarming sounds or visuals, offering a single action to return to the game suite. Selecting the action returns the Learner to the game suite.
+  \item[Derivation] SR-7 requires error messages shown to a Learner to be calm and short, to avoid alarming sounds or visuals, and to offer a single action to return to the game suite. UC1 alternative flow 2.1 specifies that a game may fail to load with the correct settings.
+  \item[Test Procedure] The tester records the screen and audio of T1 while selecting G1. The tester confirms that one error message with a single action is shown, reviews the recording for alarming sounds or visuals, and selects the action to confirm that it returns to the game suite.
+\end{description}
+
+\end{enumerate}
 
 \subsubsection{Game Configuration}
 
-...
+This testing area covers how CTMs tailor games for a Learner, through game and difficulty authorizations, personalized settings, and templates. The tests trace to the FR-PERS and FR-TMPL requirements in Section 6 of the SRS.
+
+\paragraph{Personalization}
+
+\begin{enumerate}
+
+\item{test-cfg-1}
+
+\begin{description}[leftmargin=4cm, labelindent=0pt, labelwidth=!, style=nextline, font=\normalfont\bfseries, before=\raggedright]
+  \item[Control] Manual
+  \item[Initial State] CTM A is logged in and is the Primary CTM of Learner L1. L1 is paired to tablet T1, is authorized to play game G1 at every difficulty, and is not authorized to play game G2.
+  \item[Input] CTM A performs each of the following in order:
+    \begin{enumerate}[label=(\alph*), nosep]
+      \item authorizes G2 for L1
+      \item removes the authorization of G1 for L1
+      \item makes only one difficulty of G2 available to L1
+    \end{enumerate}
+  \item[Output] In case (a), G2 appears in L1's game suite on T1. In case (b), G1 no longer appears in L1's game suite and cannot be launched. In case (c), only the selected difficulty of G2 can be chosen on T1.
+  \item[Derivation] FR-PERS-1 says that a CTM can toggle the authorization of specific games for a Learner, and FR-PLAY-1 says that a Learner cannot play games they are not explicitly authorized to play. FR-PERS-2 says that an authorized CTM can toggle the authorization of specific difficulties of a game for a Learner.
+  \item[Test Procedure] For each case (a)--(c), the tester makes the change as CTM A, then checks the game suite on T1. For case (b), the tester also attempts to launch G1 from a game suite screen that was open before the change, and confirms that the game does not start. For case (c), the tester opens G2 on T1 and confirms that only the selected difficulty is available.
+\end{description}
+
+\vspace{0.05cm}
+
+\item{test-cfg-2}
+
+\begin{description}[leftmargin=4cm, labelindent=0pt, labelwidth=!, style=nextline, font=\normalfont\bfseries, before=\raggedright]
+  \item[Control] Manual
+  \item[Initial State] CTM A is logged in and is the Primary CTM of Learner L1, which was just created and has never had its settings changed. L1 is paired to tablet T1 and is authorized to play game G1.
+  \item[Input] CTM A opens L1's settings for G1. CTM A changes the stimulation level, reward, prompt level, volume levels and celebration intensity, and saves the settings. The Learner then plays G1 on T1. CTM A then makes the server unreachable from their device, changes the stimulation level again, and saves.
+  \item[Output] Before any changes, the stimulation level, volume levels and celebration intensity are set to their low default values. The first save is confirmed, and the session on T1 uses the new settings. The second save is not confirmed, the CTM is informed that it failed, and the previous settings are kept.
+  \item[Derivation] SR-4 requires the default stimulation level, volume and celebration intensity to be low until a CTM changes them. FR-PERS-3 says that an authorized CTM can choose personalized settings of a game for a Learner, and FR-PERS-4 says that these settings are loaded when the Learner plays the game. SR-13 requires a save to be confirmed only after it has been verified, and the previous values to be kept if saving fails. UC4 specifies the settings that can be personalized.
+  \item[Test Procedure] The tester logs in as CTM A, opens L1's settings for G1, and confirms that the stimulation level, volume levels and celebration intensity match the low defaults. The tester makes and saves the changes outlined in the input, plays G1 on T1, and checks that the settings recorded for the session match the saved settings. The tester then disconnects CTM A's device from the server, makes and saves another change, and confirms that a failure message is shown and that L1's stored settings are unchanged.
+\end{description}
+
+\end{enumerate}
+
+\paragraph{Templates}
+
+\begin{enumerate}
+
+\item{test-tmpl-1}
+
+\begin{description}[leftmargin=4cm, labelindent=0pt, labelwidth=!, style=nextline, font=\normalfont\bfseries, before=\raggedright]
+  \item[Control] Manual
+  \item[Initial State] CTM A is logged in and is the Primary CTM of Learners L1 and L2. L1 has personalized settings for game G1 and no assigned template. L2 already has another template assigned for G1. L1 is paired to tablet T1.
+  \item[Input] CTM A creates template TP1 from G1, adds, changes and removes one content item each, changes the colour palette and volume levels, chooses a difficulty, and saves TP1 in a new folder named Folder 1. CTM A then assigns TP1 to L1 and L2, reviews the preview, confirms the assignment, and confirms that L2's existing template should be replaced. The Learner then plays G1 on T1.
+  \item[Output] TP1 is saved in Folder 1 with the changed content, settings and difficulty. Before the assignment, the system shows a preview of TP1 and lists L1 and L2 along with what will be replaced for each, and requires confirmation. The system also asks whether to replace L2's existing template. After confirmation, TP1 is assigned to both Learners. The session on T1 uses TP1's content, settings and difficulty instead of L1's personalized settings.
+  \item[Derivation] FR-TMPL-1 says that a CTM can create a template from an existing game, FR-TMPL-3 to FR-TMPL-5 allow the CTM to change the template's content, settings and difficulty, and FR-TMPL-9 allows templates to be organized in folders. FR-TMPL-6 says that assigning a template to a Learner overrides any previous settings, and FR-PERS-4 says that personalized settings are not loaded when a template is assigned. SR-14 requires the affected Learners, what will be replaced, and a preview to be shown before assignment, and UC5 alternative flow 6.1 specifies that the CTM is asked before an existing template is replaced.
+  \item[Test Procedure] The tester logs in as CTM A and creates TP1 as outlined in the input, then confirms that TP1 appears in Folder 1 with the changes made. The tester assigns TP1 to L1 and L2, confirming that the preview, the list of affected Learners and the replacement prompt for L2 are shown before the assignment takes effect. The tester then plays G1 on T1, confirms that TP1's content and difficulty are presented, and checks that the session record references TP1 and the settings used match TP1's settings.
+\end{description}
+
+\vspace{0.05cm}
+
+\item{test-tmpl-2}
+
+\begin{description}[leftmargin=4cm, labelindent=0pt, labelwidth=!, style=nextline, font=\normalfont\bfseries, before=\raggedright]
+  \item[Control] Manual
+  \item[Initial State] CTM A is logged in and is the Primary CTM of Learners L1 and L2. Template TP1 for game G1 is assigned to both Learners, and each Learner had different personalized settings for G1 before the assignment. L1 is paired to tablet T1 and L2 is paired to tablet T2.
+  \item[Input] CTM A un-assigns TP1 from L1, reviews the preview, and confirms. The Learner then plays G1 on T1. CTM A then deletes TP1, reviews the preview, and confirms. The Learner then plays G1 on T2.
+  \item[Output] Before each change, the system shows a preview of TP1, the affected Learners and what will be replaced, and requires confirmation. After the un-assignment, the session on T1 uses L1's previous personalized settings. After the deletion, TP1 no longer appears in CTM A's templates and the session on T2 uses L2's previous personalized settings.
+  \item[Derivation] FR-TMPL-7 says that un-assigning a template from a Learner restores their previous settings, and FR-TMPL-8 says that deleting a template un-assigns it from any associated Learners. SR-14 requires the affected Learners, what will be replaced, and a preview to be shown before a template is un-assigned or deleted.
+  \item[Test Procedure] The tester records L1's and L2's personalized settings for G1 before the test. The tester un-assigns TP1 from L1 as CTM A, confirming that the preview and affected Learners are shown, then plays G1 on T1 and checks that the settings recorded for the session match L1's earlier settings exactly. The tester then deletes TP1 as CTM A in the same way, confirms that TP1 is no longer listed, plays G1 on T2, and checks that the settings recorded for the session match L2's earlier settings exactly.
+\end{description}
+
+\vspace{0.05cm}
+
+\item{test-tmpl-3}
+
+\begin{description}[leftmargin=4cm, labelindent=0pt, labelwidth=!, style=nextline, font=\normalfont\bfseries, before=\raggedright]
+  \item[Control] Manual
+  \item[Initial State] CTM A owns template TP1. CTM C is logged in and has no templates. Two test files are prepared: a truncated template file, and a template file with a script placed in a content field that would write a marker file if executed.
+  \item[Input] Each of the following is performed separately:
+    \begin{enumerate}[label=(\alph*), nosep]
+      \item CTM A exports TP1, and CTM C imports the exported file
+      \item CTM C imports the truncated template file
+      \item CTM C imports the template file containing a script
+    \end{enumerate}
+  \item[Output] In case (a), CTM C has a template with the same content, settings and difficulty as TP1. In cases (b) and (c), the import is rejected with a reason and no template is created. In case (c), the script is not executed.
+  \item[Derivation] FR-TMPL-2 says that a CTM can import a template from another CTM, and UC5 specifies that a template can be exported to a file. SR-15 requires imported files to be treated as untrusted data and never executed.
+  \item[Test Procedure] For case (a), the tester exports TP1 as CTM A, imports the file as CTM C, and compares the two templates' content, settings and difficulty. For cases (b) and (c), the tester imports each file as CTM C, confirms that a failure reason is shown, and checks that no template was added to CTM C's account. For case (c), the tester also checks that the marker file was not created on the device or the server.
+\end{description}
+
+\end{enumerate}
+
+\subsubsection{Reward System}
+
+This testing area covers how a Learner earns rewards from games and unlocks, equips and views cosmetic items, as well as how CTMs limit which items are available. The tests trace to the FR-RWD requirements in Section 6 of the SRS.
+
+\paragraph{Earning Rewards}
+
+\begin{enumerate}
+
+\item{test-rwd-1}
+
+\begin{description}[leftmargin=4cm, labelindent=0pt, labelwidth=!, style=nextline, font=\normalfont\bfseries, before=\raggedright]
+  \item[Control] Manual
+  \item[Initial State] Learner L1 is paired to tablet T1 and is authorized to play game G1. L1 owns every item in G1's reward pool except item I1.
+  \item[Input] The Learner completes G1 and claims the reward. The Learner then starts G1 again and aborts it.
+  \item[Output] After the completed game, the reward offered is I1, and claiming it adds I1 to L1's inventory as a game reward. After the aborted game, no reward is offered and L1's inventory is unchanged.
+  \item[Derivation] FR-RWD-1 says that a Learner can claim a reward after a completed game, and UC1 specifies that the reward is claimed after the completion screen. FR-RWD-2 says that duplicate items are not offered as rewards, so the only item that can be offered is the one L1 does not own.
+  \item[Test Procedure] The tester plays G1 to completion on T1, confirms that I1 is the reward offered, and claims it. The tester checks that L1's inventory records contain I1 with a game reward source. The tester then starts G1 again, aborts it, and confirms that no reward is offered and that L1's inventory records are unchanged.
+\end{description}
+
+\end{enumerate}
+
+\paragraph{Cosmetic Items}
+
+\begin{enumerate}
+
+\item{test-rwd-2}
+
+\begin{description}[leftmargin=4cm, labelindent=0pt, labelwidth=!, style=nextline, font=\normalfont\bfseries, before=\raggedright]
+  \item[Control] Manual
+  \item[Initial State] Learner L1 is paired to tablets T1 and T2 and has a known currency balance. Item I2 costs less than the balance, item I3 costs more than the balance, and item I4 is in the same category as I3 and costs less than the balance. L1 owns item I5, which is not equipped. The application on T1 is on the items screen.
+  \item[Input] Each of the following is performed separately on T1:
+    \begin{enumerate}[label=(\alph*), nosep]
+      \item the Learner buys I2
+      \item the Learner equips I5
+      \item the Learner attempts to unlock I3
+      \item the Learner equips I2 while the server is unreachable
+    \end{enumerate}
+  \item[Output] In case (a), I2 is added to L1's inventory and the cost is deducted from the balance. In case (b), I5 is shown as equipped on T1, and also on T2. In case (c), I3 is not unlocked, and the system displays the reason, the conditions for unlocking I3, and I4 as an alternative. In case (d), the save fails, I5 remains equipped, and the Learner is informed with a calm, short message.
+  \item[Derivation] FR-RWD-3 allows a Learner to view cosmetic items, FR-RWD-4 allows a Learner to unlock an item they meet the conditions for, and FR-RWD-5 allows a Learner to equip an item they own. FR-RWD-6 and FR-RWD-7 require a reason, the unlock conditions, and buyable alternatives to be shown when an item cannot be unlocked. SR-13 requires the previous values to be kept and the Learner informed if saving fails, and SR-7 requires error messages shown to a Learner to be calm and short. UC6 specifies that currency is deducted when an item is bought.
+  \item[Test Procedure] For each case (a)--(d), the tester performs the action on T1 as outlined in the input. For case (a), the tester checks L1's inventory records and balance. For case (b), the tester confirms that I5 is shown as equipped on T1 and on T2. For case (c), the tester confirms the reason, conditions and alternative shown. For case (d), the tester disconnects T1 from the server before equipping I2, confirms the message shown, and checks that I5 is still recorded as equipped.
+\end{description}
+
+\vspace{0.05cm}
+
+\item{test-rwd-3}
+
+\begin{description}[leftmargin=4cm, labelindent=0pt, labelwidth=!, style=nextline, font=\normalfont\bfseries, before=\raggedright]
+  \item[Control] Manual
+  \item[Initial State] CTM A is logged in and is the Primary CTM of Learner L1. L1 is paired to tablets T1 and T2, owns item I5 and has it equipped. L1 does not own item I6 and has enough currency to buy it.
+  \item[Input] CTM A hides I5 and I6 from L1's items screen. The Learner then opens the items screen on T1 and on T2. Requests to buy I6 and to equip I5 are then sent directly to the server using L1's device session.
+  \item[Output] I5 and I6 do not appear on the items screen on either tablet, and I5 is no longer equipped. The direct requests are refused, and L1's inventory and balance are unchanged.
+  \item[Derivation] SR-12 requires cosmetic items hidden by a CTM to be hidden from the items screen and not to be purchasable or equippable by the Learner. UC6 specifies that the items screen applies any filters set by the CTM.
+  \item[Test Procedure] The tester hides I5 and I6 as CTM A, then opens the items screen on T1 and on T2 and confirms that neither item appears and that I5 is not shown as equipped. The tester sends the buy and equip requests directly to the server using L1's device session, confirms that both are refused, and checks that L1's inventory records and balance are unchanged.
+\end{description}
+
+\end{enumerate}
+
+\subsubsection{Learner Data}
+
+This testing area covers how CTMs view, filter and export a Learner's recorded game data, and how access to that data is restricted. The tests trace to the FR-DATA requirements in Section 6 of the SRS and to the safety requirements SR-8 and SR-16.
+
+\paragraph{Viewing and Exporting Data}
+
+\begin{enumerate}
+
+\item{test-data-1}
+
+\begin{description}[leftmargin=4cm, labelindent=0pt, labelwidth=!, style=nextline, font=\normalfont\bfseries, before=\raggedright]
+  \item[Control] Manual
+  \item[Initial State] CTM A is logged in and is the Primary CTM of Learner L1. L1 has a seeded history of 10 sessions of game G1 and 4 sessions of game G2 between October 1 and October 20. The G1 sessions include sessions on October 6 and October 15, and two aborted sessions. The expected averages and statistics are computed by hand from the seeded scores before the test.
+  \item[Input] CTM A opens L1's data and expands the game history. CTM A then filters the history to October 6 -- October 15, opens the data for G1, and switches between each available data representation.
+  \item[Output] The main page shows L1's most recent sessions and the average performance for each game, matching the hand-computed values. The expanded history lists all 14 sessions. The filtered history lists exactly the sessions between October 6 and October 15, including those on both dates. The G1 data shows L1's statistics and session history, and every representation shows the same values. The aborted sessions appear in the history as incomplete and are not counted in the averages.
+  \item[Derivation] FR-DATA-1 allows an authorized CTM to view a Learner's general data, FR-DATA-2 requires an expandable overview of the game history, and FR-DATA-3 allows the history to be viewed between specific dates. FR-DATA-4 and FR-DATA-5 allow game-specific data to be viewed in multiple representations. SR-8 requires incomplete sessions not to be counted in a Learner's performance averages. UC3 specifies the flow for viewing a Learner's data.
+  \item[Test Procedure] The tester loads the seeded history and logs in as CTM A. The tester compares the main page, the expanded history and the filtered history against the seeded sessions and the hand-computed values. The tester then opens the G1 data, switches between each representation, and confirms that each one shows the same values and that the aborted sessions are marked incomplete and left out of the averages.
+\end{description}
+
+\vspace{0.05cm}
+
+\item{test-data-2}
+
+\begin{description}[leftmargin=4cm, labelindent=0pt, labelwidth=!, style=nextline, font=\normalfont\bfseries, before=\raggedright]
+  \item[Control] Manual
+  \item[Initial State] CTM A is logged in and is the Primary CTM of Learner L1, which has the seeded history from test-data-1.
+  \item[Input] CTM A selects G1 and the dates October 6 -- October 15 on the dashboard, then exports L1's data for this selection.
+  \item[Output] The export contains every G1 session record for L1 between October 6 and October 15 and no other records. The record count reported by the export matches the count shown on the dashboard for the same selection.
+  \item[Derivation] FR-DATA-6 allows an authorized CTM to export a Learner's game data. SR-16 requires an export to contain every record for the selected Learner, game and date range, and to report a record count that matches the dashboard for the same selection.
+  \item[Test Procedure] The tester notes the record count shown on the dashboard for the selection, then exports the data. The tester opens the exported file, compares its records against the seeded G1 sessions between October 6 and October 15, and confirms that the reported count matches the dashboard count.
+\end{description}
+
+\vspace{0.05cm}
+
+\item{test-data-3}
+
+\begin{description}[leftmargin=4cm, labelindent=0pt, labelwidth=!, style=nextline, font=\normalfont\bfseries, before=\raggedright]
+  \item[Control] Manual
+  \item[Initial State] Learner L1 has the seeded history from test-data-1. CTM C is logged in and is not part of L1's care team.
+  \item[Input] CTM C looks for L1 on their account. Requests to view and export L1's data are then sent directly to the server using CTM C's session and L1's identifier.
+  \item[Output] L1 does not appear on CTM C's account. The direct requests are refused and no Learner data is returned.
+  \item[Derivation] FR-DATA-1 and FR-DATA-6 limit viewing and exporting a Learner's data to authorized CTMs, and FR-TEAM-7 says that a CTM cannot perform actions they do not explicitly have permission to do.
+  \item[Test Procedure] The tester logs in as CTM C and confirms that L1 does not appear on the account. The tester then sends the view and export requests directly to the server using CTM C's session, and confirms that both are refused and that the responses contain none of L1's data.
+\end{description}
+
+\end{enumerate}
 
 \subsection{Tests for Nonfunctional Requirements}
 
