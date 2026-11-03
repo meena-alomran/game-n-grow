@@ -28,7 +28,6 @@
 \newcommand{\srsreqtext}[2]{\hyperref[SRS-#1]{#2}}
 \newcommand{\srsuc}[1]{\hyperref[SRS-UC_Label#1]{UC#1}}
 \newcommand{\srsulc}{\hyperref[SRS-ULC_NonClinicalPurpose]{ULC8}}
-\newcommand{\srsdoc}{\href{../../pdfs/SRS-IEEE/SRS.pdf}{SRS}}
 \usepackage[round]{natbib}
 
 \input{../Comments.text}
@@ -266,7 +265,7 @@ Classmate reviewers & Peer reviewers & Review the SRS, the design, and this plan
 
 \paragraph{Review rotation.} Every pull request needs an approving review from a member other than its author. Reviews follow a fixed rotation in the order of Table~\ref{tab:vv-team}: each member's pull requests are reviewed by the next member in the table, and the last member's are reviewed by the first. If the assigned reviewer is unavailable, the following member in the rotation reviews instead. A pull request that touches an area owned by another lead in Table~\ref{tab:vv-team} also needs that lead's approval.
 
-\subsection{\srsdoc{} Verification}
+\subsection{SRS Verification}
 \label{sec:srs-ver}
 
 The SRS is verified in three ways: a checklist review by the team and classmate reviewers, a task-based review with the supervisor, and an automated traceability check. The reviews are applied to the submitted SRS, and their findings feed its next revision. Every finding is recorded as an issue labelled \texttt{srs-review} in the project repository, citing the affected requirement or section and the checklist item it fails. Accepted changes are recorded in the SRS revision history.
@@ -324,10 +323,11 @@ Each answer that points to a missing, incorrect or unclear requirement becomes a
 \label{sec:design-ver}
 
 The design to be verified consists of the Hazard Analysis, the module-level
-design documents that the team will write after the \srsdoc{} and this plan, and
+design documents that the team will write after the
+\href{https://github.com/meena-alomran/game-n-grow/blob/main/docs/SRS-IEEE/SRS.tex}{Software Requirements Specification (SRS)} and this plan, and
 low-fidelity wireframes of the Learner Game Suite and the CTM Dashboard. The
 design covers the Godot client and the server-side functionality described in
-\srsdoc{} Section 2.3. Each review is held when the
+the \href{https://github.com/meena-alomran/game-n-grow/blob/main/docs/SRS-IEEE/SRS.tex}{Software Requirements Specification (SRS)} Section 2.3. Each review is held when the
 relevant design material is drafted and before the parts of the implementation
 that depend on it are started. The checks below are written in terms of the
 design itself, so they apply regardless of how the module-level documents are
@@ -351,13 +351,13 @@ D1 & Every functional, nonfunctional, and safety requirement is allocated to at
 least one part of the design, and every part of the design supports at least
 one requirement.\\
 D2 & Each part of the design hides one design decision. Each likely change LC1
-to LC8 (\srsdoc{} Section 12) is confined to a few identifiable parts, so that
+to LC8 (the \href{https://github.com/meena-alomran/game-n-grow/blob/main/docs/SRS-IEEE/SRS.tex}{Software Requirements Specification (SRS)} Section 12) is confined to a few identifiable parts, so that
 \srsreq{NFR-MAINT-1} (effort below 1/6 of the original development time) is
 plausible.\\
 D3 & Every CTM action passes through one permission check (\srsreq{FR-TEAM-7}, \srsreq{SR-3}),
 and Learner devices store only configurations, inventory, and queued session
-data (\srsdoc{} Section 7.3).\\
-D4 & Every entity and attribute in the data dictionary (\srsdoc{} Section 7.2) is
+data (the \href{https://github.com/meena-alomran/game-n-grow/blob/main/docs/SRS-IEEE/SRS.tex}{Software Requirements Specification (SRS)} Section 7.3).\\
+D4 & Every entity and attribute in the data dictionary (the \href{https://github.com/meena-alomran/game-n-grow/blob/main/docs/SRS-IEEE/SRS.tex}{Software Requirements Specification (SRS)} Section 7.2) is
 mapped to storage. Deleting a CTM account does not delete a Learner profile,
 and Learner deletion removes all data after the 30-day grace period
 (\srsreq{FR-LRN-6}, \srsreq{SR-18}).\\
@@ -369,7 +369,7 @@ imported files are never executed (\srsreq{SR-15}) are each assigned to a specif
 part of the design.\\
 D7 & Interfaces between parts of the design use the types in the data
 dictionary and match how the other parts call them.\\
-D8 & The gameplay states in Figure 2 of the \srsdoc{} (loading, ready, playing,
+D8 & The gameplay states in Figure 2 of the \href{https://github.com/meena-alomran/game-n-grow/blob/main/docs/SRS-IEEE/SRS.tex}{Software Requirements Specification (SRS)} (loading, ready, playing,
 paused, reward, load error) appear in the design of the game flow.\\
 D9 & Every hazard in the Hazard Analysis has at least one design element that
 mitigates it.\\
@@ -409,7 +409,7 @@ Table~\ref{tab:vv-checklist} before each submission of this plan.
 \toprule
 \textbf{ID} & \textbf{Check}\\
 \midrule
-P1 & Every functional, nonfunctional, and safety requirement in the \srsdoc{} appears
+P1 & Every functional, nonfunctional, and safety requirement in the \href{https://github.com/meena-alomran/game-n-grow/blob/main/docs/SRS-IEEE/SRS.tex}{Software Requirements Specification (SRS)} appears
 in the traceability table of Section 4.3 or has a named static verification
 method.\\
 P2 & Each system test states its control (manual or automatic), initial state,
@@ -422,7 +422,7 @@ survey in the appendix where one is needed (\srsref{NFR-USE-1} to \srsref{NFR-US
 \srsref{NFR-PERF-1}).\\
 P5 & The plan is feasible: the devices, participants, and person-hours it
 assumes are available to the team.\\
-P6 & Terminology matches the \srsdoc{}, and the document meets the course template
+P6 & Terminology matches the \href{https://github.com/meena-alomran/game-n-grow/blob/main/docs/SRS-IEEE/SRS.tex}{Software Requirements Specification (SRS)}, and the document meets the course template
 (title page, tables of contents, numbered and captioned tables and figures,
 revision history, appendices).\\
 \bottomrule
@@ -599,7 +599,8 @@ feedback form that rates each stakeholder requirement in \srssectionref{sec:stak
 satisfied, partly satisfied, or not satisfied, with comments. Every
 partial or unsatisfied rating is turned into an issue labelled \texttt{validation}, and
 the team prioritizes these with the supervisor and resolves them before the
-final demo. Changes to requirements are recorded in the \srsdoc{} revision history.
+final demo. Changes to requirements are recorded in the
+\href{https://github.com/meena-alomran/game-n-grow/blob/main/docs/SRS-IEEE/SRS.tex}{Software Requirements Specification (SRS)} revision history.
 
 \paragraph{\valref{3}: CTM usability sessions.} At least 10 adults will be recruited
 in roles close to the CTM personas, such as parents, educators, and
