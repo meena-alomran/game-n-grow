@@ -15,19 +15,18 @@
     linkcolor=red,
     urlcolor=blue
 }
-\newcommand{\srsref}[1]{\hyperref[SRS-#1]{#1}}
+\newcommand{\srsref}[1]{#1}
 \newcounter{validation}
 \renewcommand{\thevalidation}{V\arabic{validation}}
 \newcommand{\valref}[1]{\hyperref[val:V#1]{\ref*{val:V#1}}}
-\newcommand{\srsucref}[1]{\hyperref[SRS-UC_Label#1]{UC\ref*{SRS-UC_Label#1}}}
-\newcommand{\srssectionref}[1]{\hyperref[SRS-#1]{SRS Section~\ref*{SRS-#1}}}
-\newcommand{\srsnamedref}[2]{\hyperref[SRS-#1]{#2}}
+\newcommand{\srsucref}[1]{UC\ref*{SRS-UC_Label#1}}
+\newcommand{\srssectionref}[1]{SRS Section~\ref*{SRS-#1}}
+\newcommand{\srsnamedref}[2]{#2}
 \newcommand{\testcaseref}[1]{\hyperref[#1]{\texttt{#1}}}
-\externaldocument[SRS-]{../SRS-IEEE/SRS}
-\newcommand{\srsreq}[1]{\hyperref[SRS-#1]{#1}}
-\newcommand{\srsreqtext}[2]{\hyperref[SRS-#1]{#2}}
-\newcommand{\srsuc}[1]{\hyperref[SRS-UC_Label#1]{UC#1}}
-\newcommand{\srsulc}{\hyperref[SRS-ULC_NonClinicalPurpose]{ULC8}}
+\newcommand{\srsreq}[1]{#1}
+\newcommand{\srsreqtext}[2]{#2}
+\newcommand{\srsuc}[1]{UC#1}
+\newcommand{\srsulc}{ULC8}
 \usepackage[round]{natbib}
 
 \input{../Comments.text}
@@ -1183,7 +1182,7 @@ This testing area covers how CTMs view, filter and export a Learner's recorded g
 
 \subsection{Tests for Nonfunctional Requirements}
 
-The following subsections map to the different categories of nonfunctional requirements in \href{../../pdfs/SRS-IEEE/SRS.pdf}{section 8 of the SRS}, with some combined with each other due to overlap in testing strategies.
+The following subsections map to the different categories of nonfunctional requirements in \href{https://github.com/meena-alomran/game-n-grow/blob/main/docs/SRS-IEEE/SRS.tex}{section 8 of the SRS}, with some combined with each other due to overlap in testing strategies.
 Note that the carrying out of tests requiring a Learner's participation will be left to the discretion of the project supervisor and may be omitted if there are ethical or safety concerns.
 
 \subsubsection{Usability and Performance}
@@ -1308,7 +1307,7 @@ Type: Non-functional, Manual, Static
 					
 How test will be performed: 2 developers who did not work on the account section of the software will do a code walkthrough of the processes for creating and logging into an account, as well as how the associated information is stored.
 
-Output/Result: The developers confirm that the privacy and data retention requirements outlined in section 7.3 of the \href{../../pdfs/SRS-IEEE/SRS.pdf}{SRS}; specifically regarding what information is stored and how for CTM's and Learners.
+Output/Result: The developers confirm that the privacy and data retention requirements outlined in section 7.3 of the \href{https://github.com/meena-alomran/game-n-grow/blob/main/docs/SRS-IEEE/SRS.tex}{SRS}; specifically regarding what information is stored and how for CTM's and Learners.
 
 \item\label{test-nfr-sec-2} test-nfr-sec-2\\
 
