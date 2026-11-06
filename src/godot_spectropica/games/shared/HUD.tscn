@@ -1,0 +1,67 @@
+[gd_scene format=3 uid="uid://b6mbjiryfrx6q"]
+
+[ext_resource type="Script" uid="uid://11064gg0cr36" path="res://games/shared/HUD.gd" id="1_4jr1i"]
+[ext_resource type="PackedScene" uid="uid://dckwqtk6bndaw" path="res://Screens/game_suite.tscn" id="2_1gdgr"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_45nni"]
+content_margin_left = 10.0
+content_margin_right = 10.0
+bg_color = Color(0.9965262, 0.34319994, 0.3188419, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_twswx"]
+content_margin_left = 10.0
+content_margin_right = 10.0
+bg_color = Color(0.848334, 0.50839347, 9.62615e-07, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1gdgr"]
+content_margin_left = 10.0
+content_margin_right = 10.0
+bg_color = Color(0.9991476, 0.35243037, 0.18849856, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[node name="HUD" type="CanvasLayer" unique_id=1672007165]
+script = ExtResource("1_4jr1i")
+next_scene = ExtResource("2_1gdgr")
+metadata/_custom_type_script = "uid://chnbi4s1tf7pa"
+
+[node name="HeaderContainer" type="MarginContainer" parent="." unique_id=324390666]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 45.0
+grow_horizontal = 2
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 30
+
+[node name="HorizontalContainer" type="HBoxContainer" parent="HeaderContainer" unique_id=1903349245]
+layout_mode = 2
+
+[node name="ExitButton" type="Button" parent="HeaderContainer/HorizontalContainer" unique_id=1515656652]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_45nni")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_twswx")
+theme_override_styles/hover = SubResource("StyleBoxFlat_1gdgr")
+text = "X"
+
+[node name="Spacer" type="Control" parent="HeaderContainer/HorizontalContainer" unique_id=698149903]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="PointsLabel" type="Label" parent="HeaderContainer/HorizontalContainer" unique_id=1667815514]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Points: 0"
+
+[connection signal="pressed" from="HeaderContainer/HorizontalContainer/ExitButton" to="." method="_on_exit_button_pressed"]

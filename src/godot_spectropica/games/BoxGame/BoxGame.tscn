@@ -1,0 +1,61 @@
+[gd_scene format=3 uid="uid://cggj07j451it8"]
+
+[ext_resource type="PackedScene" uid="uid://bgkmxyw21pc1m" path="res://PlayerCharacter/player_character_scene.tscn" id="1_rr8je"]
+[ext_resource type="Script" uid="uid://bkklqhygsfdmf" path="res://games/BoxGame/BoxGame.gd" id="1_vgxy0"]
+[ext_resource type="Script" uid="uid://jrfyyevr2sav" path="res://games/BoxGame/score_zone.gd" id="2_0ianl"]
+[ext_resource type="PackedScene" uid="uid://b6mbjiryfrx6q" path="res://games/shared/HUD.tscn" id="5_vgxy0"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_xvm16"]
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_u52ul"]
+data = PackedVector3Array(1, 0, 1, -1, 0, 1, 1, 0, -1, -1, 0, 1, -1, 0, -1, 1, 0, -1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hbh4i"]
+albedo_color = Color(0.8253864, 0.6467432, 0.96390826, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_imsp7"]
+material = SubResource("StandardMaterial3D_hbh4i")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_xvm16"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_45nni"]
+size = Vector3(1.1, 1.1, 1.1)
+
+[node name="BoxGame" type="Node3D" unique_id=745810838]
+script = ExtResource("1_vgxy0")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=28048198]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0)
+mesh = SubResource("PlaneMesh_xvm16")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D" unique_id=1558075839]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D" unique_id=627208876]
+shape = SubResource("ConcavePolygonShape3D_u52ul")
+
+[node name="PlayerCharacter" parent="." unique_id=841616460 instance=ExtResource("1_rr8je")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.17252028, 0, -0.24523568)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=472989627]
+transform = Transform3D(1, 0, 0, 0, 0.7870212, 0.61692595, 0, -0.61692595, 0.7870212, 0, 0, 0)
+
+[node name="StaticCounter" type="StaticBody3D" parent="." unique_id=884755218]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0.5, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticCounter" unique_id=215480685]
+mesh = SubResource("BoxMesh_imsp7")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticCounter" unique_id=1071525385]
+shape = SubResource("BoxShape3D_xvm16")
+
+[node name="ScoreZone" type="Area3D" parent="StaticCounter" unique_id=301083774]
+collision_layer = 2
+collision_mask = 3
+script = ExtResource("2_0ianl")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticCounter/ScoreZone" unique_id=252423533]
+shape = SubResource("BoxShape3D_45nni")
+
+[node name="HUD" parent="." unique_id=1672007165 instance=ExtResource("5_vgxy0")]
+
+[connection signal="body_entered" from="StaticCounter/ScoreZone" to="StaticCounter/ScoreZone" method="_on_body_entered"]
