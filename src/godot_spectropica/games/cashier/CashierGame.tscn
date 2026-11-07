@@ -11,6 +11,8 @@
 [ext_resource type="Resource" uid="uid://bywmgre1f7yr1" path="res://games/cashier/data/standard_groceries/sg_banana.tres" id="5_yr8pa"]
 [ext_resource type="Resource" uid="uid://j1h6h14i6kad" path="res://games/cashier/data/standard_groceries/sg_orange.tres" id="6_56ueb"]
 [ext_resource type="PackedScene" uid="uid://bpckhbipsvkk5" path="res://Arts/models/cashier_game/item_book.glb" id="6_dsn67"]
+[ext_resource type="PackedScene" uid="uid://b4fy3sn11fx6u" path="res://games/cashier/monitor/cashier_monitor.tscn" id="10_f2t8j"]
+[ext_resource type="Script" uid="uid://uk1g8xnfm4sw" path="res://games/cashier/monitor/mouse_coordinate_area_3d.gd" id="10_yr8pa"]
 [ext_resource type="PackedScene" uid="uid://du1auypdjsyul" path="res://games/cashier/item_book/cashier_list_page.tscn" id="11_j3bif"]
 
 [sub_resource type="Environment" id="Environment_dsn67"]
@@ -18,8 +20,21 @@ glow_enabled = true
 glow_bloom = 0.27
 fog_enabled = true
 fog_mode = 1
-fog_light_color = Color(0.6259276, 0.5302465, 0.4456296, 1)
+fog_light_color = Color(0.52031726, 0.5067354, 0.8215632, 1)
 fog_density = 0.4591
+
+[sub_resource type="QuadMesh" id="QuadMesh_f2t8j"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_a0mmn"]
+viewport_path = NodePath("3D/cash_register/item_monitor/MonitorSubviewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yr8pa"]
+resource_local_to_scene = true
+shading_mode = 0
+albedo_texture = SubResource("ViewportTexture_a0mmn")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_yr8pa"]
+size = Vector3(1.0714111, 1, 0.001)
 
 [sub_resource type="QuadMesh" id="QuadMesh_ces25"]
 size = Vector2(2.5, 4.5)
@@ -205,11 +220,31 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.763063e-08, 0, -0.40334177
 surface_material_override/0 = ExtResource("4_ms2fc")
 
 [node name="item_monitor" parent="3D/cash_register" unique_id=1574829930 instance=ExtResource("5_cxpvc")]
-transform = Transform3D(0.9452399, 0, 0.3263763, 0, 1, 0, -0.3263763, 0, 0.9452399, 0.32299128, 1.2585173, 0.6858203)
+transform = Transform3D(0.69656384, 0, 0.24051242, 0, 0.7369175, 0, -0.24051242, 0, 0.69656384, 0.27268818, 1.2585173, 0.5786688)
 
-[node name="monitor" parent="3D/cash_register/item_monitor" index="0" unique_id=1915514624]
+[node name="monitor" parent="3D/cash_register/item_monitor" index="0" unique_id=1853687818]
 transform = Transform3D(0.9432221, 0, 1.7881393e-07, 0, 0.94322157, 0, -1.7881393e-07, 0, 0.9432221, -0.044266514, 0.02401936, -0.4660925)
 surface_material_override/0 = ExtResource("4_ms2fc")
+
+[node name="screen" type="MeshInstance3D" parent="3D/cash_register/item_monitor" unique_id=1285068151]
+transform = Transform3D(-4.122955e-08, -0.1637887, 0.92889255, 0, 0.9288919, 0.16378883, -0.9432222, 7.1594317e-09, -4.060318e-08, 0, 1, -0.465)
+mesh = SubResource("QuadMesh_f2t8j")
+surface_material_override/0 = SubResource("StandardMaterial3D_yr8pa")
+
+[node name="Area3D" type="Area3D" parent="3D/cash_register/item_monitor" unique_id=2093358834 node_paths=PackedStringArray("viewport")]
+transform = Transform3D(-4.122955e-08, -0.1637887, 0.92889255, 0, 0.9288919, 0.16378883, -0.9432222, 7.1594317e-09, -4.060318e-08, 0, 1, -0.465)
+script = ExtResource("10_yr8pa")
+viewport = NodePath("../MonitorSubviewport")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="3D/cash_register/item_monitor/Area3D" unique_id=2017480692]
+transform = Transform3D(0.99999994, 3.7252903e-09, -5.9604645e-08, 2.9802322e-08, 0.9999994, 0, -2.0861626e-07, -1.0430813e-07, 1.0000001, 0.035705566, -2.3841858e-07, -5.9604645e-08)
+shape = SubResource("BoxShape3D_yr8pa")
+
+[node name="MonitorSubviewport" type="SubViewport" parent="3D/cash_register/item_monitor" unique_id=539065276]
+handle_input_locally = false
+physics_object_picking = true
+
+[node name="CashierMonitor" parent="3D/cash_register/item_monitor/MonitorSubviewport" unique_id=1250500603 instance=ExtResource("10_f2t8j")]
 
 [node name="item_book" parent="3D/cash_register" unique_id=2133638104 instance=ExtResource("6_dsn67")]
 transform = Transform3D(0.31708297, 0.41656223, 0.22334926, -0.45288914, 0.34473464, 1.9796413e-08, -0.1352789, -0.17772032, 0.5235128, 0.47109777, 1.3969117, 0.2936413)
@@ -245,7 +280,7 @@ transform = Transform3D(-1.6292068e-07, 0, 1, 0, 1, 0, -1, 0, -1.6292068e-07, 5.
 [node name="AnimalKat2" parent="3D/NewCustomerTransform" unique_id=1099911432 instance=ExtResource("2_xglb0")]
 
 [node name="OldCustomerTransform" type="Marker3D" parent="3D" unique_id=193872808]
-transform = Transform3D(-0.99853635, 0, -0.05407872, 0, 1, 0, 0.05407872, 0, -0.99853635, 0.49751902, 0, -1.6294477)
+transform = Transform3D(-0.99853593, 0, -0.0540787, 0, 1, 0, 0.0540787, 0, -0.99853593, 0.49751902, 0, -1.6294477)
 
 [node name="AnimalKat" parent="3D/OldCustomerTransform" unique_id=1100125556 instance=ExtResource("2_xglb0")]
 
@@ -268,6 +303,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5158553, 0.7737292, -0.3115
 
 [node name="Marker3D6" type="Marker3D" parent="3D/GrocerySpots" unique_id=1914268420]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5263315, 0.7737292, 0.21229255)
+
+[connection signal="cash_button_pressed" from="3D/cash_register/item_monitor/MonitorSubviewport/CashierMonitor" to="." method="_on_cashier_monitor_cash_button_pressed"]
 
 [editable path="3D/cash_register"]
 [editable path="3D/cash_register/item_monitor"]

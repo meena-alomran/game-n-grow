@@ -31,7 +31,6 @@ func new_customer():
 	new_customer_animation()
 	generate_new_groceries()
 	
-	
 ## Visual animation for customers moving
 func new_customer_animation():
 	customer_animation_player.play("switch_customer")
@@ -39,9 +38,6 @@ func new_customer_animation():
 ## Creates a list of groceries based on the player's preferences
 func generate_new_groceries():
 	current_customer_groceries.clear()
-	for g in grocery_node_3ds:
-		g.queue_free()
-	grocery_node_3ds.clear()
 	
 	var amount := randi_range(2, debug_item_limit)
 	var idx := -1
@@ -93,7 +89,19 @@ func generate_list_book_page_text():
 			_current_list.append(debug_grocery_list[i_adj])
 	list_page_r.set_list(_current_list)
 		
+		
+func _on_cashier_monitor_cash_button_pressed(amount: float) -> void:
+	if amount == correct_price:
+		the_price_is_right()
+		
+func the_price_is_right():
+	# move groceries to bag bug this just deletes them
+	for g in grocery_node_3ds:
+		g.queue_free()
+	grocery_node_3ds.clear()
 	
+	new_customer()
+		
 func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("ui_accept"):
 		new_customer()

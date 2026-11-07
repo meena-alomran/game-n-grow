@@ -1,0 +1,160 @@
+[gd_scene format=3 uid="uid://b4fy3sn11fx6u"]
+
+[ext_resource type="Script" uid="uid://cbbaj54wuu3w6" path="res://games/cashier/monitor/cashier_monitor.gd" id="1_peydf"]
+
+[node name="CashierMonitor" type="Control" unique_id=1250500603]
+custom_minimum_size = Vector2(512, 512)
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_peydf")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1101394600]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.2823066, 0.21811098, 0.2945819, 1)
+
+[node name="NumberGrid" type="GridContainer" parent="." unique_id=1121363885]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 53.0
+offset_right = 276.0
+offset_bottom = 472.0
+columns = 3
+
+[node name="7" type="Button" parent="NumberGrid" unique_id=296390266]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 50
+text = "7"
+
+[node name="8" type="Button" parent="NumberGrid" unique_id=735963422]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 50
+text = "8"
+
+[node name="9" type="Button" parent="NumberGrid" unique_id=316597288]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 50
+text = "9"
+
+[node name="4" type="Button" parent="NumberGrid" unique_id=1194258841]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 50
+text = "4"
+
+[node name="5" type="Button" parent="NumberGrid" unique_id=836025485]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 50
+text = "5"
+
+[node name="6" type="Button" parent="NumberGrid" unique_id=978739058]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 50
+text = "6"
+
+[node name="1" type="Button" parent="NumberGrid" unique_id=182533900]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 50
+text = "1"
+
+[node name="2" type="Button" parent="NumberGrid" unique_id=191882635]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 50
+text = "2"
+
+[node name="3" type="Button" parent="NumberGrid" unique_id=1235440612]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 50
+text = "3"
+
+[node name="0" type="Button" parent="NumberGrid" unique_id=1832328048]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 50
+text = "0"
+
+[node name="Back" type="Button" parent="NumberGrid" unique_id=1831551894]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 50
+text = "<"
+
+[node name="Dot" type="Button" parent="NumberGrid" unique_id=1832460541]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 50
+text = "."
+
+[node name="Label" type="Label" parent="." unique_id=129818245]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -217.0
+offset_top = 273.0
+offset_right = -12.0
+offset_bottom = 340.0
+grow_horizontal = 0
+theme_override_font_sizes/font_size = 70
+text = "23.45"
+horizontal_alignment = 2
+
+[node name="ColorRect" type="ColorRect" parent="Label" unique_id=568135315]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -7.0
+offset_right = 7.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.17254902, 0.14509805, 0.1764706, 1)
+
+[node name="CashButton" type="Button" parent="." unique_id=1079666312]
+layout_mode = 0
+offset_left = 299.0
+offset_top = 376.0
+offset_right = 494.0
+offset_bottom = 472.0
+theme_override_font_sizes/font_size = 54
+text = "CASH"
+
+[connection signal="pressed" from="NumberGrid/7" to="." method="pushed_button" binds= [&"7"]]
+[connection signal="pressed" from="NumberGrid/8" to="." method="pushed_button" binds= [&"8"]]
+[connection signal="pressed" from="NumberGrid/9" to="." method="pushed_button" binds= [&"9"]]
+[connection signal="pressed" from="NumberGrid/4" to="." method="pushed_button" binds= [&"4"]]
+[connection signal="pressed" from="NumberGrid/5" to="." method="pushed_button" binds= [&"5"]]
+[connection signal="pressed" from="NumberGrid/6" to="." method="pushed_button" binds= [&"6"]]
+[connection signal="pressed" from="NumberGrid/1" to="." method="pushed_button" binds= [&"1"]]
+[connection signal="pressed" from="NumberGrid/2" to="." method="pushed_button" binds= [&"2"]]
+[connection signal="pressed" from="NumberGrid/3" to="." method="pushed_button" binds= [&"3"]]
+[connection signal="pressed" from="NumberGrid/0" to="." method="pushed_button" binds= [&"0"]]
+[connection signal="pressed" from="NumberGrid/Back" to="." method="pushed_button" binds= [&"back"]]
+[connection signal="pressed" from="NumberGrid/Dot" to="." method="pushed_button" binds= [&"dot"]]
+[connection signal="pressed" from="CashButton" to="." method="cash_out"]
