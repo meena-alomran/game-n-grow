@@ -11,6 +11,7 @@
 [ext_resource type="Resource" uid="uid://bywmgre1f7yr1" path="res://games/cashier/data/standard_groceries/sg_banana.tres" id="5_yr8pa"]
 [ext_resource type="Resource" uid="uid://j1h6h14i6kad" path="res://games/cashier/data/standard_groceries/sg_orange.tres" id="6_56ueb"]
 [ext_resource type="PackedScene" uid="uid://bpckhbipsvkk5" path="res://Arts/models/cashier_game/item_book.glb" id="6_dsn67"]
+[ext_resource type="PackedScene" uid="uid://du1auypdjsyul" path="res://games/cashier/item_book/cashier_list_page.tscn" id="11_j3bif"]
 
 [sub_resource type="Environment" id="Environment_dsn67"]
 glow_enabled = true
@@ -19,6 +20,31 @@ fog_enabled = true
 fog_mode = 1
 fog_light_color = Color(0.6259276, 0.5302465, 0.4456296, 1)
 fog_density = 0.4591
+
+[sub_resource type="QuadMesh" id="QuadMesh_ces25"]
+size = Vector2(2.5, 4.5)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_j3bif"]
+viewport_path = NodePath("3D/cash_register/item_book/ListPageL")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_j3bif"]
+resource_local_to_scene = true
+transparency = 2
+alpha_scissor_threshold = 0.5
+alpha_antialiasing_mode = 0
+shading_mode = 0
+albedo_texture = SubResource("ViewportTexture_j3bif")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_f2t8j"]
+viewport_path = NodePath("3D/cash_register/item_book/ListPageR")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_f2t8j"]
+resource_local_to_scene = true
+transparency = 2
+alpha_scissor_threshold = 0.5
+alpha_antialiasing_mode = 0
+shading_mode = 0
+albedo_texture = SubResource("ViewportTexture_f2t8j")
 
 [sub_resource type="Animation" id="Animation_lutu4"]
 length = 0.001
@@ -32,7 +58,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector3(4.187072, 0, -1.2601495)]
+"values": [Vector3(5.482, 0, -1.26)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -68,7 +94,7 @@ tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector3(0, 3.0568602, 0)]
+"values": [Vector3(0, 3.1956978, 0)]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
@@ -96,7 +122,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 2.9666667, 4.633333),
 "transitions": PackedFloat32Array(1, 0.55478483, 1),
 "update": 0,
-"values": [Vector3(4.187072, 0, -1.2601495), Vector3(4.187072, 0, -1.2601495), Vector3(0.49751902, 0, -1.6294477)]
+"values": [Vector3(5.482, 0, -1.26), Vector3(5.482, 0, -1.26), Vector3(0.49751902, 0, -1.6294477)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -108,7 +134,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0, 4.366667, 5.366667),
 "transitions": PackedFloat32Array(1, -2, 1),
 "update": 0,
-"values": [Vector3(0, 1.5707965, 0), Vector3(0, 1.5707965, 0), Vector3(0, 3.0568602, 0)]
+"values": [Vector3(0, 1.5707965, 0), Vector3(0, 1.5707965, 0), Vector3(0, 3.1956978, 0)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -132,7 +158,7 @@ tracks/3/keys = {
 "times": PackedFloat32Array(0, 1, 1.6333333),
 "transitions": PackedFloat32Array(1, -2, 1),
 "update": 0,
-"values": [Vector3(0, 3.0568602, 0), Vector3(0, 3.0568602, 0), Vector3(0, 1.817032, 0)]
+"values": [Vector3(0, 3.1956978, 0), Vector3(0, 3.1956978, 0), Vector3(0, 1.817032, 0)]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
@@ -153,18 +179,20 @@ _data = {
 &"switch_customer": SubResource("Animation_dsn67")
 }
 
-[node name="CashierGame" type="Node" unique_id=1455885626 node_paths=PackedStringArray("customer_animation_player", "new_customer_transform", "old_customer_transform", "grocery_spots")]
+[node name="CashierGame" type="Node" unique_id=1455885626 node_paths=PackedStringArray("customer_animation_player", "new_customer_transform", "old_customer_transform", "grocery_spots", "list_page_l", "list_page_r")]
 script = ExtResource("1_gljsp")
 customer_animation_player = NodePath("3D/CustomerAnimation")
 new_customer_transform = NodePath("3D/NewCustomerTransform")
 old_customer_transform = NodePath("3D/OldCustomerTransform")
 grocery_spots = NodePath("3D/GrocerySpots")
-debug_grocery_list = Array[ExtResource("2_u20e4")]([ExtResource("3_j3bif"), ExtResource("4_f2t8j"), ExtResource("5_yr8pa"), ExtResource("6_56ueb")])
+list_page_l = NodePath("3D/cash_register/item_book/ListPageL")
+list_page_r = NodePath("3D/cash_register/item_book/ListPageR")
+debug_grocery_list = Array[ExtResource("2_u20e4")]([ExtResource("4_f2t8j"), ExtResource("5_yr8pa"), ExtResource("6_56ueb"), ExtResource("3_j3bif")])
 
 [node name="3D" type="Node3D" parent="." unique_id=1551090245]
 
 [node name="FPSCashierCam" type="Camera3D" parent="3D" unique_id=909366256]
-transform = Transform3D(1, 0, 0, 0, 0.96980655, 0.24387565, 0, -0.24387565, 0.96980655, 0, 1.766412, 1.6264482)
+transform = Transform3D(1, 0, 0, 0, 0.96980655, 0.24387565, 0, -0.24387565, 0.96980655, 0.60319656, 1.766412, 1.6264482)
 environment = SubResource("Environment_dsn67")
 current = true
 fov = 60.0
@@ -179,16 +207,30 @@ surface_material_override/0 = ExtResource("4_ms2fc")
 [node name="item_monitor" parent="3D/cash_register" unique_id=1574829930 instance=ExtResource("5_cxpvc")]
 transform = Transform3D(0.9452399, 0, 0.3263763, 0, 1, 0, -0.3263763, 0, 0.9452399, 0.32299128, 1.2585173, 0.6858203)
 
-[node name="monitor" parent="3D/cash_register/item_monitor" index="0" unique_id=959349635]
-transform = Transform3D(0.94322205, 0, 1.1920929e-07, 0, 0.94322157, 0, -1.1920929e-07, 0, 0.94322205, -0.18334252, 0.02401936, -0.06330526)
+[node name="monitor" parent="3D/cash_register/item_monitor" index="0" unique_id=1915514624]
+transform = Transform3D(0.9432221, 0, 1.7881393e-07, 0, 0.94322157, 0, -1.7881393e-07, 0, 0.9432221, -0.044266514, 0.02401936, -0.4660925)
 surface_material_override/0 = ExtResource("4_ms2fc")
 
 [node name="item_book" parent="3D/cash_register" unique_id=2133638104 instance=ExtResource("6_dsn67")]
-transform = Transform3D(0.31708297, 0.41656223, 0.22334926, -0.45288914, 0.34473464, 1.9796413e-08, -0.1352789, -0.17772032, 0.5235128, 0.4710978, 1.3969117, 0.41570625)
+transform = Transform3D(0.31708297, 0.41656223, 0.22334926, -0.45288914, 0.34473464, 1.9796413e-08, -0.1352789, -0.17772032, 0.5235128, 0.47109777, 1.3969117, 0.2936413)
 
 [node name="book" parent="3D/cash_register/item_book" index="0" unique_id=88736562]
-transform = Transform3D(1, 0, -1.4901161e-08, 2.9802322e-08, 1, 0, 2.9802322e-08, 0, 1, -0.08965075, -0.11777723, 0.34693778)
+transform = Transform3D(0.99999994, -2.9802322e-08, -1.4901161e-08, 5.9604645e-08, 1, 0, 1.4901161e-08, 0, 1, 0.08829379, 0.11599445, -0.34168643)
 surface_material_override/0 = ExtResource("4_ms2fc")
+
+[node name="ListPageL" parent="3D/cash_register/item_book" unique_id=182634760 instance=ExtResource("11_j3bif")]
+
+[node name="ListPageR" parent="3D/cash_register/item_book" unique_id=884246844 instance=ExtResource("11_j3bif")]
+
+[node name="page_mesh_l" type="MeshInstance3D" parent="3D/cash_register/item_book" unique_id=312966793]
+transform = Transform3D(-3.7252903e-09, -0.20011613, 7.450581e-09, 5.9604645e-08, -4.4703484e-08, 0.20011617, -0.20011614, 7.450581e-09, 1.8626451e-08, 0.085228615, 0.15401936, 6.036203e-08)
+mesh = SubResource("QuadMesh_ces25")
+surface_material_override/0 = SubResource("StandardMaterial3D_j3bif")
+
+[node name="page_mesh_r" type="MeshInstance3D" parent="3D/cash_register/item_book" unique_id=2071251473]
+transform = Transform3D(-3.7252903e-09, -0.20011613, 7.450581e-09, 5.9604645e-08, -4.4703484e-08, 0.20011617, -0.20011614, 7.450581e-09, 1.8626451e-08, 0.08522859, 0.15401958, -0.68810624)
+mesh = SubResource("QuadMesh_ces25")
+surface_material_override/0 = SubResource("StandardMaterial3D_f2t8j")
 
 [node name="OmniLight3D" type="DirectionalLight3D" parent="3D" unique_id=22138228]
 transform = Transform3D(1, 0, 0, 0, 0.7838858, 0.62090504, 0, -0.62090504, 0.7838858, 0, 4.033239, 2.22469)
@@ -198,12 +240,12 @@ root_node = NodePath("../..")
 libraries/ = SubResource("AnimationLibrary_lutu4")
 
 [node name="NewCustomerTransform" type="Marker3D" parent="3D" unique_id=330066432]
-transform = Transform3D(-1.6292068e-07, 0, 1, 0, 1, 0, -1, 0, -1.6292068e-07, 4.187072, 0, -1.2601495)
+transform = Transform3D(-1.6292068e-07, 0, 1, 0, 1, 0, -1, 0, -1.6292068e-07, 5.482, 0, -1.26)
 
 [node name="AnimalKat2" parent="3D/NewCustomerTransform" unique_id=1099911432 instance=ExtResource("2_xglb0")]
 
 [node name="OldCustomerTransform" type="Marker3D" parent="3D" unique_id=193872808]
-transform = Transform3D(-0.99641234, 0, 0.08463109, 0, 1, 0, -0.08463109, 0, -0.99641234, 0.49751902, 0, -1.6294477)
+transform = Transform3D(-0.99853635, 0, -0.05407872, 0, 1, 0, 0.05407872, 0, -0.99853635, 0.49751902, 0, -1.6294477)
 
 [node name="AnimalKat" parent="3D/OldCustomerTransform" unique_id=1100125556 instance=ExtResource("2_xglb0")]
 

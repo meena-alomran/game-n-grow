@@ -1,6 +1,14 @@
 [gd_resource type="StandardMaterial3D" format=3 uid="uid://cbv1i5ahbe5es"]
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_u20e4"]
+cull_mode = 1
+shading_mode = 0
+albedo_color = Color(0.22448608, 0.10392808, 0.20873547, 1)
+grow = true
+grow_amount = 0.01
+
 [resource]
+next_pass = SubResource("StandardMaterial3D_u20e4")
 cull_mode = 2
 shading_mode = 0
 diffuse_mode = 3

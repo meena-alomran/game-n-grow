@@ -41,10 +41,10 @@ transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0
 
 [node name="Skeleton3D" parent="animal_kat/human_skeleton" parent_id_path=PackedInt32Array(385703610, 1958389831) index="0" unique_id=2088671114]
 bones/4/position = Vector3(0.23637524, 0.25267705, 9.030554e-08)
-bones/4/rotation = Quaternion(1.2391355e-06, -1.276959e-07, 0.97859883, -0.2057779)
+bones/4/rotation = Quaternion(0.0014940386, -0.00021863026, 0.97658783, -0.21511391)
 bones/5/rotation = Quaternion(7.262857e-08, -5.690901e-08, -0.016154915, 0.9998695)
 bones/6/position = Vector3(-0.23637524, 0.25267705, -2.2406983e-08)
-bones/6/rotation = Quaternion(-1.50501e-06, -2.8747647e-07, 0.9785987, 0.20577821)
+bones/6/rotation = Quaternion(-0.001556194, -0.00042915647, 0.97644573, 0.2157574)
 bones/7/rotation = Quaternion(7.2628595e-08, 5.6909e-08, 0.016154915, 0.9998695)
 bones/8/rotation = Quaternion(-4.231051e-07, -6.097193e-08, 0.99945617, 0.032976024)
 bones/9/rotation = Quaternion(1.848176e-07, -5.3109787e-08, 0.99945617, -0.032976024)
