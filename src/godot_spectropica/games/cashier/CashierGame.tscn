@@ -1,0 +1,232 @@
+[gd_scene format=3 uid="uid://c40rma33tsayw"]
+
+[ext_resource type="Script" uid="uid://dqkcm8i6qw7qr" path="res://games/cashier/cashier_game.gd" id="1_gljsp"]
+[ext_resource type="Script" uid="uid://qfongeufidyi" path="res://games/cashier/data/grocery_entry.gd" id="2_u20e4"]
+[ext_resource type="PackedScene" uid="uid://coqiik2yq4ruu" path="res://games/cashier/animals/AnimalKat.tscn" id="2_xglb0"]
+[ext_resource type="Resource" uid="uid://c2yca8pby6tpx" path="res://games/cashier/data/standard_groceries/sg_pear.tres" id="3_j3bif"]
+[ext_resource type="PackedScene" uid="uid://cbbf3mkml7awp" path="res://Arts/models/cashier_game/cash_register.glb" id="3_pypkv"]
+[ext_resource type="Resource" uid="uid://cg83yo26elka7" path="res://games/cashier/data/standard_groceries/sg_apple.tres" id="4_f2t8j"]
+[ext_resource type="Material" uid="uid://cbv1i5ahbe5es" path="res://games/cashier/vertex_color_simple.tres" id="4_ms2fc"]
+[ext_resource type="PackedScene" uid="uid://hykyrasv2hgy" path="res://Arts/models/cashier_game/item_monitor.glb" id="5_cxpvc"]
+[ext_resource type="Resource" uid="uid://bywmgre1f7yr1" path="res://games/cashier/data/standard_groceries/sg_banana.tres" id="5_yr8pa"]
+[ext_resource type="Resource" uid="uid://j1h6h14i6kad" path="res://games/cashier/data/standard_groceries/sg_orange.tres" id="6_56ueb"]
+[ext_resource type="PackedScene" uid="uid://bpckhbipsvkk5" path="res://Arts/models/cashier_game/item_book.glb" id="6_dsn67"]
+
+[sub_resource type="Environment" id="Environment_dsn67"]
+glow_enabled = true
+glow_bloom = 0.27
+fog_enabled = true
+fog_mode = 1
+fog_light_color = Color(0.6259276, 0.5302465, 0.4456296, 1)
+fog_density = 0.4591
+
+[sub_resource type="Animation" id="Animation_lutu4"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("3D/NewCustomerTransform:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(4.187072, 0, -1.2601495)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("3D/NewCustomerTransform:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 1.5707965, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("3D/OldCustomerTransform:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.49751902, 0, -1.6294477)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("3D/OldCustomerTransform:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 3.0568602, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("3D/GrocerySpots:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_dsn67"]
+resource_name = "switch_customer"
+length = 5.633333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("3D/NewCustomerTransform:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2.9666667, 4.633333),
+"transitions": PackedFloat32Array(1, 0.55478483, 1),
+"update": 0,
+"values": [Vector3(4.187072, 0, -1.2601495), Vector3(4.187072, 0, -1.2601495), Vector3(0.49751902, 0, -1.6294477)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("3D/NewCustomerTransform:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 4.366667, 5.366667),
+"transitions": PackedFloat32Array(1, -2, 1),
+"update": 0,
+"values": [Vector3(0, 1.5707965, 0), Vector3(0, 1.5707965, 0), Vector3(0, 3.0568602, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("3D/OldCustomerTransform:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1.6333333, 3),
+"transitions": PackedFloat32Array(1, 1.4142139, 1),
+"update": 0,
+"values": [Vector3(0.49751902, 0, -1.6294477), Vector3(0.49751902, 0, -1.6294477), Vector3(-4.8454328, 0, -1.0417655)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("3D/OldCustomerTransform:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 1, 1.6333333),
+"transitions": PackedFloat32Array(1, -2, 1),
+"update": 0,
+"values": [Vector3(0, 3.0568602, 0), Vector3(0, 3.0568602, 0), Vector3(0, 1.817032, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("3D/GrocerySpots:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 3.7666667, 5.4666667),
+"transitions": PackedFloat32Array(1, 0.48296815, 1),
+"update": 0,
+"values": [Vector3(2.415, 0, 0), Vector3(2.415, 0, 0), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_lutu4"]
+_data = {
+&"RESET": SubResource("Animation_lutu4"),
+&"switch_customer": SubResource("Animation_dsn67")
+}
+
+[node name="CashierGame" type="Node" unique_id=1455885626 node_paths=PackedStringArray("customer_animation_player", "new_customer_transform", "old_customer_transform", "grocery_spots")]
+script = ExtResource("1_gljsp")
+customer_animation_player = NodePath("3D/CustomerAnimation")
+new_customer_transform = NodePath("3D/NewCustomerTransform")
+old_customer_transform = NodePath("3D/OldCustomerTransform")
+grocery_spots = NodePath("3D/GrocerySpots")
+debug_grocery_list = Array[ExtResource("2_u20e4")]([ExtResource("3_j3bif"), ExtResource("4_f2t8j"), ExtResource("5_yr8pa"), ExtResource("6_56ueb")])
+
+[node name="3D" type="Node3D" parent="." unique_id=1551090245]
+
+[node name="FPSCashierCam" type="Camera3D" parent="3D" unique_id=909366256]
+transform = Transform3D(1, 0, 0, 0, 0.96980655, 0.24387565, 0, -0.24387565, 0.96980655, 0, 1.766412, 1.6264482)
+environment = SubResource("Environment_dsn67")
+current = true
+fov = 60.0
+
+[node name="cash_register" parent="3D" unique_id=1000357952 instance=ExtResource("3_pypkv")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, -0.22991264, 0)
+
+[node name="platform" parent="3D/cash_register" index="0" unique_id=1201561331]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.763063e-08, 0, -0.40334177)
+surface_material_override/0 = ExtResource("4_ms2fc")
+
+[node name="item_monitor" parent="3D/cash_register" unique_id=1574829930 instance=ExtResource("5_cxpvc")]
+transform = Transform3D(0.9452399, 0, 0.3263763, 0, 1, 0, -0.3263763, 0, 0.9452399, 0.32299128, 1.2585173, 0.6858203)
+
+[node name="monitor" parent="3D/cash_register/item_monitor" index="0" unique_id=959349635]
+transform = Transform3D(0.94322205, 0, 1.1920929e-07, 0, 0.94322157, 0, -1.1920929e-07, 0, 0.94322205, -0.18334252, 0.02401936, -0.06330526)
+surface_material_override/0 = ExtResource("4_ms2fc")
+
+[node name="item_book" parent="3D/cash_register" unique_id=2133638104 instance=ExtResource("6_dsn67")]
+transform = Transform3D(0.31708297, 0.41656223, 0.22334926, -0.45288914, 0.34473464, 1.9796413e-08, -0.1352789, -0.17772032, 0.5235128, 0.4710978, 1.3969117, 0.41570625)
+
+[node name="book" parent="3D/cash_register/item_book" index="0" unique_id=88736562]
+transform = Transform3D(1, 0, -1.4901161e-08, 2.9802322e-08, 1, 0, 2.9802322e-08, 0, 1, -0.08965075, -0.11777723, 0.34693778)
+surface_material_override/0 = ExtResource("4_ms2fc")
+
+[node name="OmniLight3D" type="DirectionalLight3D" parent="3D" unique_id=22138228]
+transform = Transform3D(1, 0, 0, 0, 0.7838858, 0.62090504, 0, -0.62090504, 0.7838858, 0, 4.033239, 2.22469)
+
+[node name="CustomerAnimation" type="AnimationPlayer" parent="3D" unique_id=1583006356]
+root_node = NodePath("../..")
+libraries/ = SubResource("AnimationLibrary_lutu4")
+
+[node name="NewCustomerTransform" type="Marker3D" parent="3D" unique_id=330066432]
+transform = Transform3D(-1.6292068e-07, 0, 1, 0, 1, 0, -1, 0, -1.6292068e-07, 4.187072, 0, -1.2601495)
+
+[node name="AnimalKat2" parent="3D/NewCustomerTransform" unique_id=1099911432 instance=ExtResource("2_xglb0")]
+
+[node name="OldCustomerTransform" type="Marker3D" parent="3D" unique_id=193872808]
+transform = Transform3D(-0.99641234, 0, 0.08463109, 0, 1, 0, -0.08463109, 0, -0.99641234, 0.49751902, 0, -1.6294477)
+
+[node name="AnimalKat" parent="3D/OldCustomerTransform" unique_id=1100125556 instance=ExtResource("2_xglb0")]
+
+[node name="GrocerySpots" type="Node3D" parent="3D" unique_id=803196797]
+
+[node name="Marker3D" type="Marker3D" parent="3D/GrocerySpots" unique_id=1107115945]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.9660466, 0.7737292, -0.27861905)
+
+[node name="Marker3D2" type="Marker3D" parent="3D/GrocerySpots" unique_id=1131390915]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6889824, 0.7737291, -0.0493145)
+
+[node name="Marker3D3" type="Marker3D" parent="3D/GrocerySpots" unique_id=1211432288]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.9717082, 0.7737292, 0.20435321)
+
+[node name="Marker3D4" type="Marker3D" parent="3D/GrocerySpots" unique_id=782360819]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2321397, 0.7737292, -0.04196763)
+
+[node name="Marker3D5" type="Marker3D" parent="3D/GrocerySpots" unique_id=323267524]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5158553, 0.7737292, -0.3115015)
+
+[node name="Marker3D6" type="Marker3D" parent="3D/GrocerySpots" unique_id=1914268420]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5263315, 0.7737292, 0.21229255)
+
+[editable path="3D/cash_register"]
+[editable path="3D/cash_register/item_monitor"]
+[editable path="3D/cash_register/item_book"]

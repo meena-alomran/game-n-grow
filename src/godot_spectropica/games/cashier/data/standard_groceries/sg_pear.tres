@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="GroceryEntry" format=3 uid="uid://c2yca8pby6tpx"]
+
+[ext_resource type="Script" uid="uid://qfongeufidyi" path="res://games/cashier/data/grocery_entry.gd" id="1_tnvuy"]
+[ext_resource type="PackedScene" uid="uid://hx8uibdtpggh" path="res://Arts/models/cashier_game/standard_groceries/gc_pear.glb" id="2_tnvuy"]
+
+[resource]
+script = ExtResource("1_tnvuy")
+display_name = "Pear"
+visual_scene = ExtResource("2_tnvuy")
+price = 4.0
+metadata/_custom_type_script = "uid://qfongeufidyi"

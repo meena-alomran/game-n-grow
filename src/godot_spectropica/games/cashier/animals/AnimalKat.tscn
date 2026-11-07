@@ -1,0 +1,70 @@
+[gd_scene format=3 uid="uid://coqiik2yq4ruu"]
+
+[ext_resource type="PackedScene" uid="uid://odeo5o2syf6f" path="res://Arts/models/animals/animal_kat.glb" id="1_g0hhl"]
+[ext_resource type="Material" uid="uid://cbv1i5ahbe5es" path="res://games/cashier/vertex_color_simple.tres" id="2_qql8t"]
+[ext_resource type="Script" uid="uid://bil7kmqa0vokj" path="res://games/cashier/animals/animal_blink.gd" id="3_vlv5h"]
+[ext_resource type="Script" uid="uid://dwjt50bclldhx" path="res://games/cashier/animals/animal_animator.gd" id="4_elenb"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_elenb"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_472ym"]
+animation = &"walk"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_uemyv"]
+animation = &"jog"
+
+[sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_elenb"]
+min_space = 0.0
+max_space = 4.0
+sync_mode = 2
+blend_point_0/node = SubResource("AnimationNodeAnimation_elenb")
+blend_point_0/pos = 0.0
+blend_point_0/name = &"idle"
+blend_point_1/node = SubResource("AnimationNodeAnimation_472ym")
+blend_point_1/pos = 0.90000004
+blend_point_1/name = &"walk"
+blend_point_2/node = SubResource("AnimationNodeAnimation_uemyv")
+blend_point_2/pos = 4.0
+blend_point_2/name = &"jog"
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_d1k2b"]
+graph_offset = Vector2(-430.4, -11.2)
+nodes/Walk/node = SubResource("AnimationNodeBlendSpace1D_elenb")
+nodes/Walk/position = Vector2(-80, 96)
+node_connections = [&"output", 0, &"Walk"]
+
+[node name="AnimalKat" type="Node3D" unique_id=1099911432]
+
+[node name="animal_kat" parent="." unique_id=385703610 instance=ExtResource("1_g0hhl")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
+
+[node name="Skeleton3D" parent="animal_kat/human_skeleton" parent_id_path=PackedInt32Array(385703610, 1958389831) index="0" unique_id=2088671114]
+bones/4/position = Vector3(0.23637524, 0.25267705, 9.030554e-08)
+bones/4/rotation = Quaternion(1.2391355e-06, -1.276959e-07, 0.97859883, -0.2057779)
+bones/5/rotation = Quaternion(7.262857e-08, -5.690901e-08, -0.016154915, 0.9998695)
+bones/6/position = Vector3(-0.23637524, 0.25267705, -2.2406983e-08)
+bones/6/rotation = Quaternion(-1.50501e-06, -2.8747647e-07, 0.9785987, 0.20577821)
+bones/7/rotation = Quaternion(7.2628595e-08, 5.6909e-08, 0.016154915, 0.9998695)
+bones/8/rotation = Quaternion(-4.231051e-07, -6.097193e-08, 0.99945617, 0.032976024)
+bones/9/rotation = Quaternion(1.848176e-07, -5.3109787e-08, 0.99945617, -0.032976024)
+
+[node name="kat" parent="animal_kat/human_skeleton/Skeleton3D" index="0" unique_id=1750227240]
+surface_material_override/0 = ExtResource("2_qql8t")
+
+[node name="AnimalBlink" type="Node" parent="animal_kat/human_skeleton/Skeleton3D/kat" index="0" unique_id=2087621798 node_paths=PackedStringArray("mesh_to_affect")]
+script = ExtResource("3_vlv5h")
+mesh_to_affect = NodePath("..")
+metadata/_custom_type_script = "uid://bil7kmqa0vokj"
+
+[node name="AnimationTree" type="AnimationTree" parent="animal_kat" unique_id=80293061]
+tree_root = SubResource("AnimationNodeBlendTree_d1k2b")
+anim_player = NodePath("../AnimationPlayer")
+parameters/Walk/blend_position = -0.05799503
+
+[node name="AnimalAnimator" type="Node3D" parent="." unique_id=1190278429 node_paths=PackedStringArray("animation_tree")]
+script = ExtResource("4_elenb")
+animation_tree = NodePath("../animal_kat/AnimationTree")
+metadata/_custom_type_script = "uid://dwjt50bclldhx"
+
+[editable path="animal_kat"]

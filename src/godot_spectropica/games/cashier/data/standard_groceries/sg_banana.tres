@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="GroceryEntry" format=3 uid="uid://bywmgre1f7yr1"]
+
+[ext_resource type="Script" uid="uid://qfongeufidyi" path="res://games/cashier/data/grocery_entry.gd" id="1_vide6"]
+[ext_resource type="PackedScene" uid="uid://b3e8af0o4pwcp" path="res://Arts/models/cashier_game/standard_groceries/gc_banana.glb" id="2_da6od"]
+
+[resource]
+script = ExtResource("1_vide6")
+display_name = "Banana"
+visual_scene = ExtResource("2_da6od")
+price = 2.0
+metadata/_custom_type_script = "uid://qfongeufidyi"

@@ -10,9 +10,10 @@ config_version=5
 
 [application]
 
-config/name="training"
+config/name="Spectropica"
 run/main_scene="res://games/BoxGame/BoxGame.tscn"
 config/features=PackedStringArray("4.7", "Forward Plus")
+boot_splash/show_image=false
 config/icon="res://icon.svg"
 
 [autoload]
@@ -23,6 +24,14 @@ Wallet="*uid://gi0hidm2j4w5"
 
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
+
+[file_customization]
+
+folder_colors={
+"res://Arts/": "green",
+"res://Map/": "yellow",
+"res://games/": "blue"
+}
 
 [physics]
 

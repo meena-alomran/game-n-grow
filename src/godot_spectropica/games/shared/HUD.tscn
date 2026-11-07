@@ -1,7 +1,6 @@
 [gd_scene format=3 uid="uid://b6mbjiryfrx6q"]
 
 [ext_resource type="Script" uid="uid://11064gg0cr36" path="res://games/shared/HUD.gd" id="1_4jr1i"]
-[ext_resource type="PackedScene" uid="uid://dckwqtk6bndaw" path="res://Screens/game_suite.tscn" id="2_1gdgr"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_45nni"]
 content_margin_left = 10.0
@@ -32,7 +31,6 @@ corner_radius_bottom_left = 8
 
 [node name="HUD" type="CanvasLayer" unique_id=1672007165]
 script = ExtResource("1_4jr1i")
-next_scene = ExtResource("2_1gdgr")
 metadata/_custom_type_script = "uid://chnbi4s1tf7pa"
 
 [node name="HeaderContainer" type="MarginContainer" parent="." unique_id=324390666]
