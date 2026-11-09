@@ -22,6 +22,7 @@
 \newcommand{\srssectionref}[1]{SRS Section~\ref*{SRS-#1}}
 \newcommand{\srsnamedref}[2]{#2}
 \newcommand{\testcaseref}[1]{\hyperref[#1]{\texttt{#1}}}
+\newcommand{\paramref}[2]{\hyperlink{param:#1}{\texttt{#2}}}
 \newcommand{\srsreq}[1]{#1}
 \newcommand{\srsreqtext}[2]{#2}
 \newcommand{\srsulc}{ULC8}
@@ -128,7 +129,7 @@ The primary VnV objectives are outlined below.
 
   \item[Educational Content Suitability.] Evaluate whether the content and difficulty levels of the games align with Ontario's Grades 3--5 elementary curriculum, as required by NFR-ACCU-2. Each game's content and difficulty levels will be mapped to relevant curriculum expectations and reviewed with the supervisor, with additional educator input where available. This will help establish that the games are appropriate for their intended educational purpose, rather than only confirming that they function correctly.
 
-  \item[CTM Usability and Performance.] Evaluate whether CTMs can complete common tasks efficiently and understand the information presented by the system. Usability testing will involve at least 10 adults in CTM-like roles, such as parents, caregivers, educators, and special-education staff. Participants will complete representative tasks involving account creation, Learner setup, device pairing, CTM permissions, game configuration, and Dashboard interpretation. Their performance, feedback, and survey responses will be used to assess NFR-USE-1 through NFR-USE-4 and NFR-PERF-1. Repeated sessions will also help evaluate how easily CTMs remember how to use the system.
+  \item[CTM Usability and Performance.] Evaluate whether CTMs can complete common tasks efficiently and understand the information presented by the system. Usability testing will involve at least \paramref{min-participants}{MIN\_PARTICIPANTS} adults in CTM-like roles, such as parents, caregivers, educators, and special-education staff. Participants will complete representative tasks involving account creation, Learner setup, device pairing, CTM permissions, game configuration, and Dashboard interpretation. Their performance, feedback, and survey responses will be used to assess NFR-USE-1 through NFR-USE-4 and NFR-PERF-1. Repeated sessions will also help evaluate how easily CTMs remember how to use the system.
 
   \item[Stakeholder Validation.] Validate that Spectropica addresses its intended purpose through supervisor and domain expert feedback, prototype demonstrations, CTM usability sessions, and Learner-focused evaluations. Reviews with the supervisor will assess whether the system meets stakeholder expectations and identify requirements that need improvement. CTM testing will provide direct feedback on configuration, navigation, and progress tracking, while educator and expert proxy evaluations will assess Learner-facing gameplay. Direct Learner participation will remain conditional on supervisor guidance and ethics clearance. Findings from these activities will be documented and used to guide improvements to the system.
 
@@ -264,7 +265,7 @@ Classmate reviewers & Peer reviewers & Review the SRS, the design, and this plan
 \end{tabularx}
 \end{table}
 
-\paragraph{External participants.} Two groups of participants outside the team take part in validation. The first group is at least 10 adults in roles close to the CTM personas, such as parents, educators and special-education staff, who take part in the CTM usability sessions (\valref{3}). The second group is special-education educators who play-test the games as proxies for Learners alongside the supervisor (\valref{4}). Sessions with Learners are not planned by default. They are run only if the supervisor advises it and ethics clearance is obtained in time, and the ethics board may limit participants to neurotypical or neurodivergent children of the target age.
+\paragraph{External participants.} Two groups of participants outside the team take part in validation. The first group is at least \paramref{min-participants}{MIN\_PARTICIPANTS} adults in roles close to the CTM personas, such as parents, educators and special-education staff, who take part in the CTM usability sessions (\valref{3}). The second group is special-education educators who play-test the games as proxies for Learners alongside the supervisor (\valref{4}). Sessions with Learners are not planned by default. They are run only if the supervisor advises it and ethics clearance is obtained in time, and the ethics board may limit participants to neurotypical or neurodivergent children of the target age.
 
 \paragraph{Review rotation.} Every pull request needs an approving review from a member other than its author. Reviews follow a fixed rotation in the order of Table~\ref{tab:vv-team}: each member's pull requests are reviewed by the next member in the table, and the last member's are reviewed by the first. If the assigned reviewer is unavailable, the following member in the rotation reviews instead. A pull request that touches an area owned by another lead in Table~\ref{tab:vv-team} also needs that lead's approval.
 
@@ -605,9 +606,9 @@ the team prioritizes these with the supervisor and resolves them before the
 final demo. Changes to requirements are recorded in the
 \href{https://github.com/meena-alomran/game-n-grow/blob/main/pdfs/SRS-IEEE/SRS.pdf}{Software Requirements Specification (SRS)} revision history.
 
-\paragraph{\valref{3}: CTM usability sessions.} At least 10 adults will be recruited
+\paragraph{\valref{3}: CTM usability sessions.} At least \paramref{min-participants}{MIN\_PARTICIPANTS} adults will be recruited
 in roles close to the CTM personas, such as parents, educators, and
-special-education staff, through the supervisor and the team's contacts. At least 10 are needed to be able to satisfy the 90\% target across \srsref{NFR-USE-1}--\srsref{NFR-USE-4}.
+special-education staff, through the supervisor and the team's contacts. At least \paramref{min-participants}{MIN\_PARTICIPANTS} are needed to be able to satisfy the 90\% target across \srsref{NFR-USE-1}--\srsref{NFR-USE-4}.
 Each participant attempts these tasks while an observer records time, errors, and
 comments: create an account, add and pair a Learner, invite a CTM, personalize a
 game, and read the dashboard (UC7, UC2, UC9, UC4, and UC3, respectively). Participants then complete the survey in the
@@ -664,7 +665,7 @@ This testing area covers the lifecycle of CTM accounts and Learner profiles with
   \item[Initial State] The application is on the CTM registration page. No account exists for \texttt{newctm@example.com}. A verified account already exists for \texttt{existingctm@example.com}.
   \item[Input] Name: Test CTM; email: \texttt{newctm@example.com}. Each of the following is submitted separately, with all other fields valid:
     \begin{enumerate}[label=(\alph*), nosep]
-      \item a password shorter than \texttt{MIN\_PASSWORD\_LENGTH}
+      \item a password shorter than \paramref{min-password-length}{MIN\_PASSWORD\_LENGTH}
       \item a password of valid length that does not meet the \srsref{SR-1} standard
       \item a re-typed password that does not match
       \item terms \& conditions not accepted
@@ -696,9 +697,9 @@ This testing area covers the lifecycle of CTM accounts and Learner profiles with
   \item[Control] Manual
   \item[Initial State] CTM A is logged in. CTM A is a non-primary member of Learner L1's care team and owns a template that is assigned to L1. CTM B is the Primary CTM of L1.
   \item[Input] CTM A chooses to delete their account. When asked to re-enter their password, CTM A first enters an incorrect password, then the correct password, and confirms the deletion.
-  \item[Output] With the incorrect password, the deletion is refused and the account is unchanged. With the correct password, the account is scheduled for deletion after \texttt{GRACE\_PERIOD} and CTM A is logged out. CTM A no longer appears in L1's care team and their template is no longer assigned to L1. L1's profile and data still exist and remain accessible to CTM B.
+  \item[Output] With the incorrect password, the deletion is refused and the account is unchanged. With the correct password, the account is scheduled for deletion after \paramref{grace-period}{GRACE\_PERIOD} and CTM A is logged out. CTM A no longer appears in L1's care team and their template is no longer assigned to L1. L1's profile and data still exist and remain accessible to CTM B.
   \item[Derivation] \srsref{FR-CTM-5} says that a CTM can delete their account with a scheduled grace period, un-linking all Learners and templates. \srsref{SR-3} requires the password to be re-entered before an account is deleted. SRS Section 11 specifies that deleting a CTM account does not delete a Learner's profile.
-  \item[Test Procedure] The tester logs in as CTM A and chooses to delete the account, entering an incorrect password first and confirming that the deletion is refused. The tester then repeats the deletion with the correct password. The tester checks that the CTM record has a deletion time set to \texttt{GRACE\_PERIOD} from now, then logs in as CTM B to confirm that L1's profile and data are unchanged, CTM A is absent from the care team, and the template is no longer assigned to L1.
+  \item[Test Procedure] The tester logs in as CTM A and chooses to delete the account, entering an incorrect password first and confirming that the deletion is refused. The tester then repeats the deletion with the correct password. The tester checks that the CTM record has a deletion time set to \paramref{grace-period}{GRACE\_PERIOD} from now, then logs in as CTM B to confirm that L1's profile and data are unchanged, CTM A is absent from the care team, and the template is no longer assigned to L1.
 \end{description}
 
 \vspace{0.05cm}
@@ -707,7 +708,7 @@ This testing area covers the lifecycle of CTM accounts and Learner profiles with
 
 \begin{description}[leftmargin=4cm, labelindent=0pt, labelwidth=!, style=nextline, font=\normalfont\bfseries, before=\raggedright]
   \item[Control] Manual
-  \item[Initial State] CTM A's account is scheduled for deletion and is still within \texttt{GRACE\_PERIOD}.
+  \item[Initial State] CTM A's account is scheduled for deletion and is still within \paramref{grace-period}{GRACE\_PERIOD}.
   \item[Input] CTM A logs in with their credentials and chooses to restore their account. The test server's clock is then advanced past the original deletion time.
   \item[Output] The account is restored and is no longer scheduled for deletion. The account still exists after the original deletion time has passed, and CTM A can log in and use the application normally.
   \item[Derivation] \srsref{FR-CTM-6} says that a CTM can restore their account during the grace period. \srssectionref{sec:privacy-data-retention} specifies that data restored within the grace period is no longer scheduled for deletion.
@@ -721,10 +722,10 @@ This testing area covers the lifecycle of CTM accounts and Learner profiles with
 \begin{description}[leftmargin=4cm, labelindent=0pt, labelwidth=!, style=nextline, font=\normalfont\bfseries, before=\raggedright]
   \item[Control] Manual
   \item[Initial State] CTM A is logged in and is on the Dashboard.
-  \item[Input] No interaction with the application for \texttt{INACTIVITY\_TIMEOUT}, followed by an attempt to open a Learner's settings.
+  \item[Input] No interaction with the application for \paramref{inactivity-timeout}{INACTIVITY\_TIMEOUT}, followed by an attempt to open a Learner's settings.
   \item[Output] The session has ended. The system returns the tester to the login page and does not display the Learner's settings.
   \item[Derivation] \srsref{SR-2} requires the system to end a CTM's session after a period of inactivity, so no Learner information should be accessible once the session has ended.
-  \item[Test Procedure] The tester logs in as CTM A, leaves the application idle for \texttt{INACTIVITY\_TIMEOUT}, then attempts to open a Learner's settings. The tester confirms that the login page is shown and that no Learner information was displayed.
+  \item[Test Procedure] The tester logs in as CTM A, leaves the application idle for \paramref{inactivity-timeout}{INACTIVITY\_TIMEOUT}, then attempts to open a Learner's settings. The tester confirms that the login page is shown and that no Learner information was displayed.
 \end{description}
 
 \end{enumerate}
@@ -752,9 +753,9 @@ This testing area covers the lifecycle of CTM accounts and Learner profiles with
   \item[Control] Manual
   \item[Initial State] CTM A is logged in and is the Primary CTM of Learner L1. CTM B is a member of L1's care team with permission to view L1's data. L1 is paired to tablet T1 and has recorded game sessions.
   \item[Input] CTM A chooses to delete L1's profile, accepts the offer to export L1's data, re-enters their password, and confirms the deletion.
-  \item[Output] The export contains L1's data. L1's profile is scheduled for deletion after \texttt{GRACE\_PERIOD}, and CTM A receives a confirmation of the deletion. T1 is unlinked and can no longer open L1's profile. CTM B no longer sees L1 on their account.
+  \item[Output] The export contains L1's data. L1's profile is scheduled for deletion after \paramref{grace-period}{GRACE\_PERIOD}, and CTM A receives a confirmation of the deletion. T1 is unlinked and can no longer open L1's profile. CTM B no longer sees L1 on their account.
   \item[Derivation] \srsref{FR-LRN-4} says that the Primary CTM can delete a Learner's profile with a scheduled grace period, and \srsref{FR-LRN-5} allows the Learner's data to be exported before deletion. \srsref{SR-3} requires the password to be re-entered before a Learner profile is deleted. \srsref{FR-LRN-8} says that a Learner cannot access their deleted profile, and UC8 specifies that paired devices are unlinked and other CTMs lose access.
-  \item[Test Procedure] The tester logs in as CTM A and completes the steps outlined in the input. The tester opens the exported file to confirm it contains L1's data, then checks that L1's record has a deletion time set to \texttt{GRACE\_PERIOD} from now. The tester confirms that T1 can no longer open L1's profile, and logs in as CTM B to confirm that L1 no longer appears.
+  \item[Test Procedure] The tester logs in as CTM A and completes the steps outlined in the input. The tester opens the exported file to confirm it contains L1's data, then checks that L1's record has a deletion time set to \paramref{grace-period}{GRACE\_PERIOD} from now. The tester confirms that T1 can no longer open L1's profile, and logs in as CTM B to confirm that L1 no longer appears.
 \end{description}
 
 \vspace{0.05cm}
@@ -763,7 +764,7 @@ This testing area covers the lifecycle of CTM accounts and Learner profiles with
 
 \begin{description}[leftmargin=4cm, labelindent=0pt, labelwidth=!, style=nextline, font=\normalfont\bfseries, before=\raggedright]
   \item[Control] Manual
-  \item[Initial State] CTM A is logged in and is the Primary CTM of Learner L1. L1's profile is scheduled for deletion and is still within \texttt{GRACE\_PERIOD}.
+  \item[Initial State] CTM A is logged in and is the Primary CTM of Learner L1. L1's profile is scheduled for deletion and is still within \paramref{grace-period}{GRACE\_PERIOD}.
   \item[Input] CTM A chooses to restore L1's profile. The test server's clock is then advanced past the original deletion time.
   \item[Output] L1's profile and recorded game sessions are restored, and the profile is no longer scheduled for deletion. The profile still exists after the original deletion time has passed.
   \item[Derivation] \srsref{FR-LRN-7} says that the Primary CTM can restore a Learner's profile during the grace period. UC8 alternative flow 6.2 specifies that restoring the profile restores the Learner's data and cancels the scheduled deletion.
@@ -777,10 +778,10 @@ This testing area covers the lifecycle of CTM accounts and Learner profiles with
 \begin{description}[leftmargin=4cm, labelindent=0pt, labelwidth=!, style=nextline, font=\normalfont\bfseries, before=\raggedright]
   \item[Control] Manual
   \item[Initial State] Learner L1's profile is scheduled for deletion and has recorded game sessions, game configurations, inventory items, a paired device and a care team. A backup of the stored data was taken after the deletion was scheduled.
-  \item[Input] The test server's clock is advanced past \texttt{GRACE\_PERIOD}.
+  \item[Input] The test server's clock is advanced past \paramref{grace-period}{GRACE\_PERIOD}.
   \item[Output] No record associated with L1 remains in the database or in any backup, and L1's profile can no longer be restored.
   \item[Derivation] \srsref{FR-LRN-6} says that all Learner-related data is deleted after the grace period. \srsref{SR-18} requires the system to verify that the deletion has completed and to remove the data from backups. \srssectionref{sec:privacy-data-retention} specifies that permanent deletion includes all backups.
-  \item[Test Procedure] The tester advances the test server's clock past \texttt{GRACE\_PERIOD} and queries every table holding a Learner identifier for L1's identifier, confirming that no records are returned. The tester repeats the query on the latest backup, then logs in as L1's former Primary CTM to confirm that no option to restore L1 is shown.
+  \item[Test Procedure] The tester advances the test server's clock past \paramref{grace-period}{GRACE\_PERIOD} and queries every table holding a Learner identifier for L1's identifier, confirming that no records are returned. The tester repeats the query on the latest backup, then logs in as L1's former Primary CTM to confirm that no option to restore L1 is shown.
 \end{description}
 
 \end{enumerate}
@@ -807,10 +808,10 @@ This testing area covers the lifecycle of CTM accounts and Learner profiles with
 \begin{description}[leftmargin=4cm, labelindent=0pt, labelwidth=!, style=nextline, font=\normalfont\bfseries, before=\raggedright]
   \item[Control] Manual
   \item[Initial State] CTM A is the Primary CTM of Learner L1, and a pairing code for L1 is active. Tablet T1 is unpaired, with the application open on the pairing screen.
-  \item[Input] An incorrect code is entered on T1 \texttt{PAIRING\_RETRY\_LIMIT} times, followed by the correct code. After \texttt{PAIRING\_LOCKOUT\_DURATION} has passed, the original code is entered again. CTM A then generates a new code, which is entered on T1.
+  \item[Input] An incorrect code is entered on T1 \paramref{pairing-retry-limit}{PAIRING\_RETRY\_LIMIT} times, followed by the correct code. After \paramref{pairing-lockout-duration}{PAIRING\_LOCKOUT\_DURATION} has passed, the original code is entered again. CTM A then generates a new code, which is entered on T1.
   \item[Output] Once the retry limit is reached, further pairing attempts on T1 are blocked, and the correct code is refused. After the lockout period, the original code is still refused because it has been nullified. The new code pairs T1 successfully.
   \item[Derivation] \srsref{FR-DEV-4} says that the pairing method is nullified after a specific number of retries, and \srsref{FR-DEV-5} requires further attempts to be blocked for a period of time after the retry limit is reached. \srsref{FR-DEV-3} allows a CTM to generate a new code, which UC2 alternative flow 6.3 uses to recover from failed attempts.
-  \item[Test Procedure] The tester enters an incorrect code on T1 until the retry limit is reached, then enters the correct code and confirms that it is refused. The tester advances the test server's clock past \texttt{PAIRING\_LOCKOUT\_DURATION}, enters the original code again, and confirms that it is still refused. The tester generates a new code from CTM A's account, enters it on T1, and confirms that T1 is paired.
+  \item[Test Procedure] The tester enters an incorrect code on T1 until the retry limit is reached, then enters the correct code and confirms that it is refused. The tester advances the test server's clock past \paramref{pairing-lockout-duration}{PAIRING\_LOCKOUT\_DURATION}, enters the original code again, and confirms that it is still refused. The tester generates a new code from CTM A's account, enters it on T1, and confirms that T1 is paired.
 \end{description}
 
 \end{enumerate}
@@ -829,9 +830,9 @@ This testing area covers how CTMs join, are managed within, and leave a Learner'
   \item[Control] Manual
   \item[Initial State] CTM A is logged in and is the Primary CTM of Learner L1. CTM C has a verified account and is not part of L1's care team.
   \item[Input] CTM A chooses to add a CTM to L1's care team, selects permission to view L1's data only, and shares the generated invite code with CTM C. CTM C enters the invite code on their account.
-  \item[Output] The system generates an invite code that expires after \texttt{INVITE\_EXPIRY}. CTM C is added to L1's care team with only the selected permission, L1 appears on CTM C's account, and CTM A is notified that CTM C has joined.
+  \item[Output] The system generates an invite code that expires after \paramref{invite-expiry}{INVITE\_EXPIRY}. CTM C is added to L1's care team with only the selected permission, L1 appears on CTM C's account, and CTM A is notified that CTM C has joined.
   \item[Derivation] \srsref{FR-TEAM-1} says that the Primary CTM can add other CTMs to the Learner's care team via invite code. UC9 specifies that the invite code has an expiry time, that the new CTM is limited to the permissions selected by the Primary CTM, and that the Primary CTM is notified when the new CTM joins.
-  \item[Test Procedure] The tester logs in as CTM A and generates an invite with the permission outlined in the input, then checks that the code's expiry is set to \texttt{INVITE\_EXPIRY} from now. The tester logs in as CTM C, enters the code, and confirms that L1 appears on the account. The tester checks that the care team membership record for CTM C holds only the selected permission, and confirms that CTM A received a notification.
+  \item[Test Procedure] The tester logs in as CTM A and generates an invite with the permission outlined in the input, then checks that the code's expiry is set to \paramref{invite-expiry}{INVITE\_EXPIRY} from now. The tester logs in as CTM C, enters the code, and confirms that L1 appears on the account. The tester checks that the care team membership record for CTM C holds only the selected permission, and confirms that CTM A received a notification.
 \end{description}
 
 \vspace{0.05cm}
@@ -843,15 +844,15 @@ This testing area covers how CTMs join, are managed within, and leave a Learner'
   \item[Initial State] CTM A is the Primary CTM of Learner L1. CTM C is logged in and is not part of L1's care team. CTM D has already joined L1's care team using an earlier invite code.
   \item[Input] CTM C attempts to join L1's care team in each of the following cases separately:
     \begin{enumerate}[label=(\alph*), nosep]
-      \item an incorrect code is entered \texttt{INVITE\_RETRY\_LIMIT} times, followed by the correct code
-      \item the correct code is entered after \texttt{INVITE\_EXPIRY} has passed
+      \item an incorrect code is entered \paramref{invite-retry-limit}{INVITE\_RETRY\_LIMIT} times, followed by the correct code
+      \item the correct code is entered after \paramref{invite-expiry}{INVITE\_EXPIRY} has passed
       \item the code already used by CTM D is entered
       \item the correct code is entered after CTM A has cancelled the invite
     \end{enumerate}
   After each case, CTM A generates a new invite code, which CTM C enters.
-  \item[Output] In every case, CTM C is not added to L1's care team and the system displays a reason for the failure. In case (a), further attempts are blocked for \texttt{INVITE\_LOCKOUT\_DURATION} once the retry limit is reached, and the correct code is refused. The newly generated code adds CTM C to L1's care team.
+  \item[Output] In every case, CTM C is not added to L1's care team and the system displays a reason for the failure. In case (a), further attempts are blocked for \paramref{invite-lockout-duration}{INVITE\_LOCKOUT\_DURATION} once the retry limit is reached, and the correct code is refused. The newly generated code adds CTM C to L1's care team.
   \item[Derivation] \srsref{FR-TEAM-1} says that CTMs join a care team via invite code, \srsref{FR-TEAM-2} allows the Primary CTM to cancel an outgoing invite, and \srsref{FR-TEAM-3} allows the Primary CTM to generate a new invite. UC9 alternative flows 7.1--7.3 specify that an incorrect, expired or used code is rejected, that retries are limited before further attempts are blocked, and that the Primary CTM can generate a new code.
-  \item[Test Procedure] For each case (a)--(d), the tester sets up the code as outlined in the input, advancing the test server's clock past \texttt{INVITE\_EXPIRY} for case (b), and logs in as CTM C to enter it. The tester confirms that a failure reason is shown and that no membership record exists for CTM C on L1. The tester then generates a new code as CTM A, enters it as CTM C, and confirms that CTM C joins L1's care team. Before the next case, CTM C is removed from L1's care team.
+  \item[Test Procedure] For each case (a)--(d), the tester sets up the code as outlined in the input, advancing the test server's clock past \paramref{invite-expiry}{INVITE\_EXPIRY} for case (b), and logs in as CTM C to enter it. The tester confirms that a failure reason is shown and that no membership record exists for CTM C on L1. The tester then generates a new code as CTM A, enters it as CTM C, and confirms that CTM C joins L1's care team. Before the next case, CTM C is removed from L1's care team.
 \end{description}
 
 \end{enumerate}
@@ -1201,7 +1202,7 @@ Initial State: Software is running on a compatible device, with no account logge
 					
 Input/Condition: At least 10 individuals in the age range of a potential CTM (20-50) go through the account setup process, inputting their information and proceeding through the steps. Participants complete a usability survey afterwards.
 					
-Output/Result: Accounts are created with the individuals' information. At least 80\% of participants report an average 8/10 ease of use and satisfaction with performance.
+Output/Result: Accounts are created with the individuals' information. At least 80\% of participants report an average score of at least \paramref{min-survey-score}{MIN\_SURVEY\_SCORE} for ease of use and satisfaction with performance.
 					
 How test will be performed: In-person sessions will be scheduled with participants. The developers will facilitate the test with their personal device and administer the survey afterwards on the same device through a Google form.
 
@@ -1213,7 +1214,7 @@ Initial State: Software is running on a compatible device, with a sample CTM acc
 					
 Input/Condition: At least 10 individuals in the age range of a potential CTM (20-50) are given a series of actions to complete on the software such as navigating to a view or changing a setting. Participants will be asked to do each action three times total. Participants will complete a usability survey afterwards.
 					
-Output/Result: The participants are able to complete the specified actions. There is a 50\% increase of speed in completing these actions when doing so for the third time. At least 80\% of participants report an average of 8/10 or more ease in doing and learning these actions.
+Output/Result: The participants are able to complete the specified actions. There is a 50\% increase of speed in completing these actions when doing so for the third time. At least 80\% of participants report an average score of at least \paramref{min-survey-score}{MIN\_SURVEY\_SCORE} for ease in doing and learning these actions.
 					
 How test will be performed: In-person sessions will be scheduled with participants. The developers will facilitate the test with their personal devices, time how long the participants take to complete actions, and administer the survey afterwards on the same device through a Google form.
 
@@ -1225,7 +1226,7 @@ Initial State: Software is running on a compatible device, with a sample CTM acc
 					
 Input/Condition: At least 10 CTM's for an autistic child (referred to as the Learner) in the intended range of 8-10 facilitates playing one game. Both CTM and Learner complete a usability survey afterwards.
 					
-Output/Result: The game is completed. At least 80\% of CTM participants report an average of 8/10 ease in facilitating gameplay. At least 80\% of Learner participants report an average of 8/10 or more ease of participating in gameplay (the CTM may answer on their behalf).
+Output/Result: The game is completed. At least 80\% of CTM participants report an average score of at least \paramref{min-survey-score}{MIN\_SURVEY\_SCORE} for ease in facilitating gameplay. At least 80\% of Learner participants report an average score of at least \paramref{min-survey-score}{MIN\_SURVEY\_SCORE} for ease of participating in gameplay (the CTM may answer on their behalf).
 					
 How test will be performed: In-person sessions will be scheduled with participants. The developers will facilitate the test with their personal devices and administer the surveys afterwards on the same device through Google forms.
 
@@ -1301,6 +1302,7 @@ How test will be performed: 1 developer will carry out the test on the laptop.
 
 \end{enumerate}
 
+Note that older operating systems will be considered out of scope for testing due to lack of access.
 \subsubsection{Security}
 
 \begin{enumerate}
@@ -1563,21 +1565,23 @@ Additional Information.
 \toprule
 Parameter & Value\\
 \midrule
-MIN\_PASSWORD\_LENGTH & 12 characters\\
-INACTIVITY\_TIMEOUT & 30 minutes\\
-GRACE\_PERIOD & 30 days\\
-PAIRING\_RETRY\_LIMIT & 5 attempts\\
-PAIRING\_LOCKOUT\_DURATION & 15 minutes\\
-INVITE\_EXPIRY & 48 hours\\
-INVITE\_RETRY\_LIMIT & 5 attempts\\
-INVITE\_LOCKOUT\_DURATION & 15 minutes\\
+\hypertarget{param:min-participants}{MIN\_PARTICIPANTS} & 10 participants\\
+\hypertarget{param:min-survey-score}{MIN\_SURVEY\_SCORE} & 8/10\\
+\hypertarget{param:min-password-length}{MIN\_PASSWORD\_LENGTH} & 12 characters\\
+\hypertarget{param:inactivity-timeout}{INACTIVITY\_TIMEOUT} & 30 minutes\\
+\hypertarget{param:grace-period}{GRACE\_PERIOD} & 30 days\\
+\hypertarget{param:pairing-retry-limit}{PAIRING\_RETRY\_LIMIT} & 5 attempts\\
+\hypertarget{param:pairing-lockout-duration}{PAIRING\_LOCKOUT\_DURATION} & 15 minutes\\
+\hypertarget{param:invite-expiry}{INVITE\_EXPIRY} & 48 hours\\
+\hypertarget{param:invite-retry-limit}{INVITE\_RETRY\_LIMIT} & 5 attempts\\
+\hypertarget{param:invite-lockout-duration}{INVITE\_LOCKOUT\_DURATION} & 15 minutes\\
 \bottomrule
 \caption{Symbolic Parameters} \label{tab:SymbolicParameters}
 \end{longtable}
 
 \subsection{Usability Survey Questions}
 
-The following survey is completed by participants in the CTM usability sessions (\valref{3} in Section~\ref{sec:validation}), through a Google Form on the facilitating developer's device at the end of each session. No identifying information is collected. Rated questions use a scale from 1 (very difficult or very unsatisfied) to 10 (very easy or very satisfied). A rating of 8 or higher counts as experiencing little to no difficulty for the nonfunctional requirement that the question measures.
+The following survey is completed by participants in the CTM usability sessions (\valref{3} in Section~\ref{sec:validation}), through a Google Form on the facilitating developer's device at the end of each session. No identifying information is collected. Rated questions use a scale from 1 (very difficult or very unsatisfied) to 10 (very easy or very satisfied). A rating of at least \paramref{min-survey-score}{MIN\_SURVEY\_SCORE} counts as experiencing little to no difficulty for the nonfunctional requirement that the question measures.
 
 \begin{table}[htbp]
 \centering\small
@@ -1623,7 +1627,7 @@ Q16 & Compared to your first session, how much easier was it to complete the sam
 
 \paragraph{Observer record.} During each session, an observer records the following for each task (creating an account, adding and pairing a Learner, inviting a CTM, personalizing a game, and reading the dashboard): the time taken, the number of errors, whether the participant needed help, and any comments. The times from the first and second sessions are compared to measure memorability (\srsref{NFR-USE-3}), alongside Q16.
 
-The following guide is used by the supervisor and special-education educators when play-testing each game as proxies for Learners (\valref{4} in Section~\ref{sec:validation}). The guide is completed once per game. Rated questions use the same 1--10 scale as the usability survey, and a rating of 8 or higher counts as a Learner being easily able to participate for \srsref{NFR-USE-5}. If sessions with Learners are approved by the ethics board, the same guide is completed by an observer during those sessions, and the report states which kind of participant each result comes from.
+The following guide is used by the supervisor and special-education educators when play-testing each game as proxies for Learners (\valref{4} in Section~\ref{sec:validation}). The guide is completed once per game. Rated questions use the same 1--10 scale as the usability survey, and a rating of at least \paramref{min-survey-score}{MIN\_SURVEY\_SCORE} counts as a Learner being easily able to participate for \srsref{NFR-USE-5}. If sessions with Learners are approved by the ethics board, the same guide is completed by an observer during those sessions, and the report states which kind of participant each result comes from.
 
 \begin{table}[htbp]
 \centering\small
