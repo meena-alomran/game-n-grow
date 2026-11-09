@@ -110,8 +110,8 @@ establish broader developmental improvements.
 
 The objective of the Verification and Validation (VnV) Plan is to build confidence that Spectropica meets its documented requirements and is suitable for its intended users. Verification will assess whether the system has been developed according to its specifications, while validation will evaluate whether it meets the needs of Learners and CTMs.
 
-The VnV activities will prioritize the qualities identified as most important in the {\href{https://github.com/meena-alomran/game-n-grow/blob/main/docs/SRS-IEEE/SRS.tex}{Software
-Requirements Specification (SRS)}} and {\href{https://github.com/meena-alomran/game-n-grow/blob/main/docs/HazardAnalysis/HazardAnalysis.tex}{Hazard Analysis}}. In particular, the Hazard Analysis prioritizes Learner wellbeing and privacy because failures in these areas could result in significant harm. As a result, particular attention will be given to preventing inappropriate sensory stimulation, unauthorized access to Learner information, incorrect gameplay configurations, and inaccurate or lost performance records.
+The VnV activities will prioritize the qualities identified as most important in the {\href{https://github.com/meena-alomran/game-n-grow/blob/main/pdfs/SRS-IEEE/SRS.pdf}{Software
+Requirements Specification (SRS)}} and {\href{https://github.com/meena-alomran/game-n-grow/blob/main/pdfs/HazardAnalysis/HazardAnalysis.pdf}{Hazard Analysis}}. In particular, the Hazard Analysis prioritizes Learner wellbeing and privacy because failures in these areas could result in significant harm. As a result, particular attention will be given to preventing inappropriate sensory stimulation, unauthorized access to Learner information, incorrect gameplay configurations, and inaccurate or lost performance records.
 
 The primary VnV objectives are outlined below.
 
@@ -154,7 +154,7 @@ These exclusions allow the team to focus its VnV efforts on the correctness, saf
 \subsection{Custom Documents}
 
 Two custom documents were approved for Spectropica, as identified in the
-\href{https://github.com/meena-alomran/game-n-grow/blob/main/docs/ProblemStatementAndGoals/ProblemStatement.tex}{Problem
+\href{https://github.com/meena-alomran/game-n-grow/blob/main/pdfs/ProblemStatementAndGoals/ProblemStatement.pdf}{Problem
 Statement and Goals}.
 
 \textbf{Interview Report - Fall Semester:} This document will summarize
@@ -182,7 +182,7 @@ The following documents provide the requirements, design information, and
 evaluation criteria used to guide Spectropica's verification and validation
 activities.
 
-\textbf{\href{https://github.com/meena-alomran/game-n-grow/blob/main/docs/SRS-IEEE/SRS.tex}{Software
+\textbf{\href{https://github.com/meena-alomran/game-n-grow/blob/main/pdfs/SRS-IEEE/SRS.pdf}{Software
 Requirements Specification (SRS)}:} The SRS serves as the primary reference for
 verification by defining the system's functional, non-functional, safety,
 security, and data requirements. These requirements establish the expected
@@ -190,7 +190,7 @@ behaviour and acceptance criteria against which the implementation will be
 evaluated. They also provide the basis for requirements traceability and test
 case development.
 
-\textbf{\href{https://github.com/meena-alomran/game-n-grow/blob/main/docs/HazardAnalysis/HazardAnalysis.tex}{Hazard
+\textbf{\href{https://github.com/meena-alomran/game-n-grow/blob/main/pdfs/HazardAnalysis/HazardAnalysis.pdf}{Hazard
 Analysis}:} The Hazard Analysis identifies potential failures that could affect
 Learner wellbeing, privacy, system reliability, and data integrity. Its hazards,
 safety requirements, and recommended mitigations help determine which areas
@@ -198,14 +198,14 @@ require the greatest attention during verification and validation. It also
 provides a basis for developing safety-related tests and reviewing how the
 system responds to potentially harmful conditions.
 
-\textbf{\href{https://github.com/meena-alomran/game-n-grow/blob/main/docs/ProblemStatementAndGoals/ProblemStatement.tex}{Problem
+\textbf{\href{https://github.com/meena-alomran/game-n-grow/blob/main/pdfs/ProblemStatementAndGoals/ProblemStatement.pdf}{Problem
 Statement and Goals}:} This document describes the problem Spectropica aims to
 address, its intended users, and the project's goals and success criteria. It
 supports validation by establishing the purpose of the system and the user needs
 that the completed software should address. It also identifies the approved
 custom documents.
 
-\textbf{\href{https://github.com/meena-alomran/game-n-grow/blob/main/docs/DevelopmentPlan/DevelopmentPlan.tex}{Development
+\textbf{\href{https://github.com/meena-alomran/game-n-grow/blob/main/pdfs/DevelopmentPlan/DevelopmentPlan.pdf}{Development
 Plan}:} The Development Plan describes the team's development process, tools,
 and implementation approach. It informs the selection of appropriate
 verification activities, including code reviews, automated testing, integration
@@ -326,10 +326,10 @@ Each answer that points to a missing, incorrect or unclear requirement becomes a
 
 The design to be verified consists of the Hazard Analysis, the module-level
 design documents that the team will write after the
-\href{https://github.com/meena-alomran/game-n-grow/blob/main/docs/SRS-IEEE/SRS.tex}{Software Requirements Specification (SRS)} and this plan, and
+\href{https://github.com/meena-alomran/game-n-grow/blob/main/pdfs/SRS-IEEE/SRS.pdf}{Software Requirements Specification (SRS)} and this plan, and
 low-fidelity wireframes of the Learner Game Suite and the CTM Dashboard. The
 design covers the Godot client and the server-side functionality described in
-the \href{https://github.com/meena-alomran/game-n-grow/blob/main/docs/SRS-IEEE/SRS.tex}{Software Requirements Specification (SRS)} Section 2.3. Each review is held when the
+the \href{https://github.com/meena-alomran/game-n-grow/blob/main/pdfs/SRS-IEEE/SRS.pdf}{Software Requirements Specification (SRS)} Section 2.3. Each review is held when the
 relevant design material is drafted and before the parts of the implementation
 that depend on it are started. The checks below are written in terms of the
 design itself, so they apply regardless of how the module-level documents are
@@ -353,13 +353,13 @@ D1 & Every functional, nonfunctional, and safety requirement is allocated to at
 least one part of the design, and every part of the design supports at least
 one requirement.\\
 D2 & Each part of the design hides one design decision. Each likely change LC1
-to LC8 (the \href{https://github.com/meena-alomran/game-n-grow/blob/main/docs/SRS-IEEE/SRS.tex}{Software Requirements Specification (SRS)} Section 12) is confined to a few identifiable parts, so that
+to LC8 (the \href{https://github.com/meena-alomran/game-n-grow/blob/main/pdfs/SRS-IEEE/SRS.pdf}{Software Requirements Specification (SRS)} Section 12) is confined to a few identifiable parts, so that
 \srsreq{NFR-MAINT-1} (effort below 1/6 of the original development time) is
 plausible.\\
 D3 & Every CTM action passes through one permission check (\srsreq{FR-TEAM-7}, \srsreq{SR-3}),
 and Learner devices store only configurations, inventory, and queued session
-data (the \href{https://github.com/meena-alomran/game-n-grow/blob/main/docs/SRS-IEEE/SRS.tex}{Software Requirements Specification (SRS)} Section 7.3).\\
-D4 & Every entity and attribute in the data dictionary (the \href{https://github.com/meena-alomran/game-n-grow/blob/main/docs/SRS-IEEE/SRS.tex}{Software Requirements Specification (SRS)} Section 7.2) is
+data (the \href{https://github.com/meena-alomran/game-n-grow/blob/main/pdfs/SRS-IEEE/SRS.pdf}{Software Requirements Specification (SRS)} Section 7.3).\\
+D4 & Every entity and attribute in the data dictionary (the \href{https://github.com/meena-alomran/game-n-grow/blob/main/pdfs/SRS-IEEE/SRS.pdf}{Software Requirements Specification (SRS)} Section 7.2) is
 mapped to storage. Deleting a CTM account does not delete a Learner profile,
 and Learner deletion removes all data after the 30-day grace period
 (\srsreq{FR-LRN-6}, \srsreq{SR-18}).\\
@@ -371,7 +371,7 @@ imported files are never executed (\srsreq{SR-15}) are each assigned to a specif
 part of the design.\\
 D7 & Interfaces between parts of the design use the types in the data
 dictionary and match how the other parts call them.\\
-D8 & The gameplay states in Figure 2 of the \href{https://github.com/meena-alomran/game-n-grow/blob/main/docs/SRS-IEEE/SRS.tex}{Software Requirements Specification (SRS)} (loading, ready, playing,
+D8 & The gameplay states in Figure 2 of the \href{https://github.com/meena-alomran/game-n-grow/blob/main/pdfs/SRS-IEEE/SRS.pdf}{Software Requirements Specification (SRS)} (loading, ready, playing,
 paused, reward, load error) appear in the design of the game flow.\\
 D9 & Every hazard in the Hazard Analysis has at least one design element that
 mitigates it.\\
@@ -411,7 +411,7 @@ Table~\ref{tab:vv-checklist} before each submission of this plan.
 \toprule
 \textbf{ID} & \textbf{Check}\\
 \midrule
-P1 & Every functional, nonfunctional, and safety requirement in the \href{https://github.com/meena-alomran/game-n-grow/blob/main/docs/SRS-IEEE/SRS.tex}{Software Requirements Specification (SRS)} appears
+P1 & Every functional, nonfunctional, and safety requirement in the \href{https://github.com/meena-alomran/game-n-grow/blob/main/pdfs/SRS-IEEE/SRS.pdf}{Software Requirements Specification (SRS)} appears
 in the traceability table of Section 4.3 or has a named static verification
 method.\\
 P2 & Each system test states its control (manual or automatic), initial state,
@@ -424,7 +424,7 @@ survey in the appendix where one is needed (\srsref{NFR-USE-1} to \srsref{NFR-US
 \srsref{NFR-PERF-1}).\\
 P5 & The plan is feasible: the devices, participants, and person-hours it
 assumes are available to the team.\\
-P6 & Terminology matches the \href{https://github.com/meena-alomran/game-n-grow/blob/main/docs/SRS-IEEE/SRS.tex}{Software Requirements Specification (SRS)}, and the document meets the course template
+P6 & Terminology matches the \href{https://github.com/meena-alomran/game-n-grow/blob/main/pdfs/SRS-IEEE/SRS.pdf}{Software Requirements Specification (SRS)}, and the document meets the course template
 (title page, tables of contents, numbered and captioned tables and figures,
 revision history, appendices).\\
 \bottomrule
@@ -602,7 +602,7 @@ satisfied, partly satisfied, or not satisfied, with comments. Every
 partial or unsatisfied rating is turned into an issue labelled \texttt{validation}, and
 the team prioritizes these with the supervisor and resolves them before the
 final demo. Changes to requirements are recorded in the
-\href{https://github.com/meena-alomran/game-n-grow/blob/main/docs/SRS-IEEE/SRS.tex}{Software Requirements Specification (SRS)} revision history.
+\href{https://github.com/meena-alomran/game-n-grow/blob/main/pdfs/SRS-IEEE/SRS.pdf}{Software Requirements Specification (SRS)} revision history.
 
 \paragraph{\valref{3}: CTM usability sessions.} At least 10 adults will be recruited
 in roles close to the CTM personas, such as parents, educators, and
@@ -1185,7 +1185,7 @@ This testing area covers how CTMs view, filter and export a Learner's recorded g
 
 \subsection{Tests for Nonfunctional Requirements}
 
-The following subsections map to the different categories of nonfunctional requirements in \href{https://github.com/meena-alomran/game-n-grow/blob/main/docs/SRS-IEEE/SRS.tex}{section 8 of the SRS}, with some combined with each other due to overlap in testing strategies.
+The following subsections map to the different categories of nonfunctional requirements in \href{https://github.com/meena-alomran/game-n-grow/blob/main/pdfs/SRS-IEEE/SRS.pdf}{section 8 of the SRS}, with some combined with each other due to overlap in testing strategies.
 Note that the carrying out of tests requiring a Learner's participation will be left to the discretion of the project supervisor and may be omitted if there are ethical or safety concerns.
 
 \subsubsection{Usability and Performance}
@@ -1310,7 +1310,7 @@ Type: Non-functional, Manual, Static
 					
 How test will be performed: 2 developers who did not work on the account section of the software will do a code walkthrough of the processes for creating and logging into an account, as well as how the associated information is stored.
 
-Output/Result: The developers confirm that the privacy and data retention requirements outlined in section 7.3 of the \href{https://github.com/meena-alomran/game-n-grow/blob/main/docs/SRS-IEEE/SRS.tex}{SRS}; specifically regarding what information is stored and how for CTM's and Learners.
+Output/Result: The developers confirm that the privacy and data retention requirements outlined in section 7.3 of the \href{https://github.com/meena-alomran/game-n-grow/blob/main/pdfs/SRS-IEEE/SRS.pdf}{SRS}; specifically regarding what information is stored and how for CTM's and Learners.
 
 \item\label{test-nfr-sec-2} test-nfr-sec-2\\
 
