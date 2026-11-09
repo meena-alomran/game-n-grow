@@ -19,13 +19,11 @@
 \newcounter{validation}
 \renewcommand{\thevalidation}{V\arabic{validation}}
 \newcommand{\valref}[1]{\hyperref[val:V#1]{\ref*{val:V#1}}}
-\newcommand{\srsucref}[1]{UC\ref*{SRS-UC_Label#1}}
 \newcommand{\srssectionref}[1]{SRS Section~\ref*{SRS-#1}}
 \newcommand{\srsnamedref}[2]{#2}
 \newcommand{\testcaseref}[1]{\hyperref[#1]{\texttt{#1}}}
 \newcommand{\srsreq}[1]{#1}
 \newcommand{\srsreqtext}[2]{#2}
-\newcommand{\srsuc}[1]{UC#1}
 \newcommand{\srsulc}{ULC8}
 \usepackage[round]{natbib}
 
@@ -108,7 +106,8 @@ establish broader developmental improvements.
 
 The objective of the Verification and Validation (VnV) Plan is to build confidence that Spectropica meets its documented requirements and is suitable for its intended users. Verification will assess whether the system has been developed according to its specifications, while validation will evaluate whether it meets the needs of Learners and CTMs.
 
-The VnV activities will prioritize the qualities identified as most important in the Software Requirements Specification (SRS) and Hazard Analysis. In particular, the Hazard Analysis prioritizes Learner wellbeing and privacy because failures in these areas could result in significant harm. As a result, particular attention will be given to preventing inappropriate sensory stimulation, unauthorized access to Learner information, incorrect gameplay configurations, and inaccurate or lost performance records.
+The VnV activities will prioritize the qualities identified as most important in the {\href{https://github.com/meena-alomran/game-n-grow/blob/main/docs/SRS-IEEE/SRS.tex}{Software
+Requirements Specification (SRS)}} and {\href{https://github.com/meena-alomran/game-n-grow/blob/main/docs/HazardAnalysis/HazardAnalysis.tex}{Hazard Analysis}}. In particular, the Hazard Analysis prioritizes Learner wellbeing and privacy because failures in these areas could result in significant harm. As a result, particular attention will be given to preventing inappropriate sensory stimulation, unauthorized access to Learner information, incorrect gameplay configurations, and inaccurate or lost performance records.
 
 The primary VnV objectives are outlined below.
 
@@ -309,7 +308,7 @@ Each answer that points to a missing, incorrect or unclear requirement becomes a
 
 \paragraph{Findings so far.} Writing the system tests in Section 4 was used as an early review of the SRS, and surfaced the following defects. These are filed as the first \texttt{srs-review} issues.
 \begin{itemize}
-  \item \textbf{Consistency (S1):} \srsucref{8} allows any authorized CTM to delete a Learner profile, while \srsref{FR-LRN-4} allows only the Primary CTM.
+  \item \textbf{Consistency (S1):} UC8 allows any authorized CTM to delete a Learner profile, while \srsref{FR-LRN-4} allows only the Primary CTM.
   \item \textbf{Data dictionary (S2):} the outcome attribute of a Game Session has no value for incomplete sessions, which SR-8 requires.
   \item \textbf{Traceability (S3):} SR-LRN-2, SR-CUST-1, SR-CUST-2, SR-CTM-1 and SR-DOM-1 do not appear in the SRS traceability matrix, and the change log described in \srssectionref{sec:privacy-data-retention} has no corresponding functional requirement.
   \item \textbf{Symbolic constants:} the 30-day grace period and the percentages in NFR-USE-1 to NFR-USE-5 are literal values, and the backup retention period referenced by SR-18 is missing from the SRS appendix.
@@ -380,14 +379,14 @@ Godot.\\
 
 \paragraph{Use-case walkthroughs.} The team traces four scenarios through the
 design on sequence diagrams to find missing responsibilities or interfaces:
-\srsuc{1} including loss of connection (alternative flow 6.1--6.2), \srsuc{2} including
-pairing-code lockout, \srsuc{8} including restoration during the grace period, and
-\srsuc{9} including expired and reused invite codes.
+UC1 including loss of connection (alternative flow 6.1--6.2), UC2 including
+pairing-code lockout, UC8 including restoration during the grace period, and
+UC9 including expired and reused invite codes.
 
 \paragraph{Wireframe review with the supervisor.} Before the user interface is
 implemented, the team presents wireframes of the Game Suite, a gameplay screen
 with the pause, restart, and exit controls, a Learner error message, and the
-CTM settings screen from \srsuc{4}. The supervisor is asked whether each screen is
+CTM settings screen from UC4. The supervisor is asked whether each screen is
 uncluttered, whether instructions are unambiguous, and whether anything could
 overwhelm a Learner (\srsref{SR-LRN-1} to \srsref{SR-LRN-3}, \srsref{SR-DOM-3}, \srsref{SR-4} to \srsref{SR-7}, \srsref{SR-11}).
 
@@ -570,17 +569,17 @@ the stakeholder requirements from \srssectionref{sec:stakeholder-requirements} t
 \toprule
 \textbf{ID} & \textbf{Activity} & \textbf{Participants} & \textbf{Validates}\\
 \midrule
-\refstepcounter{validation}\label{val:V1}\ref{val:V1} & SRS task-based review (Section~\ref{sec:srs-ver}; UCs~\srsucref{1}--\srsucref{10}) & Supervisor &
+\refstepcounter{validation}\label{val:V1}\ref{val:V1} & SRS task-based review (Section~\ref{sec:srs-ver}; UCs~UC1--UC10) & Supervisor &
 \srsref{SR-LRN-1}--\srsref{SR-LRN-4}; \srsref{SR-CUST-1}--\srsref{SR-CUST-3}; \srsref{SR-CTM-1}--\srsref{SR-CTM-6}; \srsref{SR-DOM-1}--\srsref{SR-DOM-4}\\
-\refstepcounter{validation}\label{val:V2}\ref{val:V2} & Rev 0 demo to supervisor (UCs~\srsucref{1}, \srsucref{2}, \srsucref{3}, \srsucref{4}, \srsucref{5}, \srsucref{6}, \srsucref{7}, \srsucref{9}, \srsucref{10}) & Supervisor &
+\refstepcounter{validation}\label{val:V2}\ref{val:V2} & Rev 0 demo to supervisor (UCs~UC1, UC2, UC3, UC4, UC5, UC6, UC7, UC9, UC10) & Supervisor &
 \srsref{SR-LRN-1}--\srsref{SR-LRN-4}; \srsref{SR-CUST-1}--\srsref{SR-CUST-3}; \srsref{SR-CTM-1}--\srsref{SR-CTM-6}; \srsref{SR-DOM-1}--\srsref{SR-DOM-4}\\
-\refstepcounter{validation}\label{val:V3}\ref{val:V3} & CTM usability sessions and survey (UCs~\srsucref{2}, \srsucref{3}, \srsucref{4}, \srsucref{7}, \srsucref{9}) & At least 10 adults in CTM-like roles &
+\refstepcounter{validation}\label{val:V3}\ref{val:V3} & CTM usability sessions and survey (UCs~UC2, UC3, UC4, UC7, UC9) & At least 10 adults in CTM-like roles &
 \srsref{SR-CTM-5}, \srsref{SR-CTM-6}, \srsref{SR-CUST-1}; \srsref{NFR-USE-1} to \srsref{NFR-USE-4}, \srsref{NFR-PERF-1}\\
-\refstepcounter{validation}\label{val:V4}\ref{val:V4} & Learner-facing proxy play-testing (UCs~\srsucref{1}, \srsucref{6}) & Supervisor and special-education
+\refstepcounter{validation}\label{val:V4}\ref{val:V4} & Learner-facing proxy play-testing (UCs~UC1, UC6) & Supervisor and special-education
 educators & \srsref{SR-LRN-1} to \srsref{SR-LRN-4}, \srsref{SR-DOM-2}, \srsref{SR-DOM-3}; \srsref{NFR-USE-5}\\
-\refstepcounter{validation}\label{val:V5}\ref{val:V5} & Curriculum alignment review (UCs~\srsucref{1}, \srsucref{4}, \srsucref{5}) & Supervisor, and an educator where
+\refstepcounter{validation}\label{val:V5}\ref{val:V5} & Curriculum alignment review (UCs~UC1, UC4, UC5) & Supervisor, and an educator where
 available & \srsref{SR-CTM-1}, \srsref{SR-DOM-1}, \srsref{SR-DOM-4}; \srsref{NFR-ACCU-2}\\
-\refstepcounter{validation}\label{val:V6}\ref{val:V6} & Non-clinical wording review (SRS Section~2.1; UCs~\srsucref{1}--\srsucref{10}) & Team and supervisor & \srssectionref{sec_SystemProblem} and
+\refstepcounter{validation}\label{val:V6}\ref{val:V6} & Non-clinical wording review (SRS Section~2.1; UCs~UC1--UC10) & Team and supervisor & \srssectionref{sec_SystemProblem} and
 \srsnamedref{ULC_NonClinicalPurpose}{ULC Non-Clinical Purpose}\\
 \bottomrule
 \end{tabularx}
@@ -588,12 +587,12 @@ available & \srsref{SR-CTM-1}, \srsref{SR-DOM-1}, \srsref{SR-DOM-4}; \srsref{NFR
 
 \paragraph{\valref{2}: Rev 0 demo to the supervisor.} The team will demonstrate
 \progname{} to the supervisor shortly after the scheduled Rev 0 demo. The
-demonstration follows five scripted scenarios: (1)~a CTM registers (\srsucref{7}), adds
-a Learner, and pairs a tablet (\srsucref{2}); (2)~the CTM personalizes settings (\srsucref{4})
-and creates and assigns a Template (\srsucref{5}); (3)~the Learner plays a game, using
-pause and the guide, and claims a reward (\srsucref{1}, \srsucref{6}); (4)~the CTM reviews and
-exports the Learner's data (\srsucref{3}); and (5)~the Primary CTM invites another CTM
-and edits their permissions (\srsucref{9}, \srsucref{10}). Afterward the supervisor completes a
+demonstration follows five scripted scenarios: (1)~a CTM registers (UC7), adds
+a Learner, and pairs a tablet (UC2); (2)~the CTM personalizes settings (UC4)
+and creates and assigns a Template (UC5); (3)~the Learner plays a game, using
+pause and the guide, and claims a reward (UC1, UC6); (4)~the CTM reviews and
+exports the Learner's data (UC3); and (5)~the Primary CTM invites another CTM
+and edits their permissions (UC9, UC10). Afterward the supervisor completes a
 feedback form that rates each stakeholder requirement in \srssectionref{sec:stakeholder-requirements} as
 satisfied, partly satisfied, or not satisfied, with comments. Every
 partial or unsatisfied rating is turned into an issue labelled \texttt{validation}, and
@@ -606,7 +605,7 @@ in roles close to the CTM personas, such as parents, educators, and
 special-education staff, through the supervisor and the team's contacts. At least 10 are needed to be able to satisfy the 90\% target across \srsref{NFR-USE-1}--\srsref{NFR-USE-4}.
 Each participant attempts these tasks while an observer records time, errors, and
 comments: create an account, add and pair a Learner, invite a CTM, personalize a
-game, and read the dashboard (\srsucref{7}, \srsucref{2}, \srsucref{9}, \srsucref{4}, and \srsucref{3}, respectively). Participants then complete the survey in the
+game, and read the dashboard (UC7, UC2, UC9, UC4, and UC3, respectively). Participants then complete the survey in the
 Appendix. A second session at least one day later repeats the tasks to measure
 memorability (\srsref{NFR-USE-3}).
 
@@ -614,7 +613,7 @@ memorability (\srsref{NFR-USE-3}).
 involving human participants and would need ethics clearance, so the team will
 not run sessions with Learners unless the supervisor advises it and clearance is
 obtained in time. By default, the supervisor and special-education educators
-play-test the games in \srsucref{1} and \srsucref{6} as proxies, using an observation guide that asks whether
+play-test the games in UC1 and UC6 as proxies, using an observation guide that asks whether
 anything would overstimulate or understimulate a Learner, whether instructions
 are unambiguous, and whether a Learner could retry freely and feel a sense of
 accomplishment. Their findings stand in for the Learner measurement in
@@ -622,7 +621,7 @@ accomplishment. Their findings stand in for the Learner measurement in
 
 \paragraph{\valref{5}: Curriculum alignment review.} A table is made that maps the content and each difficulty level of every game to Grade 3 to 5 curriculum
 expectations from the Ontario Ministry of Education. The supervisor reviews the
-table for appropriateness to the intended Learners (including the game and customization flows in \srsucref{1}, \srsucref{4}, and \srsucref{5}), and educators outside the
+table for appropriateness to the intended Learners (including the game and customization flows in UC1, UC4, and UC5), and educators outside the
 team review it where available.
 
 \paragraph{\valref{6}: Non-clinical wording review.} Before each demo, the team checks
