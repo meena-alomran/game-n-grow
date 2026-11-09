@@ -107,7 +107,12 @@ jobs:
           # with "Font rm-lmr7 at 600 not found".
           sudo updmap-sys >/dev/null
 
+          # The apt cache restore can skip texlive-binaries' alternatives setup,
+          # leaving bibtex.original installed without the `bibtex` command.
+          sudo update-alternatives --install /usr/bin/bibtex bibtex /usr/bin/bibtex.original 1
+
           pdflatex --version | head -1
+          bibtex --version | head -1
           pandoc --version | head -1
           kpsewhich article.cls
           kpsewhich amsmath.sty
