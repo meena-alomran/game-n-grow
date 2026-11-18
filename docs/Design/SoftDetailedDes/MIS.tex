@@ -76,12 +76,35 @@ See SRS Documentation at \wss{give url}
 
 \section{Introduction}
 
-The following document details the Module Interface Specifications for
-\wss{Fill in your project name and description}
+This document presents the Module Interface Specification (MIS) for
+Spectropica, a customizable educational game suite designed to support
+autistic Learners through activities focused on routine sequencing,
+functional communication, and short-term memory. Care Team Members (CTMs),
+including parents, caregivers, and educators, can personalize gameplay
+and review recorded performance. Spectropica provides educational practice.
+Its performance records describe outcomes within Games rather than clinical
+assessments or broader developmental conclusions.
 
-Complementary documents include the System Requirement Specifications
-and Module Guide.  The full documentation and implementation can be
-found at \url{...}.  \wss{provide the url for your repo}
+The MIS defines the interfaces and expected behaviour of Spectropica's
+software modules. Section~\ref{SecModuleDecomposition} presents the module
+decomposition, followed by individual specifications that cover dependencies,
+exported constants and access programs, input and output types, exceptions,
+and relevant state and environment variables. Access routine semantics
+specify observable outputs and state changes without prescribing unnecessary
+implementation details. These specifications support implementation,
+integration, testing, and maintenance.
+
+This document complements the
+\href{https://github.com/meena-alomran/game-n-grow/blob/main/docs/SRS-IEEE/SRS.tex}
+  {Software Requirements Specification (SRS)}, which defines the system's
+requirements, and the
+\href{https://github.com/meena-alomran/game-n-grow/blob/main/docs/Design/SoftArchitecture/MG.tex}
+  {Module Guide (MG)}, which describes the modular architecture and its
+design rationale. Module names, identifiers, responsibilities, and
+dependencies must remain consistent between the MG and MIS.
+
+The complete project documentation and implementation are maintained at
+\url{https://github.com/meena-alomran/game-n-grow}.
 
 \section{Notation}
 
@@ -121,6 +144,7 @@ are defined by the data types of their inputs and outputs. Local functions are
 described by giving their type signature followed by their specification.
 
 \section{Module Decomposition}
+\label{SecModuleDecomposition}
 
 The following table is taken directly from the Module Guide document for this project.
 
