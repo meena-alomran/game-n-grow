@@ -93,95 +93,240 @@ This section records information for easy reference.
 
 \section{Introduction}
 
-Decomposing a system into modules is a commonly accepted approach to developing
-software.  A module is a work assignment for a programmer or programming
-team~\citep{ParnasEtAl1984}.  We advocate a decomposition
-based on the principle of information hiding~\citep{Parnas1972a}.  This
-principle supports design for change, because the ``secrets'' that each module
-hides represent likely future changes.  Design for change is valuable in SC,
-where modifications are frequent, especially during initial development as the
-solution space is explored.  
+Spectropica is a customizable educational game suite designed to support
+autistic Learners through activities focused on routine sequencing,
+functional communication, and short-term memory. Care Team Members (CTMs),
+including parents, caregivers, and educators, can personalize gameplay
+and review recorded performance. The system provides educational practice,
+not clinical assessment or diagnosis.
 
-Our design follows the rules layed out by \citet{ParnasEtAl1984}, as follows:
+This Module Guide (MG) describes Spectropica's modular architecture. The
+design follows the principle of information hiding described by
+\citet{Parnas1972a}: each module hides a design decision that may change
+independently of other parts of the system. This approach aims to limit
+dependencies and support implementation, testing, and maintenance.
+
+The decomposition follows the principles outlined by
+\citet{ParnasEtAl1984}:
 \begin{itemize}
-\item System details that are likely to change independently should be the
-  secrets of separate modules.
-\item Each data structure is implemented in only one module.
-\item Any other program that requires information stored in a module's data
-  structures must obtain it by calling access programs belonging to that module.
+  \item Design decisions likely to change independently should be
+    hidden within separate modules.
+  \item Each data structure should be implemented and managed by a
+    single module.
+  \item Other modules should access that data through the owning
+    module's defined interface rather than its internal implementation.
 \end{itemize}
 
-After completing the first stage of the design, the Software Requirements
-Specification (SRS), the Module Guide (MG) is developed~\citep{ParnasEtAl1984}. The MG
-specifies the modular structure of the system and is intended to allow both
-designers and maintainers to easily identify the parts of the software.  The
-potential readers of this document are as follows:
+These principles support changes to educational content, personalization,
+and reporting while limiting their effects on unrelated functionality.
+The decomposition also provides a basis for connecting requirements to
+the software architecture.
 
+The MG builds on the
+\href{https://github.com/meena-alomran/game-n-grow/blob/main/docs/SRS-IEEE/SRS.tex}
+  {Software Requirements Specification (SRS)} and complements the
+\href{https://github.com/meena-alomran/game-n-grow/blob/main/docs/Design/SoftDetailedDes/MIS.tex}
+  {Module Interface Specification (MIS)}. The SRS defines required behaviour
+and quality attributes; the MIS specifies individual module interfaces.
+
+The intended readers are:
 \begin{itemize}
-\item New project members: This document can be a guide for a new project member
-  to easily understand the overall structure and quickly find the
-  relevant modules they are searching for.
-\item Maintainers: The hierarchical structure of the module guide improves the
-  maintainers' understanding when they need to make changes to the system. It is
-  important for a maintainer to update the relevant sections of the document
-  after changes have been made.
-\item Designers: Once the module guide has been written, it can be used to
-  check for consistency, feasibility, and flexibility. Designers can verify the
-  system in various ways, such as consistency among modules, feasibility of the
-  decomposition, and flexibility of the design.
+  \item \textbf{New project members:} To understand the architecture
+    and locate modules responsible for particular functionality.
+  \item \textbf{Maintainers:} To identify modules affected by a
+    proposed change and understand their dependencies.
+  \item \textbf{Designers and developers:} To evaluate the
+    decomposition, check requirement coverage, and coordinate
+    implementation and integration.
 \end{itemize}
 
-The rest of the document is organized as follows. Section
-\ref{SecChange} lists the anticipated and unlikely changes of the software
-requirements. Section \ref{SecMH} summarizes the module decomposition that
-was constructed according to the likely changes. Section \ref{SecConnection}
-specifies the connections between the software requirements and the
-modules. Section \ref{SecMD} gives a detailed description of the
-modules. Section \ref{SecTM} includes two traceability matrices. One checks
-the completeness of the design against the requirements provided in the SRS. The
-other shows the relation between anticipated changes and the modules. Section
-\ref{SecUse} describes the use relation between modules.
+Section~\ref{SecChange} identifies anticipated and unlikely changes.
+Section~\ref{SecMH} presents the module hierarchy, and
+Section~\ref{SecConnection} explains the design decisions connecting
+requirements to the architecture. Section~\ref{SecMD} describes the
+modules. Section~\ref{SecTM} traces requirements and anticipated changes
+to modules. Section~\ref{SecUse} presents module dependencies through
+the uses hierarchy. The remaining sections address user interfaces,
+communication protocols, database design, the development timeline,
+and generative AI use disclosure.
+
+Project documentation and implementation are available at
+\url{https://github.com/meena-alomran/game-n-grow}.
 
 \section{Anticipated and Unlikely Changes} \label{SecChange}
 
-This section lists possible changes to the system. According to the likeliness
-of the change, the possible changes are classified into two
-categories. Anticipated changes are listed in Section \ref{SecAchange}, and
-unlikely changes are listed in Section \ref{SecUchange}.
+This section identifies decisions that may change during development or
+maintenance and stable assumptions on which the architecture relies.
+The anticipated changes cover SRS Section 12 and additional design choices.
+Module names refer to the hierarchy in Section~\ref{SecMH} and the
+responsibilities in Section~\ref{SecMD}.
 
 \subsection{Anticipated Changes} \label{SecAchange}
 
-Anticipated changes are the source of the information that is to be hidden
-inside the modules. Ideally, changing one of the anticipated changes will only
-require changing the one module that hides the associated decision. The approach
-adapted here is called design for
-change.
+These entries concern changes to supported capabilities and design choices,
+not ordinary runtime selections. Each entry identifies its responsible
+module or explains why a coordinated change spans several modules.
+Section~\ref{SecTM} records the corresponding traceability mappings.
 
 \begin{description}
-\item[\refstepcounter{acnum} \actheacnum \label{acHardware}:] The specific
-  hardware on which the software is running.
-\item[\refstepcounter{acnum} \actheacnum \label{acInput}:] The format of the
-  initial input data.
-\item ...
-\end{description}
 
-\wss{Anticipated changes relate to changes that would be made in requirements,
-design or implementation choices.  They are not related to changes that are made
-at run-time, like the values of parameters.}
+\item[\refstepcounter{acnum} \actheacnum
+\label{acHardware}:]
+\textbf{Platform and device interfaces.}
+Supported operating-system and input interfaces may change across iPadOS and Android tablets and browser access. Device access is hidden behind the Hardware-Hiding interface. Platform changes that also require interface adaptation are coordinated with the affected presentation modules. This covers SRS LC7 and relates to SC1 and SC2.
+
+\textit{Responsible module(s):} Hardware-Hiding.
+
+\item[\refstepcounter{acnum} \actheacnum
+\label{acGameImplementation}:]
+\textbf{Game content and task rules.}
+Content, available difficulty levels, and task-completion rules may change following evaluation. Game-specific behaviour is encapsulated within Game Session, alongside the common session lifecycle, rather than introducing additional top-level modules. This covers SRS LC1; changes to supported configuration fields also involve the configuration owners below.
+
+\textit{Responsible module(s):} Game Session.
+
+\item[\refstepcounter{acnum} \actheacnum
+\label{acAdditionalGames}:]
+\textbf{Supported Game collection.}
+New Games add task behaviour within Game Session and a selectable entry in Game Suite. Game Personalization and Dashboard are affected only when the addition introduces new setting types or performance measures. This coordinated extension is an exception to a single-module mapping because execution, selection, configuration, and reporting have distinct responsibilities. This covers SRS LC8.
+
+\textit{Responsible module(s):} Game Session and Game Suite.
+
+\item[\refstepcounter{acnum} \actheacnum
+\label{acCustomization}:]
+\textbf{Learner-specific configuration rules.}
+Supported per-Game settings and Game authorizations may evolve. Game Personalization owns the Learner-specific assignment and validation of these settings. Adding a new setting may also change its consumption within Game Session; this interface change must be coordinated. This covers the personalization portion of SRS LC2.
+
+\textit{Responsible module(s):} Game Personalization.
+
+\item[\refstepcounter{acnum} \actheacnum
+\label{acTemplateOrganization}:]
+\textbf{Template content and organization rules.}
+Reusable configuration content, assignment, folders, and sharing rules may evolve while Templates remain variations of existing Games. Template owns these rules; File Import/Export owns only their external file representation. This covers SRS LC6 and the Template portion of LC2.
+
+\textit{Responsible module(s):} Template.
+
+\item[\refstepcounter{acnum} \actheacnum
+\label{acUserInterface}:]
+\textbf{Presentation and navigation.}
+Game Suite owns Game selection, Game Session owns in-game interaction, and Dashboard owns performance views. CTM management views follow their corresponding account, profile, care team, personalization, and Template responsibilities. Charting owns chart rendering. This cross-cutting change intentionally maps to multiple modules because there is no separate general UI module in the decomposition. Each change is traced to the affected workflow. This covers SRS LC5 and the presentation portion of LC3.
+
+\textit{Responsible module(s):} The module responsible for the affected user workflow.
+
+\item[\refstepcounter{acnum} \actheacnum
+\label{acDataStorage}:]
+\textbf{Persistence technology and representation.}
+Server storage, record mapping, backup, restoration, and permanent deletion mechanisms may change behind the Database interface. Higher-level modules retain ownership of domain rules, rather than accessing storage representations directly.
+
+\textit{Responsible module(s):} Database.
+
+\item[\refstepcounter{acnum} \actheacnum
+\label{acPerformanceReporting}:]
+\textbf{Performance measures and calculation rules.}
+Calculation and filtering rules may change as CTMs identify useful measures. Dashboard owns these rules, while Charting renders the resulting values. If a new measure requires additional raw observations, Game Session recording and the Database record representation must also change. This justified exception preserves the separation of collection and analysis. Historical results must remain interpretable. This covers the calculation portion of SRS LC3.
+
+\textit{Responsible module(s):} Dashboard.
+
+\item[\refstepcounter{acnum} \actheacnum
+\label{acRewards}:]
+\textbf{Reward content and eligibility rules.}
+Available items, unlock conditions, and alternative-item groupings may change while preserving Learner inventory relationships. This covers SRS LC4.
+
+\textit{Responsible module(s):} Rewards \& Cosmetics.
+
+\item[\refstepcounter{acnum} \actheacnum
+\label{acDataExchange}:]
+\textbf{Synchronization mechanisms.}
+Local queueing, transfer, retry, and synchronization mechanisms may change without changing Game Session recording responsibilities. Storage and synchronization remain within Database as a single persistence boundary in this decomposition; their internal mechanisms can evolve behind its interface.
+
+\textit{Responsible module(s):} Database.
+
+\item[\refstepcounter{acnum} \actheacnum
+\label{acExportFormat}:]
+\textbf{Import and export file representations.}
+Template file representations and Learner-data export formats may change. Template and Dashboard retain responsibility for selecting and authorizing the domain information; File Import/Export converts that information and validates imported file structure.
+
+\textit{Responsible module(s):} File Import/Export.
+
+\item[\refstepcounter{acnum} \actheacnum
+\label{acAccountWorkflow}:]
+\textbf{CTM account workflow.}
+Registration validation, verification workflow, and account deletion/restoration rules may change. CTM Account coordinates these workflows while delegating credential and login-session mechanisms to Security.
+
+\textit{Responsible module(s):} CTM Account.
+
+\item[\refstepcounter{acnum} \actheacnum
+\label{acAuthentication}:]
+\textbf{Credential and login-session mechanisms.}
+Password verification, encryption, and CTM login-session handling may change behind the Security interface without introducing Learner password-based login.
+
+\textit{Responsible module(s):} Security.
+
+\item[\refstepcounter{acnum} \actheacnum
+\label{acDevicePairing}:]
+\textbf{Learner device-pairing rules.}
+Pairing-code generation, expiry, retry, lockout, and device-recognition rules may change while preserving the relationship between a paired device and a Learner profile.
+
+\textit{Responsible module(s):} Device Pairing.
+
+\item[\refstepcounter{acnum} \actheacnum
+\label{acAccessControl}:]
+\textbf{Care team permissions.}
+Membership and CTM permission rules may evolve. Care Team answers permission queries; the module performing an operation applies the answer before proceeding. Learner Game authorization remains a separate Game Personalization responsibility.
+
+\textit{Responsible module(s):} Care Team.
+
+\item[\refstepcounter{acnum} \actheacnum
+\label{acExternalCommunication}:]
+\textbf{External message-delivery mechanisms.}
+The email provider and message formatting may change behind a delivery interface. Account and care team workflows retain responsibility for deciding when messages are required.
+
+\textit{Responsible module(s):} External Communication.
+
+\end{description}
 
 \subsection{Unlikely Changes} \label{SecUchange}
 
-The module design should be as general as possible. However, a general system is
-more complex. Sometimes this complexity is not necessary. Fixing some design
-decisions at the system architecture stage can simplify the software design. If
-these decision should later need to be changed, then many parts of the design
-will potentially need to be modified. Hence, it is not intended that these
-decisions will be changed.
+The following assumptions are expected to remain stable. Designing for
+their complete replacement would introduce complexity without a clear
+project benefit. A change to these assumptions could require revisions
+across several modules. These entries summarize relevant stable
+characteristics from SRS Section 13.
 
 \begin{description}
-\item[\refstepcounter{ucnum} \uctheucnum \label{ucIO}:] Input/Output devices
-  (Input: File and/or Keyboard, Output: File, Memory, and/or Screen).
-\item ...
+
+\item[\refstepcounter{ucnum} \uctheucnum
+\label{ucPurpose}:]
+\textbf{Educational Games as the primary experience.}
+Spectropica will remain an educational game suite supporting autistic
+Learners. Replacing Games with an unrelated primary activity would
+substantially change its purpose and architecture. This is consistent
+with SRS ULC5.
+
+\item[\refstepcounter{ucnum} \uctheucnum
+\label{ucUserRoles}:]
+\textbf{Distinct Learner and CTM responsibilities.}
+Learners participate in Games, while authorized CTMs manage profiles,
+configurations, and performance information. Individual memberships
+and permissions may change without replacing this role structure.
+This is consistent with SRS ULC1 and ULC3.
+
+\item[\refstepcounter{ucnum} \uctheucnum
+\label{ucCoreWorkflow}:]
+\textbf{Learner-specific configuration and recording.}
+Authorized CTMs configure activities for identifiable Learner profiles;
+Learners participate in Games, and resulting session records remain
+associated with the correct Learner and Game for review. Configuration
+does not imply that a CTM must prepare every individual session.
+This is consistent with SRS ULC2, ULC4, and ULC6.
+
+\item[\refstepcounter{ucnum} \uctheucnum
+\label{ucNonClinical}:]
+\textbf{Non-clinical purpose.}
+Performance records describe outcomes within Games rather than diagnose
+conditions or establish broader developmental conclusions. Adopting a
+clinical purpose would require reconsidering requirements, validation,
+and architecture. This is consistent with SRS ULC8.
+
 \end{description}
 
 \section{Module Hierarchy} \label{SecMH}
@@ -247,18 +392,158 @@ actually be implemented.
 \label{TblMH}
 \end{table}
 
-\section{Connection Between Requirements and Design} \label{SecConnection}
+\section{Connection Between Requirements and Design}
+\label{SecConnection}
 
-The design of the system is intended to satisfy the requirements developed in
-the SRS. In this stage, the system is decomposed into modules. The connection
-between requirements and modules is listed in Table~\ref{TblRT}.
+This section assigns design responsibilities to the modules in
+Section~\ref{SecMD} and explains how those choices support the SRS and
+Hazard Analysis. Requirement identifiers refer to the completed IEEE SRS
+linked in the Introduction. These decisions refine the existing module
+boundaries; they do not introduce additional top-level modules.
 
-\wss{The intention of this section is to document decisions that are made
-  ``between'' the requirements and the design.  To satisfy some requirements,
-  design decisions need to be made.  Rather than make these decisions implicit,
-  they are explicitly recorded here.  For instance, if a program has security
-  requirements, a specific design decision may be made to satisfy those
-  requirements with a password.}
+\subsection*{Learner Access and CTM Management}
+
+CTM Account coordinates registration, login, and account lifecycle
+operations. Security verifies credentials and manages CTM login sessions.
+Device Pairing associates devices with Learner profiles through pairing
+codes, so Learners do not need a separate username/password login or a
+CTM sign-in before each session. These responsibilities support FR-CTM-4
+and FR-DEV-1--5 while separating account workflow from credential mechanisms.
+
+Care Team owns membership and CTM permission decisions. Each management
+module checks the applicable permission before performing an operation;
+hiding controls alone does not authorize access. Game Personalization
+owns Learner Game authorizations, Game Suite displays authorized choices,
+and Game Session checks authorization before starting a selected Game.
+This supports FR-TEAM-4, FR-TEAM-7, FR-PERS-1, and FR-PLAY-1. CTM management
+operations remain separate from Learner-facing Game selection and play.
+
+\subsection*{Game Customization and Configuration}
+
+Game Personalization owns Learner-specific settings and authorizations;
+Template owns reusable variations and their assignment. Game Personalization owns the supported per-Game setting definitions;
+Template uses that configuration interface when validating reusable values.
+Game Session consumes a validated configuration and owns the task rules
+that interpret it. Configuration validation does not call back into Game
+Session, avoiding a circular dependency. File Import/Export checks
+imported file structure before Template performs domain validation.
+This supports FR-PERS-1--4, FR-TMPL-4, FR-TMPL-6, and SR-15.
+
+Game Session loads an effective configuration for the correct Learner and
+Game before entering the ready state. Invalid or unavailable required
+settings prevent the Game from starting; the Learner receives the calm
+return-to-suite action required by SR-7. A failed edit retains the previous
+saved configuration and reports the failure to the CTM, consistent with
+SR-13. Template provides the affected-Learner preview and confirmation
+required by SR-14 before assignment changes.
+
+Game-specific activities are internal components of Game Session and use
+its common lifecycle interface. This keeps each Game's task rules separate
+internally while maintaining the top-level decomposition. Configuration
+management remains distinct from executing those rules, limiting the
+impact of changes to an individual Game.
+
+\subsection*{Learner Wellbeing and Accessible Gameplay}
+
+Game Session provides common readiness, pause, resume, restart, exit, and
+error-handling behaviour across Games. Game Personalization and Template
+validate sensory settings before saving them; Game Session applies those
+settings and enforces runtime presentation constraints. Game-specific
+content must also satisfy the flashing restriction. These responsibilities
+support SR-4--7, SR-11, and FR-PLAY-2 and FR-PLAY-5--7.
+
+A common lifecycle prevents individual Games from omitting participation
+controls or starting audio and animation before the Learner is ready.
+Sensory defaults follow SR-4, and CTM customization cannot override a
+mandatory safety constraint. This preserves Learner control under SRS ULC7
+without introducing a separate safety module.
+
+\subsection*{Session Recording and Performance Reporting}
+
+Game Session owns the active session state and constructs records containing
+the Learner, Game, settings used, and outcome. Database owns durable records
+and unsynchronized copies. Dashboard reads records to compute and filter
+performance information, Charting renders the selected representation, and
+File Import/Export formats the records selected for export. This separates
+record collection, persistence, interpretation, and rendering, supporting
+FR-DATA-2--7 and SR-16.
+
+Only completed sessions contribute to completion-based performance averages.
+Aborted, restarted, and interrupted sessions remain visible in history with
+their outcome but are excluded from those averages. Restarting closes the
+current attempt and begins a new session. A crash or a connection failure
+that actually terminates play produces an incomplete session; temporary
+connection loss alone does not invalidate a session that continues and
+finishes normally. This interpretation implements SR-8 alongside SR-9.
+The session representation must distinguish interrupted outcomes in addition
+to the completed, aborted, and restarted outcomes already listed in the SRS.
+
+Dashboard does not silently compare unlike metrics or difficulty settings;
+records retain the context needed to interpret results. Reported results
+remain descriptions of Game performance, not clinical or developmental
+assessments. Changing dashboard presentation does not rewrite raw records.
+
+\subsection*{Data Persistence and Connectivity}
+
+Database provides the persistence boundary for server records, local queues,
+synchronization, backups, and restoration. Domain modules request operations
+through its interface rather than accessing tables or queues directly.
+Although this boundary contains several mechanisms, they share responsibility
+for preserving records across storage locations and failures. The decomposition
+retains this grouping to match the current module hierarchy; its internal
+mechanisms remain distinct and are not exposed to gameplay modules.
+
+Network access is required for account, pairing, care team, and shared-data
+management operations. During a connection loss, Game Session may continue
+an ongoing Game and Game Suite may offer previously authorized Games only
+when the required Game resources and settings are already available locally.
+A Game requiring an uncached resource cannot start offline. This limited
+offline support follows SR-9 while retaining SC3's network dependence for
+management operations; it does not promise unrestricted offline use.
+
+Database retains queued session records across application restarts and
+removes them only after confirmed server persistence. Retries use the session
+identifier to avoid duplicate records. Pending synchronization is distinct
+from confirmed server storage. After reconnection, cached authorizations and
+settings are refreshed before subsequent Game starts. Immediate remote
+revocation on a disconnected device is not assumed.
+
+For settings, Templates, and equipped items, the owning module reports success
+only after Database confirms the write. Failed changes retain the previous
+saved values, as required by SR-13. Database also owns backup and restoration
+mechanisms under SR-17. These choices keep persistence failure handling out
+of game-specific task logic while exposing enough status for appropriate
+feedback.
+
+\subsection*{Data Privacy and Lifecycle Management}
+
+Learner Profile coordinates profile deletion and restoration; CTM Account
+coordinates account deletion and restoration. Care Team updates membership
+and ownership relationships, and Device Pairing unlinks affected devices.
+Database performs scheduled permanent deletion, synchronization, and removal
+from backups. This divides lifecycle policy from storage mechanics while
+supporting FR-LRN-4--8, FR-CTM-5--6, and SR-18.
+
+The design retains the 30-day grace period stated in SRS Section 7.3 rather
+than introducing another duration. Restoration cancels pending permanent
+deletion during that period. Permanent deletion covers the affected records
+and backups according to the same authoritative lifecycle policy. Care Team
+must preserve a valid Primary CTM for active Learner profiles when an account
+is removed; account deletion does not itself delete those profiles.
+
+Unlinked devices lose profile access and clear associated local data when
+unlinking is processed locally. A disconnected device cannot receive a remote
+unlink immediately, so the next successful connection must reconcile device
+status before further profile access or session uploads. A stale upload must
+not recreate a deleted profile. Export before profile deletion remains an
+authorized Primary CTM operation, with File Import/Export formatting the
+selected data. These rules support the existing privacy obligations without
+claiming instantaneous remote erasure from an offline device.
+
+The responsibilities above determine the module mappings in
+Section~\ref{SecTM}. The MIS must express the same ownership, failure outcomes,
+and state transitions, and the uses hierarchy must include the dependencies
+needed to obtain the stated services.
 
 \section{Module Decomposition} \label{SecMD}
 
