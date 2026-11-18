@@ -92,54 +92,65 @@ This section records information for easy reference.
 
 \section{Introduction}
 
-Decomposing a system into modules is a commonly accepted approach to developing
-software.  A module is a work assignment for a programmer or programming
-team~\citep{ParnasEtAl1984}.  We advocate a decomposition
-based on the principle of information hiding~\citep{Parnas1972a}.  This
-principle supports design for change, because the ``secrets'' that each module
-hides represent likely future changes.  Design for change is valuable in SC,
-where modifications are frequent, especially during initial development as the
-solution space is explored.  
+Spectropica is a customizable educational game suite designed to support
+autistic Learners through activities focused on routine sequencing,
+functional communication, and short-term memory. Care Team Members (CTMs),
+including parents, caregivers, and educators, can personalize gameplay
+and review recorded performance. The system provides educational practice,
+not clinical assessment or diagnosis.
 
-Our design follows the rules layed out by \citet{ParnasEtAl1984}, as follows:
+This Module Guide (MG) describes Spectropica's modular architecture. The
+design follows the principle of information hiding described by
+\citet{Parnas1972a}: each module hides a design decision that may change
+independently of other parts of the system. This approach aims to limit
+dependencies and support implementation, testing, and maintenance.
+
+The decomposition follows the principles outlined by
+\citet{ParnasEtAl1984}:
 \begin{itemize}
-\item System details that are likely to change independently should be the
-  secrets of separate modules.
-\item Each data structure is implemented in only one module.
-\item Any other program that requires information stored in a module's data
-  structures must obtain it by calling access programs belonging to that module.
+  \item Design decisions likely to change independently should be
+    hidden within separate modules.
+  \item Each data structure should be implemented and managed by a
+    single module.
+  \item Other modules should access that data through the owning
+    module's defined interface rather than its internal implementation.
 \end{itemize}
 
-After completing the first stage of the design, the Software Requirements
-Specification (SRS), the Module Guide (MG) is developed~\citep{ParnasEtAl1984}. The MG
-specifies the modular structure of the system and is intended to allow both
-designers and maintainers to easily identify the parts of the software.  The
-potential readers of this document are as follows:
+These principles support changes to educational content, personalization,
+and reporting while limiting their effects on unrelated functionality.
+The decomposition also provides a basis for connecting requirements to
+the software architecture.
 
+The MG builds on the
+\href{https://github.com/meena-alomran/game-n-grow/blob/main/docs/SRS-IEEE/SRS.tex}
+  {Software Requirements Specification (SRS)} and complements the
+\href{https://github.com/meena-alomran/game-n-grow/blob/main/docs/Design/SoftDetailedDes/MIS.tex}
+  {Module Interface Specification (MIS)}. The SRS defines required behaviour
+and quality attributes; the MIS specifies individual module interfaces.
+
+The intended readers are:
 \begin{itemize}
-\item New project members: This document can be a guide for a new project member
-  to easily understand the overall structure and quickly find the
-  relevant modules they are searching for.
-\item Maintainers: The hierarchical structure of the module guide improves the
-  maintainers' understanding when they need to make changes to the system. It is
-  important for a maintainer to update the relevant sections of the document
-  after changes have been made.
-\item Designers: Once the module guide has been written, it can be used to
-  check for consistency, feasibility, and flexibility. Designers can verify the
-  system in various ways, such as consistency among modules, feasibility of the
-  decomposition, and flexibility of the design.
+  \item \textbf{New project members:} To understand the architecture
+    and locate modules responsible for particular functionality.
+  \item \textbf{Maintainers:} To identify modules affected by a
+    proposed change and understand their dependencies.
+  \item \textbf{Designers and developers:} To evaluate the
+    decomposition, check requirement coverage, and coordinate
+    implementation and integration.
 \end{itemize}
 
-The rest of the document is organized as follows. Section
-\ref{SecChange} lists the anticipated and unlikely changes of the software
-requirements. Section \ref{SecMH} summarizes the module decomposition that
-was constructed according to the likely changes. Section \ref{SecConnection}
-specifies the connections between the software requirements and the
-modules. Section \ref{SecMD} gives a detailed description of the
-modules. Section \ref{SecTM} includes two traceability matrices. One checks
-the completeness of the design against the requirements provided in the SRS. The
-other shows the relation between anticipated changes and the modules. Section
-\ref{SecUse} describes the use relation between modules.
+Section~\ref{SecChange} identifies anticipated and unlikely changes.
+Section~\ref{SecMH} presents the module hierarchy, and
+Section~\ref{SecConnection} explains the design decisions connecting
+requirements to the architecture. Section~\ref{SecMD} describes the
+modules. Section~\ref{SecTM} traces requirements and anticipated changes
+to modules. Section~\ref{SecUse} presents module dependencies through
+the uses hierarchy. The remaining sections address user interfaces,
+communication protocols, database design, the development timeline,
+and generative AI use disclosure.
+
+Project documentation and implementation are available at
+\url{https://github.com/meena-alomran/game-n-grow}.
 
 \section{Anticipated and Unlikely Changes} \label{SecChange}
 
