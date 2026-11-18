@@ -5,6 +5,7 @@
 \usepackage{multirow}
 \usepackage{booktabs}
 \usepackage{tabularx}
+\usepackage{longtable}
 \usepackage{graphicx}
 \usepackage{float}
 \usepackage{hyperref}
@@ -192,11 +193,25 @@ actually be implemented.
 
 \begin{description}
 \item [\refstepcounter{mnum} \mthemnum \label{mHH}:] Hardware-Hiding Module
-\item ...
+\item [\refstepcounter{mnum} \mthemnum \label{mCTMAccount}:] CTM Account Module
+\item [\refstepcounter{mnum} \mthemnum \label{mLearnerProfile}:] Learner Profile Module
+\item [\refstepcounter{mnum} \mthemnum \label{mDevicePairing}:] Device Pairing Module
+\item [\refstepcounter{mnum} \mthemnum \label{mCareTeam}:] Care Team Module
+\item [\refstepcounter{mnum} \mthemnum \label{mGamePersonalization}:] Game Personalization Module
+\item [\refstepcounter{mnum} \mthemnum \label{mTemplate}:] Template Module
+\item [\refstepcounter{mnum} \mthemnum \label{mGameSuite}:] Game Suite Module
+\item [\refstepcounter{mnum} \mthemnum \label{mGameSession}:] Game Session Module
+\item [\refstepcounter{mnum} \mthemnum \label{mRewards}:] Rewards \& Cosmetics Module
+\item [\refstepcounter{mnum} \mthemnum \label{mDashboard}:] Dashboard Module
+\item [\refstepcounter{mnum} \mthemnum \label{mDatabase}:] Database Module
+\item [\refstepcounter{mnum} \mthemnum \label{mSecurity}:] Security Module
+\item [\refstepcounter{mnum} \mthemnum \label{mFileIO}:] File Import/Export Module
+\item [\refstepcounter{mnum} \mthemnum \label{mExtComm}:] External Communication Module
+\item [\refstepcounter{mnum} \mthemnum \label{mCharting}:] Charting Module
 \end{description}
 
 
-\begin{table}[h!]
+\begin{table}[H]
 \centering
 \begin{tabular}{p{0.3\textwidth} p{0.6\textwidth}}
 \toprule
@@ -206,19 +221,25 @@ actually be implemented.
 {Hardware-Hiding Module} & ~ \\
 \midrule
 
-\multirow{7}{0.3\textwidth}{Behaviour-Hiding Module} & ?\\
-& ?\\
-& ?\\
-& ?\\
-& ?\\
-& ?\\
-& ?\\ 
-& ?\\
+\multirow{7}{0.3\textwidth}{Behaviour-Hiding Module}
+& CTM Account Module\\
+& Learner Profile Module\\
+& Device Pairing Module\\
+& Care Team Module\\
+& Game Personalization Module\\
+& Template Module\\ 
+& Game Suite Module\\
+& Game Session Module\\
+& Rewards \& Cosmetics Module\\
+& Dashboard Module\\
 \midrule
 
-\multirow{3}{0.3\textwidth}{Software Decision Module} & {?}\\
-& ?\\
-& ?\\
+\multirow{3}{0.3\textwidth}{Software Decision Module}
+& Database Module\\
+& Security Module\\
+& File Import/Export Module\\
+& External Communication Module\\
+& Charting Module\\
 \bottomrule
 
 \end{tabular}
@@ -278,18 +299,111 @@ to be implemented.
 \item[Implemented By:] --
 \end{description}
 
-\subsubsection{Input Format Module (\mref{mInput})}
+\subsubsection{CTM Account Module (\mref{mCTMAccount})}
 
 \begin{description}
-\item[Secrets:]The format and structure of the input data.
-\item[Services:]Converts the input data into the data structure used by the
-  input parameters module.
-\item[Implemented By:] [Your Program Name Here]
-\item[Type of Module:] [Record, Library, Abstract Object, or Abstract Data Type]
-  [Information to include for leaf modules in the decomposition by secrets tree.]
+\item[Secrets:] Rules for registration validation, email verification flow, login information, password reset flow, and account deletion/restoration lifecycle.
+\item[Services:] Evaluating the validity of a CTM's registration information, detects whether verification occured and creates account thereafter and authenticates a CTM's login credentials. Allows the CTM to delete their account without deleting Learner profiles. Allows restoration of a deleted account within a certain time frame.
+\item[Implemented By:] Spectropica
+\item[Type of Module:] Abstract Object
 \end{description}
 
-\subsubsection{Etc.}
+\subsubsection{Learner Profile Module (\mref{mLearnerProfile})}
+
+\begin{description}
+\item[Secrets:] Rules for creating \& editing a Learner's profile, the Learner's specific information, and the account deletion/restoration lifecycle. 
+\item[Services:] Provides a way for a CTM to create a Learner profile with specific editable information. Allows Learner profile deletion along with scheduling the deletion of all Learner-related information. Allows restoration of a deleted Learner profile within a certain time frame.
+\item[Implemented By:] Spectropica
+\item[Type of Module:] Abstract Object
+\end{description}
+
+\subsubsection{Device Pairing Module (\mref{mDevicePairing})}
+
+\begin{description}
+\item[Secrets:] The rules of pairing code generation, expiration and lockout. The flow of device pairing to Learner Profile.
+\item[Services:] Allows the generation of a pairing code for a Learner's device and the actual pairing upon validation of the pairing code. Provides methods for re-generating codes and locking out after repeated failed attempts. Allows a CTM to unpair a device from a Learner's profile. 
+\item[Implemented By:] Spectropica
+\item[Type of Module:] Abstract Object
+\end{description}
+
+\subsubsection{Care Team Module (\mref{mCareTeam})}
+
+\begin{description}
+\item[Secrets:] The structure of care team memberships and the set of
+  permissions a CTM can hold for a Learner; how invite codes are generated,
+  expire, and are locked out after repeated failed attempts; the rules that
+  keep exactly one Primary CTM per Learner, including during an ownership
+  transfer; and how changes made by CTMs to a Learner are logged.
+\item[Services:] Allows the Primary CTM to invite CTMs to a Learner's care team
+  with selected permissions, cancel or regenerate an invite, edit another CTM's
+  permissions, and remove a CTM from the care team. Allows a CTM to request,
+  and the Primary CTM to accept or decline, a transfer of ownership of a
+  Learner's profile. Answers whether a given CTM holds a given permission for a
+  given Learner, so that other modules can refuse unauthorized actions. Records
+  changes made by CTMs to a Learner's settings so that other CTMs on the care
+  team can view them. Requests notifications to affected CTMs when they join,
+  have their permissions changed, or are removed.
+\item[Implemented By:] Spectropica
+\item[Type of Module:] Abstract Object
+\end{description}
+
+\subsubsection{Game Personalization Module (\mref{mGamePersonalization})}
+
+\begin{description}
+\item[Secrets:] The authorizations and settings that a CTM can assign a Learner as personalized per-game experience.
+\item[Services:] Allows a CTM to assign a variety of settings to a Learner for each game, provides a method for games to retrieve the applied settings for a Learner, and shows the CTM the per-game personalization applied to each Learner.
+\item[Implemented By:] Spectropica
+\item[Type of Module:] Abstract Object
+\end{description}
+
+\subsubsection{Template Module (\mref{mTemplate})}
+
+\begin{description}
+\item[Secrets:] The mechanisms for creating, editing and deleting a template, what data is stored in a template, how templates are applied to a Learner, rules for template folder structure, and rules around template sharing.
+\item[Services:] Creation, editing and deletion of templates. How to apply templates to Learners, how to store them in a folder structure, and how to share them with other CTMs.
+\item[Implemented By:] Spectropica
+\item[Type of Module:] Abstract Object
+\end{description}
+
+\subsubsection{Game Suite Module (\mref{mGameSuite})}
+
+\begin{description}
+\item[Secrets:] The set of authorized games and how they are presented to the Learner.
+\item[Services:] Presents the set of games that a Learner is authorized to play and hiding unauthorized games. Loads as the screen a Learner returns to after a game. Allows a Learner to select a game.
+\item[Implemented By:] Spectropica
+\item[Type of Module:] Library
+\end{description}
+
+\subsubsection{Game Session Module (\mref{mGameSession})}
+
+\begin{description}
+\item[Secrets:] 
+The gameplay state machine (loading, load error, ready,
+  playing, paused, and reward) and the rules for moving between states and between tasks. How a session's results are recorded.
+
+\item[Services:] 
+Loads a selected game with the Learner's personalized settings or assigned templates. Presenting each task sequentially. Providing Learners the ability to pause, resume, restart, abort or open a guide. Produces a session record regarding the Learner's actions and performance details throughout the session.
+\item[Implemented By:] Spectropica
+\item[Type of Module:] Abstract Object
+\end{description}
+
+\subsubsection{Rewards \& Cosmetics Module (\mref{mRewards})}
+
+\begin{description}
+\item[Secrets:] The unlock conditions for rewards, rules around: duplication, currency and hidden rewards. Alternative item grouping.
+\item[Services:] How the system resolves whether unlock conditions have been met, the methods of equipping and unequipping items, how to handle duplicated items and deciding which items are alternatives to each other.
+\item[Implemented By:] Spectropica
+\item[Type of Module:] Abstract Object
+\end{description}
+
+\subsubsection{Dashboard Module (\mref{mDashboard})}
+
+\begin{description}
+\item[Secrets:] The computation of metrics and how filtering is done.
+\item[Services:] Allows an authorized CTM to view a Learner's data. Allows for filtering and viewing of further detailed metrics. Provides options for different graphing options and exporting.
+\item[Implemented By:] Spectropica
+\item[Type of Module:] Library
+\end{description}
 
 
 \subsection{Software Decision Module}
@@ -299,51 +413,257 @@ to be implemented.
   facts, or programming considerations. The secrets of this module are
   \emph{not} described in the SRS.
 \item[Services:] Includes data structure and algorithms used in the system that
-  do not provide direct interaction with the user. 
-  % Changes in these modules are more likely to be motivated by a desire to
-  % improve performance than by externally imposed changes.
+  do not provide direct interaction with the user.
 \item[Implemented By:] --
 \end{description}
 
-\subsubsection{Etc.}
+\subsubsection{Database Module (\mref{mDatabase})}
+
+\begin{description}
+\item[Secrets:] The database technology and hosting used on the server; how the data entities are mapped to stored tables; the protocol used for communication between the client and the server; how unsynchronized session results are queued on the device; and how backups, restoration, and permanent deletion of records are carried out.
+
+\item[Services:] Stores, retrieves, updates, and deletes records on behalf of other modules. Queues session results on the device while there is no stable connection, uploads them once the connection returns, and removes them from the device after upload. Keeps data on paired devices synchronized with the server. Backs up stored data regularly and restores it from a backup when required. Permanently deletes records whose scheduled deletion time has passed, including from backups.
+\item[Implemented By:] Spectropica
+\item[Type of Module:] Abstract Object
+\end{description}
+
+\subsubsection{Security Module (\mref{mSecurity})}
+
+\begin{description}
+\item[Secrets:] The algorithms used to hash and verify passwords and to encrypt data in transit and at rest; the format, lifetime, and expiry of CTM login sessions; and how a CTM's identity is re-confirmed before a sensitive action.
+\item[Services:] Hashes a password for storage and verifies a password against a stored hash. Issues a session when a CTM logs in, ends it after a period of inactivity, and reports whether a session is still valid. Encrypts and decrypts data for storage and transmission.
+\item[Implemented By:] Spectropica
+\item[Type of Module:] Abstract Object
+\end{description}
+
+\subsubsection{File Import/Export Module (\mref{mFileIO})}
+
+\begin{description}
+\item[Secrets:] The file formats used for imported/exported templates and exported Learner data, and how imported files are parsed and validated.
+\item[Services:] Converts a template into a file, and converts a template file back into template data. Converts a set of Learner records into an export file that reports its record count.
+\item[Implemented By:] Spectropica
+\item[Type of Module:] Library
+\end{description}
+
+\subsubsection{External Communication Module (\mref{mExtComm})}
+
+\begin{description}
+\item[Secrets:] The external email-delivery service used, and how messages are formatted and sent to it.
+\item[Services:] Sends account verification messages and confirmation messages to a CTM's email address on behalf of other modules, and reports whether a message was accepted for delivery. Delivers notifications to CTMs, such as when a CTM joins a care team, has their permissions changed, or is removed, and when a Learner profile or account is scheduled for deletion.
+\item[Implemented By:] Spectropica
+\item[Type of Module:] Library
+\end{description}
+
+\subsubsection{Charting Module (\mref{mCharting})}
+
+\begin{description}
+\item[Secrets:] The method or library used to draw charts, graphs and tables. How data values are mapped onto axes, scales, and visual elements.
+\item[Services:] Produces a chart or table from a series of data values and the requested representation, for display by other modules.
+\item[Implemented By:] Spectropica
+\item[Type of Module:] Library
+\end{description}
 
 \section{Traceability Matrix} \label{SecTM}
 
 This section shows two traceability matrices: between the modules and the
 requirements and between the modules and the anticipated changes.
 
-% the table should use mref, the requirements should be named, use something
-% like fref
-\begin{table}[H]
-\centering
-\begin{tabular}{p{0.2\textwidth} p{0.6\textwidth}}
-\toprule
-\textbf{Req.} & \textbf{Modules}\\
-\midrule
-R1 & \mref{mHH}, \mref{mInput}, \mref{mParams}, \mref{mControl}\\
-R2 & \mref{mInput}, \mref{mParams}\\
-R3 & \mref{mVerify}\\
-R4 & \mref{mOutput}, \mref{mControl}\\
-R5 & \mref{mOutput}, \mref{mODEs}, \mref{mControl}, \mref{mSeqDS}, \mref{mSolver}, \mref{mPlot}\\
-R6 & \mref{mOutput}, \mref{mODEs}, \mref{mControl}, \mref{mSeqDS}, \mref{mSolver}, \mref{mPlot}\\
-R7 & \mref{mOutput}, \mref{mEnergy}, \mref{mControl}, \mref{mSeqDS}, \mref{mPlot}\\
-R8 & \mref{mOutput}, \mref{mEnergy}, \mref{mControl}, \mref{mSeqDS}, \mref{mPlot}\\
-R9 & \mref{mVerifyOut}\\
-R10 & \mref{mOutput}, \mref{mODEs}, \mref{mControl}\\
-R11 & \mref{mOutput}, \mref{mODEs}, \mref{mEnergy}, \mref{mControl}\\
-\bottomrule
-\end{tabular}
-\caption{Trace Between Requirements and Modules}
-\label{TblRT}
-\end{table}
+% Original traceability table syntax retained for reference:
+% \begin{table}[H]
+% \centering
+% \begin{tabular}{p{0.2\textwidth} p{0.6\textwidth}}
+% \toprule
+% \textbf{Req.} & \textbf{Modules}\\
+% \midrule
+% R1 & \mref{mHH}, \mref{mInput}, \mref{mParams}, \mref{mControl}\\
+% R2 & \mref{mInput}, \mref{mParams}\\
+% R3 & \mref{mVerify}\\
+% R4 & \mref{mOutput}, \mref{mControl}\\
+% R5 & \mref{mOutput}, \mref{mODEs}, \mref{mControl}, \mref{mSeqDS}, \mref{mSolver}, \mref{mPlot}\\
+% R6 & \mref{mOutput}, \mref{mODEs}, \mref{mControl}, \mref{mSeqDS}, \mref{mSolver}, \mref{mPlot}\\
+% R7 & \mref{mOutput}, \mref{mEnergy}, \mref{mControl}, \mref{mSeqDS}, \mref{mPlot}\\
+% R8 & \mref{mOutput}, \mref{mEnergy}, \mref{mControl}, \mref{mSeqDS}, \mref{mPlot}\\
+% R9 & \mref{mVerifyOut}\\
+% R10 & \mref{mOutput}, \mref{mODEs}, \mref{mControl}\\
+% R11 & \mref{mOutput}, \mref{mODEs}, \mref{mEnergy}, \mref{mControl}\\
+% \bottomrule
+% \end{tabular}
+% \caption{Trace Between Requirements and Modules}
+% \label{TblRT}
+% \end{table}
 
+\renewcommand{\arraystretch}{1.2}
+\setlength{\tabcolsep}{6pt}
+
+\begin{longtable}{p{0.20\textwidth} p{0.60\textwidth}}
+\toprule
+\textbf{Functional Req.} & \textbf{Module(s)}\\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Functional Req.} & \textbf{Module(s)}\\
+\midrule
+\endhead
+\midrule
+\multicolumn{2}{r}{\textit{Continued on next page}}\\
+\endfoot
+\bottomrule
+\caption{Trace Between Functional Requirements and Modules}
+\label{TblRT}\\
+\endlastfoot
+FR-CTM-1 & \mref{mCTMAccount}, \mref{mDatabase}, \mref{mSecurity}\\
+FR-CTM-2 & \mref{mCTMAccount}\\
+FR-CTM-3 & \mref{mCTMAccount}, \mref{mDatabase}, \mref{mExtComm}\\
+FR-CTM-4 & \mref{mCTMAccount}, \mref{mDatabase}, \mref{mSecurity}\\
+FR-CTM-5 & \mref{mCTMAccount}, \mref{mLearnerProfile}, \mref{mTemplate}, \mref{mDatabase}\\
+FR-CTM-6 & \mref{mCTMAccount}, \mref{mDatabase}\\
+FR-LRN-1 & \mref{mLearnerProfile}, \mref{mCareTeam}, \mref{mDatabase}\\
+FR-LRN-2 & \mref{mLearnerProfile}, \mref{mCareTeam}, \mref{mDatabase}\\
+FR-LRN-3 & \mref{mLearnerProfile}, \mref{mDatabase}\\
+FR-LRN-4 & \mref{mLearnerProfile}, \mref{mDatabase}, \mref{mSecurity}\\
+FR-LRN-5 & \mref{mLearnerProfile}, \mref{mDatabase}, \mref{mFileIO}\\
+FR-LRN-6 & \mref{mLearnerProfile}, \mref{mDatabase}\\
+FR-LRN-7 & \mref{mLearnerProfile}, \mref{mDatabase}\\
+FR-LRN-8 & \mref{mLearnerProfile}, \mref{mDatabase}, \mref{mSecurity}\\
+FR-DEV-1 & \mref{mDevicePairing}, \mref{mDatabase}\\
+FR-DEV-2 & \mref{mDevicePairing}\\
+FR-DEV-3 & \mref{mDevicePairing}, \mref{mSecurity}\\
+FR-DEV-4 & \mref{mDevicePairing}, \mref{mSecurity}\\
+FR-DEV-5 & \mref{mDevicePairing}, \mref{mSecurity}\\
+FR-TEAM-1 & \mref{mCareTeam}, \mref{mDatabase}, \mref{mExtComm}\\
+FR-TEAM-2 & \mref{mCareTeam}, \mref{mExtComm}\\
+FR-TEAM-3 & \mref{mCareTeam}, \mref{mExtComm}\\
+FR-TEAM-4 & \mref{mCareTeam}, \mref{mDatabase}\\
+FR-TEAM-5 & \mref{mCareTeam}, \mref{mDatabase}\\
+FR-TEAM-6 & \mref{mLearnerProfile}, \mref{mCareTeam}, \mref{mDatabase}, \mref{mSecurity}\\
+FR-TEAM-7 & \mref{mCareTeam}, \mref{mSecurity}\\
+FR-PERS-1 & \mref{mCareTeam}, \mref{mGamePersonalization}, \mref{mGameSuite}, \mref{mDatabase}\\
+FR-PERS-2 & \mref{mGamePersonalization}, \mref{mDatabase}\\
+FR-PERS-3 & \mref{mGamePersonalization}, \mref{mDatabase}\\
+FR-PERS-4 & \mref{mGamePersonalization}, \mref{mTemplate}, \mref{mGameSession}, \mref{mDatabase}\\
+FR-TMPL-1 & \mref{mTemplate}, \mref{mDatabase}\\
+FR-TMPL-2 & \mref{mCareTeam}, \mref{mTemplate}, \mref{mDatabase}, \mref{mFileIO}\\
+FR-TMPL-3 & \mref{mTemplate}, \mref{mDatabase}\\
+FR-TMPL-4 & \mref{mTemplate}, \mref{mDatabase}\\
+FR-TMPL-5 & \mref{mTemplate}, \mref{mDatabase}\\
+FR-TMPL-6 & \mref{mLearnerProfile}, \mref{mGamePersonalization}, \mref{mTemplate}, \mref{mDatabase}\\
+FR-TMPL-7 & \mref{mGamePersonalization}, \mref{mTemplate}, \mref{mDatabase}\\
+FR-TMPL-8 & \mref{mLearnerProfile}, \mref{mGamePersonalization}, \mref{mTemplate}, \mref{mDatabase}\\
+FR-TMPL-9 & \mref{mTemplate}, \mref{mDatabase}\\
+FR-PLAY-1 & \mref{mGameSuite}, \mref{mGameSession}\\
+FR-PLAY-2 & \mref{mHH}, \mref{mGameSession}\\
+FR-PLAY-3 & \mref{mGameSession}\\
+FR-PLAY-4 & \mref{mCareTeam}, \mref{mGamePersonalization}, \mref{mGameSession}\\
+FR-PLAY-5 & \mref{mHH}, \mref{mGameSession}\\
+FR-PLAY-6 & \mref{mHH}, \mref{mGameSession}\\
+FR-PLAY-7 & \mref{mHH}, \mref{mGameSession}\\
+FR-PLAY-8 & \mref{mHH}, \mref{mGameSession}\\
+FR-PLAY-9 & \mref{mGameSession}\\
+FR-PLAY-10 & \mref{mGameSuite}, \mref{mGameSession}\\
+FR-RWD-1 & \mref{mGameSession}, \mref{mRewards}, \mref{mDatabase}\\
+FR-RWD-2 & \mref{mRewards}, \mref{mDatabase}\\
+FR-RWD-3 & \mref{mRewards}\\
+FR-RWD-4 & \mref{mRewards}, \mref{mDatabase}\\
+FR-RWD-5 & \mref{mRewards}, \mref{mDatabase}\\
+FR-RWD-6 & \mref{mRewards}\\
+FR-RWD-7 & \mref{mRewards}\\
+FR-DATA-1 & \mref{mLearnerProfile}, \mref{mCareTeam}, \mref{mDashboard}, \mref{mDatabase}\\
+FR-DATA-2 & \mref{mLearnerProfile}, \mref{mDashboard}, \mref{mDatabase}\\
+FR-DATA-3 & \mref{mLearnerProfile}, \mref{mDashboard}, \mref{mDatabase}\\
+FR-DATA-4 & \mref{mLearnerProfile}, \mref{mDashboard}, \mref{mDatabase}\\
+FR-DATA-5 & \mref{mDashboard}, \mref{mCharting}\\
+FR-DATA-6 & \mref{mCareTeam}, \mref{mDashboard}, \mref{mDatabase}, \mref{mFileIO}\\
+FR-DATA-7 & \mref{mGameSession}, \mref{mDatabase}\\
+FR-DATA-8 & \mref{mGameSession}, \mref{mDatabase}\\
+FR-DATA-9 & \mref{mDatabase}, \mref{mSecurity}\\
+\bottomrule
+\end{longtable}
+
+\begin{longtable}{p{0.20\textwidth} p{0.60\textwidth}}
+\toprule
+\textbf{Non-Functional Req.} & \textbf{Module(s)}\\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Non-Functional Req.} & \textbf{Module(s)}\\
+\midrule
+\endhead
+\midrule
+\multicolumn{2}{r}{\textit{Continued on next page}}\\
+\endfoot
+\bottomrule
+\caption{Trace Between Non-Functional Requirements and Modules}
+\label{TblNFR}\\
+\endlastfoot
+NFR-USE-1 & \mref{mCTMAccount}, \mref{mDevicePairing}, \mref{mCareTeam}, \mref{mExtComm}\\
+NFR-USE-2 & \mref{mLearnerProfile}, \mref{mGamePersonalization}, \mref{mGameSuite}, \mref{mGameSession}, \mref{mDashboard}\\
+NFR-USE-3 & \mref{mCTMAccount}, \mref{mLearnerProfile}, \mref{mDevicePairing}, \mref{mCareTeam}, \mref{mGamePersonalization}, \mref{mTemplate}, \mref{mGameSuite}, \mref{mGameSession}, \mref{mDashboard}\\
+NFR-USE-4 & \mref{mGamePersonalization}, \mref{mGameSuite}, \mref{mGameSession}, \mref{mRewards}\\
+NFR-USE-5 & \mref{mGameSuite}, \mref{mGameSession}\\
+NFR-EFF-1 & \mref{mDashboard}, \mref{mCharting}\\
+NFR-ACCU-1 & \mref{mGameSession}, \mref{mDashboard}, \mref{mDatabase}, \mref{mCharting}\\
+NFR-ACCU-2 & \mref{mGameSession}\\
+NFR-PORT-1 & \mref{mHH}, \mref{mDevicePairing}, \mref{mFileIO}\\
+NFR-PORT-2 & \mref{mHH}, \mref{mDevicePairing}, \mref{mFileIO}\\
+NFR-PORT-3 & \mref{mHH}, \mref{mDevicePairing}, \mref{mFileIO}\\
+NFR-ACCESS-1 & \mref{mCTMAccount}, \mref{mLearnerProfile}, \mref{mDevicePairing}, \mref{mCareTeam}, \mref{mGamePersonalization}, \mref{mTemplate}, \mref{mGameSuite}, \mref{mGameSession}, \mref{mRewards}, \mref{mDashboard}, \mref{mExtComm}\\
+NFR-ACCESS-2 & \mref{mCTMAccount}, \mref{mLearnerProfile}, \mref{mDevicePairing}, \mref{mCareTeam}, \mref{mGamePersonalization}, \mref{mTemplate}, \mref{mGameSuite}, \mref{mGameSession}, \mref{mRewards}, \mref{mDashboard}, \mref{mExtComm}\\
+NFR-ACCESS-3 & \mref{mHH}, \mref{mGamePersonalization}, \mref{mGameSuite}, \mref{mGameSession}\\
+NFR-ACCESS-4 & \mref{mHH}, \mref{mGameSession}\\
+NFR-SEC-1 & \mref{mCTMAccount}, \mref{mDatabase}, \mref{mSecurity}\\
+NFR-SEC-2 & \mref{mLearnerProfile}, \mref{mCareTeam}, \mref{mGamePersonalization}, \mref{mDatabase}, \mref{mSecurity}\\
+NFR-SEC-3 & \mref{mGameSession}, \mref{mDashboard}, \mref{mDatabase}, \mref{mSecurity}\\
+NFR-RELY-1 & \mref{mGameSession}\\
+NFR-PERF-1 & \mref{mCTMAccount}, \mref{mDashboard}, \mref{mDatabase}, \mref{mSecurity}\\
+NFR-PERF-2 & \mref{mGameSession}\\
+NFR-MAINT-1 & \mref{mCTMAccount}, \mref{mLearnerProfile}, \mref{mDevicePairing}, \mref{mCareTeam}, \mref{mGamePersonalization}, \mref{mTemplate}, \mref{mGameSuite}, \mref{mGameSession}, \mref{mRewards}, \mref{mDashboard}, \mref{mDatabase}, \mref{mSecurity}, \mref{mFileIO}, \mref{mExtComm}, \mref{mCharting}\\
+\bottomrule
+\end{longtable}
+
+\begin{longtable}{p{0.20\textwidth} p{0.60\textwidth}}
+\toprule
+\textbf{Safety Req.} & \textbf{Module(s)}\\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Safety Req.} & \textbf{Module(s)}\\
+\midrule
+\endhead
+\midrule
+\multicolumn{2}{r}{\textit{Continued on next page}}\\
+\endfoot
+\bottomrule
+\caption{Trace Between Safety Requirements and Modules}
+\label{TblSafety}\\
+\endlastfoot
+SR-1 & \mref{mCTMAccount}, \mref{mSecurity}\\
+SR-2 & \mref{mCTMAccount}, \mref{mSecurity}\\
+SR-3 & \mref{mCTMAccount}, \mref{mLearnerProfile}, \mref{mCareTeam}, \mref{mSecurity}\\
+SR-4 & \mref{mHH}, \mref{mGamePersonalization}, \mref{mGameSession}\\
+SR-5 & \mref{mHH}, \mref{mGameSession}\\
+SR-6 & \mref{mHH}, \mref{mGameSession}\\
+SR-7 & \mref{mHH}, \mref{mGameSuite}, \mref{mGameSession}\\
+SR-8 & \mref{mGameSession}, \mref{mDashboard}, \mref{mDatabase}, \mref{mCharting}\\
+SR-9 & \mref{mDevicePairing}, \mref{mGamePersonalization}, \mref{mGameSuite}, \mref{mGameSession}, \mref{mDatabase}\\
+SR-10 & \mref{mHH}, \mref{mGameSession}\\
+SR-11 & \mref{mHH}, \mref{mGameSession}\\
+SR-12 & \mref{mGamePersonalization}, \mref{mRewards}, \mref{mDatabase}\\
+SR-13 & \mref{mGamePersonalization}, \mref{mTemplate}, \mref{mRewards}, \mref{mDatabase}\\
+SR-14 & \mref{mLearnerProfile}, \mref{mGamePersonalization}, \mref{mTemplate}\\
+SR-15 & \mref{mSecurity}, \mref{mFileIO}\\
+SR-16 & \mref{mDashboard}, \mref{mDatabase}, \mref{mFileIO}, \mref{mCharting}\\
+SR-17 & \mref{mDatabase}\\
+SR-18 & \mref{mCTMAccount}, \mref{mLearnerProfile}, \mref{mDatabase}\\
+\bottomrule
+\end{longtable}
+\renewcommand{\arraystretch}{1.0}
 \begin{table}[H]
 \centering
 \begin{tabular}{p{0.2\textwidth} p{0.6\textwidth}}
 \toprule
 \textbf{AC} & \textbf{Modules}\\
 \midrule
-\acref{acHardware} & \mref{mHH}\\
+\acref{acHardware} & Hardware-Hiding Module\\
 \acref{acInput} & \mref{mInput}\\
 \acref{acParams} & \mref{mParams}\\
 \acref{acVerify} & \mref{mVerify}\\
@@ -385,7 +705,7 @@ arrows in the diagram typically correspond to the presence of import statement.}
 
 \begin{figure}[H]
 \centering
-%\includegraphics[width=0.7\textwidth]{UsesHierarchy.png}
+\includegraphics[width=0.7\textwidth]{MG-Modules.png}
 \caption{Use hierarchy among modules}
 \label{FigUH}
 \end{figure}
