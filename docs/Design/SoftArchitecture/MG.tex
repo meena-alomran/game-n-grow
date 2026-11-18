@@ -5,6 +5,7 @@
 \usepackage{multirow}
 \usepackage{booktabs}
 \usepackage{tabularx}
+\usepackage{longtable}
 \usepackage{graphicx}
 \usepackage{float}
 \usepackage{hyperref}
@@ -192,7 +193,21 @@ actually be implemented.
 
 \begin{description}
 \item [\refstepcounter{mnum} \mthemnum \label{mHH}:] Hardware-Hiding Module
-\item ...
+\item [\refstepcounter{mnum} \mthemnum \label{mCTMAccount}:] CTM Account Module
+\item [\refstepcounter{mnum} \mthemnum \label{mLearnerProfile}:] Learner Profile Module
+\item [\refstepcounter{mnum} \mthemnum \label{mDevicePairing}:] Device Pairing Module
+\item [\refstepcounter{mnum} \mthemnum \label{mCareTeam}:] Care Team Module
+\item [\refstepcounter{mnum} \mthemnum \label{mGamePersonalization}:] Game Personalization Module
+\item [\refstepcounter{mnum} \mthemnum \label{mTemplate}:] Template Module
+\item [\refstepcounter{mnum} \mthemnum \label{mGameSuite}:] Game Suite Module
+\item [\refstepcounter{mnum} \mthemnum \label{mGameSession}:] Game Session Module
+\item [\refstepcounter{mnum} \mthemnum \label{mRewards}:] Rewards \& Cosmetics Module
+\item [\refstepcounter{mnum} \mthemnum \label{mDashboard}:] Dashboard Module
+\item [\refstepcounter{mnum} \mthemnum \label{mDatabase}:] Database Module
+\item [\refstepcounter{mnum} \mthemnum \label{mSecurity}:] Security Module
+\item [\refstepcounter{mnum} \mthemnum \label{mFileIO}:] File Import/Export Module
+\item [\refstepcounter{mnum} \mthemnum \label{mExtComm}:] External Communication Module
+\item [\refstepcounter{mnum} \mthemnum \label{mCharting}:] Charting Module
 \end{description}
 
 
@@ -453,38 +468,202 @@ Loads a selected game with the Learner's personalized settings or assigned templ
 This section shows two traceability matrices: between the modules and the
 requirements and between the modules and the anticipated changes.
 
-% the table should use mref, the requirements should be named, use something
-% like fref
-\begin{table}[H]
-\centering
-\begin{tabular}{p{0.2\textwidth} p{0.6\textwidth}}
-\toprule
-\textbf{Req.} & \textbf{Modules}\\
-\midrule
-R1 & \mref{mHH}, \mref{mInput}, \mref{mParams}, \mref{mControl}\\
-R2 & \mref{mInput}, \mref{mParams}\\
-R3 & \mref{mVerify}\\
-R4 & \mref{mOutput}, \mref{mControl}\\
-R5 & \mref{mOutput}, \mref{mODEs}, \mref{mControl}, \mref{mSeqDS}, \mref{mSolver}, \mref{mPlot}\\
-R6 & \mref{mOutput}, \mref{mODEs}, \mref{mControl}, \mref{mSeqDS}, \mref{mSolver}, \mref{mPlot}\\
-R7 & \mref{mOutput}, \mref{mEnergy}, \mref{mControl}, \mref{mSeqDS}, \mref{mPlot}\\
-R8 & \mref{mOutput}, \mref{mEnergy}, \mref{mControl}, \mref{mSeqDS}, \mref{mPlot}\\
-R9 & \mref{mVerifyOut}\\
-R10 & \mref{mOutput}, \mref{mODEs}, \mref{mControl}\\
-R11 & \mref{mOutput}, \mref{mODEs}, \mref{mEnergy}, \mref{mControl}\\
-\bottomrule
-\end{tabular}
-\caption{Trace Between Requirements and Modules}
-\label{TblRT}
-\end{table}
+% Original traceability table syntax retained for reference:
+% \begin{table}[H]
+% \centering
+% \begin{tabular}{p{0.2\textwidth} p{0.6\textwidth}}
+% \toprule
+% \textbf{Req.} & \textbf{Modules}\\
+% \midrule
+% R1 & \mref{mHH}, \mref{mInput}, \mref{mParams}, \mref{mControl}\\
+% R2 & \mref{mInput}, \mref{mParams}\\
+% R3 & \mref{mVerify}\\
+% R4 & \mref{mOutput}, \mref{mControl}\\
+% R5 & \mref{mOutput}, \mref{mODEs}, \mref{mControl}, \mref{mSeqDS}, \mref{mSolver}, \mref{mPlot}\\
+% R6 & \mref{mOutput}, \mref{mODEs}, \mref{mControl}, \mref{mSeqDS}, \mref{mSolver}, \mref{mPlot}\\
+% R7 & \mref{mOutput}, \mref{mEnergy}, \mref{mControl}, \mref{mSeqDS}, \mref{mPlot}\\
+% R8 & \mref{mOutput}, \mref{mEnergy}, \mref{mControl}, \mref{mSeqDS}, \mref{mPlot}\\
+% R9 & \mref{mVerifyOut}\\
+% R10 & \mref{mOutput}, \mref{mODEs}, \mref{mControl}\\
+% R11 & \mref{mOutput}, \mref{mODEs}, \mref{mEnergy}, \mref{mControl}\\
+% \bottomrule
+% \end{tabular}
+% \caption{Trace Between Requirements and Modules}
+% \label{TblRT}
+% \end{table}
 
+\renewcommand{\arraystretch}{1.2}
+\setlength{\tabcolsep}{6pt}
+
+\begin{longtable}{p{0.20\textwidth} p{0.60\textwidth}}
+\toprule
+\textbf{Functional Req.} & \textbf{Module(s)}\\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Functional Req.} & \textbf{Module(s)}\\
+\midrule
+\endhead
+\midrule
+\multicolumn{2}{r}{\textit{Continued on next page}}\\
+\endfoot
+\bottomrule
+\caption{Trace Between Functional Requirements and Modules}
+\label{TblRT}\\
+\endlastfoot
+FR-CTM-1 & \mref{mCTMAccount}, \mref{mDatabase}, \mref{mSecurity}\\
+FR-CTM-2 & \mref{mCTMAccount}\\
+FR-CTM-3 & \mref{mCTMAccount}, \mref{mDatabase}, \mref{mExtComm}\\
+FR-CTM-4 & \mref{mCTMAccount}, \mref{mDatabase}, \mref{mSecurity}\\
+FR-CTM-5 & \mref{mCTMAccount}, \mref{mLearnerProfile}, \mref{mTemplate}, \mref{mDatabase}\\
+FR-CTM-6 & \mref{mCTMAccount}, \mref{mDatabase}\\
+FR-LRN-1 & \mref{mLearnerProfile}, \mref{mCareTeam}, \mref{mDatabase}\\
+FR-LRN-2 & \mref{mLearnerProfile}, \mref{mCareTeam}, \mref{mDatabase}\\
+FR-LRN-3 & \mref{mLearnerProfile}, \mref{mDatabase}\\
+FR-LRN-4 & \mref{mLearnerProfile}, \mref{mDatabase}, \mref{mSecurity}\\
+FR-LRN-5 & \mref{mLearnerProfile}, \mref{mDatabase}, \mref{mFileIO}\\
+FR-LRN-6 & \mref{mLearnerProfile}, \mref{mDatabase}\\
+FR-LRN-7 & \mref{mLearnerProfile}, \mref{mDatabase}\\
+FR-LRN-8 & \mref{mLearnerProfile}, \mref{mDatabase}, \mref{mSecurity}\\
+FR-DEV-1 & \mref{mDevicePairing}, \mref{mDatabase}\\
+FR-DEV-2 & \mref{mDevicePairing}\\
+FR-DEV-3 & \mref{mDevicePairing}, \mref{mSecurity}\\
+FR-DEV-4 & \mref{mDevicePairing}, \mref{mSecurity}\\
+FR-DEV-5 & \mref{mDevicePairing}, \mref{mSecurity}\\
+FR-TEAM-1 & \mref{mCareTeam}, \mref{mDatabase}, \mref{mExtComm}\\
+FR-TEAM-2 & \mref{mCareTeam}, \mref{mExtComm}\\
+FR-TEAM-3 & \mref{mCareTeam}, \mref{mExtComm}\\
+FR-TEAM-4 & \mref{mCareTeam}, \mref{mDatabase}\\
+FR-TEAM-5 & \mref{mCareTeam}, \mref{mDatabase}\\
+FR-TEAM-6 & \mref{mLearnerProfile}, \mref{mCareTeam}, \mref{mDatabase}, \mref{mSecurity}\\
+FR-TEAM-7 & \mref{mCareTeam}, \mref{mSecurity}\\
+FR-PERS-1 & \mref{mCareTeam}, \mref{mGamePersonalization}, \mref{mGameSuite}, \mref{mDatabase}\\
+FR-PERS-2 & \mref{mGamePersonalization}, \mref{mDatabase}\\
+FR-PERS-3 & \mref{mGamePersonalization}, \mref{mDatabase}\\
+FR-PERS-4 & \mref{mGamePersonalization}, \mref{mTemplate}, \mref{mGameSession}, \mref{mDatabase}\\
+FR-TMPL-1 & \mref{mTemplate}, \mref{mDatabase}\\
+FR-TMPL-2 & \mref{mCareTeam}, \mref{mTemplate}, \mref{mDatabase}, \mref{mFileIO}\\
+FR-TMPL-3 & \mref{mTemplate}, \mref{mDatabase}\\
+FR-TMPL-4 & \mref{mTemplate}, \mref{mDatabase}\\
+FR-TMPL-5 & \mref{mTemplate}, \mref{mDatabase}\\
+FR-TMPL-6 & \mref{mLearnerProfile}, \mref{mGamePersonalization}, \mref{mTemplate}, \mref{mDatabase}\\
+FR-TMPL-7 & \mref{mGamePersonalization}, \mref{mTemplate}, \mref{mDatabase}\\
+FR-TMPL-8 & \mref{mLearnerProfile}, \mref{mGamePersonalization}, \mref{mTemplate}, \mref{mDatabase}\\
+FR-TMPL-9 & \mref{mTemplate}, \mref{mDatabase}\\
+FR-PLAY-1 & \mref{mGameSuite}, \mref{mGameSession}\\
+FR-PLAY-2 & \mref{mHH}, \mref{mGameSession}\\
+FR-PLAY-3 & \mref{mGameSession}\\
+FR-PLAY-4 & \mref{mCareTeam}, \mref{mGamePersonalization}, \mref{mGameSession}\\
+FR-PLAY-5 & \mref{mHH}, \mref{mGameSession}\\
+FR-PLAY-6 & \mref{mHH}, \mref{mGameSession}\\
+FR-PLAY-7 & \mref{mHH}, \mref{mGameSession}\\
+FR-PLAY-8 & \mref{mHH}, \mref{mGameSession}\\
+FR-PLAY-9 & \mref{mGameSession}\\
+FR-PLAY-10 & \mref{mGameSuite}, \mref{mGameSession}\\
+FR-RWD-1 & \mref{mGameSession}, \mref{mRewards}, \mref{mDatabase}\\
+FR-RWD-2 & \mref{mRewards}, \mref{mDatabase}\\
+FR-RWD-3 & \mref{mRewards}\\
+FR-RWD-4 & \mref{mRewards}, \mref{mDatabase}\\
+FR-RWD-5 & \mref{mRewards}, \mref{mDatabase}\\
+FR-RWD-6 & \mref{mRewards}\\
+FR-RWD-7 & \mref{mRewards}\\
+FR-DATA-1 & \mref{mLearnerProfile}, \mref{mCareTeam}, \mref{mDashboard}, \mref{mDatabase}\\
+FR-DATA-2 & \mref{mLearnerProfile}, \mref{mDashboard}, \mref{mDatabase}\\
+FR-DATA-3 & \mref{mLearnerProfile}, \mref{mDashboard}, \mref{mDatabase}\\
+FR-DATA-4 & \mref{mLearnerProfile}, \mref{mDashboard}, \mref{mDatabase}\\
+FR-DATA-5 & \mref{mDashboard}, \mref{mCharting}\\
+FR-DATA-6 & \mref{mCareTeam}, \mref{mDashboard}, \mref{mDatabase}, \mref{mFileIO}\\
+FR-DATA-7 & \mref{mGameSession}, \mref{mDatabase}\\
+FR-DATA-8 & \mref{mGameSession}, \mref{mDatabase}\\
+FR-DATA-9 & \mref{mDatabase}, \mref{mSecurity}\\
+\bottomrule
+\end{longtable}
+
+\begin{longtable}{p{0.20\textwidth} p{0.60\textwidth}}
+\toprule
+\textbf{Non-Functional Req.} & \textbf{Module(s)}\\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Non-Functional Req.} & \textbf{Module(s)}\\
+\midrule
+\endhead
+\midrule
+\multicolumn{2}{r}{\textit{Continued on next page}}\\
+\endfoot
+\bottomrule
+\caption{Trace Between Non-Functional Requirements and Modules}
+\label{TblNFR}\\
+\endlastfoot
+NFR-USE-1 & \mref{mCTMAccount}, \mref{mDevicePairing}, \mref{mCareTeam}, \mref{mExtComm}\\
+NFR-USE-2 & \mref{mLearnerProfile}, \mref{mGamePersonalization}, \mref{mGameSuite}, \mref{mGameSession}, \mref{mDashboard}\\
+NFR-USE-3 & \mref{mCTMAccount}, \mref{mLearnerProfile}, \mref{mDevicePairing}, \mref{mCareTeam}, \mref{mGamePersonalization}, \mref{mTemplate}, \mref{mGameSuite}, \mref{mGameSession}, \mref{mDashboard}\\
+NFR-USE-4 & \mref{mGamePersonalization}, \mref{mGameSuite}, \mref{mGameSession}, \mref{mRewards}\\
+NFR-USE-5 & \mref{mGameSuite}, \mref{mGameSession}\\
+NFR-EFF-1 & \mref{mDashboard}, \mref{mCharting}\\
+NFR-ACCU-1 & \mref{mGameSession}, \mref{mDashboard}, \mref{mDatabase}, \mref{mCharting}\\
+NFR-ACCU-2 & \mref{mGameSession}\\
+NFR-PORT-1 & \mref{mHH}, \mref{mDevicePairing}, \mref{mFileIO}\\
+NFR-PORT-2 & \mref{mHH}, \mref{mDevicePairing}, \mref{mFileIO}\\
+NFR-PORT-3 & \mref{mHH}, \mref{mDevicePairing}, \mref{mFileIO}\\
+NFR-ACCESS-1 & \mref{mCTMAccount}, \mref{mLearnerProfile}, \mref{mDevicePairing}, \mref{mCareTeam}, \mref{mGamePersonalization}, \mref{mTemplate}, \mref{mGameSuite}, \mref{mGameSession}, \mref{mRewards}, \mref{mDashboard}, \mref{mExtComm}\\
+NFR-ACCESS-2 & \mref{mCTMAccount}, \mref{mLearnerProfile}, \mref{mDevicePairing}, \mref{mCareTeam}, \mref{mGamePersonalization}, \mref{mTemplate}, \mref{mGameSuite}, \mref{mGameSession}, \mref{mRewards}, \mref{mDashboard}, \mref{mExtComm}\\
+NFR-ACCESS-3 & \mref{mHH}, \mref{mGamePersonalization}, \mref{mGameSuite}, \mref{mGameSession}\\
+NFR-ACCESS-4 & \mref{mHH}, \mref{mGameSession}\\
+NFR-SEC-1 & \mref{mCTMAccount}, \mref{mDatabase}, \mref{mSecurity}\\
+NFR-SEC-2 & \mref{mLearnerProfile}, \mref{mCareTeam}, \mref{mGamePersonalization}, \mref{mDatabase}, \mref{mSecurity}\\
+NFR-SEC-3 & \mref{mGameSession}, \mref{mDashboard}, \mref{mDatabase}, \mref{mSecurity}\\
+NFR-RELY-1 & \mref{mGameSession}\\
+NFR-PERF-1 & \mref{mCTMAccount}, \mref{mDashboard}, \mref{mDatabase}, \mref{mSecurity}\\
+NFR-PERF-2 & \mref{mGameSession}\\
+NFR-MAINT-1 & \mref{mCTMAccount}, \mref{mLearnerProfile}, \mref{mDevicePairing}, \mref{mCareTeam}, \mref{mGamePersonalization}, \mref{mTemplate}, \mref{mGameSuite}, \mref{mGameSession}, \mref{mRewards}, \mref{mDashboard}, \mref{mDatabase}, \mref{mSecurity}, \mref{mFileIO}, \mref{mExtComm}, \mref{mCharting}\\
+\bottomrule
+\end{longtable}
+
+\begin{longtable}{p{0.20\textwidth} p{0.60\textwidth}}
+\toprule
+\textbf{Safety Req.} & \textbf{Module(s)}\\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Safety Req.} & \textbf{Module(s)}\\
+\midrule
+\endhead
+\midrule
+\multicolumn{2}{r}{\textit{Continued on next page}}\\
+\endfoot
+\bottomrule
+\caption{Trace Between Safety Requirements and Modules}
+\label{TblSafety}\\
+\endlastfoot
+SR-1 & \mref{mCTMAccount}, \mref{mSecurity}\\
+SR-2 & \mref{mCTMAccount}, \mref{mSecurity}\\
+SR-3 & \mref{mCTMAccount}, \mref{mLearnerProfile}, \mref{mCareTeam}, \mref{mSecurity}\\
+SR-4 & \mref{mHH}, \mref{mGamePersonalization}, \mref{mGameSession}\\
+SR-5 & \mref{mHH}, \mref{mGameSession}\\
+SR-6 & \mref{mHH}, \mref{mGameSession}\\
+SR-7 & \mref{mHH}, \mref{mGameSuite}, \mref{mGameSession}\\
+SR-8 & \mref{mGameSession}, \mref{mDashboard}, \mref{mDatabase}, \mref{mCharting}\\
+SR-9 & \mref{mDevicePairing}, \mref{mGamePersonalization}, \mref{mGameSuite}, \mref{mGameSession}, \mref{mDatabase}\\
+SR-10 & \mref{mHH}, \mref{mGameSession}\\
+SR-11 & \mref{mHH}, \mref{mGameSession}\\
+SR-12 & \mref{mGamePersonalization}, \mref{mRewards}, \mref{mDatabase}\\
+SR-13 & \mref{mGamePersonalization}, \mref{mTemplate}, \mref{mRewards}, \mref{mDatabase}\\
+SR-14 & \mref{mLearnerProfile}, \mref{mGamePersonalization}, \mref{mTemplate}\\
+SR-15 & \mref{mSecurity}, \mref{mFileIO}\\
+SR-16 & \mref{mDashboard}, \mref{mDatabase}, \mref{mFileIO}, \mref{mCharting}\\
+SR-17 & \mref{mDatabase}\\
+SR-18 & \mref{mCTMAccount}, \mref{mLearnerProfile}, \mref{mDatabase}\\
+\bottomrule
+\end{longtable}
+\renewcommand{\arraystretch}{1.0}
 \begin{table}[H]
 \centering
 \begin{tabular}{p{0.2\textwidth} p{0.6\textwidth}}
 \toprule
 \textbf{AC} & \textbf{Modules}\\
 \midrule
-\acref{acHardware} & \mref{mHH}\\
+\acref{acHardware} & Hardware-Hiding Module\\
 \acref{acInput} & \mref{mInput}\\
 \acref{acParams} & \mref{mParams}\\
 \acref{acVerify} & \mref{mVerify}\\
