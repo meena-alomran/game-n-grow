@@ -31,7 +31,7 @@ urlcolor=cyan          % color of external links
 
 \usepackage{array}
 
-\newcommand{\Mref}[1]{\hyperref[#1]{M\ref*{#1}}}
+\newcommand{\Mref}[1]{Section~\ref{#1}}
 
 \externaldocument{../../SRS/SRS}
 
@@ -125,9 +125,6 @@ The complete project documentation and implementation are maintained at
 
 \section{Notation}
 
-\wss{You should describe your notation.  You can use what is below as
-  a starting point.}
-
 The structure of the MIS for modules comes from \citet{HoffmanAndStrooper1995},
 with the addition that template modules have been adapted from
 \cite{GhezziEtAl2003}.  The mathematical notation comes from Chapter 3 of
@@ -135,7 +132,7 @@ with the addition that template modules have been adapted from
 multiple assignment statement and conditional rules follow the form $(c_1
 \Rightarrow r_1 | c_2 \Rightarrow r_2 | ... | c_n \Rightarrow r_n )$.
 
-The following table summarizes the primitive data types used by \progname. 
+The following table summarizes the primitive data types used by \progname.
 
 \begin{center}
 \renewcommand{\arraystretch}{1.2}
@@ -144,14 +141,11 @@ The following table summarizes the primitive data types used by \progname.
 \textbf{Type} & \textbf{Description} \\
 \hline
 boolean ($\mathbb{B}$) & true or false \\
+natural ($\mathbb{N}$) & a non-negative integer \\
+real ($\mathbb{R}$) & a real number \\
+string & a sequence of characters \\
+UUID & a unique identifier \\
 DateTime & a date and time of day \\
-ctmIdT, learnerIdT, gameIdT, templateIdT, deviceIdT, itemIdT, sessionIdT & unique identifiers (UUIDs) for the matching entity in the SRS Data Dictionary (SRS Section 7.2) \\
-ctmT, learnerT, deviceT, membershipT, gameT, sessionT, configT, templateT, itemT, inventoryT, accessCodeT & a record of the matching entity in the SRS Data Dictionary (SRS Section 7.2) \\
-settingsT & a tuple of personalized game settings (stimulation level, reward, prompt level, volume levels, celebration intensity, colour palette, guide allowed, play again allowed) \\
-contentT & the game content that a template can add, change or remove \\
-difficultyT & a difficulty level of a game \\
-permissionT & \{viewData, personalize, assignTemplates, hideItems, abortGame\} \\
-fileT & a sequence of characters written to or read from a file \\
 \hline
 \end{tabular}
 \end{center}
@@ -163,6 +157,26 @@ are sequences of characters. Tuples contain a list of values, potentially of
 different types. In addition, \progname \ uses functions, which
 are defined by the data types of their inputs and outputs. Local functions are
 described by giving their type signature followed by their specification.
+
+The following named types are project-specific types derived from the primitive
+types and SRS entities:
+
+\begin{center}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{p{4cm} p{9cm}}
+\hline
+\textbf{Type} & \textbf{Description} \\
+\hline
+ctmIdT, learnerIdT, gameIdT, templateIdT, deviceIdT, itemIdT, sessionIdT & unique identifiers (UUIDs) for the matching entity in the SRS Data Dictionary (SRS Section 7.2) \\
+ctmT, learnerT, deviceT, membershipT, gameT, sessionT, configT, templateT, itemT, inventoryT, accessCodeT & a record of the matching entity in the SRS Data Dictionary (SRS Section 7.2) \\
+settingsT & a tuple of personalized game settings (stimulation level, reward, prompt level, volume levels, celebration intensity, colour palette, guide allowed, play again allowed) \\
+contentT & the game content that a template can add, change or remove \\
+difficultyT & a difficulty level of a game \\
+permissionT & \{viewData, personalize, assignTemplates, hideItems, abortGame\} \\
+fileT & alias for string; text contents written to or read from a file \\
+\hline
+\end{tabular}
+\end{center}
 
 \section{Module Decomposition}
 \label{SecModuleDecomposition}
@@ -207,6 +221,10 @@ The following table is taken directly from the Module Guide document for this pr
 
 \newpage
 ~\newpage
+
+% =====================================================================
+\section{MIS of CTM Account Module} \label{mis:CTMAccount}
+% =====================================================================
 
 \subsection{Module}
 
@@ -794,7 +812,8 @@ recoverInterrupted & - & - & - \\
 stateT = \{idle, loading, loadError, ready, playing, paused, reward\} \\
 outcomeT = \{completed, restarted, incomplete\} \\
 actorT = \{Learner, CTM\} \\
-responseT = the Learner's answer or action for the current task
+responseT = the Learner's answer or action for the current task \\
+taskT = a game-specific task presented to the Learner
 
 \subsection{Semantics}
 
@@ -1036,6 +1055,7 @@ tableT = \{CTM, Learner, Device, CareTeamMembership, Game, GameSession,
 LearnerGameConfiguration, Template, CosmeticItem, LearnerInventory,
 AccessCode\} \\
 keyT = UUID \\
+backupIdT = UUID \\
 recordT = a record of one of the tables in the SRS Data Dictionary (SRS Section 7.2)
 
 \subsection{Semantics}
