@@ -5,6 +5,7 @@
 \usepackage{multirow}
 \usepackage{booktabs}
 \usepackage{tabularx}
+\usepackage{longtable}
 \usepackage{graphicx}
 \usepackage{float}
 \usepackage{hyperref}
@@ -46,8 +47,8 @@
 \begin{tabularx}{\textwidth}{p{3cm}p{2cm}X}
 \toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
 \midrule
-Date 1 & 1.0 & Notes\\
-Date 2 & 1.1 & Notes\\
+11/18/26 & Rev -1 & Initial version \\
+
 \bottomrule
 \end{tabularx}
 
@@ -55,12 +56,15 @@ Date 2 & 1.1 & Notes\\
 
 \section{Reference Material}
 
-This section records information for easy reference. 
+The \href{../../SRS-IEEE/SRS.tex}{IEEE SRS} defines system requirements.
+The \href{../SoftDetailedDes/MIS.tex}{Module Interface Specification} describes
+module interfaces, and the \href{../../VnVPlan/VnVPlan.tex}{V\&V Plan} specifies
+verification and validation activities.
 
 \subsection{Abbreviations and Acronyms}
 
 \renewcommand{\arraystretch}{1.2}
-\begin{tabular}{l l} 
+\begin{tabularx}{\textwidth}{p{3cm} X}
   \toprule		
   \textbf{symbol} & \textbf{description}\\
   \midrule 
@@ -70,13 +74,11 @@ This section records information for easy reference.
   MG & Module Guide \\
   OS & Operating System \\
   R & Requirement\\
-  SC & Scientific Computing \\
+  CTM & Care Team Member \\
   SRS & Software Requirements Specification\\
-  \progname & Explanation of program name\\
   UC & Unlikely Change \\
-  \wss{etc.} & \wss{...}\\
   \bottomrule
-\end{tabular}\\
+\end{tabularx}\\
 
 \newpage
 
@@ -92,111 +94,290 @@ This section records information for easy reference.
 
 \section{Introduction}
 
-Decomposing a system into modules is a commonly accepted approach to developing
-software.  A module is a work assignment for a programmer or programming
-team~\citep{ParnasEtAl1984}.  We advocate a decomposition
-based on the principle of information hiding~\citep{Parnas1972a}.  This
-principle supports design for change, because the ``secrets'' that each module
-hides represent likely future changes.  Design for change is valuable in SC,
-where modifications are frequent, especially during initial development as the
-solution space is explored.  
+Spectropica is a customizable educational game suite designed to support
+autistic Learners through activities focused on routine sequencing,
+functional communication, and short-term memory. Care Team Members (CTMs),
+including parents, caregivers, and educators, can personalize gameplay
+and review recorded performance. The system provides educational practice,
+not clinical assessment or diagnosis.
 
-Our design follows the rules layed out by \citet{ParnasEtAl1984}, as follows:
+This Module Guide (MG) describes Spectropica's modular architecture. The
+design follows the principle of information hiding described by
+\citet{Parnas1972a}: each module hides a design decision that may change
+independently of other parts of the system. This approach aims to limit
+dependencies and support implementation, testing, and maintenance.
+
+The decomposition follows the principles outlined by
+\citet{ParnasEtAl1984}:
 \begin{itemize}
-\item System details that are likely to change independently should be the
-  secrets of separate modules.
-\item Each data structure is implemented in only one module.
-\item Any other program that requires information stored in a module's data
-  structures must obtain it by calling access programs belonging to that module.
+  \item Design decisions likely to change independently should be
+    hidden within separate modules.
+  \item Each data structure should be implemented and managed by a
+    single module.
+  \item Other modules should access that data through the owning
+    module's defined interface rather than its internal implementation.
 \end{itemize}
 
-After completing the first stage of the design, the Software Requirements
-Specification (SRS), the Module Guide (MG) is developed~\citep{ParnasEtAl1984}. The MG
-specifies the modular structure of the system and is intended to allow both
-designers and maintainers to easily identify the parts of the software.  The
-potential readers of this document are as follows:
+These principles support changes to educational content, personalization,
+and reporting while limiting their effects on unrelated functionality.
+The decomposition also provides a basis for connecting requirements to
+the software architecture.
 
+The MG builds on the
+\href{https://github.com/meena-alomran/game-n-grow/blob/main/docs/SRS-IEEE/SRS.tex}
+  {Software Requirements Specification (SRS)} and complements the
+\href{https://github.com/meena-alomran/game-n-grow/blob/main/docs/Design/SoftDetailedDes/MIS.tex}
+  {Module Interface Specification (MIS)}. The SRS defines required behaviour
+and quality attributes; the MIS specifies individual module interfaces.
+
+The intended readers are:
 \begin{itemize}
-\item New project members: This document can be a guide for a new project member
-  to easily understand the overall structure and quickly find the
-  relevant modules they are searching for.
-\item Maintainers: The hierarchical structure of the module guide improves the
-  maintainers' understanding when they need to make changes to the system. It is
-  important for a maintainer to update the relevant sections of the document
-  after changes have been made.
-\item Designers: Once the module guide has been written, it can be used to
-  check for consistency, feasibility, and flexibility. Designers can verify the
-  system in various ways, such as consistency among modules, feasibility of the
-  decomposition, and flexibility of the design.
+  \item \textbf{New project members:} To understand the architecture
+    and locate modules responsible for particular functionality.
+  \item \textbf{Maintainers:} To identify modules affected by a
+    proposed change and understand their dependencies.
+  \item \textbf{Designers and developers:} To evaluate the
+    decomposition, check requirement coverage, and coordinate
+    implementation and integration.
 \end{itemize}
 
-The rest of the document is organized as follows. Section
-\ref{SecChange} lists the anticipated and unlikely changes of the software
-requirements. Section \ref{SecMH} summarizes the module decomposition that
-was constructed according to the likely changes. Section \ref{SecConnection}
-specifies the connections between the software requirements and the
-modules. Section \ref{SecMD} gives a detailed description of the
-modules. Section \ref{SecTM} includes two traceability matrices. One checks
-the completeness of the design against the requirements provided in the SRS. The
-other shows the relation between anticipated changes and the modules. Section
-\ref{SecUse} describes the use relation between modules.
+Section~\ref{SecChange} identifies anticipated and unlikely changes.
+Section~\ref{SecMH} presents the module hierarchy, and
+Section~\ref{SecConnection} explains the design decisions connecting
+requirements to the architecture. Section~\ref{SecMD} describes the
+modules. Section~\ref{SecTM} traces requirements and anticipated changes
+to modules. Section~\ref{SecUse} presents module dependencies through
+the uses hierarchy. The remaining sections address user interfaces,
+communication protocols, database design, the development timeline,
+and generative AI use disclosure.
+
+Project documentation and implementation are available in the
+\href{https://github.com/meena-alomran/game-n-grow}{Spectropica repository}.
 
 \section{Anticipated and Unlikely Changes} \label{SecChange}
 
-This section lists possible changes to the system. According to the likeliness
-of the change, the possible changes are classified into two
-categories. Anticipated changes are listed in Section \ref{SecAchange}, and
-unlikely changes are listed in Section \ref{SecUchange}.
+This section identifies decisions that may change during development or
+maintenance and stable assumptions on which the architecture relies.
+The anticipated changes cover SRS Section 12 and additional design choices.
+Module names refer to the hierarchy in Section~\ref{SecMH} and the
+responsibilities in Section~\ref{SecMD}.
 
 \subsection{Anticipated Changes} \label{SecAchange}
 
-Anticipated changes are the source of the information that is to be hidden
-inside the modules. Ideally, changing one of the anticipated changes will only
-require changing the one module that hides the associated decision. The approach
-adapted here is called design for
-change.
+These entries concern changes to supported capabilities and design choices,
+not ordinary runtime selections. Each entry identifies its responsible
+module or explains why a coordinated change spans several modules.
+Section~\ref{SecTM} records the corresponding traceability mappings.
 
 \begin{description}
-\item[\refstepcounter{acnum} \actheacnum \label{acHardware}:] The specific
-  hardware on which the software is running.
-\item[\refstepcounter{acnum} \actheacnum \label{acInput}:] The format of the
-  initial input data.
-\item ...
-\end{description}
 
-\wss{Anticipated changes relate to changes that would be made in requirements,
-design or implementation choices.  They are not related to changes that are made
-at run-time, like the values of parameters.}
+\item[\refstepcounter{acnum} \actheacnum
+\label{acHardware}:]
+\textbf{Platform and device interfaces.}
+Supported operating-system and input interfaces may change across iPadOS and Android tablets and browser access. Device access is hidden behind the Hardware-Hiding interface. Platform changes that also require interface adaptation are coordinated with the affected presentation modules. This covers SRS LC7 and relates to SC1 and SC2.
+
+\textit{Responsible module(s):} Hardware-Hiding (\mref{mHH}).
+
+\item[\refstepcounter{acnum} \actheacnum
+\label{acGameImplementation}:]
+\textbf{Game content and task rules.}
+Content, available difficulty levels, and task-completion rules may change following evaluation. Game-specific behaviour is encapsulated within Game Session, alongside the common session lifecycle, rather than introducing additional top-level modules. This covers SRS LC1; changes to supported configuration fields also involve the configuration owners below.
+
+\textit{Responsible module(s):} Game Session (\mref{mGameSession}).
+
+\item[\refstepcounter{acnum} \actheacnum
+\label{acAdditionalGames}:]
+\textbf{Supported Game collection.}
+New Games add task behaviour within Game Session and a selectable entry in Game Suite. Game Personalization and Dashboard are affected only when the addition introduces new setting types or performance measures. This coordinated extension is an exception to a single-module mapping because execution, selection, configuration, and reporting have distinct responsibilities. This covers SRS LC8.
+
+\textit{Responsible module(s):} Game Session (\mref{mGameSession}),
+Game Suite (\mref{mGameSuite}).
+
+\item[\refstepcounter{acnum} \actheacnum
+\label{acCustomization}:]
+\textbf{Learner-specific configuration rules.}
+Supported per-Game settings and Game authorizations may evolve. Game Personalization owns the Learner-specific assignment and validation of these settings. Adding a new setting may also change its consumption within Game Session; this interface change must be coordinated. This covers the personalization portion of SRS LC2.
+
+\textit{Responsible module(s):} Game Personalization
+(\mref{mGamePersonalization}).
+
+\item[\refstepcounter{acnum} \actheacnum
+\label{acTemplateOrganization}:]
+\textbf{Template content and organization rules.}
+Reusable configuration content, assignment, folders, and sharing rules may evolve while Templates remain variations of existing Games. Template owns these rules; File Import/Export owns only their external file representation. This covers SRS LC6 and the Template portion of LC2.
+
+\textit{Responsible module(s):} Template (\mref{mTemplate}).
+
+\item[\refstepcounter{acnum} \actheacnum
+\label{acUserInterface}:]
+\textbf{Presentation and navigation.}
+Game Suite owns Game selection, Game Session owns in-game interaction, and Dashboard owns performance views. CTM management views follow their corresponding account, profile, care team, personalization, and Template responsibilities. Charting owns chart rendering. This cross-cutting change intentionally maps to multiple modules because there is no separate general UI module in the decomposition. Each change is traced to the affected workflow. This covers SRS LC5 and the presentation portion of LC3.
+
+\textit{Responsible module(s):} The module responsible for the affected
+user workflow.
+
+\item[\refstepcounter{acnum} \actheacnum
+\label{acDataStorage}:]
+\textbf{Persistence technology and representation.}
+Server storage, record mapping, backup, restoration, and permanent deletion mechanisms may change behind the Database interface. Higher-level modules retain ownership of domain rules, rather than accessing storage representations directly.
+
+\textit{Responsible module(s):} Database (\mref{mDatabase}).
+
+\item[\refstepcounter{acnum} \actheacnum
+\label{acPerformanceReporting}:]
+\textbf{Performance measures and calculation rules.}
+Calculation and filtering rules may change as CTMs identify useful measures. Dashboard owns these rules, while Charting renders the resulting values. If a new measure requires additional raw observations, Game Session recording and the Database record representation must also change. This justified exception preserves the separation of collection and analysis. Historical results must remain interpretable. This covers the calculation portion of SRS LC3.
+
+\textit{Responsible module(s):} Dashboard (\mref{mDashboard}).
+
+\item[\refstepcounter{acnum} \actheacnum
+\label{acRewards}:]
+\textbf{Reward content and eligibility rules.}
+Available items, unlock conditions, and alternative-item groupings may change while preserving Learner inventory relationships. This covers SRS LC4.
+
+\textit{Responsible module(s):} Rewards \& Cosmetics (\mref{mRewards}).
+
+\item[\refstepcounter{acnum} \actheacnum
+\label{acDataExchange}:]
+\textbf{Synchronization mechanisms.}
+Local queueing, transfer, retry, and synchronization mechanisms may change without changing Game Session recording responsibilities. Storage and synchronization remain within Database as a single persistence boundary in this decomposition; their internal mechanisms can evolve behind its interface.
+
+\textit{Responsible module(s):} Database (\mref{mDatabase}).
+
+\item[\refstepcounter{acnum} \actheacnum
+\label{acExportFormat}:]
+\textbf{Import and export file representations.}
+Template file representations and Learner-data export formats may change. Template and Dashboard retain responsibility for selecting and authorizing the domain information; File Import/Export converts that information and validates imported file structure.
+
+\textit{Responsible module(s):} File Import/Export (\mref{mFileIO}).
+
+\item[\refstepcounter{acnum} \actheacnum
+\label{acAccountWorkflow}:]
+\textbf{CTM account workflow.}
+Registration validation, verification workflow, and account deletion/restoration rules may change. CTM Account coordinates these workflows while delegating credential and login-session mechanisms to Security.
+
+\textit{Responsible module(s):} CTM Account (\mref{mCTMAccount}).
+
+\item[\refstepcounter{acnum} \actheacnum
+\label{acAuthentication}:]
+\textbf{Credential and login-session mechanisms.}
+Password verification, encryption, and CTM login-session handling may change behind the Security interface without introducing Learner password-based login.
+
+\textit{Responsible module(s):} Security (\mref{mSecurity}).
+
+\item[\refstepcounter{acnum} \actheacnum
+\label{acDevicePairing}:]
+\textbf{Learner device-pairing rules.}
+Pairing-code generation, expiry, retry, lockout, and device-recognition rules may change while preserving the relationship between a paired device and a Learner profile.
+
+\textit{Responsible module(s):} Device Pairing (\mref{mDevicePairing}).
+
+\item[\refstepcounter{acnum} \actheacnum
+\label{acAccessControl}:]
+\textbf{Care team permissions.}
+Membership and CTM permission rules may evolve. Care Team answers permission queries; the module performing an operation applies the answer before proceeding. Learner Game authorization remains a separate Game Personalization responsibility.
+
+\textit{Responsible module(s):} Care Team (\mref{mCareTeam}).
+
+\item[\refstepcounter{acnum} \actheacnum
+\label{acExternalCommunication}:]
+\textbf{External message-delivery mechanisms.}
+The email provider and message formatting may change behind a delivery interface. Account and care team workflows retain responsibility for deciding when messages are required.
+
+\textit{Responsible module(s):} External Communication (\mref{mExtComm}).
+
+\end{description}
 
 \subsection{Unlikely Changes} \label{SecUchange}
 
-The module design should be as general as possible. However, a general system is
-more complex. Sometimes this complexity is not necessary. Fixing some design
-decisions at the system architecture stage can simplify the software design. If
-these decision should later need to be changed, then many parts of the design
-will potentially need to be modified. Hence, it is not intended that these
-decisions will be changed.
+The following assumptions are expected to remain stable. Designing for
+their complete replacement would introduce complexity without a clear
+project benefit. A change to these assumptions could require revisions
+across several modules. These entries summarize relevant stable
+characteristics from SRS Section 13.
 
 \begin{description}
-\item[\refstepcounter{ucnum} \uctheucnum \label{ucIO}:] Input/Output devices
-  (Input: File and/or Keyboard, Output: File, Memory, and/or Screen).
-\item ...
+
+\item[\refstepcounter{ucnum} \uctheucnum
+\label{ucPurpose}:]
+\textbf{Educational Games as the primary experience.}
+Spectropica will remain an educational game suite supporting autistic
+Learners. Replacing Games with an unrelated primary activity would
+substantially change its purpose and architecture. This is consistent
+with SRS ULC5.
+
+\textit{Primary related module(s):} Game Suite (\mref{mGameSuite}),
+Game Session (\mref{mGameSession}).
+
+\item[\refstepcounter{ucnum} \uctheucnum
+\label{ucUserRoles}:]
+\textbf{Distinct Learner and CTM responsibilities.}
+Learners participate in Games, while authorized CTMs manage profiles,
+configurations, and performance information. Individual memberships
+and permissions may change without replacing this role structure.
+This is consistent with SRS ULC1 and ULC3.
+
+\textit{Primary related module(s):} CTM Account (\mref{mCTMAccount}),
+Learner Profile (\mref{mLearnerProfile}), Care Team (\mref{mCareTeam}).
+
+\item[\refstepcounter{ucnum} \uctheucnum
+\label{ucCoreWorkflow}:]
+\textbf{Learner-specific configuration and recording.}
+Authorized CTMs configure activities for identifiable Learner profiles;
+Learners participate in Games, and resulting session records remain
+associated with the correct Learner and Game for review. Configuration
+does not imply that a CTM must prepare every individual session.
+This is consistent with SRS ULC2, ULC4, and ULC6.
+
+\textit{Primary related module(s):} Learner Profile (\mref{mLearnerProfile}),
+Game Personalization (\mref{mGamePersonalization}),
+Game Session (\mref{mGameSession}), Database (\mref{mDatabase}).
+
+\item[\refstepcounter{ucnum} \uctheucnum
+\label{ucNonClinical}:]
+\textbf{Non-clinical purpose.}
+Performance records describe outcomes within Games rather than diagnose
+conditions or establish broader developmental conclusions. Adopting a
+clinical purpose would require reconsidering requirements, validation,
+and architecture. This is consistent with SRS ULC8.
+
+\item[\refstepcounter{ucnum} \uctheucnum
+\label{ucLearnerControl}:]
+\textbf{Learner control over participation.}
+Learners give a ready cue and can pause, restart, or exit an activity.
+Replacing voluntary participation with a forced progression would affect
+the Game Session lifecycle and its safety requirements. This follows SRS ULC7.
+
 \end{description}
 
 \section{Module Hierarchy} \label{SecMH}
 
 This section provides an overview of the module design. Modules are summarized
-in a hierarchy decomposed by secrets in Table \ref{TblMH}. The modules listed
-below, which are leaves in the hierarchy tree, are the modules that will
-actually be implemented.
+by the decisions they hide in Table~\ref{TblMH}. The Behaviour-Hiding and
+Software Decision modules listed below are implemented by Spectropica.
+The Hardware-Hiding module provides access to device services.
 
 \begin{description}
 \item [\refstepcounter{mnum} \mthemnum \label{mHH}:] Hardware-Hiding Module
-\item ...
+\item [\refstepcounter{mnum} \mthemnum \label{mCTMAccount}:] CTM Account Module
+\item [\refstepcounter{mnum} \mthemnum \label{mLearnerProfile}:] Learner Profile Module
+\item [\refstepcounter{mnum} \mthemnum \label{mDevicePairing}:] Device Pairing Module
+\item [\refstepcounter{mnum} \mthemnum \label{mCareTeam}:] Care Team Module
+\item [\refstepcounter{mnum} \mthemnum \label{mGamePersonalization}:] Game Personalization Module
+\item [\refstepcounter{mnum} \mthemnum \label{mTemplate}:] Template Module
+\item [\refstepcounter{mnum} \mthemnum \label{mGameSuite}:] Game Suite Module
+\item [\refstepcounter{mnum} \mthemnum \label{mGameSession}:] Game Session Module
+\item [\refstepcounter{mnum} \mthemnum \label{mRewards}:] Rewards \& Cosmetics Module
+\item [\refstepcounter{mnum} \mthemnum \label{mDashboard}:] Dashboard Module
+\item [\refstepcounter{mnum} \mthemnum \label{mDatabase}:] Database Module
+\item [\refstepcounter{mnum} \mthemnum \label{mSecurity}:] Security Module
+\item [\refstepcounter{mnum} \mthemnum \label{mFileIO}:] File Import/Export Module
+\item [\refstepcounter{mnum} \mthemnum \label{mExtComm}:] External Communication Module
+\item [\refstepcounter{mnum} \mthemnum \label{mCharting}:] Charting Module
 \end{description}
 
 
-\begin{table}[h!]
+\begin{table}[H]
 \centering
 \begin{tabular}{p{0.3\textwidth} p{0.6\textwidth}}
 \toprule
@@ -206,19 +387,25 @@ actually be implemented.
 {Hardware-Hiding Module} & ~ \\
 \midrule
 
-\multirow{7}{0.3\textwidth}{Behaviour-Hiding Module} & ?\\
-& ?\\
-& ?\\
-& ?\\
-& ?\\
-& ?\\
-& ?\\ 
-& ?\\
+\multirow{7}{0.3\textwidth}{Behaviour-Hiding Module}
+& CTM Account Module\\
+& Learner Profile Module\\
+& Device Pairing Module\\
+& Care Team Module\\
+& Game Personalization Module\\
+& Template Module\\ 
+& Game Suite Module\\
+& Game Session Module\\
+& Rewards \& Cosmetics Module\\
+& Dashboard Module\\
 \midrule
 
-\multirow{3}{0.3\textwidth}{Software Decision Module} & {?}\\
-& ?\\
-& ?\\
+\multirow{3}{0.3\textwidth}{Software Decision Module}
+& Database Module\\
+& Security Module\\
+& File Import/Export Module\\
+& External Communication Module\\
+& Charting Module\\
 \bottomrule
 
 \end{tabular}
@@ -226,18 +413,158 @@ actually be implemented.
 \label{TblMH}
 \end{table}
 
-\section{Connection Between Requirements and Design} \label{SecConnection}
+\section{Connection Between Requirements and Design}
+\label{SecConnection}
 
-The design of the system is intended to satisfy the requirements developed in
-the SRS. In this stage, the system is decomposed into modules. The connection
-between requirements and modules is listed in Table~\ref{TblRT}.
+This section assigns design responsibilities to the modules in
+Section~\ref{SecMD} and explains how those choices support the SRS and
+Hazard Analysis. Requirement identifiers refer to the completed IEEE SRS
+linked in the Introduction. These decisions refine the existing module
+boundaries; they do not introduce additional top-level modules.
 
-\wss{The intention of this section is to document decisions that are made
-  ``between'' the requirements and the design.  To satisfy some requirements,
-  design decisions need to be made.  Rather than make these decisions implicit,
-  they are explicitly recorded here.  For instance, if a program has security
-  requirements, a specific design decision may be made to satisfy those
-  requirements with a password.}
+\subsection*{Learner Access and CTM Management}
+
+CTM Account coordinates registration, login, and account lifecycle
+operations. Security verifies credentials and manages CTM login sessions.
+Device Pairing associates devices with Learner profiles through pairing
+codes, so Learners do not need a separate username/password login or a
+CTM sign-in before each session. These responsibilities support FR-CTM-4
+and FR-DEV-1--5 while separating account workflow from credential mechanisms.
+
+Care Team owns membership and CTM permission decisions. Each management
+module checks the applicable permission before performing an operation;
+hiding controls alone does not authorize access. Game Personalization
+owns Learner Game authorizations, Game Suite displays authorized choices,
+and Game Session checks authorization before starting a selected Game.
+This supports FR-TEAM-4, FR-TEAM-7, FR-PERS-1, and FR-PLAY-1. CTM management
+operations remain separate from Learner-facing Game selection and play.
+
+\subsection*{Game Customization and Configuration}
+
+Game Personalization owns Learner-specific settings and authorizations;
+Template owns reusable variations and their assignment. Game Personalization owns the supported per-Game setting definitions;
+Template uses that configuration interface when validating reusable values.
+Game Session consumes a validated configuration and owns the task rules
+that interpret it. Configuration validation does not call back into Game
+Session, avoiding a circular dependency. File Import/Export checks
+imported file structure before Template performs domain validation.
+This supports FR-PERS-1--4, FR-TMPL-4, FR-TMPL-6, and SR-15.
+
+Game Session loads an effective configuration for the correct Learner and
+Game before entering the ready state. Invalid or unavailable required
+settings prevent the Game from starting; the Learner receives the calm
+return-to-suite action required by SR-7. A failed edit retains the previous
+saved configuration and reports the failure to the CTM, consistent with
+SR-13. Template provides the affected-Learner preview and confirmation
+required by SR-14 before assignment changes.
+
+Game-specific activities are internal components of Game Session and use
+its common lifecycle interface. This keeps each Game's task rules separate
+internally while maintaining the top-level decomposition. Configuration
+management remains distinct from executing those rules, limiting the
+impact of changes to an individual Game.
+
+\subsection*{Learner Wellbeing and Accessible Gameplay}
+
+Game Session provides common readiness, pause, resume, restart, exit, and
+error-handling behaviour across Games. Game Personalization and Template
+validate sensory settings before saving them; Game Session applies those
+settings and enforces runtime presentation constraints. Game-specific
+content must also satisfy the flashing restriction. These responsibilities
+support SR-4--7, SR-11, and FR-PLAY-2 and FR-PLAY-5--7.
+
+A common lifecycle prevents individual Games from omitting participation
+controls or starting audio and animation before the Learner is ready.
+Sensory defaults follow SR-4, and CTM customization cannot override a
+mandatory safety constraint. This preserves Learner control under SRS ULC7
+without introducing a separate safety module.
+
+\subsection*{Session Recording and Performance Reporting}
+
+Game Session owns the active session state and constructs records containing
+the Learner, Game, settings used, and outcome. Database owns durable records
+and unsynchronized copies. Dashboard reads records to compute and filter
+performance information, Charting renders the selected representation, and
+File Import/Export formats the records selected for export. This separates
+record collection, persistence, interpretation, and rendering, supporting
+FR-DATA-2--7 and SR-16.
+
+Only completed sessions contribute to completion-based performance averages.
+Aborted, restarted, and interrupted sessions remain visible in history with
+their outcome but are excluded from those averages. Restarting closes the
+current attempt and begins a new session. A crash or a connection failure
+that actually terminates play produces an incomplete session; temporary
+connection loss alone does not invalidate a session that continues and
+finishes normally. This interpretation implements SR-8 alongside SR-9.
+The session representation must distinguish interrupted outcomes in addition
+to the completed, aborted, and restarted outcomes already listed in the SRS.
+
+Dashboard does not silently compare unlike metrics or difficulty settings;
+records retain the context needed to interpret results. Reported results
+remain descriptions of Game performance, not clinical or developmental
+assessments. Changing dashboard presentation does not rewrite raw records.
+
+\subsection*{Data Persistence and Connectivity}
+
+Database provides the persistence boundary for server records, local queues,
+synchronization, backups, and restoration. Domain modules request operations
+through its interface rather than accessing tables or queues directly.
+Although this boundary contains several mechanisms, they share responsibility
+for preserving records across storage locations and failures. The decomposition
+retains this grouping to match the current module hierarchy; its internal
+mechanisms remain distinct and are not exposed to gameplay modules.
+
+Network access is required for account, pairing, care team, and shared-data
+management operations. During a connection loss, Game Session may continue
+an ongoing Game and Game Suite may offer previously authorized Games only
+when the required Game resources and settings are already available locally.
+A Game requiring an uncached resource cannot start offline. This limited
+offline support follows SR-9 while retaining SC3's network dependence for
+management operations; it does not promise unrestricted offline use.
+
+Database retains queued session records across application restarts and
+removes them only after confirmed server persistence. Retries use the session
+identifier to avoid duplicate records. Pending synchronization is distinct
+from confirmed server storage. After reconnection, cached authorizations and
+settings are refreshed before subsequent Game starts. Immediate remote
+revocation on a disconnected device is not assumed.
+
+For settings, Templates, and equipped items, the owning module reports success
+only after Database confirms the write. Failed changes retain the previous
+saved values, as required by SR-13. Database also owns backup and restoration
+mechanisms under SR-17. These choices keep persistence failure handling out
+of game-specific task logic while exposing enough status for appropriate
+feedback.
+
+\subsection*{Data Privacy and Lifecycle Management}
+
+Learner Profile coordinates profile deletion and restoration; CTM Account
+coordinates account deletion and restoration. Care Team updates membership
+and ownership relationships, and Device Pairing unlinks affected devices.
+Database performs scheduled permanent deletion, synchronization, and removal
+from backups. This divides lifecycle policy from storage mechanics while
+supporting FR-LRN-4--8, FR-CTM-5--6, and SR-18.
+
+The design retains the 30-day grace period stated in SRS Section 7.3 rather
+than introducing another duration. Restoration cancels pending permanent
+deletion during that period. Permanent deletion covers the affected records
+and backups according to the same authoritative lifecycle policy. Care Team
+must preserve a valid Primary CTM for active Learner profiles when an account
+is removed; account deletion does not itself delete those profiles.
+
+Unlinked devices lose profile access and clear associated local data when
+unlinking is processed locally. A disconnected device cannot receive a remote
+unlink immediately, so the next successful connection must reconcile device
+status before further profile access or session uploads. A stale upload must
+not recreate a deleted profile. Export before profile deletion remains an
+authorized Primary CTM operation, with File Import/Export formatting the
+selected data. These rules support the existing privacy obligations without
+claiming instantaneous remote erasure from an offline device.
+
+The responsibilities above determine the module mappings in
+Section~\ref{SecTM}. The MIS must express the same ownership, failure outcomes,
+and state transitions, and the uses hierarchy must include the dependencies
+needed to obtain the stated services.
 
 \section{Module Decomposition} \label{SecMD}
 
@@ -278,18 +605,111 @@ to be implemented.
 \item[Implemented By:] --
 \end{description}
 
-\subsubsection{Input Format Module (\mref{mInput})}
+\subsubsection{CTM Account Module (\mref{mCTMAccount})}
 
 \begin{description}
-\item[Secrets:]The format and structure of the input data.
-\item[Services:]Converts the input data into the data structure used by the
-  input parameters module.
-\item[Implemented By:] [Your Program Name Here]
-\item[Type of Module:] [Record, Library, Abstract Object, or Abstract Data Type]
-  [Information to include for leaf modules in the decomposition by secrets tree.]
+\item[Secrets:] Rules for registration validation, email verification flow, login information, password reset flow, and account deletion/restoration lifecycle.
+\item[Services:] Evaluating the validity of a CTM's registration information, detects whether verification occured and creates account thereafter and authenticates a CTM's login credentials. Allows the CTM to delete their account without deleting Learner profiles. Allows restoration of a deleted account within a certain time frame.
+\item[Implemented By:] Spectropica
+\item[Type of Module:] Abstract Object
 \end{description}
 
-\subsubsection{Etc.}
+\subsubsection{Learner Profile Module (\mref{mLearnerProfile})}
+
+\begin{description}
+\item[Secrets:] Rules for creating \& editing a Learner's profile, the Learner's specific information, and the account deletion/restoration lifecycle. 
+\item[Services:] Provides a way for a CTM to create a Learner profile with specific editable information. Allows Learner profile deletion along with scheduling the deletion of all Learner-related information. Allows restoration of a deleted Learner profile within a certain time frame.
+\item[Implemented By:] Spectropica
+\item[Type of Module:] Abstract Object
+\end{description}
+
+\subsubsection{Device Pairing Module (\mref{mDevicePairing})}
+
+\begin{description}
+\item[Secrets:] The rules of pairing code generation, expiration and lockout. The flow of device pairing to Learner Profile.
+\item[Services:] Allows the generation of a pairing code for a Learner's device and the actual pairing upon validation of the pairing code. Provides methods for re-generating codes and locking out after repeated failed attempts. Allows a CTM to unpair a device from a Learner's profile. 
+\item[Implemented By:] Spectropica
+\item[Type of Module:] Abstract Object
+\end{description}
+
+\subsubsection{Care Team Module (\mref{mCareTeam})}
+
+\begin{description}
+\item[Secrets:] The structure of care team memberships and the set of
+  permissions a CTM can hold for a Learner; how invite codes are generated,
+  expire, and are locked out after repeated failed attempts; the rules that
+  keep exactly one Primary CTM per Learner, including during an ownership
+  transfer; and how changes made by CTMs to a Learner are logged.
+\item[Services:] Allows the Primary CTM to invite CTMs to a Learner's care team
+  with selected permissions, cancel or regenerate an invite, edit another CTM's
+  permissions, and remove a CTM from the care team. Allows a CTM to request,
+  and the Primary CTM to accept or decline, a transfer of ownership of a
+  Learner's profile. Answers whether a given CTM holds a given permission for a
+  given Learner, so that other modules can refuse unauthorized actions. Records
+  changes made by CTMs to a Learner's settings so that other CTMs on the care
+  team can view them. Requests notifications to affected CTMs when they join,
+  have their permissions changed, or are removed.
+\item[Implemented By:] Spectropica
+\item[Type of Module:] Abstract Object
+\end{description}
+
+\subsubsection{Game Personalization Module (\mref{mGamePersonalization})}
+
+\begin{description}
+\item[Secrets:] The authorizations and settings that a CTM can assign a Learner as personalized per-game experience.
+\item[Services:] Allows a CTM to assign a variety of settings to a Learner for each game, provides a method for games to retrieve the applied settings for a Learner, and shows the CTM the per-game personalization applied to each Learner.
+\item[Implemented By:] Spectropica
+\item[Type of Module:] Abstract Object
+\end{description}
+
+\subsubsection{Template Module (\mref{mTemplate})}
+
+\begin{description}
+\item[Secrets:] The mechanisms for creating, editing and deleting a template, what data is stored in a template, how templates are applied to a Learner, rules for template folder structure, and rules around template sharing.
+\item[Services:] Creation, editing and deletion of templates. How to apply templates to Learners, how to store them in a folder structure, and how to share them with other CTMs.
+\item[Implemented By:] Spectropica
+\item[Type of Module:] Abstract Object
+\end{description}
+
+\subsubsection{Game Suite Module (\mref{mGameSuite})}
+
+\begin{description}
+\item[Secrets:] The set of authorized games and how they are presented to the Learner.
+\item[Services:] Presents the set of games that a Learner is authorized to play and hiding unauthorized games. Loads as the screen a Learner returns to after a game. Allows a Learner to select a game.
+\item[Implemented By:] Spectropica
+\item[Type of Module:] Library
+\end{description}
+
+\subsubsection{Game Session Module (\mref{mGameSession})}
+
+\begin{description}
+\item[Secrets:] 
+The gameplay state machine (loading, load error, ready,
+  playing, paused, and reward) and the rules for moving between states and between tasks. How a session's results are recorded.
+
+\item[Services:] 
+Loads a selected game with the Learner's personalized settings or assigned templates. Presenting each task sequentially. Providing Learners the ability to pause, resume, restart, abort or open a guide. Produces a session record regarding the Learner's actions and performance details throughout the session.
+\item[Implemented By:] Spectropica
+\item[Type of Module:] Abstract Object
+\end{description}
+
+\subsubsection{Rewards \& Cosmetics Module (\mref{mRewards})}
+
+\begin{description}
+\item[Secrets:] The unlock conditions for rewards, rules around: duplication, currency and hidden rewards. Alternative item grouping.
+\item[Services:] How the system resolves whether unlock conditions have been met, the methods of equipping and unequipping items, how to handle duplicated items and deciding which items are alternatives to each other.
+\item[Implemented By:] Spectropica
+\item[Type of Module:] Abstract Object
+\end{description}
+
+\subsubsection{Dashboard Module (\mref{mDashboard})}
+
+\begin{description}
+\item[Secrets:] The computation of metrics and how filtering is done.
+\item[Services:] Allows an authorized CTM to view a Learner's data. Allows for filtering and viewing of further detailed metrics. Provides options for different graphing options and exporting.
+\item[Implemented By:] Spectropica
+\item[Type of Module:] Library
+\end{description}
 
 
 \subsection{Software Decision Module}
@@ -299,62 +719,272 @@ to be implemented.
   facts, or programming considerations. The secrets of this module are
   \emph{not} described in the SRS.
 \item[Services:] Includes data structure and algorithms used in the system that
-  do not provide direct interaction with the user. 
-  % Changes in these modules are more likely to be motivated by a desire to
-  % improve performance than by externally imposed changes.
+  do not provide direct interaction with the user.
 \item[Implemented By:] --
 \end{description}
 
-\subsubsection{Etc.}
+\subsubsection{Database Module (\mref{mDatabase})}
+
+\begin{description}
+\item[Secrets:] The database technology and hosting used on the server; how the data entities are mapped to stored tables; the protocol used for communication between the client and the server; how unsynchronized session results are queued on the device; and how backups, restoration, and permanent deletion of records are carried out.
+
+\item[Services:] Stores, retrieves, updates, and deletes records on behalf of other modules. Queues session results on the device while there is no stable connection, uploads them once the connection returns, and removes them from the device after upload. Keeps data on paired devices synchronized with the server. Backs up stored data regularly and restores it from a backup when required. Permanently deletes records whose scheduled deletion time has passed, including from backups.
+\item[Implemented By:] Spectropica
+\item[Type of Module:] Abstract Object
+\end{description}
+
+\subsubsection{Security Module (\mref{mSecurity})}
+
+\begin{description}
+\item[Secrets:] The algorithms used to hash and verify passwords and to encrypt data in transit and at rest; the format, lifetime, and expiry of CTM login sessions; and how a CTM's identity is re-confirmed before a sensitive action.
+\item[Services:] Hashes a password for storage and verifies a password against a stored hash. Issues a session when a CTM logs in, ends it after a period of inactivity, and reports whether a session is still valid. Encrypts and decrypts data for storage and transmission.
+\item[Implemented By:] Spectropica
+\item[Type of Module:] Abstract Object
+\end{description}
+
+\subsubsection{File Import/Export Module (\mref{mFileIO})}
+
+\begin{description}
+\item[Secrets:] The file formats used for imported/exported templates and exported Learner data, and how imported files are parsed and validated.
+\item[Services:] Converts a template into a file, and converts a template file back into template data. Converts a set of Learner records into an export file that reports its record count.
+\item[Implemented By:] Spectropica
+\item[Type of Module:] Library
+\end{description}
+
+\subsubsection{External Communication Module (\mref{mExtComm})}
+
+\begin{description}
+\item[Secrets:] The external email-delivery service used, and how messages are formatted and sent to it.
+\item[Services:] Sends account verification messages and confirmation messages to a CTM's email address on behalf of other modules, and reports whether a message was accepted for delivery. Delivers notifications to CTMs, such as when a CTM joins a care team, has their permissions changed, or is removed, and when a Learner profile or account is scheduled for deletion.
+\item[Implemented By:] Spectropica
+\item[Type of Module:] Library
+\end{description}
+
+\subsubsection{Charting Module (\mref{mCharting})}
+
+\begin{description}
+\item[Secrets:] The method or library used to draw charts, graphs and tables. How data values are mapped onto axes, scales, and visual elements.
+\item[Services:] Produces a chart or table from a series of data values and the requested representation, for display by other modules.
+\item[Implemented By:] Spectropica
+\item[Type of Module:] Library
+\end{description}
 
 \section{Traceability Matrix} \label{SecTM}
 
-This section shows two traceability matrices: between the modules and the
-requirements and between the modules and the anticipated changes.
+This section shows four traceability matrices: three between the modules and the
+requirements (functional, non-functional, and safety) and one between the modules and the anticipated changes.
 
-% the table should use mref, the requirements should be named, use something
-% like fref
-\begin{table}[H]
-\centering
-\begin{tabular}{p{0.2\textwidth} p{0.6\textwidth}}
+% Original traceability table syntax retained for reference:
+% \begin{table}[H]
+% \centering
+% \begin{tabular}{p{0.2\textwidth} p{0.6\textwidth}}
+% \toprule
+% \textbf{Req.} & \textbf{Modules}\\
+% \midrule
+% R1 & \mref{mHH}, \mref{mInput}, \mref{mParams}, \mref{mControl}\\
+% R2 & \mref{mInput}, \mref{mParams}\\
+% R3 & \mref{mVerify}\\
+% R4 & \mref{mOutput}, \mref{mControl}\\
+% R5 & \mref{mOutput}, \mref{mODEs}, \mref{mControl}, \mref{mSeqDS}, \mref{mSolver}, \mref{mPlot}\\
+% R6 & \mref{mOutput}, \mref{mODEs}, \mref{mControl}, \mref{mSeqDS}, \mref{mSolver}, \mref{mPlot}\\
+% R7 & \mref{mOutput}, \mref{mEnergy}, \mref{mControl}, \mref{mSeqDS}, \mref{mPlot}\\
+% R8 & \mref{mOutput}, \mref{mEnergy}, \mref{mControl}, \mref{mSeqDS}, \mref{mPlot}\\
+% R9 & \mref{mVerifyOut}\\
+% R10 & \mref{mOutput}, \mref{mODEs}, \mref{mControl}\\
+% R11 & \mref{mOutput}, \mref{mODEs}, \mref{mEnergy}, \mref{mControl}\\
+% \bottomrule
+% \end{tabular}
+% \caption{Trace Between Requirements and Modules}
+% \label{TblRT}
+% \end{table}
+
+\renewcommand{\arraystretch}{1.2}
+\setlength{\tabcolsep}{6pt}
+
+\begin{longtable}{p{0.20\textwidth} p{0.60\textwidth}}
 \toprule
-\textbf{Req.} & \textbf{Modules}\\
+\textbf{Functional Req.} & \textbf{Module(s)}\\
 \midrule
-R1 & \mref{mHH}, \mref{mInput}, \mref{mParams}, \mref{mControl}\\
-R2 & \mref{mInput}, \mref{mParams}\\
-R3 & \mref{mVerify}\\
-R4 & \mref{mOutput}, \mref{mControl}\\
-R5 & \mref{mOutput}, \mref{mODEs}, \mref{mControl}, \mref{mSeqDS}, \mref{mSolver}, \mref{mPlot}\\
-R6 & \mref{mOutput}, \mref{mODEs}, \mref{mControl}, \mref{mSeqDS}, \mref{mSolver}, \mref{mPlot}\\
-R7 & \mref{mOutput}, \mref{mEnergy}, \mref{mControl}, \mref{mSeqDS}, \mref{mPlot}\\
-R8 & \mref{mOutput}, \mref{mEnergy}, \mref{mControl}, \mref{mSeqDS}, \mref{mPlot}\\
-R9 & \mref{mVerifyOut}\\
-R10 & \mref{mOutput}, \mref{mODEs}, \mref{mControl}\\
-R11 & \mref{mOutput}, \mref{mODEs}, \mref{mEnergy}, \mref{mControl}\\
+\endfirsthead
+\toprule
+\textbf{Functional Req.} & \textbf{Module(s)}\\
+\midrule
+\endhead
+\midrule
+\multicolumn{2}{r}{\textit{Continued on next page}}\\
+\endfoot
 \bottomrule
-\end{tabular}
-\caption{Trace Between Requirements and Modules}
-\label{TblRT}
-\end{table}
+\caption{Trace Between Functional Requirements and Modules}
+\label{TblRT}\\
+\endlastfoot
+FR-CTM-1 & \mref{mCTMAccount}, \mref{mDatabase}, \mref{mSecurity}\\
+FR-CTM-2 & \mref{mCTMAccount}\\
+FR-CTM-3 & \mref{mCTMAccount}, \mref{mDatabase}, \mref{mExtComm}\\
+FR-CTM-4 & \mref{mCTMAccount}, \mref{mDatabase}, \mref{mSecurity}\\
+FR-CTM-5 & \mref{mCTMAccount}, \mref{mLearnerProfile}, \mref{mTemplate}, \mref{mDatabase}\\
+FR-CTM-6 & \mref{mCTMAccount}, \mref{mDatabase}\\
+FR-LRN-1 & \mref{mLearnerProfile}, \mref{mCareTeam}, \mref{mDatabase}\\
+FR-LRN-2 & \mref{mLearnerProfile}, \mref{mCareTeam}, \mref{mDatabase}\\
+FR-LRN-3 & \mref{mLearnerProfile}, \mref{mDatabase}\\
+FR-LRN-4 & \mref{mLearnerProfile}, \mref{mDatabase}, \mref{mSecurity}\\
+FR-LRN-5 & \mref{mLearnerProfile}, \mref{mDatabase}, \mref{mFileIO}\\
+FR-LRN-6 & \mref{mLearnerProfile}, \mref{mDatabase}\\
+FR-LRN-7 & \mref{mLearnerProfile}, \mref{mDatabase}\\
+FR-LRN-8 & \mref{mLearnerProfile}, \mref{mDatabase}, \mref{mSecurity}\\
+FR-DEV-1 & \mref{mDevicePairing}, \mref{mDatabase}\\
+FR-DEV-2 & \mref{mDevicePairing}\\
+FR-DEV-3 & \mref{mDevicePairing}, \mref{mSecurity}\\
+FR-DEV-4 & \mref{mDevicePairing}, \mref{mSecurity}\\
+FR-DEV-5 & \mref{mDevicePairing}, \mref{mSecurity}\\
+FR-TEAM-1 & \mref{mCareTeam}, \mref{mDatabase}, \mref{mExtComm}\\
+FR-TEAM-2 & \mref{mCareTeam}, \mref{mExtComm}\\
+FR-TEAM-3 & \mref{mCareTeam}, \mref{mExtComm}\\
+FR-TEAM-4 & \mref{mCareTeam}, \mref{mDatabase}\\
+FR-TEAM-5 & \mref{mCareTeam}, \mref{mDatabase}\\
+FR-TEAM-6 & \mref{mLearnerProfile}, \mref{mCareTeam}, \mref{mDatabase}, \mref{mSecurity}\\
+FR-TEAM-7 & \mref{mCareTeam}, \mref{mSecurity}\\
+FR-PERS-1 & \mref{mCareTeam}, \mref{mGamePersonalization}, \mref{mGameSuite}, \mref{mDatabase}\\
+FR-PERS-2 & \mref{mGamePersonalization}, \mref{mDatabase}\\
+FR-PERS-3 & \mref{mGamePersonalization}, \mref{mDatabase}\\
+FR-PERS-4 & \mref{mGamePersonalization}, \mref{mTemplate}, \mref{mGameSession}, \mref{mDatabase}\\
+FR-TMPL-1 & \mref{mTemplate}, \mref{mDatabase}\\
+FR-TMPL-2 & \mref{mCareTeam}, \mref{mTemplate}, \mref{mDatabase}, \mref{mFileIO}\\
+FR-TMPL-3 & \mref{mTemplate}, \mref{mDatabase}\\
+FR-TMPL-4 & \mref{mTemplate}, \mref{mDatabase}\\
+FR-TMPL-5 & \mref{mTemplate}, \mref{mDatabase}\\
+FR-TMPL-6 & \mref{mLearnerProfile}, \mref{mGamePersonalization}, \mref{mTemplate}, \mref{mDatabase}\\
+FR-TMPL-7 & \mref{mGamePersonalization}, \mref{mTemplate}, \mref{mDatabase}\\
+FR-TMPL-8 & \mref{mLearnerProfile}, \mref{mGamePersonalization}, \mref{mTemplate}, \mref{mDatabase}\\
+FR-TMPL-9 & \mref{mTemplate}, \mref{mDatabase}\\
+FR-PLAY-1 & \mref{mGameSuite}, \mref{mGameSession}\\
+FR-PLAY-2 & \mref{mHH}, \mref{mGameSession}\\
+FR-PLAY-3 & \mref{mGameSession}\\
+FR-PLAY-4 & \mref{mCareTeam}, \mref{mGamePersonalization}, \mref{mGameSession}\\
+FR-PLAY-5 & \mref{mHH}, \mref{mGameSession}\\
+FR-PLAY-6 & \mref{mHH}, \mref{mGameSession}\\
+FR-PLAY-7 & \mref{mHH}, \mref{mGameSession}\\
+FR-PLAY-8 & \mref{mHH}, \mref{mGameSession}\\
+FR-PLAY-9 & \mref{mGameSession}\\
+FR-PLAY-10 & \mref{mGameSuite}, \mref{mGameSession}\\
+FR-RWD-1 & \mref{mGameSession}, \mref{mRewards}, \mref{mDatabase}\\
+FR-RWD-2 & \mref{mRewards}, \mref{mDatabase}\\
+FR-RWD-3 & \mref{mRewards}\\
+FR-RWD-4 & \mref{mRewards}, \mref{mDatabase}\\
+FR-RWD-5 & \mref{mRewards}, \mref{mDatabase}\\
+FR-RWD-6 & \mref{mRewards}\\
+FR-RWD-7 & \mref{mRewards}\\
+FR-DATA-1 & \mref{mLearnerProfile}, \mref{mCareTeam}, \mref{mDashboard}, \mref{mDatabase}\\
+FR-DATA-2 & \mref{mLearnerProfile}, \mref{mDashboard}, \mref{mDatabase}\\
+FR-DATA-3 & \mref{mLearnerProfile}, \mref{mDashboard}, \mref{mDatabase}\\
+FR-DATA-4 & \mref{mLearnerProfile}, \mref{mDashboard}, \mref{mDatabase}\\
+FR-DATA-5 & \mref{mDashboard}, \mref{mCharting}\\
+FR-DATA-6 & \mref{mCareTeam}, \mref{mDashboard}, \mref{mDatabase}, \mref{mFileIO}\\
+FR-DATA-7 & \mref{mGameSession}, \mref{mDatabase}\\
+FR-DATA-8 & \mref{mGameSession}, \mref{mDatabase}\\
+FR-DATA-9 & \mref{mDatabase}, \mref{mSecurity}\\
+\bottomrule
+\end{longtable}
 
+\begin{longtable}{p{0.20\textwidth} p{0.60\textwidth}}
+\toprule
+\textbf{Non-Functional Req.} & \textbf{Module(s)}\\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Non-Functional Req.} & \textbf{Module(s)}\\
+\midrule
+\endhead
+\midrule
+\multicolumn{2}{r}{\textit{Continued on next page}}\\
+\endfoot
+\bottomrule
+\caption{Trace Between Non-Functional Requirements and Modules}
+\label{TblNFR}\\
+\endlastfoot
+NFR-USE-1 & \mref{mCTMAccount}, \mref{mDevicePairing}, \mref{mCareTeam}, \mref{mExtComm}\\
+NFR-USE-2 & \mref{mLearnerProfile}, \mref{mGamePersonalization}, \mref{mGameSuite}, \mref{mGameSession}, \mref{mDashboard}\\
+NFR-USE-3 & \mref{mCTMAccount}, \mref{mLearnerProfile}, \mref{mDevicePairing}, \mref{mCareTeam}, \mref{mGamePersonalization}, \mref{mTemplate}, \mref{mGameSuite}, \mref{mGameSession}, \mref{mDashboard}\\
+NFR-USE-4 & \mref{mGamePersonalization}, \mref{mGameSuite}, \mref{mGameSession}, \mref{mRewards}\\
+NFR-USE-5 & \mref{mGameSuite}, \mref{mGameSession}\\
+NFR-EFF-1 & \mref{mDashboard}, \mref{mCharting}\\
+NFR-ACCU-1 & \mref{mGameSession}, \mref{mDashboard}, \mref{mDatabase}, \mref{mCharting}\\
+NFR-ACCU-2 & \mref{mGameSession}\\
+NFR-PORT-1 & \mref{mHH}, \mref{mDevicePairing}, \mref{mFileIO}\\
+NFR-PORT-2 & \mref{mHH}, \mref{mDevicePairing}, \mref{mFileIO}\\
+NFR-PORT-3 & \mref{mHH}, \mref{mDevicePairing}, \mref{mFileIO}\\
+NFR-ACCESS-1 & \mref{mCTMAccount}, \mref{mLearnerProfile}, \mref{mDevicePairing}, \mref{mCareTeam}, \mref{mGamePersonalization}, \mref{mTemplate}, \mref{mGameSuite}, \mref{mGameSession}, \mref{mRewards}, \mref{mDashboard}, \mref{mExtComm}\\
+NFR-ACCESS-2 & \mref{mCTMAccount}, \mref{mLearnerProfile}, \mref{mDevicePairing}, \mref{mCareTeam}, \mref{mGamePersonalization}, \mref{mTemplate}, \mref{mGameSuite}, \mref{mGameSession}, \mref{mRewards}, \mref{mDashboard}, \mref{mExtComm}\\
+NFR-ACCESS-3 & \mref{mHH}, \mref{mGamePersonalization}, \mref{mGameSession}\\
+NFR-ACCESS-4 & \mref{mHH}, \mref{mGameSession}\\
+NFR-SEC-1 & \mref{mCTMAccount}, \mref{mDatabase}, \mref{mSecurity}\\
+NFR-SEC-2 & \mref{mLearnerProfile}, \mref{mCareTeam}, \mref{mGamePersonalization}, \mref{mDatabase}, \mref{mSecurity}\\
+NFR-SEC-3 & \mref{mGameSession}, \mref{mDashboard}, \mref{mDatabase}, \mref{mSecurity}\\
+NFR-RELY-1 & \mref{mGameSession}\\
+NFR-PERF-1 & \mref{mCTMAccount}, \mref{mDashboard}, \mref{mDatabase}, \mref{mSecurity}\\
+NFR-PERF-2 & \mref{mGameSession}\\
+NFR-MAINT-1 & \mref{mCTMAccount}, \mref{mLearnerProfile}, \mref{mDevicePairing}, \mref{mCareTeam}, \mref{mGamePersonalization}, \mref{mTemplate}, \mref{mGameSuite}, \mref{mGameSession}, \mref{mRewards}, \mref{mDashboard}, \mref{mDatabase}, \mref{mSecurity}, \mref{mFileIO}, \mref{mExtComm}, \mref{mCharting}\\
+\bottomrule
+\end{longtable}
+
+\begin{longtable}{p{0.20\textwidth} p{0.60\textwidth}}
+\toprule
+\textbf{Safety Req.} & \textbf{Module(s)}\\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Safety Req.} & \textbf{Module(s)}\\
+\midrule
+\endhead
+\midrule
+\multicolumn{2}{r}{\textit{Continued on next page}}\\
+\endfoot
+\bottomrule
+\caption{Trace Between Safety Requirements and Modules}
+\label{TblSafety}\\
+\endlastfoot
+SR-1 & \mref{mCTMAccount}, \mref{mSecurity}\\
+SR-2 & \mref{mCTMAccount}, \mref{mSecurity}\\
+SR-3 & \mref{mCTMAccount}, \mref{mLearnerProfile}, \mref{mCareTeam}, \mref{mSecurity}\\
+SR-4 & \mref{mHH}, \mref{mGamePersonalization}, \mref{mGameSession}\\
+SR-5 & \mref{mHH}, \mref{mGameSession}\\
+SR-6 & \mref{mHH}, \mref{mGameSession}\\
+SR-7 & \mref{mHH}, \mref{mGameSuite}, \mref{mGameSession}\\
+SR-8 & \mref{mGameSession}, \mref{mDashboard}, \mref{mDatabase}, \mref{mCharting}\\
+SR-9 & \mref{mDevicePairing}, \mref{mGamePersonalization}, \mref{mGameSuite}, \mref{mGameSession}, \mref{mDatabase}\\
+SR-10 & \mref{mHH}, \mref{mGameSession}\\
+SR-11 & \mref{mHH}, \mref{mGameSession}\\
+SR-12 & \mref{mGamePersonalization}, \mref{mRewards}, \mref{mDatabase}\\
+SR-13 & \mref{mGamePersonalization}, \mref{mTemplate}, \mref{mRewards}, \mref{mDatabase}\\
+SR-14 & \mref{mLearnerProfile}, \mref{mGamePersonalization}, \mref{mTemplate}\\
+SR-15 & \mref{mSecurity}, \mref{mFileIO}\\
+SR-16 & \mref{mDashboard}, \mref{mDatabase}, \mref{mFileIO}, \mref{mCharting}\\
+SR-17 & \mref{mDatabase}\\
+SR-18 & \mref{mCTMAccount}, \mref{mLearnerProfile}, \mref{mDatabase}\\
+\bottomrule
+\end{longtable}
+\renewcommand{\arraystretch}{1.0}
 \begin{table}[H]
 \centering
 \begin{tabular}{p{0.2\textwidth} p{0.6\textwidth}}
 \toprule
-\textbf{AC} & \textbf{Modules}\\
+\textbf{AC} & \textbf{Module(s)}\\
 \midrule
 \acref{acHardware} & \mref{mHH}\\
-\acref{acInput} & \mref{mInput}\\
-\acref{acParams} & \mref{mParams}\\
-\acref{acVerify} & \mref{mVerify}\\
-\acref{acOutput} & \mref{mOutput}\\
-\acref{acVerifyOut} & \mref{mVerifyOut}\\
-\acref{acODEs} & \mref{mODEs}\\
-\acref{acEnergy} & \mref{mEnergy}\\
-\acref{acControl} & \mref{mControl}\\
-\acref{acSeqDS} & \mref{mSeqDS}\\
-\acref{acSolver} & \mref{mSolver}\\
-\acref{acPlot} & \mref{mPlot}\\
+\acref{acGameImplementation} & \mref{mGameSession}\\
+\acref{acAdditionalGames} & \mref{mGameSession}, \mref{mGameSuite}\\
+\acref{acCustomization} & \mref{mGamePersonalization}\\
+\acref{acTemplateOrganization} & \mref{mTemplate}\\
+\acref{acUserInterface} & \mref{mCTMAccount}, \mref{mLearnerProfile}, \mref{mCareTeam}, \mref{mGamePersonalization}, \mref{mTemplate}, \mref{mGameSuite}, \mref{mGameSession}, \mref{mDashboard}, \mref{mCharting}\\
+\acref{acDataStorage} & \mref{mDatabase}\\
+\acref{acPerformanceReporting} & \mref{mDashboard}\\
+\acref{acRewards} & \mref{mRewards}\\
+\acref{acDataExchange} & \mref{mDatabase}\\
+\acref{acExportFormat} & \mref{mFileIO}\\
+\acref{acAccountWorkflow} & \mref{mCTMAccount}\\
+\acref{acAuthentication} & \mref{mSecurity}\\
+\acref{acDevicePairing} & \mref{mDevicePairing}\\
+\acref{acAccessControl} & \mref{mCareTeam}\\
+\acref{acExternalCommunication} & \mref{mExtComm}\\
 \bottomrule
 \end{tabular}
 \caption{Trace Between Anticipated Changes and Modules}
@@ -374,18 +1004,18 @@ the modules. It can be seen that the graph is a directed acyclic graph
 system, and modules in the higher level of the hierarchy are essentially simpler
 because they use modules from the lower levels.
 
-\wss{The uses relation is not a data flow diagram.  In the code there will often
-be an import statement in module A when it directly uses module B.  Module B
-provides the services that module A needs.  The code for module A needs to be
-able to see these services (hence the import statement).  Since the uses
-relation is transitive, there is a use relation without an import, but the
-arrows in the diagram typically correspond to the presence of import statement.}
+% \wss{The uses relation is not a data flow diagram.  In the code there will often
+% be an import statement in module A when it directly uses module B.  Module B
+% provides the services that module A needs.  The code for module A needs to be
+% able to see these services (hence the import statement).  Since the uses
+% relation is transitive, there is a use relation without an import, but the
+% arrows in the diagram typically correspond to the presence of import statement.}
 
-\wss{If module A uses module B, the arrow is directed from A to B.}
+% \wss{If module A uses module B, the arrow is directed from A to B.}
 
 \begin{figure}[H]
 \centering
-%\includegraphics[width=0.7\textwidth]{UsesHierarchy.png}
+\includegraphics[width=0.7\textwidth]{MG-Modules.png}
 \caption{Use hierarchy among modules}
 \label{FigUH}
 \end{figure}
@@ -393,60 +1023,171 @@ arrows in the diagram typically correspond to the presence of import statement.}
 %\section*{References}
 
 \section{User Interfaces}
+\label{sec:user-interfaces}
 
-\wss{Design of user interface for software and hardware.  Attach an appendix if
-needed. Drawings, Sketches, Figma}
+\subsection{Learner Home Screen}
+
+Figure~\ref{fig:learner-home} shows the Godot prototype of the Learner
+home screen. \textbf{Play} opens the Game Suite. The intended paired-device
+flow limits the suite to authorized Games and waits for a ready cue before
+the selected Game starts (UC1, FR-PLAY-1 and FR-PLAY-2). In the prototype,
+\textbf{Settings} explains that a Care Team Member (CTM) manages Game settings,
+and \textbf{Progress} opens a placeholder for a future summary of completed
+activities. Detailed session history and exports are available through the
+CTM Dashboard in the proposed design.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.9\linewidth]{SpectropicaHomePrototype.png}
+    \caption{Learner home screen prototype running in Godot.}
+    \label{fig:learner-home}
+\end{figure}
+
+\subsection{Care Team Member Dashboard}
+
+In the proposed Dashboard, the selected Learner stays visible while an
+authorized CTM reviews
+session history (UC3), personalizes a Game (UC4), or works with Templates
+(UC5). Session history identifies the Game, settings used, and session
+outcome. Export uses the current Game and date filters.
+
+\subsection{Cashier Game Prototype}
+
+Figure~\ref{fig:cashier-prototype} shows the cashier counter in the early
+Godot prototype. The register has a numeric keypad, an amount display,
+and a \textbf{Cash} button.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\linewidth]{CashierPrototype.png}
+    \caption{Early cashier game prototype in the Godot editor.}
+    \label{fig:cashier-prototype}
+\end{figure}
 
 \section{Design of Communication Protocols}
 
-\wss{If there is communication between hardware and software, it may be necessary 
-to explain the design of the communication protocol.  This section should be filled 
-in with NA if it is not appropriate for a given project.}
+N/A
 
 \section{Database Design}
 
-\wss{If a database is a significant component of the project, the database
-design should be summarized here.  This section should be filled in with NA if
-it is not appropriate for a given project.}
+The Database module stores CTM accounts, Learner profiles, care team
+memberships, device associations, Game configurations, Templates, Game
+Sessions, and reward records. Care team memberships link CTMs to Learners and
+record their permissions. Game configurations link a Learner to a Game and
+record authorization, settings, and any assigned Template. A Game Session
+records the Learner, Game, settings used, outcome, and performance results.
+These relationships follow the data model in the IEEE SRS.
+
+Domain modules access persistence through the Database module. Unsynchronized
+session records remain on the paired device until the server confirms the
+write. The session identifier prevents duplicate records when a write is
+retried. The Dashboard uses the recorded session settings and outcome to
+present results in context. Backup, retention, and deletion responsibilities
+are described in Section~\ref{SecConnection}.
 
 \section{Timeline}
+\label{sec:timeline}
 
-\wss{Schedule of tasks and who is responsible}
+Table~\ref{tab:module-timeline} gives proposed internal targets for Rev~0.
+Each team member owns three modules and their verification. Marko and Maya
+jointly check touch and mouse input and supported display sizes through
+Godot's hardware abstraction. The verification column identifies the
+module checks needed for Rev~0. The integration and usability activities
+follow the system tests and validation procedures in the V\&V Plan.
 
-\wss{You can point to GitHub if this information is included there}
+\begin{longtable}{@{}p{0.15\textwidth}p{0.16\textwidth}p{0.30\textwidth}p{0.31\textwidth}@{}}
+\caption{Proposed Rev~0 implementation and verification timeline.}
+\label{tab:module-timeline}\\
+\toprule
+Target date & Owner & Module task & Verification \\
+\midrule
+\endfirsthead
+\toprule
+Target date & Owner & Module task & Verification \\
+\midrule
+\endhead
+\bottomrule
+\endfoot
+8 Jan. 2027 & Omar Ghoneim & \textbf{CTM Account}. Implement account sign-in and session handling. & Check sign-in and session expiry. \\
+8 Jan. 2027 & Omar Ghoneim & \textbf{Database}. Persist records and queue unsynced sessions. & Retry a failed session write and check for duplicates. \\
+8 Jan. 2027 & Omar Ghoneim & \textbf{Security}. Enforce access checks. & Verify that an unauthorized CTM cannot read a Learner record. \\
+\addlinespace
+15 Jan. 2027 & Amirah Abdelrahman & \textbf{Learner Profile}. Implement profile management and ownership transfer. & Transfer a profile and verify it has one Primary CTM. \\
+15 Jan. 2027 & Amirah Abdelrahman & \textbf{Care Team}. Implement invitations and permission changes. & Verify that a removed CTM loses access. \\
+15 Jan. 2027 & Amirah Abdelrahman & \textbf{Device Pairing}. Link and unlink Learner devices. & Reject expired and reused pairing codes. \\
+\addlinespace
+22 Jan. 2027 & Marko Popovic & \textbf{Game Suite}. List authorized Games on the Learner device. & Check that an unauthorized Game cannot launch. \\
+22 Jan. 2027 & Marko Popovic & \textbf{Game Session}. Integrate the cashier activity and record outcomes. & Verify the ready cue, pause and exit controls, and interrupted sessions. \\
+22 Jan. 2027 & Marko Popovic & \textbf{Rewards and Cosmetics}. Award rewards and apply cosmetic restrictions. & Check reward eligibility and verify that hidden items cannot be equipped. \\
+\addlinespace
+22 Jan. 2027 & Meena Al Omran & \textbf{Game Personalization}. Save per-Learner settings. & Confirm that the Game loads the saved settings. \\
+22 Jan. 2027 & Meena Al Omran & \textbf{Template}. Implement preview and assignment. & Confirm the preview and affected Learner before assignment. \\
+22 Jan. 2027 & Meena Al Omran & \textbf{Dashboard}. Display session history and performance summaries. & Check that averages exclude incomplete sessions. \\
+\addlinespace
+29 Jan. 2027 & Maya Azar & \textbf{File Import/Export}. Validate template imports and format data exports. & Reject an invalid import and reconcile export counts. \\
+29 Jan. 2027 & Maya Azar & \textbf{External Communication}. Handle external service requests and failures. & Verify that a service failure produces the expected error. \\
+29 Jan. 2027 & Maya Azar & \textbf{Charting}. Render Game performance summaries. & Compare plotted values with the Dashboard records. \\
+\addlinespace
+12 Feb. 2027 & All owners &
+Integrate CTM setup, device pairing, cashier gameplay, and results. &
+Run the workflow across devices. Confirm that queued results synchronize
+once after reconnecting and that only authorized CTMs can view them. \\
+\addlinespace
+5 Mar. 2027 & All owners &
+Review Rev~0 readiness after CTM usability sessions and Learner-facing
+proxy playtesting. &
+Record findings, fix issues that block the demonstrated workflows, and
+rerun the affected tests. Capture results and limitations for the V\&V Report. \\
+\end{longtable}
 
 \section{Generative AI Use Disclosure}
 
-\wss{ChatGPT (version 5) was used to brainstorm ideas for the template for this disclose section.}
+This section records where the team used generative AI in preparing and
+reviewing the Module Guide and how the team verified the resulting changes.
 
 \subsection{AI Tools Used}
 
-\wss{Give the name of the AI tool(s) used and the version.}
+The team used ChatGPT (OpenAI GPT-6 Instant) and GPT-6 Luna in Visual Studio
+Code.
 
 \subsection{How and Where Used}
 
-\wss{Explain what the tool(s) were used for.  Examples include: brainstorming,
-explaining a technical concept, reviewing the document, generating or modifying
-text, generating or modifying diagrams, identifying errors or omissions or
-inconsistencies.}
+The team used AI to format \LaTeX{}, organize and check references, and review
+grammar, spelling, and clarity throughout the guide.
 
-\wss{For each of the uses, identify which parts of the document were affected.}
+The team used GPT-6 Luna in Visual Studio Code to format the traceability
+matrices in Section~\ref{SecTM} and add hyperlinks and cross-references to the
+corresponding modules. The team used ChatGPT to review
+Sections~\ref{SecChange} and~\ref{SecConnection} for consistency with the
+module architecture.
 
-\wss{You do not need to report every interaction, but you should disclose the 
-uses that materially contributed to your work}
+The team also used ChatGPT to draft and prototype the Learner home screen
+and integrate the home screen and cashier prototype screenshots in
+Section~\ref{sec:user-interfaces}. ChatGPT drafted the proposed module
+assignments, target dates, and verification activities in
+Section~\ref{sec:timeline} using the team's module breakdown and V\&V Plan.
 
 \subsection{Verification of AI-Generated Content}
 
-\wss{\begin{itemize}
-    \item Describe how the team checked AI-generated or AI-assisted material
-    before including it in the document.
-    \item In particular, verify factual claims, technical assertions,
-    requirements, calculations, references, and other information for which an
-    AI system may produce incorrect or fabricated results.
-    \item \textbf{The team is responsible for the accuracy, completeness,
-consistency, and appropriateness of the submitted document, regardless of
-whether material was generated by a human or an AI system.}
-\end{itemize}}
+The team checked AI-assisted changes against the Software Requirements
+Specification (SRS), the Module Interface Specification (MIS), and the
+project's module definitions to verify that the technical content and design
+decisions remained consistent.
+
+For Section~\ref{SecTM}, the team inspected the \LaTeX{} source and the
+compiled PDF to verify the formatting and cross-references. The team tested
+each hyperlink to confirm that it led to the intended module or section.
+
+ChatGPT used the design rubric to review the introduction, change
+assumptions, hierarchy, interfaces, and timeline. The CTM Dashboard description
+was checked against SRS use cases UC3--UC5. The timeline was checked
+against the module list and the V\&V Plan's system and usability tests.
+The guide was compiled to check the figure, table, and section references.
+The proposed timeline is subject to team confirmation.
+
+The team reviewed grammar and spelling suggestions to verify that they
+preserved the intended technical meaning. The team is responsible for the
+accuracy, completeness, consistency, and appropriateness of the final guide.
 
 \newpage{}
 
