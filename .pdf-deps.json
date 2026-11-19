@@ -1,4 +1,10 @@
 {
+  "docs/CDs/Interviews/InterviewReport.tex": [
+    "docs/CDs/Interviews/InterviewReport.tex",
+    "docs/CDs/Interviews/P1-Email-Exchange.pdf",
+    "docs/CDs/Interviews/P2-Educational-Assistant-Transcript.pdf",
+    "docs/Common.text"
+  ],
   "docs/CDs/MLReport/main.tex": [
     "docs/CDs/MLReport/acl.sty",
     "docs/CDs/MLReport/custom.bib",
@@ -50,14 +56,16 @@
   "docs/Design/SoftArchitecture/MG.tex": [
     "docs/Comments.text",
     "docs/Common.text",
+    "docs/Design/SoftArchitecture/CashierPrototype.png",
+    "docs/Design/SoftArchitecture/MG-Modules.png",
     "docs/Design/SoftArchitecture/MG.tex",
+    "docs/Design/SoftArchitecture/SpectropicaHomePrototype.png",
     "refs/References.bib"
   ],
   "docs/Design/SoftDetailedDes/MIS.tex": [
     "docs/Comments.text",
     "docs/Common.text",
     "docs/Design/SoftDetailedDes/MIS.tex",
-    "docs/Reflection.text",
     "docs/SRS/SRS.tex",
     "refs/References.bib"
   ],
