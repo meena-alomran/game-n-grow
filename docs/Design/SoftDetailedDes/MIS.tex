@@ -31,6 +31,8 @@ urlcolor=cyan          % color of external links
 
 \usepackage{array}
 
+\newcommand{\Mref}[1]{Section~\ref{#1}}
+
 \externaldocument{../../SRS/SRS}
 
 \input{../../Comments.text}
@@ -61,10 +63,26 @@ Nov 17th 2026 & 1.0 & All members contributed\\
 
 \section{Symbols, Abbreviations and Acronyms}
 
-See SRS Documentation at \wss{give url}
+See SRS Documentation at \url{https://github.com/meena-alomran/game-n-grow/blob/main/pdfs/SRS-IEEE/SRS.pdf}.\\
+See MG Documentation at \url{https://github.com/meena-alomran/game-n-grow/blob/main/pdfs/Design/SoftArchitecture/MG.pdf}.\\
 
-\wss{Also add any additional symbols, abbreviations or acronyms}
-
+%\wss{Also add any additional symbols, abbreviations or acronyms}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabularx}{\textwidth}{p{3cm} X}
+  \toprule		
+  \textbf{symbol} & \textbf{description}\\
+  \midrule 
+  M & Module \\
+  MG & Module Guide \\
+  SRS & Software Requirements Specification\\
+  \progname & A gamified learning experience for children with autism; the software this documentation is concerned with\\
+  FR & Functional Requirement defined in SRS (section 6)\\
+  SR & Safety Requirement defined in SRS (section 6)\\
+  NFR & Nonfunctional Requirement defined in SRS (section 8)\\
+  Learner & Primary player of the games that the care team is aiming to develop the skills and track the progress of.\\
+  CTM & Care Team Member. A caregiver, parent, educator or any other figure that is responsible for the learning path of a learner.\\
+  \bottomrule
+\end{tabularx}\\
 \newpage
 
 \tableofcontents
@@ -94,10 +112,10 @@ implementation details. These specifications support implementation,
 integration, testing, and maintenance.
 
 This document complements the
-\href{https://github.com/meena-alomran/game-n-grow/blob/main/docs/SRS-IEEE/SRS.tex}
+\href{https://github.com/meena-alomran/game-n-grow/blob/main/pdfs/SRS-IEEE/SRS.pdf}
   {Software Requirements Specification (SRS)}, which defines the system's
 requirements, and the
-\href{https://github.com/meena-alomran/game-n-grow/blob/main/docs/Design/SoftArchitecture/MG.tex}
+\href{https://github.com/meena-alomran/game-n-grow/blob/main/pdfs/Design/SoftArchitecture/MG.pdf}
   {Module Guide (MG)}, which describes the modular architecture and its
 design rationale. Module names, identifiers, responsibilities, and
 dependencies must remain consistent between the MG and MIS.
@@ -107,9 +125,6 @@ The complete project documentation and implementation are maintained at
 
 \section{Notation}
 
-\wss{You should describe your notation.  You can use what is below as
-  a starting point.}
-
 The structure of the MIS for modules comes from \citet{HoffmanAndStrooper1995},
 with the addition that template modules have been adapted from
 \cite{GhezziEtAl2003}.  The mathematical notation comes from Chapter 3 of
@@ -117,7 +132,7 @@ with the addition that template modules have been adapted from
 multiple assignment statement and conditional rules follow the form $(c_1
 \Rightarrow r_1 | c_2 \Rightarrow r_2 | ... | c_n \Rightarrow r_n )$.
 
-The following table summarizes the primitive data types used by \progname. 
+The following table summarizes the primitive data types used by \progname.
 
 \begin{center}
 \renewcommand{\arraystretch}{1.2}
@@ -126,14 +141,11 @@ The following table summarizes the primitive data types used by \progname.
 \textbf{Type} & \textbf{Description} \\
 \hline
 boolean ($\mathbb{B}$) & true or false \\
+natural ($\mathbb{N}$) & a non-negative integer \\
+real ($\mathbb{R}$) & a real number \\
+string & a sequence of characters \\
+UUID & a unique identifier \\
 DateTime & a date and time of day \\
-ctmIdT, learnerIdT, gameIdT, templateIdT, deviceIdT, itemIdT, sessionIdT & unique identifiers (UUIDs) for the matching entity in SRS Section 7.2 \\
-ctmT, learnerT, deviceT, membershipT, gameT, sessionT, configT, templateT, itemT, inventoryT, accessCodeT & a record of the matching entity in the SRS Data Dictionary (SRS Section 7.2) \\
-settingsT & a tuple of personalized game settings (stimulation level, reward, prompt level, volume levels, celebration intensity, colour palette, guide allowed, play again allowed) \\
-contentT & the game content that a template can add, change or remove \\
-difficultyT & a difficulty level of a game \\
-permissionT & \{viewData, personalize, assignTemplates, hideItems, abortGame\} \\
-fileT & a sequence of characters written to or read from a file \\
 \hline
 \end{tabular}
 \end{center}
@@ -145,6 +157,26 @@ are sequences of characters. Tuples contain a list of values, potentially of
 different types. In addition, \progname \ uses functions, which
 are defined by the data types of their inputs and outputs. Local functions are
 described by giving their type signature followed by their specification.
+
+The following named types are project-specific types derived from the primitive
+types and SRS entities:
+
+\begin{center}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{p{4cm} p{9cm}}
+\hline
+\textbf{Type} & \textbf{Description} \\
+\hline
+ctmIdT, learnerIdT, gameIdT, templateIdT, deviceIdT, itemIdT, sessionIdT & unique identifiers (UUIDs) for the matching entity in the SRS Data Dictionary (SRS Section 7.2) \\
+ctmT, learnerT, deviceT, membershipT, gameT, sessionT, configT, templateT, itemT, inventoryT, accessCodeT & a record of the matching entity in the SRS Data Dictionary (SRS Section 7.2) \\
+settingsT & a tuple of personalized game settings (stimulation level, reward, prompt level, volume levels, celebration intensity, colour palette, guide allowed, play again allowed) \\
+contentT & the game content that a template can add, change or remove \\
+difficultyT & a difficulty level of a game \\
+permissionT & \{viewData, personalize, assignTemplates, hideItems, abortGame\} \\
+fileT & alias for string; text contents written to or read from a file \\
+\hline
+\end{tabular}
+\end{center}
 
 \section{Module Decomposition}
 \label{SecModuleDecomposition}
@@ -190,14 +222,18 @@ The following table is taken directly from the Module Guide document for this pr
 \newpage
 ~\newpage
 
+% =====================================================================
+\section{MIS of CTM Account Module} \label{mis:CTMAccount}
+% =====================================================================
+
 \subsection{Module}
 
 CTMAccount
 
 \subsection{Uses}
 
-Template (Section~\ref{mis:Template}), Dashboard (Section~\ref{mis:Dashboard}),
-Security (Section~\ref{mis:Security}), Database (Section~\ref{mis:Database})
+Template (\Mref{mis:Template}), Dashboard (\Mref{mis:Dashboard}),
+Security (\Mref{mis:Security}), Database (\Mref{mis:Database})
 
 \subsection{Syntax}
 
@@ -273,9 +309,9 @@ LearnerProfile
 
 \subsection{Uses}
 
-Device Pairing (Section~\ref{mis:DevicePairing}), Dashboard
-(Section~\ref{mis:Dashboard}), Game Personalization
-(Section~\ref{mis:GamePersonalization}), Database (Section~\ref{mis:Database})
+Device Pairing (\Mref{mis:DevicePairing}), Dashboard
+(\Mref{mis:Dashboard}), Game Personalization
+(\Mref{mis:GamePersonalization}), Database (\Mref{mis:Database})
 
 \subsection{Syntax}
 
@@ -346,7 +382,7 @@ DevicePairing
 
 \subsection{Uses}
 
-Database (Section~\ref{mis:Database})
+Database (\Mref{mis:Database})
 
 \subsection{Syntax}
 
@@ -419,8 +455,8 @@ CareTeam
 
 \subsection{Uses}
 
-Security (Section~\ref{mis:Security}), External Communication
-(Section~\ref{mis:ExtComm}), Database (Section~\ref{mis:Database})
+Security (\Mref{mis:Security}), External Communication
+(\Mref{mis:ExtComm}), Database (\Mref{mis:Database})
 
 \subsection{Syntax}
 
@@ -510,7 +546,7 @@ GamePersonalization
 
 \subsection{Uses}
 
-Database (Section~\ref{mis:Database})
+Database (\Mref{mis:Database})
 
 \subsection{Syntax}
 
@@ -588,8 +624,8 @@ Template
 
 \subsection{Uses}
 
-Game Personalization (Section~\ref{mis:GamePersonalization}), File
-Import/Export (Section~\ref{mis:FileIO}), Database (Section~\ref{mis:Database})
+Game Personalization (\Mref{mis:GamePersonalization}), File
+Import/Export (\Mref{mis:FileIO}), Database (\Mref{mis:Database})
 
 \subsection{Syntax}
 
@@ -669,9 +705,9 @@ GameSuite
 
 \subsection{Uses}
 
-Game Session (Section~\ref{mis:GameSession}), Game Personalization
-(Section~\ref{mis:GamePersonalization}), Security
-(Section~\ref{mis:Security})
+Game Session (\Mref{mis:GameSession}), Game Personalization
+(\Mref{mis:GamePersonalization}), Security
+(\Mref{mis:Security})
 
 \subsection{Syntax}
 
@@ -735,9 +771,9 @@ GameSession
 
 \subsection{Uses}
 
-Rewards \& Cosmetics (Section~\ref{mis:Rewards}), Game Personalization
-(Section~\ref{mis:GamePersonalization}), Template (Section~\ref{mis:Template}),
-Database (Section~\ref{mis:Database})
+Rewards \& Cosmetics (\Mref{mis:Rewards}), Game Personalization
+(\Mref{mis:GamePersonalization}), Template (\Mref{mis:Template}),
+Database (\Mref{mis:Database})
 
 \subsection{Syntax}
 
@@ -776,7 +812,8 @@ recoverInterrupted & - & - & - \\
 stateT = \{idle, loading, loadError, ready, playing, paused, reward\} \\
 outcomeT = \{completed, restarted, incomplete\} \\
 actorT = \{Learner, CTM\} \\
-responseT = the Learner's answer or action for the current task
+responseT = the Learner's answer or action for the current task \\
+taskT = a game-specific task presented to the Learner
 
 \subsection{Semantics}
 
@@ -836,7 +873,7 @@ Rewards
 
 \subsection{Uses}
 
-Database (Section~\ref{mis:Database})
+Database (\Mref{mis:Database})
 
 \subsection{Syntax}
 
@@ -913,8 +950,8 @@ Dashboard
 
 \subsection{Uses}
 
-Charting (Section~\ref{mis:Charting}), File Import/Export
-(Section~\ref{mis:FileIO}), Database (Section~\ref{mis:Database})
+Charting (\Mref{mis:Charting}), File Import/Export
+(\Mref{mis:FileIO}), Database (\Mref{mis:Database})
 
 \subsection{Syntax}
 
@@ -983,7 +1020,7 @@ Database
 
 \subsection{Uses}
 
-Security (Section~\ref{mis:Security})
+Security (\Mref{mis:Security})
 
 \subsection{Syntax}
 
@@ -1018,7 +1055,8 @@ tableT = \{CTM, Learner, Device, CareTeamMembership, Game, GameSession,
 LearnerGameConfiguration, Template, CosmeticItem, LearnerInventory,
 AccessCode\} \\
 keyT = UUID \\
-recordT = a record of one of the tables in SRS Section 7.2
+backupIdT = UUID \\
+recordT = a record of one of the tables in the SRS Data Dictionary (SRS Section 7.2)
 
 \subsection{Semantics}
 
@@ -1038,7 +1076,7 @@ server
 
 \begin{itemize}
 \item The device only keeps Learner Game Configurations, Learner Inventory and
-  queued sessions (SRS Section 7.3).
+  queued sessions (follows from Privacy and Data Retention practices outlined in SRS Section 7.3).
 \item The caller has already checked permissions before calling write or delete.
 \item writeFailed is raised when there is no connection or the write cannot be
   verified. Nothing is changed when this happens, so the previous values are
@@ -1120,7 +1158,7 @@ None
   before a sensitive action (SR-3).
 \item badData is raised when data cannot be decrypted, for example if it was
   changed or corrupted.
-\item Passwords are never stored in a readable form (SRS Section 7.3).
+\item Passwords are never stored in a readable form (follows from Privacy and Data Retention practices outlined in SRS Section 7.3).
 \end{itemize}
 
 \subsubsection{Access Routine Semantics}
@@ -1241,7 +1279,7 @@ notifications: the in-app notifications shown to each CTM
   the message, for example because the address is not valid.
 \item notify is used for care team changes (joining, permission changes,
   removal) and deletion confirmations.
-\item No specific email provider is assumed (SRS Section 2.3).
+\item No specific email provider is assumed (follows from System Context defined in SRS Section 2.3).
 \end{itemize}
 
 \subsubsection{Access Routine Semantics}
