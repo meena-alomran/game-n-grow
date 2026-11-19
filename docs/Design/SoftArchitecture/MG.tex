@@ -56,7 +56,10 @@ Date 2 & 1.1 & Notes\\
 
 \section{Reference Material}
 
-This section records information for easy reference. 
+The \href{../../SRS-IEEE/SRS.tex}{IEEE SRS} defines system requirements.
+The \href{../SoftDetailedDes/MIS.tex}{Module Interface Specification} describes
+module interfaces, and the \href{../../VnVPlan/VnVPlan.tex}{V\&V Plan} specifies
+verification and validation activities.
 
 \subsection{Abbreviations and Acronyms}
 
@@ -71,19 +74,9 @@ This section records information for easy reference.
   MG & Module Guide \\
   OS & Operating System \\
   R & Requirement\\
-  SC & Scientific Computing \\
-  SRS & \href{https://github.com/meena-alomran/game-n-grow/blob/main/pdfs/SRS-IEEE/SRS.pdf}{Software Requirements Specification}\\
-  \progname & A gamified learning experience for children with autism; the software this documentation is concerned with\\
+  CTM & Care Team Member \\
+  SRS & Software Requirements Specification\\
   UC & Unlikely Change \\
-  % \wss{etc.} & \wss{...}\\
-  FR & Functional Requirement defined in SRS (section 6)\\ 
-  NFR & Nonfunctional Requirement defined in SRS (section 8)\\
-  SR & Safety Requirement defined in SRS (section 6)\\
-  Learner & Primary player of the games that the care team is aiming to develop the skills and track the progress of.\\
-  CTM & Care Team Member. A caregiver, parent, educator or any other figure that is responsible for the learning path of a learner.\\
-  SRS LC & Likely change defined in SRS (section 12)\\
-  SRS ULC & Unlikely change defined in SRS (section 13)\\
-  SC & System constraint defined in SRS (section 2.5)\\
   \bottomrule
 \end{tabularx}\\
 
@@ -158,8 +151,8 @@ the uses hierarchy. The remaining sections address user interfaces,
 communication protocols, database design, the development timeline,
 and generative AI use disclosure.
 
-Project documentation and implementation are available at
-\url{https://github.com/meena-alomran/game-n-grow}.
+Project documentation and implementation are available in the
+\href{https://github.com/meena-alomran/game-n-grow}{Spectropica repository}.
 
 \section{Anticipated and Unlikely Changes} \label{SecChange}
 
@@ -348,16 +341,21 @@ conditions or establish broader developmental conclusions. Adopting a
 clinical purpose would require reconsidering requirements, validation,
 and architecture. This is consistent with SRS ULC8.
 
-\textit{Primary related module(s):} N/A.
+\item[\refstepcounter{ucnum} \uctheucnum
+\label{ucLearnerControl}:]
+\textbf{Learner control over participation.}
+Learners give a ready cue and can pause, restart, or exit an activity.
+Replacing voluntary participation with a forced progression would affect
+the Game Session lifecycle and its safety requirements. This follows SRS ULC7.
 
 \end{description}
 
 \section{Module Hierarchy} \label{SecMH}
 
 This section provides an overview of the module design. Modules are summarized
-in a hierarchy decomposed by secrets in Table \ref{TblMH}. The modules listed
-below, which are leaves in the hierarchy tree, are the modules that will
-actually be implemented.
+by the decisions they hide in Table~\ref{TblMH}. The Behaviour-Hiding and
+Software Decision modules listed below are implemented by Spectropica.
+The Hardware-Hiding module provides access to device services.
 
 \begin{description}
 \item [\refstepcounter{mnum} \mthemnum \label{mHH}:] Hardware-Hiding Module
@@ -1025,60 +1023,171 @@ arrows in the diagram typically correspond to the presence of import statement.}
 %\section*{References}
 
 \section{User Interfaces}
+\label{sec:user-interfaces}
 
-\wss{Design of user interface for software and hardware.  Attach an appendix if
-needed. Drawings, Sketches, Figma}
+\subsection{Learner Home Screen}
+
+Figure~\ref{fig:learner-home} shows the Godot prototype of the Learner
+home screen. \textbf{Play} opens the Game Suite. The intended paired-device
+flow limits the suite to authorized Games and waits for a ready cue before
+the selected Game starts (UC1, FR-PLAY-1 and FR-PLAY-2). In the prototype,
+\textbf{Settings} explains that a Care Team Member (CTM) manages Game settings,
+and \textbf{Progress} opens a placeholder for a future summary of completed
+activities. Detailed session history and exports are available through the
+CTM Dashboard in the proposed design.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.9\linewidth]{SpectropicaHomePrototype.png}
+    \caption{Learner home screen prototype running in Godot.}
+    \label{fig:learner-home}
+\end{figure}
+
+\subsection{Care Team Member Dashboard}
+
+In the proposed Dashboard, the selected Learner stays visible while an
+authorized CTM reviews
+session history (UC3), personalizes a Game (UC4), or works with Templates
+(UC5). Session history identifies the Game, settings used, and session
+outcome. Export uses the current Game and date filters.
+
+\subsection{Cashier Game Prototype}
+
+Figure~\ref{fig:cashier-prototype} shows the cashier counter in the early
+Godot prototype. The register has a numeric keypad, an amount display,
+and a \textbf{Cash} button.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\linewidth]{CashierPrototype.png}
+    \caption{Early cashier game prototype in the Godot editor.}
+    \label{fig:cashier-prototype}
+\end{figure}
 
 \section{Design of Communication Protocols}
 
-\wss{If there is communication between hardware and software, it may be necessary 
-to explain the design of the communication protocol.  This section should be filled 
-in with NA if it is not appropriate for a given project.}
+N/A
 
 \section{Database Design}
 
-\wss{If a database is a significant component of the project, the database
-design should be summarized here.  This section should be filled in with NA if
-it is not appropriate for a given project.}
+The Database module stores CTM accounts, Learner profiles, care team
+memberships, device associations, Game configurations, Templates, Game
+Sessions, and reward records. Care team memberships link CTMs to Learners and
+record their permissions. Game configurations link a Learner to a Game and
+record authorization, settings, and any assigned Template. A Game Session
+records the Learner, Game, settings used, outcome, and performance results.
+These relationships follow the data model in the IEEE SRS.
+
+Domain modules access persistence through the Database module. Unsynchronized
+session records remain on the paired device until the server confirms the
+write. The session identifier prevents duplicate records when a write is
+retried. The Dashboard uses the recorded session settings and outcome to
+present results in context. Backup, retention, and deletion responsibilities
+are described in Section~\ref{SecConnection}.
 
 \section{Timeline}
+\label{sec:timeline}
 
-\wss{Schedule of tasks and who is responsible}
+Table~\ref{tab:module-timeline} gives proposed internal targets for Rev~0.
+Each team member owns three modules and their verification. Marko and Maya
+jointly check touch and mouse input and supported display sizes through
+Godot's hardware abstraction. The verification column identifies the
+module checks needed for Rev~0. The integration and usability activities
+follow the system tests and validation procedures in the V\&V Plan.
 
-\wss{You can point to GitHub if this information is included there}
+\begin{longtable}{@{}p{0.15\textwidth}p{0.16\textwidth}p{0.30\textwidth}p{0.31\textwidth}@{}}
+\caption{Proposed Rev~0 implementation and verification timeline.}
+\label{tab:module-timeline}\\
+\toprule
+Target date & Owner & Module task & Verification \\
+\midrule
+\endfirsthead
+\toprule
+Target date & Owner & Module task & Verification \\
+\midrule
+\endhead
+\bottomrule
+\endfoot
+8 Jan. 2027 & Omar Ghoneim & \textbf{CTM Account}. Implement account sign-in and session handling. & Check sign-in and session expiry. \\
+8 Jan. 2027 & Omar Ghoneim & \textbf{Database}. Persist records and queue unsynced sessions. & Retry a failed session write and check for duplicates. \\
+8 Jan. 2027 & Omar Ghoneim & \textbf{Security}. Enforce access checks. & Verify that an unauthorized CTM cannot read a Learner record. \\
+\addlinespace
+15 Jan. 2027 & Amirah Abdelrahman & \textbf{Learner Profile}. Implement profile management and ownership transfer. & Transfer a profile and verify it has one Primary CTM. \\
+15 Jan. 2027 & Amirah Abdelrahman & \textbf{Care Team}. Implement invitations and permission changes. & Verify that a removed CTM loses access. \\
+15 Jan. 2027 & Amirah Abdelrahman & \textbf{Device Pairing}. Link and unlink Learner devices. & Reject expired and reused pairing codes. \\
+\addlinespace
+22 Jan. 2027 & Marko Popovic & \textbf{Game Suite}. List authorized Games on the Learner device. & Check that an unauthorized Game cannot launch. \\
+22 Jan. 2027 & Marko Popovic & \textbf{Game Session}. Integrate the cashier activity and record outcomes. & Verify the ready cue, pause and exit controls, and interrupted sessions. \\
+22 Jan. 2027 & Marko Popovic & \textbf{Rewards and Cosmetics}. Award rewards and apply cosmetic restrictions. & Check reward eligibility and verify that hidden items cannot be equipped. \\
+\addlinespace
+22 Jan. 2027 & Meena Al Omran & \textbf{Game Personalization}. Save per-Learner settings. & Confirm that the Game loads the saved settings. \\
+22 Jan. 2027 & Meena Al Omran & \textbf{Template}. Implement preview and assignment. & Confirm the preview and affected Learner before assignment. \\
+22 Jan. 2027 & Meena Al Omran & \textbf{Dashboard}. Display session history and performance summaries. & Check that averages exclude incomplete sessions. \\
+\addlinespace
+29 Jan. 2027 & Maya Azar & \textbf{File Import/Export}. Validate template imports and format data exports. & Reject an invalid import and reconcile export counts. \\
+29 Jan. 2027 & Maya Azar & \textbf{External Communication}. Handle external service requests and failures. & Verify that a service failure produces the expected error. \\
+29 Jan. 2027 & Maya Azar & \textbf{Charting}. Render Game performance summaries. & Compare plotted values with the Dashboard records. \\
+\addlinespace
+12 Feb. 2027 & All owners &
+Integrate CTM setup, device pairing, cashier gameplay, and results. &
+Run the workflow across devices. Confirm that queued results synchronize
+once after reconnecting and that only authorized CTMs can view them. \\
+\addlinespace
+5 Mar. 2027 & All owners &
+Review Rev~0 readiness after CTM usability sessions and Learner-facing
+proxy playtesting. &
+Record findings, fix issues that block the demonstrated workflows, and
+rerun the affected tests. Capture results and limitations for the V\&V Report. \\
+\end{longtable}
 
 \section{Generative AI Use Disclosure}
 
-\wss{ChatGPT (version 5) was used to brainstorm ideas for the template for this disclose section.}
+This section records where the team used generative AI in preparing and
+reviewing the Module Guide and how the team verified the resulting changes.
 
 \subsection{AI Tools Used}
 
-\wss{Give the name of the AI tool(s) used and the version.}
+The team used ChatGPT (OpenAI GPT-6 Instant) and GPT-6 Luna in Visual Studio
+Code.
 
 \subsection{How and Where Used}
 
-\wss{Explain what the tool(s) were used for.  Examples include: brainstorming,
-explaining a technical concept, reviewing the document, generating or modifying
-text, generating or modifying diagrams, identifying errors or omissions or
-inconsistencies.}
+The team used AI to format \LaTeX{}, organize and check references, and review
+grammar, spelling, and clarity throughout the guide.
 
-\wss{For each of the uses, identify which parts of the document were affected.}
+The team used GPT-6 Luna in Visual Studio Code to format the traceability
+matrices in Section~\ref{SecTM} and add hyperlinks and cross-references to the
+corresponding modules. The team used ChatGPT to review
+Sections~\ref{SecChange} and~\ref{SecConnection} for consistency with the
+module architecture.
 
-\wss{You do not need to report every interaction, but you should disclose the 
-uses that materially contributed to your work}
+The team also used ChatGPT to draft and prototype the Learner home screen
+and integrate the home screen and cashier prototype screenshots in
+Section~\ref{sec:user-interfaces}. ChatGPT drafted the proposed module
+assignments, target dates, and verification activities in
+Section~\ref{sec:timeline} using the team's module breakdown and V\&V Plan.
 
 \subsection{Verification of AI-Generated Content}
 
-\wss{\begin{itemize}
-    \item Describe how the team checked AI-generated or AI-assisted material
-    before including it in the document.
-    \item In particular, verify factual claims, technical assertions,
-    requirements, calculations, references, and other information for which an
-    AI system may produce incorrect or fabricated results.
-    \item \textbf{The team is responsible for the accuracy, completeness,
-consistency, and appropriateness of the submitted document, regardless of
-whether material was generated by a human or an AI system.}
-\end{itemize}}
+The team checked AI-assisted changes against the Software Requirements
+Specification (SRS), the Module Interface Specification (MIS), and the
+project's module definitions to verify that the technical content and design
+decisions remained consistent.
+
+For Section~\ref{SecTM}, the team inspected the \LaTeX{} source and the
+compiled PDF to verify the formatting and cross-references. The team tested
+each hyperlink to confirm that it led to the intended module or section.
+
+ChatGPT used the design rubric to review the introduction, change
+assumptions, hierarchy, interfaces, and timeline. The CTM Dashboard description
+was checked against SRS use cases UC3--UC5. The timeline was checked
+against the module list and the V\&V Plan's system and usability tests.
+The guide was compiled to check the figure, table, and section references.
+The proposed timeline is subject to team confirmation.
+
+The team reviewed grammar and spelling suggestions to verify that they
+preserved the intended technical meaning. The team is responsible for the
+accuracy, completeness, consistency, and appropriateness of the final guide.
 
 \newpage{}
 
