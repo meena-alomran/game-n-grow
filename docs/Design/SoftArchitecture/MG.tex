@@ -734,9 +734,62 @@ it is not appropriate for a given project.}
 
 \section{Timeline}
 
-\wss{Schedule of tasks and who is responsible}
+Table~\ref{tab:module-timeline} proposes internal target dates and assigns
+three modules to each team member. Each owner implements and tests their
+modules. Owners pair up for integration tests when a workflow crosses module
+boundaries.
 
-\wss{You can point to GitHub if this information is included there}
+\begin{table}[htbp]
+\centering
+\small
+\begin{tabularx}{\textwidth}{@{}p{0.16\textwidth}p{0.19\textwidth}XX@{}}
+\toprule
+Target date & Owner & Module tasks & Verification activities \\
+\midrule
+8 Jan.\ 2027 & Omar Ghoneim
+& Implement CTM Account, Database, and Security, including sign-in,
+record storage, and access checks.
+& Test sign-in and session expiry, denied access, and recovery after a
+failed write. \\
+\addlinespace
+15 Jan.\ 2027 & Amirah Abdelrahman
+& Implement Learner Profile, Care Team, and Device Pairing, including
+profile management, invitations, and device linking.
+& Test profile ownership transfer, permission changes, and expired or
+reused pairing codes. \\
+\addlinespace
+22 Jan.\ 2027 & Marko Popovic
+& Implement Game Suite, Game Session, and Rewards \& Cosmetics,
+including the cashier game flow and session outcomes.
+& Test game authorization, start and exit controls, interrupted sessions,
+and reward eligibility. \\
+\addlinespace
+22 Jan.\ 2027 & Meena Al Omran
+& Implement Game Personalization, Templates, and Dashboard, including
+per-Learner settings, template previews, and session history.
+& Test that settings persist, templates apply to the intended Learner,
+and the dashboard distinguishes complete and incomplete sessions. \\
+\addlinespace
+29 Jan.\ 2027 & Maya Azar
+& Implement File Import/Export, External Communication, and Charting,
+including template validation, service failure handling, and progress plots.
+& Test invalid imports, service failures, and agreement among charts,
+dashboard counts, and exported records. \\
+\addlinespace
+12 Feb.\ 2027 & All owners
+& Integrate CTM setup, device pairing, gameplay, and results.
+& Run the end-to-end workflow, including a connection interruption,
+resynchronization, and verification of permissions across devices. \\
+\addlinespace
+5 Mar.\ 2027 & All owners
+& Run CTM usability sessions and Learner-facing proxy playtesting.
+& Record usability findings, fix defects, rerun affected tests, and
+capture results for the V\&V Report. \\
+\bottomrule
+\end{tabularx}
+\caption{Proposed module implementation and verification timeline.}
+\label{tab:module-timeline}
+\end{table}
 
 \section{Generative AI Use Disclosure}
 
