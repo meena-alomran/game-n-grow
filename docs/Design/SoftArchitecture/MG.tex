@@ -64,7 +64,7 @@ verification and validation activities.
 \subsection{Abbreviations and Acronyms}
 
 \renewcommand{\arraystretch}{1.2}
-\begin{tabular}{l l} 
+\begin{tabularx}{\textwidth}{p{3cm} X}
   \toprule		
   \textbf{symbol} & \textbf{description}\\
   \midrule 
@@ -78,7 +78,7 @@ verification and validation activities.
   SRS & Software Requirements Specification\\
   UC & Unlikely Change \\
   \bottomrule
-\end{tabular}\\
+\end{tabularx}\\
 
 \newpage
 
@@ -176,112 +176,115 @@ Section~\ref{SecTM} records the corresponding traceability mappings.
 \textbf{Platform and device interfaces.}
 Supported operating-system and input interfaces may change across iPadOS and Android tablets and browser access. Device access is hidden behind the Hardware-Hiding interface. Platform changes that also require interface adaptation are coordinated with the affected presentation modules. This covers SRS LC7 and relates to SC1 and SC2.
 
-\textit{Responsible module(s):} Hardware-Hiding.
+\textit{Responsible module(s):} Hardware-Hiding (\mref{mHH}).
 
 \item[\refstepcounter{acnum} \actheacnum
 \label{acGameImplementation}:]
 \textbf{Game content and task rules.}
 Content, available difficulty levels, and task-completion rules may change following evaluation. Game-specific behaviour is encapsulated within Game Session, alongside the common session lifecycle, rather than introducing additional top-level modules. This covers SRS LC1; changes to supported configuration fields also involve the configuration owners below.
 
-\textit{Responsible module(s):} Game Session.
+\textit{Responsible module(s):} Game Session (\mref{mGameSession}).
 
 \item[\refstepcounter{acnum} \actheacnum
 \label{acAdditionalGames}:]
 \textbf{Supported Game collection.}
 New Games add task behaviour within Game Session and a selectable entry in Game Suite. Game Personalization and Dashboard are affected only when the addition introduces new setting types or performance measures. This coordinated extension is an exception to a single-module mapping because execution, selection, configuration, and reporting have distinct responsibilities. This covers SRS LC8.
 
-\textit{Responsible module(s):} Game Session and Game Suite.
+\textit{Responsible module(s):} Game Session (\mref{mGameSession}),
+Game Suite (\mref{mGameSuite}).
 
 \item[\refstepcounter{acnum} \actheacnum
 \label{acCustomization}:]
 \textbf{Learner-specific configuration rules.}
 Supported per-Game settings and Game authorizations may evolve. Game Personalization owns the Learner-specific assignment and validation of these settings. Adding a new setting may also change its consumption within Game Session; this interface change must be coordinated. This covers the personalization portion of SRS LC2.
 
-\textit{Responsible module(s):} Game Personalization.
+\textit{Responsible module(s):} Game Personalization
+(\mref{mGamePersonalization}).
 
 \item[\refstepcounter{acnum} \actheacnum
 \label{acTemplateOrganization}:]
 \textbf{Template content and organization rules.}
 Reusable configuration content, assignment, folders, and sharing rules may evolve while Templates remain variations of existing Games. Template owns these rules; File Import/Export owns only their external file representation. This covers SRS LC6 and the Template portion of LC2.
 
-\textit{Responsible module(s):} Template.
+\textit{Responsible module(s):} Template (\mref{mTemplate}).
 
 \item[\refstepcounter{acnum} \actheacnum
 \label{acUserInterface}:]
 \textbf{Presentation and navigation.}
 Game Suite owns Game selection, Game Session owns in-game interaction, and Dashboard owns performance views. CTM management views follow their corresponding account, profile, care team, personalization, and Template responsibilities. Charting owns chart rendering. This cross-cutting change intentionally maps to multiple modules because there is no separate general UI module in the decomposition. Each change is traced to the affected workflow. This covers SRS LC5 and the presentation portion of LC3.
 
-\textit{Responsible module(s):} The module responsible for the affected user workflow.
+\textit{Responsible module(s):} The module responsible for the affected
+user workflow.
 
 \item[\refstepcounter{acnum} \actheacnum
 \label{acDataStorage}:]
 \textbf{Persistence technology and representation.}
 Server storage, record mapping, backup, restoration, and permanent deletion mechanisms may change behind the Database interface. Higher-level modules retain ownership of domain rules, rather than accessing storage representations directly.
 
-\textit{Responsible module(s):} Database.
+\textit{Responsible module(s):} Database (\mref{mDatabase}).
 
 \item[\refstepcounter{acnum} \actheacnum
 \label{acPerformanceReporting}:]
 \textbf{Performance measures and calculation rules.}
 Calculation and filtering rules may change as CTMs identify useful measures. Dashboard owns these rules, while Charting renders the resulting values. If a new measure requires additional raw observations, Game Session recording and the Database record representation must also change. This justified exception preserves the separation of collection and analysis. Historical results must remain interpretable. This covers the calculation portion of SRS LC3.
 
-\textit{Responsible module(s):} Dashboard.
+\textit{Responsible module(s):} Dashboard (\mref{mDashboard}).
 
 \item[\refstepcounter{acnum} \actheacnum
 \label{acRewards}:]
 \textbf{Reward content and eligibility rules.}
 Available items, unlock conditions, and alternative-item groupings may change while preserving Learner inventory relationships. This covers SRS LC4.
 
-\textit{Responsible module(s):} Rewards \& Cosmetics.
+\textit{Responsible module(s):} Rewards \& Cosmetics (\mref{mRewards}).
 
 \item[\refstepcounter{acnum} \actheacnum
 \label{acDataExchange}:]
 \textbf{Synchronization mechanisms.}
 Local queueing, transfer, retry, and synchronization mechanisms may change without changing Game Session recording responsibilities. Storage and synchronization remain within Database as a single persistence boundary in this decomposition; their internal mechanisms can evolve behind its interface.
 
-\textit{Responsible module(s):} Database.
+\textit{Responsible module(s):} Database (\mref{mDatabase}).
 
 \item[\refstepcounter{acnum} \actheacnum
 \label{acExportFormat}:]
 \textbf{Import and export file representations.}
 Template file representations and Learner-data export formats may change. Template and Dashboard retain responsibility for selecting and authorizing the domain information; File Import/Export converts that information and validates imported file structure.
 
-\textit{Responsible module(s):} File Import/Export.
+\textit{Responsible module(s):} File Import/Export (\mref{mFileIO}).
 
 \item[\refstepcounter{acnum} \actheacnum
 \label{acAccountWorkflow}:]
 \textbf{CTM account workflow.}
 Registration validation, verification workflow, and account deletion/restoration rules may change. CTM Account coordinates these workflows while delegating credential and login-session mechanisms to Security.
 
-\textit{Responsible module(s):} CTM Account.
+\textit{Responsible module(s):} CTM Account (\mref{mCTMAccount}).
 
 \item[\refstepcounter{acnum} \actheacnum
 \label{acAuthentication}:]
 \textbf{Credential and login-session mechanisms.}
 Password verification, encryption, and CTM login-session handling may change behind the Security interface without introducing Learner password-based login.
 
-\textit{Responsible module(s):} Security.
+\textit{Responsible module(s):} Security (\mref{mSecurity}).
 
 \item[\refstepcounter{acnum} \actheacnum
 \label{acDevicePairing}:]
 \textbf{Learner device-pairing rules.}
 Pairing-code generation, expiry, retry, lockout, and device-recognition rules may change while preserving the relationship between a paired device and a Learner profile.
 
-\textit{Responsible module(s):} Device Pairing.
+\textit{Responsible module(s):} Device Pairing (\mref{mDevicePairing}).
 
 \item[\refstepcounter{acnum} \actheacnum
 \label{acAccessControl}:]
 \textbf{Care team permissions.}
 Membership and CTM permission rules may evolve. Care Team answers permission queries; the module performing an operation applies the answer before proceeding. Learner Game authorization remains a separate Game Personalization responsibility.
 
-\textit{Responsible module(s):} Care Team.
+\textit{Responsible module(s):} Care Team (\mref{mCareTeam}).
 
 \item[\refstepcounter{acnum} \actheacnum
 \label{acExternalCommunication}:]
 \textbf{External message-delivery mechanisms.}
 The email provider and message formatting may change behind a delivery interface. Account and care team workflows retain responsibility for deciding when messages are required.
 
-\textit{Responsible module(s):} External Communication.
+\textit{Responsible module(s):} External Communication (\mref{mExtComm}).
 
 \end{description}
 
@@ -303,6 +306,9 @@ Learners. Replacing Games with an unrelated primary activity would
 substantially change its purpose and architecture. This is consistent
 with SRS ULC5.
 
+\textit{Primary related module(s):} Game Suite (\mref{mGameSuite}),
+Game Session (\mref{mGameSession}).
+
 \item[\refstepcounter{ucnum} \uctheucnum
 \label{ucUserRoles}:]
 \textbf{Distinct Learner and CTM responsibilities.}
@@ -310,6 +316,9 @@ Learners participate in Games, while authorized CTMs manage profiles,
 configurations, and performance information. Individual memberships
 and permissions may change without replacing this role structure.
 This is consistent with SRS ULC1 and ULC3.
+
+\textit{Primary related module(s):} CTM Account (\mref{mCTMAccount}),
+Learner Profile (\mref{mLearnerProfile}), Care Team (\mref{mCareTeam}).
 
 \item[\refstepcounter{ucnum} \uctheucnum
 \label{ucCoreWorkflow}:]
@@ -319,6 +328,10 @@ Learners participate in Games, and resulting session records remain
 associated with the correct Learner and Game for review. Configuration
 does not imply that a CTM must prepare every individual session.
 This is consistent with SRS ULC2, ULC4, and ULC6.
+
+\textit{Primary related module(s):} Learner Profile (\mref{mLearnerProfile}),
+Game Personalization (\mref{mGamePersonalization}),
+Game Session (\mref{mGameSession}), Database (\mref{mDatabase}).
 
 \item[\refstepcounter{ucnum} \uctheucnum
 \label{ucNonClinical}:]
@@ -374,20 +387,20 @@ The Hardware-Hiding module provides access to device services.
 {Hardware-Hiding Module} & ~ \\
 \midrule
 
-\multirow{10}{0.3\textwidth}{Behaviour-Hiding Module}
+\multirow{7}{0.3\textwidth}{Behaviour-Hiding Module}
 & CTM Account Module\\
 & Learner Profile Module\\
 & Device Pairing Module\\
 & Care Team Module\\
 & Game Personalization Module\\
-& Template Module\\
+& Template Module\\ 
 & Game Suite Module\\
 & Game Session Module\\
 & Rewards \& Cosmetics Module\\
 & Dashboard Module\\
 \midrule
 
-\multirow{5}{0.3\textwidth}{Software Decision Module}
+\multirow{3}{0.3\textwidth}{Software Decision Module}
 & Database Module\\
 & Security Module\\
 & File Import/Export Module\\
@@ -604,7 +617,7 @@ to be implemented.
 \subsubsection{Learner Profile Module (\mref{mLearnerProfile})}
 
 \begin{description}
-\item[Secrets:] Rules for creating \& editing a Learner's profile, the Learner's specific information, and the account deletion/restoration lifecycle.
+\item[Secrets:] Rules for creating \& editing a Learner's profile, the Learner's specific information, and the account deletion/restoration lifecycle. 
 \item[Services:] Provides a way for a CTM to create a Learner profile with specific editable information. Allows Learner profile deletion along with scheduling the deletion of all Learner-related information. Allows restoration of a deleted Learner profile within a certain time frame.
 \item[Implemented By:] Spectropica
 \item[Type of Module:] Abstract Object
@@ -614,7 +627,7 @@ to be implemented.
 
 \begin{description}
 \item[Secrets:] The rules of pairing code generation, expiration and lockout. The flow of device pairing to Learner Profile.
-\item[Services:] Allows the generation of a pairing code for a Learner's device and the actual pairing upon validation of the pairing code. Provides methods for re-generating codes and locking out after repeated failed attempts. Allows a CTM to unpair a device from a Learner's profile.
+\item[Services:] Allows the generation of a pairing code for a Learner's device and the actual pairing upon validation of the pairing code. Provides methods for re-generating codes and locking out after repeated failed attempts. Allows a CTM to unpair a device from a Learner's profile. 
 \item[Implemented By:] Spectropica
 \item[Type of Module:] Abstract Object
 \end{description}
@@ -670,11 +683,11 @@ to be implemented.
 \subsubsection{Game Session Module (\mref{mGameSession})}
 
 \begin{description}
-\item[Secrets:]
+\item[Secrets:] 
 The gameplay state machine (loading, load error, ready,
   playing, paused, and reward) and the rules for moving between states and between tasks. How a session's results are recorded.
 
-\item[Services:]
+\item[Services:] 
 Loads a selected game with the Learner's personalized settings or assigned templates. Presenting each task sequentially. Providing Learners the ability to pause, resume, restart, abort or open a guide. Produces a session record regarding the Learner's actions and performance details throughout the session.
 \item[Implemented By:] Spectropica
 \item[Type of Module:] Abstract Object
@@ -760,6 +773,30 @@ Loads a selected game with the Learner's personalized settings or assigned templ
 
 This section shows four traceability matrices: three between the modules and the
 requirements (functional, non-functional, and safety) and one between the modules and the anticipated changes.
+
+% Original traceability table syntax retained for reference:
+% \begin{table}[H]
+% \centering
+% \begin{tabular}{p{0.2\textwidth} p{0.6\textwidth}}
+% \toprule
+% \textbf{Req.} & \textbf{Modules}\\
+% \midrule
+% R1 & \mref{mHH}, \mref{mInput}, \mref{mParams}, \mref{mControl}\\
+% R2 & \mref{mInput}, \mref{mParams}\\
+% R3 & \mref{mVerify}\\
+% R4 & \mref{mOutput}, \mref{mControl}\\
+% R5 & \mref{mOutput}, \mref{mODEs}, \mref{mControl}, \mref{mSeqDS}, \mref{mSolver}, \mref{mPlot}\\
+% R6 & \mref{mOutput}, \mref{mODEs}, \mref{mControl}, \mref{mSeqDS}, \mref{mSolver}, \mref{mPlot}\\
+% R7 & \mref{mOutput}, \mref{mEnergy}, \mref{mControl}, \mref{mSeqDS}, \mref{mPlot}\\
+% R8 & \mref{mOutput}, \mref{mEnergy}, \mref{mControl}, \mref{mSeqDS}, \mref{mPlot}\\
+% R9 & \mref{mVerifyOut}\\
+% R10 & \mref{mOutput}, \mref{mODEs}, \mref{mControl}\\
+% R11 & \mref{mOutput}, \mref{mODEs}, \mref{mEnergy}, \mref{mControl}\\
+% \bottomrule
+% \end{tabular}
+% \caption{Trace Between Requirements and Modules}
+% \label{TblRT}
+% \end{table}
 
 \renewcommand{\arraystretch}{1.2}
 \setlength{\tabcolsep}{6pt}
@@ -978,7 +1015,7 @@ arrows in the diagram typically correspond to the presence of import statement.}
 
 \begin{figure}[H]
 \centering
-%\includegraphics[width=0.7\textwidth]{UsesHierarchy.png}
+\includegraphics[width=0.7\textwidth]{MG-Modules.png}
 \caption{Use hierarchy among modules}
 \label{FigUH}
 \end{figure}
