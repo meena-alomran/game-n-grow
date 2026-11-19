@@ -990,32 +990,19 @@ arrows in the diagram typically correspond to the presence of import statement.}
 
 \subsection{Learner Home Screen}
 
-Figure~\ref{fig:learner-home} shows the proposed home screen on a paired
-Learner device. \textbf{Play} opens the list of Games authorized for the
-Learner. The selected Game waits for a ready cue before starting (UC1,
-FR-PLAY-1 and FR-PLAY-2). \textbf{Settings} opens a proposed read-only view
-of the active Game settings.
-An authorized Care Team Member (CTM) can change these settings from the
-Dashboard. \textbf{Progress} is a proposed summary of completed activities
-for the Learner.
-Detailed session history and data exports are available through the CTM
-Dashboard.
+Figure~\ref{fig:learner-home} shows the Godot prototype of the Learner
+home screen. \textbf{Play} opens the Game Suite. The intended paired-device
+flow limits the suite to authorized Games and waits for a ready cue before
+the selected Game starts (UC1, FR-PLAY-1 and FR-PLAY-2). In the prototype,
+\textbf{Settings} explains that a Care Team Member (CTM) manages Game settings,
+and \textbf{Progress} opens a placeholder for a future summary of completed
+activities. Detailed session history and exports are available through the
+CTM Dashboard in the proposed design.
 
 \begin{figure}[htbp]
     \centering
-    \fbox{\begin{minipage}{0.62\linewidth}
-        \centering
-        \vspace{1em}
-        {\Large\bfseries Spectropica\par}
-        \vspace{1.25em}
-        \fbox{\rule{0pt}{2em}\makebox[0.68\linewidth]{\large\bfseries Play}}\par
-        \vspace{0.65em}
-        \fbox{\rule{0pt}{1.75em}\makebox[0.32\linewidth]{Settings}}
-        \hspace{0.35em}
-        \fbox{\rule{0pt}{1.75em}\makebox[0.32\linewidth]{Progress}}\par
-        \vspace{1em}
-    \end{minipage}}
-    \caption{Proposed Learner home screen wireframe.}
+    \includegraphics[width=0.9\linewidth]{SpectropicaHomePrototype.png}
+    \caption{Learner home screen prototype running in Godot.}
     \label{fig:learner-home}
 \end{figure}
 
@@ -1160,8 +1147,8 @@ corresponding modules. The team used ChatGPT to review
 Sections~\ref{SecChange} and~\ref{SecConnection} for consistency with the
 module architecture.
 
-The team also used ChatGPT to draft the Learner home screen wireframe and
-incorporate the team's cashier prototype screenshot in
+The team also used ChatGPT to draft and prototype the Learner home screen
+and integrate the home screen and cashier prototype screenshots in
 Section~\ref{sec:user-interfaces}. ChatGPT drafted the proposed module
 assignments, target dates, and verification activities in
 Section~\ref{sec:timeline} using the team's module breakdown and V\&V Plan.
@@ -1182,7 +1169,7 @@ assumptions, hierarchy, interfaces, and timeline. The CTM Dashboard draft
 was checked against SRS use cases UC3--UC5. The timeline was checked
 against the module list and the V\&V Plan's system and usability tests.
 The guide was compiled to check the figure, table, and section references.
-The proposed wireframes and timeline are subject to team confirmation.
+The proposed Dashboard wireframe and timeline are subject to team confirmation.
 
 The team reviewed grammar and spelling suggestions to verify that they
 preserved the intended technical meaning. The team is responsible for the
