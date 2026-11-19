@@ -106,6 +106,10 @@ jobs:
           # pdflatex finds lmodern.sty but not the fonts it maps to, failing
           # with "Font rm-lmr7 at 600 not found".
           sudo updmap-sys >/dev/null
+          # Restoring cached package files also skips the postinst that builds
+          # the pdflatex format. Generate it system-wide so non-root builds
+          # (including pandoc's temporary build directory) can find it.
+          sudo fmtutil-sys --byfmt pdflatex
 
           # The apt cache restore can skip texlive-binaries' alternatives setup,
           # leaving bibtex.original installed without the `bibtex` command.
