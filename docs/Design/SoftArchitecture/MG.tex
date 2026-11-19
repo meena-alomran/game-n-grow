@@ -679,8 +679,46 @@ arrows in the diagram typically correspond to the presence of import statement.}
 
 \section{User Interfaces}
 
-\wss{Design of user interface for software and hardware.  Attach an appendix if
-needed. Drawings, Sketches, Figma}
+\subsection{Learner Home Screen}
+
+Figure~\ref{fig:learner-home} shows the proposed home screen on a paired
+Learner device. \textbf{Play} opens the list of Games authorized for the
+Learner. \textbf{Settings} opens a read-only view of the active Game settings.
+An authorized Care Team Member (CTM) can change these settings from the
+Dashboard. \textbf{Progress} shows a simple summary of completed activities.
+Detailed session history and data exports are available through the CTM
+Dashboard.
+
+\begin{figure}[htbp]
+    \centering
+    \fbox{\begin{minipage}{0.62\linewidth}
+        \centering
+        \vspace{1em}
+        {\Large\bfseries Spectropica\par}
+        \vspace{1.25em}
+        \fbox{\rule{0pt}{2em}\makebox[0.68\linewidth]{\large\bfseries Play}}\par
+        \vspace{0.65em}
+        \fbox{\rule{0pt}{1.75em}\makebox[0.32\linewidth]{Settings}}
+        \hspace{0.35em}
+        \fbox{\rule{0pt}{1.75em}\makebox[0.32\linewidth]{Progress}}\par
+        \vspace{1em}
+    \end{minipage}}
+    \caption{Proposed Learner home screen wireframe.}
+    \label{fig:learner-home}
+\end{figure}
+
+\subsection{Cashier Game Prototype}
+
+Figure~\ref{fig:cashier-prototype} shows the cashier counter in the early
+Godot prototype. The register has a numeric keypad, an amount display,
+and a \textbf{Cash} button.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\linewidth]{CashierPrototype.png}
+    \caption{Early cashier game prototype in the Godot editor.}
+    \label{fig:cashier-prototype}
+\end{figure}
 
 \section{Design of Communication Protocols}
 
