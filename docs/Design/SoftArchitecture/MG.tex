@@ -77,6 +77,9 @@ verification and validation activities.
   CTM & Care Team Member \\
   SRS & Software Requirements Specification\\
   UC & Unlikely Change \\
+  \progname & A gamified learning experience for children with autism; the software this documentation is concerned with\\
+  FR & Functional Requirement defined in SRS (section 6)\\
+  SRS UC & Use Case defined in SRS (section 5); not to be confused with UC above and always preceded with SRS\\
   \bottomrule
 \end{tabularx}\\
 
@@ -1020,7 +1023,7 @@ because they use modules from the lower levels.
 Figure~\ref{fig:learner-home} shows the Godot prototype of the Learner
 home screen. \textbf{Play} opens the Game Suite. The intended paired-device
 flow limits the suite to authorized Games and waits for a ready cue before
-the selected Game starts (UC1, FR-PLAY-1 and FR-PLAY-2). In the prototype,
+the selected Game starts (SRS UC1, FR-PLAY-1 and FR-PLAY-2). In the prototype,
 \textbf{Settings} explains that a Care Team Member (CTM) manages Game settings,
 and \textbf{Progress} opens a placeholder for a future summary of completed
 activities. Detailed session history and exports are available through the
@@ -1037,8 +1040,8 @@ CTM Dashboard in the proposed design.
 
 In the proposed Dashboard, the selected Learner stays visible while an
 authorized CTM reviews
-session history (UC3), personalizes a Game (UC4), or works with Templates
-(UC5). Session history identifies the Game, settings used, and session
+session history (SRS UC3), personalizes a Game (SRS UC4), or works with Templates
+(SRS UC5). Session history identifies the Game, settings used, and session
 outcome. Export uses the current Game and date filters.
 
 \subsection{Cashier Game Prototype}
