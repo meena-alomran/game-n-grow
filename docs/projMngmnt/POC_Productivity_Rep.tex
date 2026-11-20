@@ -216,9 +216,15 @@ Name 5 & Num & Num \\
 
 \section{CICD via GitHub Actions}
 
-\wss{Say how CICD technology is used and will be used in your project.}
+% \wss{Say how CICD technology is used and will be used in your project.}
 
-\wss{Provide links to your CICD yaml files}
+% \wss{Provide links to your CICD yaml files}
+Currently, CICD technology is implemented into the project through GitHub Actions for the project documentation, which has a complex \LaTeX{} structure. We
+are using the template repository's built-in \href{https://github.com/meena-alomran/game-n-grow/blob/main/.github/workflows/latex-pages.yml}{workflow}. Through this workflow,
+GitHub Actions triggers CICD whenever a pull request is made or merged to the main branch. When a pull request is made into the main branch, the workflow tries to compile the \LaTeX{} into pdfs
+and registers as a failed run if this is unsuccessful. Then, when the pull request is actually merged, the pdfs are uploaded to a website through GitHub Pages for easy viewing. In addition to this, 
+the new pdfs generated from the updated \LaTeX{} code are actually commited into the repository, effectively updating the current pdfs with the changes made to documentation in the pull request.\\
+As the project source code is still in beginning stages, CICD has not yet been incorporated for this aspect, but it is in the the team's plan to do once the work is more fleshed out so that building and testing are automated for pull requests into the main branch.
 
 \section{Custom Documents (CDs)}
 
