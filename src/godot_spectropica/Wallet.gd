@@ -16,6 +16,15 @@ func add_coins(amount: int) -> void:
 	coins_changed.emit(coins)
 
 
+func spend_coins(amount: int) -> bool:
+	if amount <= 0 or amount > coins:
+		return false
+
+	coins -= amount
+	coins_changed.emit(coins)
+	return true
+
+
 func save_data() -> void:
 	var config := ConfigFile.new()
 	config.set_value("wallet", "coins", coins)
