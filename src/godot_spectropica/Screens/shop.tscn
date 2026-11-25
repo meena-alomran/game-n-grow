@@ -1,7 +1,13 @@
-[gd_scene format=3 uid="uid://274kbt7lux1x"]
+[gd_scene format=3 uid="uid://dkmay54d4ak5k"]
 
 [ext_resource type="Script" uid="uid://61swy3pn0jbj" path="res://Screens/shop.gd" id="1"]
 [ext_resource type="Texture2D" uid="uid://cp4ynrd8wqylu" path="res://Arts/Images/gold-coin.png" id="2_coin"]
+[ext_resource type="Texture2D" uid="uid://c85jipkwmv7e8" path="res://Arts/Images/Cosmetics/crown.png" id="item_crown"]
+[ext_resource type="Texture2D" uid="uid://cpsoxf5g40qnr" path="res://Arts/Images/Cosmetics/glasses.png" id="item_glasses"]
+[ext_resource type="Texture2D" uid="uid://coie8mynuxomu" path="res://Arts/Images/Cosmetics/hat.png" id="item_hat"]
+[ext_resource type="Texture2D" uid="uid://yjfvf7x15lup" path="res://Arts/Images/Cosmetics/tie.png" id="item_tie"]
+[ext_resource type="Texture2D" uid="uid://c61o0ykp4uwbi" path="res://Arts/Images/Cosmetics/wings.png" id="item_wings"]
+[ext_resource type="Texture2D" uid="uid://c042iu7ae62xt" path="res://Arts/Images/Cosmetics/witch.png" id="item_witch"]
 
 [sub_resource type="StyleBoxFlat" id="Card"]
 bg_color = Color(0.99, 0.97, 0.89, 1)
@@ -9,6 +15,24 @@ corner_radius_top_left = 30
 corner_radius_top_right = 30
 corner_radius_bottom_right = 30
 corner_radius_bottom_left = 30
+
+[sub_resource type="StyleBoxFlat" id="ItemCard"]
+content_margin_left = 12.0
+content_margin_top = 8.0
+content_margin_right = 12.0
+content_margin_bottom = 8.0
+bg_color = Color(0.89, 0.93, 0.85, 1)
+corner_radius_top_left = 18
+corner_radius_top_right = 18
+corner_radius_bottom_right = 18
+corner_radius_bottom_left = 18
+
+[sub_resource type="StyleBoxFlat" id="BuyButton"]
+bg_color = Color(0.32, 0.49, 0.4, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
 
 [sub_resource type="StyleBoxFlat" id="Back"]
 content_margin_left = 16.0
@@ -65,6 +89,8 @@ offset_left = 24.0
 offset_top = 96.0
 offset_right = -24.0
 offset_bottom = -24.0
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_styles/panel = SubResource("Card")
 
 [node name="Center" type="CenterContainer" parent="ShopCard" unique_id=607123120]
@@ -74,6 +100,253 @@ layout_mode = 2
 layout_mode = 2
 theme_override_constants/separation = 8
 
+[node name="ShopTitle" type="Label" parent="ShopCard/Center/Message" unique_id=17069134]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.16, 0.29, 0.23, 1)
+theme_override_font_sizes/font_size = 30
+text = "Cosmetics Shop"
+horizontal_alignment = 1
+
+[node name="ItemsGrid" type="GridContainer" parent="ShopCard/Center/Message" unique_id=1767334853]
+layout_mode = 2
+theme_override_constants/h_separation = 24
+theme_override_constants/v_separation = 12
+columns = 3
+
+[node name="Crown" type="PanelContainer" parent="ShopCard/Center/Message/ItemsGrid" unique_id=1845615792]
+custom_minimum_size = Vector2(230, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("ItemCard")
+
+[node name="Content" type="VBoxContainer" parent="ShopCard/Center/Message/ItemsGrid/Crown" unique_id=1725142322]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="Image" type="TextureRect" parent="ShopCard/Center/Message/ItemsGrid/Crown/Content" unique_id=1698276831]
+texture_filter = 1
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+texture = ExtResource("item_crown")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="ItemName" type="Label" parent="ShopCard/Center/Message/ItemsGrid/Crown/Content" unique_id=1272957107]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.16, 0.29, 0.23, 1)
+theme_override_font_sizes/font_size = 20
+text = "Golden Crown"
+horizontal_alignment = 1
+
+[node name="Price" type="Label" parent="ShopCard/Center/Message/ItemsGrid/Crown/Content" unique_id=1052354044]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.27, 0.21, 0.12, 1)
+text = "50 coins"
+horizontal_alignment = 1
+
+[node name="Purchase" type="Button" parent="ShopCard/Center/Message/ItemsGrid/Crown/Content" unique_id=981726327]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_styles/normal = SubResource("BuyButton")
+theme_override_styles/hover = SubResource("BuyButton")
+text = "Purchase"
+
+[node name="Glasses" type="PanelContainer" parent="ShopCard/Center/Message/ItemsGrid" unique_id=915619294]
+custom_minimum_size = Vector2(230, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("ItemCard")
+
+[node name="Content" type="VBoxContainer" parent="ShopCard/Center/Message/ItemsGrid/Glasses" unique_id=683893731]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="Image" type="TextureRect" parent="ShopCard/Center/Message/ItemsGrid/Glasses/Content" unique_id=750984060]
+texture_filter = 1
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+texture = ExtResource("item_glasses")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="ItemName" type="Label" parent="ShopCard/Center/Message/ItemsGrid/Glasses/Content" unique_id=1439209206]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.16, 0.29, 0.23, 1)
+theme_override_font_sizes/font_size = 20
+text = "Sunglasses"
+horizontal_alignment = 1
+
+[node name="Price" type="Label" parent="ShopCard/Center/Message/ItemsGrid/Glasses/Content" unique_id=987346852]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.27, 0.21, 0.12, 1)
+text = "30 coins"
+horizontal_alignment = 1
+
+[node name="Purchase" type="Button" parent="ShopCard/Center/Message/ItemsGrid/Glasses/Content" unique_id=635790048]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_styles/normal = SubResource("BuyButton")
+theme_override_styles/hover = SubResource("BuyButton")
+text = "Purchase"
+
+[node name="Hat" type="PanelContainer" parent="ShopCard/Center/Message/ItemsGrid" unique_id=1930812726]
+custom_minimum_size = Vector2(230, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("ItemCard")
+
+[node name="Content" type="VBoxContainer" parent="ShopCard/Center/Message/ItemsGrid/Hat" unique_id=950951658]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="Image" type="TextureRect" parent="ShopCard/Center/Message/ItemsGrid/Hat/Content" unique_id=615268964]
+texture_filter = 1
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+texture = ExtResource("item_hat")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="ItemName" type="Label" parent="ShopCard/Center/Message/ItemsGrid/Hat/Content" unique_id=1396179187]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.16, 0.29, 0.23, 1)
+theme_override_font_sizes/font_size = 20
+text = "Baseball Cap"
+horizontal_alignment = 1
+
+[node name="Price" type="Label" parent="ShopCard/Center/Message/ItemsGrid/Hat/Content" unique_id=1782895627]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.27, 0.21, 0.12, 1)
+text = "20 coins"
+horizontal_alignment = 1
+
+[node name="Purchase" type="Button" parent="ShopCard/Center/Message/ItemsGrid/Hat/Content" unique_id=1849509680]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_styles/normal = SubResource("BuyButton")
+theme_override_styles/hover = SubResource("BuyButton")
+text = "Purchase"
+
+[node name="Tie" type="PanelContainer" parent="ShopCard/Center/Message/ItemsGrid" unique_id=1084194796]
+custom_minimum_size = Vector2(230, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("ItemCard")
+
+[node name="Content" type="VBoxContainer" parent="ShopCard/Center/Message/ItemsGrid/Tie" unique_id=1838022008]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="Image" type="TextureRect" parent="ShopCard/Center/Message/ItemsGrid/Tie/Content" unique_id=555053475]
+texture_filter = 1
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+texture = ExtResource("item_tie")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="ItemName" type="Label" parent="ShopCard/Center/Message/ItemsGrid/Tie/Content" unique_id=711657454]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.16, 0.29, 0.23, 1)
+theme_override_font_sizes/font_size = 20
+text = "Bow Tie"
+horizontal_alignment = 1
+
+[node name="Price" type="Label" parent="ShopCard/Center/Message/ItemsGrid/Tie/Content" unique_id=1794563449]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.27, 0.21, 0.12, 1)
+text = "20 coins"
+horizontal_alignment = 1
+
+[node name="Purchase" type="Button" parent="ShopCard/Center/Message/ItemsGrid/Tie/Content" unique_id=32124935]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_styles/normal = SubResource("BuyButton")
+theme_override_styles/hover = SubResource("BuyButton")
+text = "Purchase"
+
+[node name="Witch" type="PanelContainer" parent="ShopCard/Center/Message/ItemsGrid" unique_id=440216717]
+custom_minimum_size = Vector2(230, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("ItemCard")
+
+[node name="Content" type="VBoxContainer" parent="ShopCard/Center/Message/ItemsGrid/Witch" unique_id=548941580]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="Image" type="TextureRect" parent="ShopCard/Center/Message/ItemsGrid/Witch/Content" unique_id=386066089]
+texture_filter = 1
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+texture = ExtResource("item_witch")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="ItemName" type="Label" parent="ShopCard/Center/Message/ItemsGrid/Witch/Content" unique_id=1133698187]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.16, 0.29, 0.23, 1)
+theme_override_font_sizes/font_size = 20
+text = "Witch Hat"
+horizontal_alignment = 1
+
+[node name="Price" type="Label" parent="ShopCard/Center/Message/ItemsGrid/Witch/Content" unique_id=1000797678]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.27, 0.21, 0.12, 1)
+text = "40 coins"
+horizontal_alignment = 1
+
+[node name="Purchase" type="Button" parent="ShopCard/Center/Message/ItemsGrid/Witch/Content" unique_id=2061628362]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_styles/normal = SubResource("BuyButton")
+theme_override_styles/hover = SubResource("BuyButton")
+text = "Purchase"
+
+[node name="Wings" type="PanelContainer" parent="ShopCard/Center/Message/ItemsGrid" unique_id=474704360]
+custom_minimum_size = Vector2(230, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("ItemCard")
+
+[node name="Content" type="VBoxContainer" parent="ShopCard/Center/Message/ItemsGrid/Wings" unique_id=232165387]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="Image" type="TextureRect" parent="ShopCard/Center/Message/ItemsGrid/Wings/Content" unique_id=1853251389]
+texture_filter = 1
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+texture = ExtResource("item_wings")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="ItemName" type="Label" parent="ShopCard/Center/Message/ItemsGrid/Wings/Content" unique_id=651141395]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.16, 0.29, 0.23, 1)
+theme_override_font_sizes/font_size = 20
+text = "Butterfly Wings"
+horizontal_alignment = 1
+
+[node name="Price" type="Label" parent="ShopCard/Center/Message/ItemsGrid/Wings/Content" unique_id=1953297330]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.27, 0.21, 0.12, 1)
+text = "50 coins"
+horizontal_alignment = 1
+
+[node name="Purchase" type="Button" parent="ShopCard/Center/Message/ItemsGrid/Wings/Content" unique_id=848269527]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_styles/normal = SubResource("BuyButton")
+theme_override_styles/hover = SubResource("BuyButton")
+text = "Purchase"
+
 [node name="Header" type="HBoxContainer" parent="." unique_id=1162767711]
 layout_mode = 1
 anchors_preset = 10
@@ -82,6 +355,7 @@ offset_left = 24.0
 offset_top = 24.0
 offset_right = -24.0
 offset_bottom = 76.0
+grow_horizontal = 2
 
 [node name="Back" type="Button" parent="Header" unique_id=1213794038]
 custom_minimum_size = Vector2(108, 52)
