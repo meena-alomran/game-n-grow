@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="GroceryEntry" format=3 uid="uid://cnujmbm8wkljl"]
+
+[ext_resource type="Script" uid="uid://qfongeufidyi" path="res://games/cashier/data/grocery_entry.gd" id="1_004tj"]
+[ext_resource type="PackedScene" uid="uid://cca6lnhwim6sr" path="res://Arts/models/cashier_game/standard_groceries/gc_oj.glb" id="2_004tj"]
+
+[resource]
+script = ExtResource("1_004tj")
+display_name = "Juice"
+visual_scene = ExtResource("2_004tj")
+price = 4.0
+metadata/_custom_type_script = "uid://qfongeufidyi"

@@ -7,5 +7,5 @@
 script = ExtResource("1_tnvuy")
 display_name = "Pear"
 visual_scene = ExtResource("2_tnvuy")
-price = 4.0
+price = 3.0
 metadata/_custom_type_script = "uid://qfongeufidyi"

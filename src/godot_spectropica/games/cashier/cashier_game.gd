@@ -13,6 +13,9 @@ extends Node
 @export var grocery_list: Array[GroceryEntry]
 @export var item_limit: int = 4
 @export var numerical_difficulty: int = 0 ## 0: integers, 1: 0:50s, 2: 0.25s, 3: 5s, 4: all decimals
+@export var stimulation_modes: int = 1 ## 0 Low, 1 normal, 2 high
+
+const VERTEX_COLOR_SIMPLE = preload("uid://cbv1i5ahbe5es")
 
 var current_customer_groceries: Array[GroceryEntry]
 var grocery_node_3ds: Array[Node3D]
@@ -67,6 +70,12 @@ func generate_new_groceries():
 		
 		# Add it to the actual 3d scene
 		var new_grocery_scene := new_grocery.visual_scene.instantiate() as Node3D
+		
+		# Make sure the material is right (this shouldnt work like this)
+		for c in new_grocery_scene.get_children():
+			if c is MeshInstance3D:
+				c.set_surface_override_material(0, VERTEX_COLOR_SIMPLE)
+		
 		grocery_node_3ds.append(new_grocery_scene)
 		i.add_child(new_grocery_scene)
 		new_grocery_scene.rotation_degrees.y = randf_range(0.0, 360.0)

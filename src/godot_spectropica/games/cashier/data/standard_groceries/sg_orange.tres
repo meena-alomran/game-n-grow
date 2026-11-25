@@ -7,5 +7,5 @@
 script = ExtResource("1_iviyo")
 display_name = "Orange"
 visual_scene = ExtResource("2_iviyo")
-price = 3.0
+price = 2.0
 metadata/_custom_type_script = "uid://qfongeufidyi"

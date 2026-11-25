@@ -11,9 +11,15 @@
 [ext_resource type="Resource" uid="uid://bywmgre1f7yr1" path="res://games/cashier/data/standard_groceries/sg_banana.tres" id="5_yr8pa"]
 [ext_resource type="Resource" uid="uid://j1h6h14i6kad" path="res://games/cashier/data/standard_groceries/sg_orange.tres" id="6_56ueb"]
 [ext_resource type="PackedScene" uid="uid://bpckhbipsvkk5" path="res://Arts/models/cashier_game/item_book.glb" id="6_dsn67"]
+[ext_resource type="Resource" uid="uid://cp58nnelsjl8l" path="res://games/cashier/data/standard_groceries/sg_eggs.tres" id="7_vclj0"]
+[ext_resource type="Resource" uid="uid://dctenlpbh0u5l" path="res://games/cashier/data/standard_groceries/sg_milk.tres" id="8_r7hc5"]
+[ext_resource type="Resource" uid="uid://b4jq56w5bpxhi" path="res://games/cashier/data/standard_groceries/sg_bread.tres" id="9_7o7am"]
 [ext_resource type="PackedScene" uid="uid://b4fy3sn11fx6u" path="res://games/cashier/monitor/cashier_monitor.tscn" id="10_f2t8j"]
+[ext_resource type="Resource" uid="uid://1yprdcbh0nuu" path="res://games/cashier/data/standard_groceries/sg_grapes.tres" id="10_g1rwb"]
 [ext_resource type="Script" uid="uid://uk1g8xnfm4sw" path="res://games/cashier/monitor/mouse_coordinate_area_3d.gd" id="10_yr8pa"]
+[ext_resource type="Resource" uid="uid://bqk1r6y50t0ws" path="res://games/cashier/data/standard_groceries/sg_cheese_wheel.tres" id="11_acbws"]
 [ext_resource type="PackedScene" uid="uid://du1auypdjsyul" path="res://games/cashier/item_book/cashier_list_page.tscn" id="11_j3bif"]
+[ext_resource type="Resource" uid="uid://cnujmbm8wkljl" path="res://games/cashier/data/standard_groceries/sg_orange_juice.tres" id="12_j4nyk"]
 
 [sub_resource type="Environment" id="Environment_dsn67"]
 glow_enabled = true
@@ -202,7 +208,7 @@ old_customer_transform = NodePath("3D/OldCustomerTransform")
 grocery_spots = NodePath("3D/GrocerySpots")
 list_page_l = NodePath("3D/cash_register/item_book/ListPageL")
 list_page_r = NodePath("3D/cash_register/item_book/ListPageR")
-grocery_list = Array[ExtResource("2_u20e4")]([ExtResource("3_j3bif"), ExtResource("4_f2t8j"), ExtResource("5_yr8pa"), ExtResource("6_56ueb")])
+grocery_list = Array[ExtResource("2_u20e4")]([ExtResource("3_j3bif"), ExtResource("4_f2t8j"), ExtResource("5_yr8pa"), ExtResource("6_56ueb"), ExtResource("7_vclj0"), ExtResource("8_r7hc5"), ExtResource("9_7o7am"), ExtResource("10_g1rwb"), ExtResource("11_acbws"), ExtResource("12_j4nyk")])
 
 [node name="3D" type="Node3D" parent="." unique_id=1551090245]
 
@@ -280,7 +286,7 @@ transform = Transform3D(-1.6292068e-07, 0, 1, 0, 1, 0, -1, 0, -1.6292068e-07, 5.
 [node name="AnimalKat2" parent="3D/NewCustomerTransform" unique_id=1099911432 instance=ExtResource("2_xglb0")]
 
 [node name="OldCustomerTransform" type="Marker3D" parent="3D" unique_id=193872808]
-transform = Transform3D(-0.9985358, 0, -0.05407869, 0, 1, 0, 0.05407869, 0, -0.9985358, 0.49751902, 0, -1.6294477)
+transform = Transform3D(-0.9985356, 0, -0.054078676, 0, 1, 0, 0.054078676, 0, -0.9985356, 0.49751902, 0, -1.6294477)
 
 [node name="AnimalKat" parent="3D/OldCustomerTransform" unique_id=1100125556 instance=ExtResource("2_xglb0")]
 

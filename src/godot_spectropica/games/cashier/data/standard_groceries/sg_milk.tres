@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="GroceryEntry" format=3 uid="uid://dctenlpbh0u5l"]
+
+[ext_resource type="Script" uid="uid://qfongeufidyi" path="res://games/cashier/data/grocery_entry.gd" id="1_quykb"]
+[ext_resource type="PackedScene" uid="uid://bcgrevj8pftin" path="res://Arts/models/cashier_game/standard_groceries/gc_milk.glb" id="2_quykb"]
+
+[resource]
+script = ExtResource("1_quykb")
+display_name = "Milk"
+visual_scene = ExtResource("2_quykb")
+price = 5.0
+metadata/_custom_type_script = "uid://qfongeufidyi"
