@@ -1,7 +1,8 @@
-[gd_scene format=3 uid="uid://dkmay54d4ak5k"]
+[gd_scene format=3 uid="uid://274kbt7lux1x"]
 
 [ext_resource type="Script" uid="uid://61swy3pn0jbj" path="res://Screens/shop.gd" id="1"]
 [ext_resource type="Texture2D" uid="uid://cp4ynrd8wqylu" path="res://Arts/Images/gold-coin.png" id="2_coin"]
+[ext_resource type="Script" uid="uid://besw574htf3pt" path="res://Screens/shop_backdrop.gd" id="3_backdrop"]
 [ext_resource type="Texture2D" uid="uid://c85jipkwmv7e8" path="res://Arts/Images/Cosmetics/crown.png" id="item_crown"]
 [ext_resource type="Texture2D" uid="uid://cpsoxf5g40qnr" path="res://Arts/Images/Cosmetics/glasses.png" id="item_glasses"]
 [ext_resource type="Texture2D" uid="uid://coie8mynuxomu" path="res://Arts/Images/Cosmetics/hat.png" id="item_hat"]
@@ -9,39 +10,28 @@
 [ext_resource type="Texture2D" uid="uid://c61o0ykp4uwbi" path="res://Arts/Images/Cosmetics/wings.png" id="item_wings"]
 [ext_resource type="Texture2D" uid="uid://c042iu7ae62xt" path="res://Arts/Images/Cosmetics/witch.png" id="item_witch"]
 
-[sub_resource type="StyleBoxFlat" id="Card"]
-bg_color = Color(0.99, 0.97, 0.89, 1)
-corner_radius_top_left = 30
-corner_radius_top_right = 30
-corner_radius_bottom_right = 30
-corner_radius_bottom_left = 30
+[sub_resource type="StyleBoxEmpty" id="NoFrame"]
 
-[sub_resource type="StyleBoxFlat" id="ItemCard"]
-content_margin_left = 12.0
-content_margin_top = 8.0
-content_margin_right = 12.0
-content_margin_bottom = 8.0
-bg_color = Color(0.89, 0.93, 0.85, 1)
-corner_radius_top_left = 18
-corner_radius_top_right = 18
-corner_radius_bottom_right = 18
-corner_radius_bottom_left = 18
+[sub_resource type="StyleBoxFlat" id="SelectedItem"]
+bg_color = Color(1, 0.95, 0.74, 0.34)
+corner_radius_top_left = 24
+corner_radius_top_right = 24
+corner_radius_bottom_right = 24
+corner_radius_bottom_left = 24
 
-[sub_resource type="StyleBoxFlat" id="BuyButton"]
-bg_color = Color(0.32, 0.49, 0.4, 1)
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
+[sub_resource type="StyleBoxFlat" id="ItemFocus"]
+draw_center = false
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.16, 0.29, 0.37, 1)
+corner_radius_top_left = 24
+corner_radius_top_right = 24
+corner_radius_bottom_right = 24
+corner_radius_bottom_left = 24
 
-[sub_resource type="StyleBoxFlat" id="Back"]
-content_margin_left = 16.0
-content_margin_right = 16.0
-bg_color = Color(0.98, 0.96, 0.86, 1)
-corner_radius_top_left = 18
-corner_radius_top_right = 18
-corner_radius_bottom_right = 18
-corner_radius_bottom_left = 18
+[sub_resource type="ButtonGroup" id="Items"]
 
 [sub_resource type="StyleBoxFlat" id="Purse"]
 content_margin_left = 14.0
@@ -52,14 +42,40 @@ corner_radius_top_right = 18
 corner_radius_bottom_right = 18
 corner_radius_bottom_left = 18
 
+[sub_resource type="StyleBoxFlat" id="BuyButton"]
+content_margin_left = 14.0
+content_margin_right = 14.0
+bg_color = Color(0.96, 0.76, 0.48, 1)
+border_width_bottom = 3
+border_color = Color(0.68, 0.44, 0.28, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
 [sub_resource type="StyleBoxFlat" id="BackHover"]
 content_margin_left = 16.0
 content_margin_right = 16.0
-bg_color = Color(1, 0.99, 0.93, 1)
+bg_color = Color(0.83, 0.95, 1, 1)
 corner_radius_top_left = 18
 corner_radius_top_right = 18
 corner_radius_bottom_right = 18
 corner_radius_bottom_left = 18
+shadow_color = Color(0.16, 0.4, 0.58, 0.38)
+shadow_size = 3
+shadow_offset = Vector2(0, 3)
+
+[sub_resource type="StyleBoxFlat" id="Back"]
+content_margin_left = 16.0
+content_margin_right = 16.0
+bg_color = Color(0.95, 0.99, 1, 1)
+corner_radius_top_left = 18
+corner_radius_top_right = 18
+corner_radius_bottom_right = 18
+corner_radius_bottom_left = 18
+shadow_color = Color(0.16, 0.4, 0.58, 0.38)
+shadow_size = 3
+shadow_offset = Vector2(0, 3)
 
 [node name="Shop" type="Control" unique_id=1347061896]
 layout_mode = 3
@@ -71,6 +87,7 @@ grow_vertical = 2
 script = ExtResource("1")
 
 [node name="Background" type="ColorRect" parent="." unique_id=658436612]
+z_index = -1
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -78,274 +95,216 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-color = Color(0.72, 0.85, 0.77, 1)
+color = Color(0.3, 0.74, 0.97, 1)
 
-[node name="ShopCard" type="PanelContainer" parent="." unique_id=876449788]
+[node name="Courtyard" type="Control" parent="." unique_id=423570689]
+clip_contents = true
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 24.0
-offset_top = 96.0
-offset_right = -24.0
-offset_bottom = -24.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("Card")
+mouse_filter = 2
+script = ExtResource("3_backdrop")
 
-[node name="Center" type="CenterContainer" parent="ShopCard" unique_id=607123120]
-layout_mode = 2
-
-[node name="Message" type="VBoxContainer" parent="ShopCard/Center" unique_id=1122483157]
-layout_mode = 2
-theme_override_constants/separation = 8
-
-[node name="ShopTitle" type="Label" parent="ShopCard/Center/Message" unique_id=17069134]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.16, 0.29, 0.23, 1)
-theme_override_font_sizes/font_size = 30
-text = "Cosmetics Shop"
-horizontal_alignment = 1
-
-[node name="ItemsGrid" type="GridContainer" parent="ShopCard/Center/Message" unique_id=1767334853]
-layout_mode = 2
-theme_override_constants/h_separation = 24
-theme_override_constants/v_separation = 12
-columns = 3
-
-[node name="Crown" type="PanelContainer" parent="ShopCard/Center/Message/ItemsGrid" unique_id=1845615792]
-custom_minimum_size = Vector2(230, 0)
-layout_mode = 2
-theme_override_styles/panel = SubResource("ItemCard")
-
-[node name="Content" type="VBoxContainer" parent="ShopCard/Center/Message/ItemsGrid/Crown" unique_id=1725142322]
-layout_mode = 2
-theme_override_constants/separation = 4
-
-[node name="Image" type="TextureRect" parent="ShopCard/Center/Message/ItemsGrid/Crown/Content" unique_id=1698276831]
+[node name="Crown" type="Button" parent="." unique_id=652015137]
+unique_name_in_owner = true
 texture_filter = 1
-custom_minimum_size = Vector2(0, 100)
-layout_mode = 2
-texture = ExtResource("item_crown")
-expand_mode = 1
-stretch_mode = 5
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.15
+anchor_top = 0.256
+anchor_right = 0.35000002
+anchor_bottom = 0.46
+offset_top = 0.22399902
+offset_right = -3.0517578e-05
+tooltip_text = "Golden Crown"
+mouse_default_cursor_shape = 2
+accessibility_name = "Golden Crown"
+theme_override_styles/normal = SubResource("NoFrame")
+theme_override_styles/pressed = SubResource("SelectedItem")
+theme_override_styles/hover = SubResource("SelectedItem")
+theme_override_styles/hover_pressed = SubResource("SelectedItem")
+theme_override_styles/focus = SubResource("ItemFocus")
+toggle_mode = true
+button_group = SubResource("Items")
+icon = ExtResource("item_crown")
+icon_alignment = 1
+expand_icon = true
 
-[node name="ItemName" type="Label" parent="ShopCard/Center/Message/ItemsGrid/Crown/Content" unique_id=1272957107]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.16, 0.29, 0.23, 1)
-theme_override_font_sizes/font_size = 20
-text = "Golden Crown"
-horizontal_alignment = 1
-
-[node name="Price" type="Label" parent="ShopCard/Center/Message/ItemsGrid/Crown/Content" unique_id=1052354044]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.27, 0.21, 0.12, 1)
-text = "50 coins"
-horizontal_alignment = 1
-
-[node name="Purchase" type="Button" parent="ShopCard/Center/Message/ItemsGrid/Crown/Content" unique_id=981726327]
-custom_minimum_size = Vector2(0, 32)
-layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
-theme_override_styles/normal = SubResource("BuyButton")
-theme_override_styles/hover = SubResource("BuyButton")
-text = "Purchase"
-
-[node name="Glasses" type="PanelContainer" parent="ShopCard/Center/Message/ItemsGrid" unique_id=915619294]
-custom_minimum_size = Vector2(230, 0)
-layout_mode = 2
-theme_override_styles/panel = SubResource("ItemCard")
-
-[node name="Content" type="VBoxContainer" parent="ShopCard/Center/Message/ItemsGrid/Glasses" unique_id=683893731]
-layout_mode = 2
-theme_override_constants/separation = 4
-
-[node name="Image" type="TextureRect" parent="ShopCard/Center/Message/ItemsGrid/Glasses/Content" unique_id=750984060]
+[node name="Glasses" type="Button" parent="." unique_id=1171756906]
+unique_name_in_owner = true
 texture_filter = 1
-custom_minimum_size = Vector2(0, 100)
-layout_mode = 2
-texture = ExtResource("item_glasses")
-expand_mode = 1
-stretch_mode = 5
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.4
+anchor_top = 0.255
+anchor_right = 0.6
+anchor_bottom = 0.46
+offset_top = 8.0
+tooltip_text = "Sunglasses"
+mouse_default_cursor_shape = 2
+accessibility_name = "Sunglasses"
+theme_override_styles/normal = SubResource("NoFrame")
+theme_override_styles/pressed = SubResource("SelectedItem")
+theme_override_styles/hover = SubResource("SelectedItem")
+theme_override_styles/hover_pressed = SubResource("SelectedItem")
+theme_override_styles/focus = SubResource("ItemFocus")
+toggle_mode = true
+button_group = SubResource("Items")
+icon = ExtResource("item_glasses")
+icon_alignment = 1
+expand_icon = true
 
-[node name="ItemName" type="Label" parent="ShopCard/Center/Message/ItemsGrid/Glasses/Content" unique_id=1439209206]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.16, 0.29, 0.23, 1)
-theme_override_font_sizes/font_size = 20
-text = "Sunglasses"
-horizontal_alignment = 1
-
-[node name="Price" type="Label" parent="ShopCard/Center/Message/ItemsGrid/Glasses/Content" unique_id=987346852]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.27, 0.21, 0.12, 1)
-text = "30 coins"
-horizontal_alignment = 1
-
-[node name="Purchase" type="Button" parent="ShopCard/Center/Message/ItemsGrid/Glasses/Content" unique_id=635790048]
-custom_minimum_size = Vector2(0, 32)
-layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
-theme_override_styles/normal = SubResource("BuyButton")
-theme_override_styles/hover = SubResource("BuyButton")
-text = "Purchase"
-
-[node name="Hat" type="PanelContainer" parent="ShopCard/Center/Message/ItemsGrid" unique_id=1930812726]
-custom_minimum_size = Vector2(230, 0)
-layout_mode = 2
-theme_override_styles/panel = SubResource("ItemCard")
-
-[node name="Content" type="VBoxContainer" parent="ShopCard/Center/Message/ItemsGrid/Hat" unique_id=950951658]
-layout_mode = 2
-theme_override_constants/separation = 4
-
-[node name="Image" type="TextureRect" parent="ShopCard/Center/Message/ItemsGrid/Hat/Content" unique_id=615268964]
+[node name="Hat" type="Button" parent="." unique_id=2028755475]
+unique_name_in_owner = true
 texture_filter = 1
-custom_minimum_size = Vector2(0, 100)
-layout_mode = 2
-texture = ExtResource("item_hat")
-expand_mode = 1
-stretch_mode = 5
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.65
+anchor_top = 0.244
+anchor_right = 0.85
+anchor_bottom = 0.46
+offset_top = 8.0
+tooltip_text = "Baseball Cap"
+mouse_default_cursor_shape = 2
+accessibility_name = "Baseball Cap"
+theme_override_styles/normal = SubResource("NoFrame")
+theme_override_styles/pressed = SubResource("SelectedItem")
+theme_override_styles/hover = SubResource("SelectedItem")
+theme_override_styles/hover_pressed = SubResource("SelectedItem")
+theme_override_styles/focus = SubResource("ItemFocus")
+toggle_mode = true
+button_group = SubResource("Items")
+icon = ExtResource("item_hat")
+icon_alignment = 1
+expand_icon = true
 
-[node name="ItemName" type="Label" parent="ShopCard/Center/Message/ItemsGrid/Hat/Content" unique_id=1396179187]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.16, 0.29, 0.23, 1)
-theme_override_font_sizes/font_size = 20
-text = "Baseball Cap"
-horizontal_alignment = 1
-
-[node name="Price" type="Label" parent="ShopCard/Center/Message/ItemsGrid/Hat/Content" unique_id=1782895627]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.27, 0.21, 0.12, 1)
-text = "20 coins"
-horizontal_alignment = 1
-
-[node name="Purchase" type="Button" parent="ShopCard/Center/Message/ItemsGrid/Hat/Content" unique_id=1849509680]
-custom_minimum_size = Vector2(0, 32)
-layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
-theme_override_styles/normal = SubResource("BuyButton")
-theme_override_styles/hover = SubResource("BuyButton")
-text = "Purchase"
-
-[node name="Tie" type="PanelContainer" parent="ShopCard/Center/Message/ItemsGrid" unique_id=1084194796]
-custom_minimum_size = Vector2(230, 0)
-layout_mode = 2
-theme_override_styles/panel = SubResource("ItemCard")
-
-[node name="Content" type="VBoxContainer" parent="ShopCard/Center/Message/ItemsGrid/Tie" unique_id=1838022008]
-layout_mode = 2
-theme_override_constants/separation = 4
-
-[node name="Image" type="TextureRect" parent="ShopCard/Center/Message/ItemsGrid/Tie/Content" unique_id=555053475]
+[node name="Tie" type="Button" parent="." unique_id=707768604]
+unique_name_in_owner = true
 texture_filter = 1
-custom_minimum_size = Vector2(0, 100)
-layout_mode = 2
-texture = ExtResource("item_tie")
-expand_mode = 1
-stretch_mode = 5
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.15
+anchor_top = 0.554
+anchor_right = 0.35
+anchor_bottom = 0.77
+offset_top = 8.0
+tooltip_text = "Bow Tie"
+mouse_default_cursor_shape = 2
+accessibility_name = "Bow Tie"
+theme_override_styles/normal = SubResource("NoFrame")
+theme_override_styles/pressed = SubResource("SelectedItem")
+theme_override_styles/hover = SubResource("SelectedItem")
+theme_override_styles/hover_pressed = SubResource("SelectedItem")
+theme_override_styles/focus = SubResource("ItemFocus")
+toggle_mode = true
+button_group = SubResource("Items")
+icon = ExtResource("item_tie")
+icon_alignment = 1
+expand_icon = true
 
-[node name="ItemName" type="Label" parent="ShopCard/Center/Message/ItemsGrid/Tie/Content" unique_id=711657454]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.16, 0.29, 0.23, 1)
-theme_override_font_sizes/font_size = 20
-text = "Bow Tie"
-horizontal_alignment = 1
-
-[node name="Price" type="Label" parent="ShopCard/Center/Message/ItemsGrid/Tie/Content" unique_id=1794563449]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.27, 0.21, 0.12, 1)
-text = "20 coins"
-horizontal_alignment = 1
-
-[node name="Purchase" type="Button" parent="ShopCard/Center/Message/ItemsGrid/Tie/Content" unique_id=32124935]
-custom_minimum_size = Vector2(0, 32)
-layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
-theme_override_styles/normal = SubResource("BuyButton")
-theme_override_styles/hover = SubResource("BuyButton")
-text = "Purchase"
-
-[node name="Witch" type="PanelContainer" parent="ShopCard/Center/Message/ItemsGrid" unique_id=440216717]
-custom_minimum_size = Vector2(230, 0)
-layout_mode = 2
-theme_override_styles/panel = SubResource("ItemCard")
-
-[node name="Content" type="VBoxContainer" parent="ShopCard/Center/Message/ItemsGrid/Witch" unique_id=548941580]
-layout_mode = 2
-theme_override_constants/separation = 4
-
-[node name="Image" type="TextureRect" parent="ShopCard/Center/Message/ItemsGrid/Witch/Content" unique_id=386066089]
+[node name="Witch" type="Button" parent="." unique_id=392674644]
+unique_name_in_owner = true
 texture_filter = 1
-custom_minimum_size = Vector2(0, 100)
-layout_mode = 2
-texture = ExtResource("item_witch")
-expand_mode = 1
-stretch_mode = 5
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.4
+anchor_top = 0.565
+anchor_right = 0.6
+anchor_bottom = 0.77
+offset_top = 8.0
+tooltip_text = "Witch Hat"
+mouse_default_cursor_shape = 2
+accessibility_name = "Witch Hat"
+theme_override_styles/normal = SubResource("NoFrame")
+theme_override_styles/pressed = SubResource("SelectedItem")
+theme_override_styles/hover = SubResource("SelectedItem")
+theme_override_styles/hover_pressed = SubResource("SelectedItem")
+theme_override_styles/focus = SubResource("ItemFocus")
+toggle_mode = true
+button_group = SubResource("Items")
+icon = ExtResource("item_witch")
+icon_alignment = 1
+expand_icon = true
 
-[node name="ItemName" type="Label" parent="ShopCard/Center/Message/ItemsGrid/Witch/Content" unique_id=1133698187]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.16, 0.29, 0.23, 1)
-theme_override_font_sizes/font_size = 20
-text = "Witch Hat"
-horizontal_alignment = 1
-
-[node name="Price" type="Label" parent="ShopCard/Center/Message/ItemsGrid/Witch/Content" unique_id=1000797678]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.27, 0.21, 0.12, 1)
-text = "40 coins"
-horizontal_alignment = 1
-
-[node name="Purchase" type="Button" parent="ShopCard/Center/Message/ItemsGrid/Witch/Content" unique_id=2061628362]
-custom_minimum_size = Vector2(0, 32)
-layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
-theme_override_styles/normal = SubResource("BuyButton")
-theme_override_styles/hover = SubResource("BuyButton")
-text = "Purchase"
-
-[node name="Wings" type="PanelContainer" parent="ShopCard/Center/Message/ItemsGrid" unique_id=474704360]
-custom_minimum_size = Vector2(230, 0)
-layout_mode = 2
-theme_override_styles/panel = SubResource("ItemCard")
-
-[node name="Content" type="VBoxContainer" parent="ShopCard/Center/Message/ItemsGrid/Wings" unique_id=232165387]
-layout_mode = 2
-theme_override_constants/separation = 4
-
-[node name="Image" type="TextureRect" parent="ShopCard/Center/Message/ItemsGrid/Wings/Content" unique_id=1853251389]
+[node name="Wings" type="Button" parent="." unique_id=1084000933]
+unique_name_in_owner = true
 texture_filter = 1
-custom_minimum_size = Vector2(0, 100)
-layout_mode = 2
-texture = ExtResource("item_wings")
-expand_mode = 1
-stretch_mode = 5
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.65
+anchor_top = 0.554
+anchor_right = 0.85
+anchor_bottom = 0.77
+offset_top = 8.0
+tooltip_text = "Butterfly Wings"
+mouse_default_cursor_shape = 2
+accessibility_name = "Butterfly Wings"
+theme_override_styles/normal = SubResource("NoFrame")
+theme_override_styles/pressed = SubResource("SelectedItem")
+theme_override_styles/hover = SubResource("SelectedItem")
+theme_override_styles/hover_pressed = SubResource("SelectedItem")
+theme_override_styles/focus = SubResource("ItemFocus")
+toggle_mode = true
+button_group = SubResource("Items")
+icon = ExtResource("item_wings")
+icon_alignment = 1
+expand_icon = true
 
-[node name="ItemName" type="Label" parent="ShopCard/Center/Message/ItemsGrid/Wings/Content" unique_id=651141395]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.16, 0.29, 0.23, 1)
-theme_override_font_sizes/font_size = 20
-text = "Butterfly Wings"
-horizontal_alignment = 1
+[node name="PurchaseTag" type="PanelContainer" parent="." unique_id=159974656]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -180.0
+offset_top = -94.0
+offset_right = 180.0
+offset_bottom = -12.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/panel = SubResource("Purse")
 
-[node name="Price" type="Label" parent="ShopCard/Center/Message/ItemsGrid/Wings/Content" unique_id=1953297330]
+[node name="Content" type="VBoxContainer" parent="PurchaseTag" unique_id=24044415]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.27, 0.21, 0.12, 1)
-text = "50 coins"
-horizontal_alignment = 1
+alignment = 1
 
-[node name="Purchase" type="Button" parent="ShopCard/Center/Message/ItemsGrid/Wings/Content" unique_id=848269527]
-custom_minimum_size = Vector2(0, 32)
+[node name="Actions" type="HBoxContainer" parent="PurchaseTag/Content" unique_id=551857216]
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_constants/separation = 14
+alignment = 1
+
+[node name="ItemDetails" type="Label" parent="PurchaseTag/Content/Actions" unique_id=1051489242]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.29, 0.18, 0.12, 1)
+theme_override_font_sizes/font_size = 17
+text = "Golden Crown · 50 coins"
+
+[node name="Buy" type="Button" parent="PurchaseTag/Content/Actions" unique_id=1311656959]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(72, 36)
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme_override_colors/font_color = Color(0.29, 0.18, 0.12, 1)
+theme_override_colors/font_focus_color = Color(0.29, 0.18, 0.12, 1)
+theme_override_colors/font_pressed_color = Color(0.29, 0.18, 0.12, 1)
+theme_override_colors/font_hover_color = Color(0.29, 0.18, 0.12, 1)
 theme_override_styles/normal = SubResource("BuyButton")
-theme_override_styles/hover = SubResource("BuyButton")
-text = "Purchase"
+theme_override_styles/pressed = SubResource("BuyButton")
+theme_override_styles/hover = SubResource("BackHover")
+theme_override_styles/focus = SubResource("ItemFocus")
+text = "Buy"
+
+[node name="PurchaseStatus" type="Label" parent="PurchaseTag/Content" unique_id=42416860]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.29, 0.18, 0.12, 1)
+text = "Pick an accessory"
+horizontal_alignment = 1
 
 [node name="Header" type="HBoxContainer" parent="." unique_id=1162767711]
 layout_mode = 1
@@ -367,9 +326,9 @@ theme_override_colors/font_pressed_color = Color(0.16, 0.29, 0.23, 1)
 theme_override_colors/font_hover_color = Color(0.16, 0.29, 0.23, 1)
 theme_override_font_sizes/font_size = 20
 theme_override_styles/normal = SubResource("Back")
-theme_override_styles/pressed = SubResource("Purse")
+theme_override_styles/pressed = SubResource("BackHover")
 theme_override_styles/hover = SubResource("BackHover")
-text = "←  Back"
+text = "‹  Back"
 
 [node name="Spacer" type="Control" parent="Header" unique_id=1331294235]
 layout_mode = 2
@@ -401,4 +360,5 @@ theme_override_colors/font_color = Color(0.27, 0.21, 0.12, 1)
 theme_override_font_sizes/font_size = 20
 text = "0 coins"
 
+[connection signal="pressed" from="PurchaseTag/Content/Actions/Buy" to="." method="_on_buy_pressed"]
 [connection signal="pressed" from="Header/Back" to="." method="_on_back_pressed"]
