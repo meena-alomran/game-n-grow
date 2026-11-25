@@ -202,7 +202,7 @@ old_customer_transform = NodePath("3D/OldCustomerTransform")
 grocery_spots = NodePath("3D/GrocerySpots")
 list_page_l = NodePath("3D/cash_register/item_book/ListPageL")
 list_page_r = NodePath("3D/cash_register/item_book/ListPageR")
-debug_grocery_list = Array[ExtResource("2_u20e4")]([ExtResource("4_f2t8j"), ExtResource("5_yr8pa"), ExtResource("6_56ueb"), ExtResource("3_j3bif")])
+grocery_list = Array[ExtResource("2_u20e4")]([ExtResource("3_j3bif"), ExtResource("4_f2t8j"), ExtResource("5_yr8pa"), ExtResource("6_56ueb")])
 
 [node name="3D" type="Node3D" parent="." unique_id=1551090245]
 
@@ -280,7 +280,7 @@ transform = Transform3D(-1.6292068e-07, 0, 1, 0, 1, 0, -1, 0, -1.6292068e-07, 5.
 [node name="AnimalKat2" parent="3D/NewCustomerTransform" unique_id=1099911432 instance=ExtResource("2_xglb0")]
 
 [node name="OldCustomerTransform" type="Marker3D" parent="3D" unique_id=193872808]
-transform = Transform3D(-0.99853593, 0, -0.0540787, 0, 1, 0, 0.0540787, 0, -0.99853593, 0.49751902, 0, -1.6294477)
+transform = Transform3D(-0.9985358, 0, -0.05407869, 0, 1, 0, 0.05407869, 0, -0.9985358, 0.49751902, 0, -1.6294477)
 
 [node name="AnimalKat" parent="3D/OldCustomerTransform" unique_id=1100125556 instance=ExtResource("2_xglb0")]
 
