@@ -33,6 +33,18 @@ corner_radius_bottom_left = 24
 
 [sub_resource type="ButtonGroup" id="Items"]
 
+[sub_resource type="Shader" id="OwnedItemShader"]
+code = "shader_type canvas_item;
+
+void fragment() {
+	float gray = dot(COLOR.rgb, vec3(0.2126, 0.7152, 0.0722));
+	COLOR = vec4(vec3(gray), COLOR.a * 0.65);
+}
+"
+
+[sub_resource type="ShaderMaterial" id="OwnedItemMaterial"]
+shader = SubResource("OwnedItemShader")
+
 [sub_resource type="StyleBoxFlat" id="Purse"]
 content_margin_left = 14.0
 content_margin_right = 14.0
@@ -48,6 +60,17 @@ content_margin_right = 14.0
 bg_color = Color(0.96, 0.76, 0.48, 1)
 border_width_bottom = 3
 border_color = Color(0.68, 0.44, 0.28, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="BuyDisabled"]
+content_margin_left = 14.0
+content_margin_right = 14.0
+bg_color = Color(0.78, 0.77, 0.73, 1)
+border_width_bottom = 3
+border_color = Color(0.64, 0.63, 0.58, 1)
 corner_radius_top_left = 5
 corner_radius_top_right = 5
 corner_radius_bottom_right = 5
@@ -85,6 +108,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1")
+owned_item_material = SubResource("OwnedItemMaterial")
 
 [node name="Background" type="ColorRect" parent="." unique_id=658436612]
 z_index = -1
@@ -294,6 +318,8 @@ theme_override_colors/font_focus_color = Color(0.29, 0.18, 0.12, 1)
 theme_override_colors/font_pressed_color = Color(0.29, 0.18, 0.12, 1)
 theme_override_colors/font_hover_color = Color(0.29, 0.18, 0.12, 1)
 theme_override_styles/normal = SubResource("BuyButton")
+theme_override_styles/disabled = SubResource("BuyDisabled")
+theme_override_colors/font_disabled_color = Color(0.34, 0.33, 0.30, 1)
 theme_override_styles/pressed = SubResource("BuyButton")
 theme_override_styles/hover = SubResource("BackHover")
 theme_override_styles/focus = SubResource("ItemFocus")
@@ -360,5 +386,16 @@ theme_override_colors/font_color = Color(0.27, 0.21, 0.12, 1)
 theme_override_font_sizes/font_size = 20
 text = "0 coins"
 
+[node name="PurchaseConfirmation" type="ConfirmationDialog" parent="."]
+title = "Confirm purchase"
+size = Vector2i(360, 116)
+visible = false
+transient = true
+exclusive = true
+ok_button_text = "Yes, buy"
+cancel_button_text = "Cancel"
+
 [connection signal="pressed" from="PurchaseTag/Content/Actions/Buy" to="." method="_on_buy_pressed"]
 [connection signal="pressed" from="Header/Back" to="." method="_on_back_pressed"]
+[connection signal="confirmed" from="PurchaseConfirmation" to="." method="_on_purchase_confirmed"]
+[connection signal="canceled" from="PurchaseConfirmation" to="." method="_on_purchase_canceled"]
