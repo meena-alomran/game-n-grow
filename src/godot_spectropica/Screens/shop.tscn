@@ -1,0 +1,401 @@
+[gd_scene format=3 uid="uid://274kbt7lux1x"]
+
+[ext_resource type="Script" uid="uid://61swy3pn0jbj" path="res://Screens/shop.gd" id="1"]
+[ext_resource type="Texture2D" uid="uid://cp4ynrd8wqylu" path="res://Arts/Images/gold-coin.png" id="2_coin"]
+[ext_resource type="Script" uid="uid://besw574htf3pt" path="res://Screens/shop_backdrop.gd" id="3_backdrop"]
+[ext_resource type="Texture2D" uid="uid://c85jipkwmv7e8" path="res://Arts/Images/Cosmetics/crown.png" id="item_crown"]
+[ext_resource type="Texture2D" uid="uid://cpsoxf5g40qnr" path="res://Arts/Images/Cosmetics/glasses.png" id="item_glasses"]
+[ext_resource type="Texture2D" uid="uid://coie8mynuxomu" path="res://Arts/Images/Cosmetics/hat.png" id="item_hat"]
+[ext_resource type="Texture2D" uid="uid://yjfvf7x15lup" path="res://Arts/Images/Cosmetics/tie.png" id="item_tie"]
+[ext_resource type="Texture2D" uid="uid://c61o0ykp4uwbi" path="res://Arts/Images/Cosmetics/wings.png" id="item_wings"]
+[ext_resource type="Texture2D" uid="uid://c042iu7ae62xt" path="res://Arts/Images/Cosmetics/witch.png" id="item_witch"]
+
+[sub_resource type="StyleBoxEmpty" id="NoFrame"]
+
+[sub_resource type="StyleBoxFlat" id="SelectedItem"]
+bg_color = Color(1, 0.95, 0.74, 0.34)
+corner_radius_top_left = 24
+corner_radius_top_right = 24
+corner_radius_bottom_right = 24
+corner_radius_bottom_left = 24
+
+[sub_resource type="StyleBoxFlat" id="ItemFocus"]
+draw_center = false
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.16, 0.29, 0.37, 1)
+corner_radius_top_left = 24
+corner_radius_top_right = 24
+corner_radius_bottom_right = 24
+corner_radius_bottom_left = 24
+
+[sub_resource type="ButtonGroup" id="Items"]
+
+[sub_resource type="Shader" id="OwnedItemShader"]
+code = "shader_type canvas_item;
+
+void fragment() {
+	float gray = dot(COLOR.rgb, vec3(0.2126, 0.7152, 0.0722));
+	COLOR = vec4(vec3(gray), COLOR.a * 0.65);
+}
+"
+
+[sub_resource type="ShaderMaterial" id="OwnedItemMaterial"]
+shader = SubResource("OwnedItemShader")
+
+[sub_resource type="StyleBoxFlat" id="Purse"]
+content_margin_left = 14.0
+content_margin_right = 14.0
+bg_color = Color(1, 0.94, 0.73, 1)
+corner_radius_top_left = 18
+corner_radius_top_right = 18
+corner_radius_bottom_right = 18
+corner_radius_bottom_left = 18
+
+[sub_resource type="StyleBoxFlat" id="BuyButton"]
+content_margin_left = 14.0
+content_margin_right = 14.0
+bg_color = Color(0.96, 0.76, 0.48, 1)
+border_width_bottom = 3
+border_color = Color(0.68, 0.44, 0.28, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="BuyDisabled"]
+content_margin_left = 14.0
+content_margin_right = 14.0
+bg_color = Color(0.78, 0.77, 0.73, 1)
+border_width_bottom = 3
+border_color = Color(0.64, 0.63, 0.58, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="BackHover"]
+content_margin_left = 16.0
+content_margin_right = 16.0
+bg_color = Color(0.83, 0.95, 1, 1)
+corner_radius_top_left = 18
+corner_radius_top_right = 18
+corner_radius_bottom_right = 18
+corner_radius_bottom_left = 18
+shadow_color = Color(0.16, 0.4, 0.58, 0.38)
+shadow_size = 3
+shadow_offset = Vector2(0, 3)
+
+[sub_resource type="StyleBoxFlat" id="Back"]
+content_margin_left = 16.0
+content_margin_right = 16.0
+bg_color = Color(0.95, 0.99, 1, 1)
+corner_radius_top_left = 18
+corner_radius_top_right = 18
+corner_radius_bottom_right = 18
+corner_radius_bottom_left = 18
+shadow_color = Color(0.16, 0.4, 0.58, 0.38)
+shadow_size = 3
+shadow_offset = Vector2(0, 3)
+
+[node name="Shop" type="Control" unique_id=1347061896]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1")
+owned_item_material = SubResource("OwnedItemMaterial")
+
+[node name="Background" type="ColorRect" parent="." unique_id=658436612]
+z_index = -1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.3, 0.74, 0.97, 1)
+
+[node name="Courtyard" type="Control" parent="." unique_id=423570689]
+clip_contents = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("3_backdrop")
+
+[node name="Crown" type="Button" parent="." unique_id=652015137]
+unique_name_in_owner = true
+texture_filter = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.15
+anchor_top = 0.256
+anchor_right = 0.35000002
+anchor_bottom = 0.46
+offset_top = 0.22399902
+offset_right = -3.0517578e-05
+tooltip_text = "Golden Crown"
+mouse_default_cursor_shape = 2
+accessibility_name = "Golden Crown"
+theme_override_styles/normal = SubResource("NoFrame")
+theme_override_styles/pressed = SubResource("SelectedItem")
+theme_override_styles/hover = SubResource("SelectedItem")
+theme_override_styles/hover_pressed = SubResource("SelectedItem")
+theme_override_styles/focus = SubResource("ItemFocus")
+toggle_mode = true
+button_group = SubResource("Items")
+icon = ExtResource("item_crown")
+icon_alignment = 1
+expand_icon = true
+
+[node name="Glasses" type="Button" parent="." unique_id=1171756906]
+unique_name_in_owner = true
+texture_filter = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.4
+anchor_top = 0.255
+anchor_right = 0.6
+anchor_bottom = 0.46
+offset_top = 8.0
+tooltip_text = "Sunglasses"
+mouse_default_cursor_shape = 2
+accessibility_name = "Sunglasses"
+theme_override_styles/normal = SubResource("NoFrame")
+theme_override_styles/pressed = SubResource("SelectedItem")
+theme_override_styles/hover = SubResource("SelectedItem")
+theme_override_styles/hover_pressed = SubResource("SelectedItem")
+theme_override_styles/focus = SubResource("ItemFocus")
+toggle_mode = true
+button_group = SubResource("Items")
+icon = ExtResource("item_glasses")
+icon_alignment = 1
+expand_icon = true
+
+[node name="Hat" type="Button" parent="." unique_id=2028755475]
+unique_name_in_owner = true
+texture_filter = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.65
+anchor_top = 0.244
+anchor_right = 0.85
+anchor_bottom = 0.46
+offset_top = 8.0
+tooltip_text = "Baseball Cap"
+mouse_default_cursor_shape = 2
+accessibility_name = "Baseball Cap"
+theme_override_styles/normal = SubResource("NoFrame")
+theme_override_styles/pressed = SubResource("SelectedItem")
+theme_override_styles/hover = SubResource("SelectedItem")
+theme_override_styles/hover_pressed = SubResource("SelectedItem")
+theme_override_styles/focus = SubResource("ItemFocus")
+toggle_mode = true
+button_group = SubResource("Items")
+icon = ExtResource("item_hat")
+icon_alignment = 1
+expand_icon = true
+
+[node name="Tie" type="Button" parent="." unique_id=707768604]
+unique_name_in_owner = true
+texture_filter = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.15
+anchor_top = 0.554
+anchor_right = 0.35
+anchor_bottom = 0.77
+offset_top = 8.0
+tooltip_text = "Bow Tie"
+mouse_default_cursor_shape = 2
+accessibility_name = "Bow Tie"
+theme_override_styles/normal = SubResource("NoFrame")
+theme_override_styles/pressed = SubResource("SelectedItem")
+theme_override_styles/hover = SubResource("SelectedItem")
+theme_override_styles/hover_pressed = SubResource("SelectedItem")
+theme_override_styles/focus = SubResource("ItemFocus")
+toggle_mode = true
+button_group = SubResource("Items")
+icon = ExtResource("item_tie")
+icon_alignment = 1
+expand_icon = true
+
+[node name="Witch" type="Button" parent="." unique_id=392674644]
+unique_name_in_owner = true
+texture_filter = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.4
+anchor_top = 0.565
+anchor_right = 0.6
+anchor_bottom = 0.77
+offset_top = 8.0
+tooltip_text = "Witch Hat"
+mouse_default_cursor_shape = 2
+accessibility_name = "Witch Hat"
+theme_override_styles/normal = SubResource("NoFrame")
+theme_override_styles/pressed = SubResource("SelectedItem")
+theme_override_styles/hover = SubResource("SelectedItem")
+theme_override_styles/hover_pressed = SubResource("SelectedItem")
+theme_override_styles/focus = SubResource("ItemFocus")
+toggle_mode = true
+button_group = SubResource("Items")
+icon = ExtResource("item_witch")
+icon_alignment = 1
+expand_icon = true
+
+[node name="Wings" type="Button" parent="." unique_id=1084000933]
+unique_name_in_owner = true
+texture_filter = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.65
+anchor_top = 0.554
+anchor_right = 0.85
+anchor_bottom = 0.77
+offset_top = 8.0
+tooltip_text = "Butterfly Wings"
+mouse_default_cursor_shape = 2
+accessibility_name = "Butterfly Wings"
+theme_override_styles/normal = SubResource("NoFrame")
+theme_override_styles/pressed = SubResource("SelectedItem")
+theme_override_styles/hover = SubResource("SelectedItem")
+theme_override_styles/hover_pressed = SubResource("SelectedItem")
+theme_override_styles/focus = SubResource("ItemFocus")
+toggle_mode = true
+button_group = SubResource("Items")
+icon = ExtResource("item_wings")
+icon_alignment = 1
+expand_icon = true
+
+[node name="PurchaseTag" type="PanelContainer" parent="." unique_id=159974656]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -180.0
+offset_top = -94.0
+offset_right = 180.0
+offset_bottom = -12.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/panel = SubResource("Purse")
+
+[node name="Content" type="VBoxContainer" parent="PurchaseTag" unique_id=24044415]
+layout_mode = 2
+alignment = 1
+
+[node name="Actions" type="HBoxContainer" parent="PurchaseTag/Content" unique_id=551857216]
+layout_mode = 2
+theme_override_constants/separation = 14
+alignment = 1
+
+[node name="ItemDetails" type="Label" parent="PurchaseTag/Content/Actions" unique_id=1051489242]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.29, 0.18, 0.12, 1)
+theme_override_font_sizes/font_size = 17
+text = "Golden Crown · 50 coins"
+
+[node name="Buy" type="Button" parent="PurchaseTag/Content/Actions" unique_id=1311656959]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(72, 36)
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme_override_colors/font_color = Color(0.29, 0.18, 0.12, 1)
+theme_override_colors/font_focus_color = Color(0.29, 0.18, 0.12, 1)
+theme_override_colors/font_pressed_color = Color(0.29, 0.18, 0.12, 1)
+theme_override_colors/font_hover_color = Color(0.29, 0.18, 0.12, 1)
+theme_override_styles/normal = SubResource("BuyButton")
+theme_override_styles/disabled = SubResource("BuyDisabled")
+theme_override_colors/font_disabled_color = Color(0.34, 0.33, 0.30, 1)
+theme_override_styles/pressed = SubResource("BuyButton")
+theme_override_styles/hover = SubResource("BackHover")
+theme_override_styles/focus = SubResource("ItemFocus")
+text = "Buy"
+
+[node name="PurchaseStatus" type="Label" parent="PurchaseTag/Content" unique_id=42416860]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.29, 0.18, 0.12, 1)
+text = "Pick an accessory"
+horizontal_alignment = 1
+
+[node name="Header" type="HBoxContainer" parent="." unique_id=1162767711]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 24.0
+offset_top = 24.0
+offset_right = -24.0
+offset_bottom = 76.0
+grow_horizontal = 2
+
+[node name="Back" type="Button" parent="Header" unique_id=1213794038]
+custom_minimum_size = Vector2(108, 52)
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme_override_colors/font_color = Color(0.16, 0.29, 0.23, 1)
+theme_override_colors/font_focus_color = Color(0.16, 0.29, 0.23, 1)
+theme_override_colors/font_pressed_color = Color(0.16, 0.29, 0.23, 1)
+theme_override_colors/font_hover_color = Color(0.16, 0.29, 0.23, 1)
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("Back")
+theme_override_styles/pressed = SubResource("BackHover")
+theme_override_styles/hover = SubResource("BackHover")
+text = "‹  Back"
+
+[node name="Spacer" type="Control" parent="Header" unique_id=1331294235]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="Purse" type="PanelContainer" parent="Header" unique_id=77396270]
+layout_mode = 2
+theme_override_styles/panel = SubResource("Purse")
+
+[node name="Row" type="HBoxContainer" parent="Header/Purse" unique_id=1736551232]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Coin" type="TextureRect" parent="Header/Purse/Row" unique_id=1035354225]
+texture_filter = 1
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+texture = ExtResource("2_coin")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Balance" type="Label" parent="Header/Purse/Row" unique_id=2002065112]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.27, 0.21, 0.12, 1)
+theme_override_font_sizes/font_size = 20
+text = "0 coins"
+
+[node name="PurchaseConfirmation" type="ConfirmationDialog" parent="."]
+title = "Confirm purchase"
+size = Vector2i(360, 116)
+visible = false
+transient = true
+exclusive = true
+ok_button_text = "Yes, buy"
+cancel_button_text = "Cancel"
+
+[connection signal="pressed" from="PurchaseTag/Content/Actions/Buy" to="." method="_on_buy_pressed"]
+[connection signal="pressed" from="Header/Back" to="." method="_on_back_pressed"]
+[connection signal="confirmed" from="PurchaseConfirmation" to="." method="_on_purchase_confirmed"]
+[connection signal="canceled" from="PurchaseConfirmation" to="." method="_on_purchase_canceled"]
