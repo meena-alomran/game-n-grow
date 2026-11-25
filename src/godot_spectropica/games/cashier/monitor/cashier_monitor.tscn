@@ -15,7 +15,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.2823066, 0.21811098, 0.2945819, 1)
+color = Color(0.16547486, 0.43523502, 0.2844486, 1)
 
 [node name="NumberGrid" type="GridContainer" parent="." unique_id=1121363885]
 layout_mode = 0
@@ -134,7 +134,7 @@ offset_left = -7.0
 offset_right = 7.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.17254902, 0.14509805, 0.1764706, 1)
+color = Color(0.09433661, 0.1508852, 0.05666074, 1)
 
 [node name="CashButton" type="Button" parent="." unique_id=1079666312]
 layout_mode = 0

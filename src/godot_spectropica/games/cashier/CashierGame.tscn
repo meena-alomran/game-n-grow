@@ -20,13 +20,27 @@
 [ext_resource type="Resource" uid="uid://bqk1r6y50t0ws" path="res://games/cashier/data/standard_groceries/sg_cheese_wheel.tres" id="11_acbws"]
 [ext_resource type="PackedScene" uid="uid://du1auypdjsyul" path="res://games/cashier/item_book/cashier_list_page.tscn" id="11_j3bif"]
 [ext_resource type="Resource" uid="uid://cnujmbm8wkljl" path="res://games/cashier/data/standard_groceries/sg_orange_juice.tres" id="12_j4nyk"]
+[ext_resource type="PackedScene" uid="uid://bappfcvgvuwo6" path="res://Arts/models/cashier_game/bg_shore.glb" id="21_r7hc5"]
+[ext_resource type="Shader" uid="uid://c3kfaebgkfa1b" path="res://games/cashier/shoreline.gdshader" id="22_7o7am"]
+[ext_resource type="PackedScene" uid="uid://b5s4uldedu8xp" path="res://Arts/models/cashier_game/bg_palm.glb" id="23_g1rwb"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_g1rwb"]
+sky_top_color = Color(0.10379689, 0.45970267, 0.76512295, 1)
+sky_horizon_color = Color(0.36053798, 0.71850175, 0.89566594, 1)
+ground_bottom_color = Color(0.36053798, 0.71850175, 0.89566594, 1)
+ground_horizon_color = Color(0.36053798, 0.71850175, 0.89566594, 1)
+
+[sub_resource type="Sky" id="Sky_7o7am"]
+sky_material = SubResource("ProceduralSkyMaterial_g1rwb")
 
 [sub_resource type="Environment" id="Environment_dsn67"]
+background_mode = 2
+background_color = Color(0.17366946, 0.48542655, 0.81382084, 1)
+sky = SubResource("Sky_7o7am")
 glow_enabled = true
 glow_bloom = 0.27
-fog_enabled = true
 fog_mode = 1
-fog_light_color = Color(0.52031726, 0.5067354, 0.8215632, 1)
+fog_light_color = Color(0.25041717, 0.58326626, 0.7921491, 1)
 fog_density = 0.4591
 
 [sub_resource type="QuadMesh" id="QuadMesh_f2t8j"]
@@ -200,6 +214,32 @@ _data = {
 &"switch_customer": SubResource("Animation_dsn67")
 }
 
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_g1rwb"]
+noise_type = 2
+frequency = 0.0316
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_7o7am"]
+width = 64
+height = 64
+noise = SubResource("FastNoiseLite_g1rwb")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_23q5m"]
+render_priority = 0
+shader = ExtResource("22_7o7am")
+shader_parameter/speed = 1.675
+shader_parameter/period = 24.04
+shader_parameter/noise_tex = SubResource("NoiseTexture2D_7o7am")
+shader_parameter/noise_strength = 0.205
+shader_parameter/noise_scale = Vector2(2.18, 1.17)
+shader_parameter/noise_speed = Vector2(0.1, 0)
+
+[sub_resource type="SphereMesh" id="SphereMesh_7o7am"]
+radial_segments = 24
+rings = 12
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_g1rwb"]
+shading_mode = 0
+
 [node name="CashierGame" type="Node" unique_id=1455885626 node_paths=PackedStringArray("customer_animation_player", "new_customer_transform", "old_customer_transform", "grocery_spots", "list_page_l", "list_page_r")]
 script = ExtResource("1_gljsp")
 customer_animation_player = NodePath("3D/CustomerAnimation")
@@ -286,7 +326,7 @@ transform = Transform3D(-1.6292068e-07, 0, 1, 0, 1, 0, -1, 0, -1.6292068e-07, 5.
 [node name="AnimalKat2" parent="3D/NewCustomerTransform" unique_id=1099911432 instance=ExtResource("2_xglb0")]
 
 [node name="OldCustomerTransform" type="Marker3D" parent="3D" unique_id=193872808]
-transform = Transform3D(-0.9985356, 0, -0.054078676, 0, 1, 0, 0.054078676, 0, -0.9985356, 0.49751902, 0, -1.6294477)
+transform = Transform3D(-0.9985355, 0, -0.054078676, 0, 1, 0, 0.054078676, 0, -0.9985355, 0.49751902, 0, -1.6294477)
 
 [node name="AnimalKat" parent="3D/OldCustomerTransform" unique_id=1100125556 instance=ExtResource("2_xglb0")]
 
@@ -310,8 +350,165 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5158553, 0.7737292, -0.3115
 [node name="Marker3D6" type="Marker3D" parent="3D/GrocerySpots" unique_id=1914268420]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5263315, 0.7737292, 0.21229255)
 
+[node name="Background" type="Node3D" parent="3D" unique_id=1949935635]
+unique_name_in_owner = true
+
+[node name="Shore" type="Node3D" parent="3D/Background" unique_id=1310528053]
+
+[node name="bg_shore" parent="3D/Background/Shore" unique_id=1788589331 instance=ExtResource("21_r7hc5")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0.110967286, 0.99382406, -4.850534e-09, 0.99382406, -0.110967286, -4.344143e-08, 6.6036804e-08, -0.6824677, -1.510746)
+
+[node name="Circle" parent="3D/Background/Shore/bg_shore" index="0" unique_id=1091623252]
+surface_material_override/0 = ExtResource("4_ms2fc")
+surface_material_override/1 = SubResource("ShaderMaterial_23q5m")
+
+[node name="cloudmesh" type="MeshInstance3D" parent="3D/Background/Shore" unique_id=40136641]
+transform = Transform3D(6.233, 0, 0, 0, 6.233, 0, 0, 0, 6.233, 15.337, 4.297, -42.276)
+mesh = SubResource("SphereMesh_7o7am")
+surface_material_override/0 = SubResource("StandardMaterial3D_g1rwb")
+
+[node name="cloudmesh3" type="MeshInstance3D" parent="3D/Background/Shore/cloudmesh" unique_id=100641296]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.657352, -0.20370078, 0.06318426)
+mesh = SubResource("SphereMesh_7o7am")
+surface_material_override/0 = SubResource("StandardMaterial3D_g1rwb")
+
+[node name="cloudmesh4" type="MeshInstance3D" parent="3D/Background/Shore/cloudmesh" unique_id=169623048]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.7172351, 0.1486466, 0.08256173)
+mesh = SubResource("SphereMesh_7o7am")
+surface_material_override/0 = SubResource("StandardMaterial3D_g1rwb")
+
+[node name="cloudmesh5" type="MeshInstance3D" parent="3D/Background/Shore/cloudmesh" unique_id=144982130]
+transform = Transform3D(0.93474084, 0, 0, 0, 0.93474084, 0, 0, 0, 0.93474084, 1.2917032, -0.34892476, 0.20710874)
+mesh = SubResource("SphereMesh_7o7am")
+surface_material_override/0 = SubResource("StandardMaterial3D_g1rwb")
+
+[node name="cloudmesh6" type="MeshInstance3D" parent="3D/Background/Shore/cloudmesh" unique_id=1113516693]
+transform = Transform3D(0.93474084, 0, 0, 0, 0.93474084, 0, 0, 0, 0.93474084, 2.0345402, -0.20605779, -0.008359671)
+mesh = SubResource("SphereMesh_7o7am")
+surface_material_override/0 = SubResource("StandardMaterial3D_g1rwb")
+
+[node name="cloudmesh2" type="MeshInstance3D" parent="3D/Background/Shore/cloudmesh" unique_id=1085533643]
+transform = Transform3D(1.5409566, 0, 0, 0, 1.5409566, 0, 0, 0, 1.5409566, 1.0779533, 0.39026093, -0.09553957)
+mesh = SubResource("SphereMesh_7o7am")
+surface_material_override/0 = SubResource("StandardMaterial3D_g1rwb")
+
+[node name="cloudmesh2" type="MeshInstance3D" parent="3D/Background/Shore" unique_id=2132571222]
+transform = Transform3D(-6.45002, 0, -6.120839, 0, 8.891987, 0, 6.120839, 0, -6.45002, -30.585758, 9.807943, -42.195744)
+mesh = SubResource("SphereMesh_7o7am")
+surface_material_override/0 = SubResource("StandardMaterial3D_g1rwb")
+
+[node name="cloudmesh3" type="MeshInstance3D" parent="3D/Background/Shore/cloudmesh2" unique_id=940777739]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.657352, -0.20370078, 0.06318426)
+mesh = SubResource("SphereMesh_7o7am")
+surface_material_override/0 = SubResource("StandardMaterial3D_g1rwb")
+
+[node name="cloudmesh4" type="MeshInstance3D" parent="3D/Background/Shore/cloudmesh2" unique_id=1150377234]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.7172351, 0.1486466, 0.08256173)
+mesh = SubResource("SphereMesh_7o7am")
+surface_material_override/0 = SubResource("StandardMaterial3D_g1rwb")
+
+[node name="cloudmesh5" type="MeshInstance3D" parent="3D/Background/Shore/cloudmesh2" unique_id=543264932]
+transform = Transform3D(0.93474084, 0, 0, 0, 0.93474084, 0, 0, 0, 0.93474084, 1.2917032, -0.34892476, 0.20710874)
+mesh = SubResource("SphereMesh_7o7am")
+surface_material_override/0 = SubResource("StandardMaterial3D_g1rwb")
+
+[node name="cloudmesh6" type="MeshInstance3D" parent="3D/Background/Shore/cloudmesh2" unique_id=769283271]
+transform = Transform3D(0.93474084, 0, 0, 0, 0.93474084, 0, 0, 0, 0.93474084, 2.0345402, -0.20605779, -0.008359671)
+mesh = SubResource("SphereMesh_7o7am")
+surface_material_override/0 = SubResource("StandardMaterial3D_g1rwb")
+
+[node name="cloudmesh2" type="MeshInstance3D" parent="3D/Background/Shore/cloudmesh2" unique_id=1990745309]
+transform = Transform3D(1.5409566, 0, 0, 0, 1.5409566, 0, 0, 0, 1.5409566, 1.0779533, 0.39026093, -0.09553957)
+mesh = SubResource("SphereMesh_7o7am")
+surface_material_override/0 = SubResource("StandardMaterial3D_g1rwb")
+
+[node name="cloudmesh3" type="MeshInstance3D" parent="3D/Background/Shore" unique_id=834532410]
+transform = Transform3D(-6.714083, 0.95750004, -2.5427015, 0.8954378, 7.179432, 0.33911273, 2.565215, 0, -6.773531, -14.229389, 6.405874, -81.66695)
+mesh = SubResource("SphereMesh_7o7am")
+surface_material_override/0 = SubResource("StandardMaterial3D_g1rwb")
+
+[node name="cloudmesh3" type="MeshInstance3D" parent="3D/Background/Shore/cloudmesh3" unique_id=1690959007]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.657352, -0.20370078, 0.06318426)
+mesh = SubResource("SphereMesh_7o7am")
+surface_material_override/0 = SubResource("StandardMaterial3D_g1rwb")
+
+[node name="cloudmesh4" type="MeshInstance3D" parent="3D/Background/Shore/cloudmesh3" unique_id=1834682661]
+transform = Transform3D(1.3773315, -2.9802322e-08, -2.9802322e-08, 2.2169038e-09, 1.7440628, -5.715817e-09, 1.1920929e-07, -7.450581e-09, 1.3448646, 0.7616191, 0.3753953, 0.3034525)
+mesh = SubResource("SphereMesh_7o7am")
+surface_material_override/0 = SubResource("StandardMaterial3D_g1rwb")
+
+[node name="cloudmesh5" type="MeshInstance3D" parent="3D/Background/Shore/cloudmesh3" unique_id=1455894195]
+transform = Transform3D(0.93474084, 0, 0, 0, 0.93474084, 0, 0, 0, 0.93474084, 1.2917032, -0.34892476, 0.20710874)
+mesh = SubResource("SphereMesh_7o7am")
+surface_material_override/0 = SubResource("StandardMaterial3D_g1rwb")
+
+[node name="cloudmesh6" type="MeshInstance3D" parent="3D/Background/Shore/cloudmesh3" unique_id=2040589660]
+transform = Transform3D(0.649051, 0, 0, 0, 0.6490511, 0, 0, 0, 0.649051, -0.26571465, 0.027692318, -0.63648415)
+mesh = SubResource("SphereMesh_7o7am")
+surface_material_override/0 = SubResource("StandardMaterial3D_g1rwb")
+
+[node name="cloudmesh7" type="MeshInstance3D" parent="3D/Background/Shore/cloudmesh3" unique_id=313510276]
+transform = Transform3D(0.5042464, 0, 2.9802322e-08, 0, 0.50424635, 0, -2.9802322e-08, 0, 0.5042464, -0.6038861, 0.16812569, -0.80619526)
+mesh = SubResource("SphereMesh_7o7am")
+surface_material_override/0 = SubResource("StandardMaterial3D_g1rwb")
+
+[node name="cloudmesh8" type="MeshInstance3D" parent="3D/Background/Shore/cloudmesh3" unique_id=1554626066]
+transform = Transform3D(0.5042465, 0, 2.9802322e-08, 0, 0.50424635, 0, -2.9802322e-08, 0, 0.5042465, 1.867867, -0.3348499, 0.58486557)
+mesh = SubResource("SphereMesh_7o7am")
+surface_material_override/0 = SubResource("StandardMaterial3D_g1rwb")
+
+[node name="cloudmesh4" type="MeshInstance3D" parent="3D/Background/Shore" unique_id=1008424692]
+transform = Transform3D(12.393475, -5.3695073, 1.8747886, 4.274261, 11.758846, 5.422627, -3.751951, -4.340802, 12.370323, 58.79345, 8.096014, -57.36042)
+mesh = SubResource("SphereMesh_7o7am")
+surface_material_override/0 = SubResource("StandardMaterial3D_g1rwb")
+
+[node name="cloudmesh3" type="MeshInstance3D" parent="3D/Background/Shore/cloudmesh4" unique_id=860088276]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.657352, -0.20370078, 0.06318426)
+mesh = SubResource("SphereMesh_7o7am")
+surface_material_override/0 = SubResource("StandardMaterial3D_g1rwb")
+
+[node name="cloudmesh4" type="MeshInstance3D" parent="3D/Background/Shore/cloudmesh4" unique_id=540766106]
+transform = Transform3D(1.6307436, 0, -2.9802322e-08, 7.4505806e-08, 1.192642, -5.9604645e-08, 5.9604645e-08, -5.9604645e-08, 1.3713135, 0.89777184, 0.4840511, 0.3857546)
+mesh = SubResource("SphereMesh_7o7am")
+surface_material_override/0 = SubResource("StandardMaterial3D_g1rwb")
+
+[node name="cloudmesh5" type="MeshInstance3D" parent="3D/Background/Shore/cloudmesh4" unique_id=484802734]
+transform = Transform3D(0.93474084, 0, 0, 0, 0.93474084, 0, 0, 0, 0.93474084, 1.2917032, -0.34892476, 0.20710874)
+mesh = SubResource("SphereMesh_7o7am")
+surface_material_override/0 = SubResource("StandardMaterial3D_g1rwb")
+
+[node name="cloudmesh6" type="MeshInstance3D" parent="3D/Background/Shore/cloudmesh4" unique_id=1823097458]
+transform = Transform3D(0.649051, 0, 0, 0, 0.6490511, 0, 0, 0, 0.649051, -0.26571465, 0.027692318, -0.63648415)
+mesh = SubResource("SphereMesh_7o7am")
+surface_material_override/0 = SubResource("StandardMaterial3D_g1rwb")
+
+[node name="cloudmesh7" type="MeshInstance3D" parent="3D/Background/Shore/cloudmesh4" unique_id=378945464]
+transform = Transform3D(0.5042464, -2.2351742e-08, 4.4703484e-08, 7.450581e-09, 0.50424635, -1.4901161e-08, -2.9802322e-08, -1.4901161e-08, 0.5042464, 0.4709854, 0.652066, -0.29663277)
+mesh = SubResource("SphereMesh_7o7am")
+surface_material_override/0 = SubResource("StandardMaterial3D_g1rwb")
+
+[node name="cloudmesh8" type="MeshInstance3D" parent="3D/Background/Shore/cloudmesh4" unique_id=312584114]
+transform = Transform3D(0.50424653, -2.2351742e-08, 2.9802322e-08, -3.7252903e-09, 0.50424635, -1.4901161e-08, -1.4901161e-08, -1.4901161e-08, 0.5042465, 1.4569836, -0.040432215, 0.5698471)
+mesh = SubResource("SphereMesh_7o7am")
+surface_material_override/0 = SubResource("StandardMaterial3D_g1rwb")
+
+[node name="bg_palm" parent="3D/Background/Shore" unique_id=1558373469 instance=ExtResource("23_g1rwb")]
+transform = Transform3D(-0.29915184, -0.17622443, -0.21145427, -0.034206152, 0.3336686, -0.22968419, 0.27312607, -0.15122801, -0.26036876, 7.156527, -1.0723705, -4.384033)
+
+[node name="Cylinder" parent="3D/Background/Shore/bg_palm" index="0" unique_id=1924088734]
+surface_material_override/0 = ExtResource("4_ms2fc")
+
+[node name="bg_palm2" parent="3D/Background/Shore" unique_id=35916010 instance=ExtResource("23_g1rwb")]
+transform = Transform3D(-0.28283936, -0.1319702, -0.020809278, -0.073305026, 0.19402893, -0.2341502, 0.11169383, -0.2068426, -0.2063682, 7.0074263, -0.9794569, -5.6499996)
+
+[node name="Cylinder" parent="3D/Background/Shore/bg_palm2" index="0" unique_id=1924088734]
+surface_material_override/0 = ExtResource("4_ms2fc")
+
 [connection signal="cash_button_pressed" from="3D/cash_register/item_monitor/MonitorSubviewport/CashierMonitor" to="." method="_on_cashier_monitor_cash_button_pressed"]
 
 [editable path="3D/cash_register"]
 [editable path="3D/cash_register/item_monitor"]
 [editable path="3D/cash_register/item_book"]
+[editable path="3D/Background/Shore/bg_shore"]
+[editable path="3D/Background/Shore/bg_palm"]
+[editable path="3D/Background/Shore/bg_palm2"]

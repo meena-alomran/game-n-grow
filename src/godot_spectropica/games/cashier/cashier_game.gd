@@ -13,7 +13,9 @@ extends Node
 @export var grocery_list: Array[GroceryEntry]
 @export var item_limit: int = 4
 @export var numerical_difficulty: int = 0 ## 0: integers, 1: 0:50s, 2: 0.25s, 3: 5s, 4: all decimals
-@export var stimulation_modes: int = 1 ## 0 Low, 1 normal, 2 high
+@export var stimulation_mode: int = 1 ## 0 Low, 1 normal, 2 high
+
+@onready var background: Node3D = %Background
 
 const VERTEX_COLOR_SIMPLE = preload("uid://cbv1i5ahbe5es")
 
@@ -26,6 +28,7 @@ var correct_price: float:
 
 func _ready() -> void:
 	deal_with_difficulty()
+	deal_with_stimulation_modes()
 	generate_list_book_page_text()
 	new_customer()
 	#DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
@@ -44,6 +47,12 @@ func deal_with_difficulty():
 		new_list.append(new_item)
 		
 	grocery_list = new_list
+
+func deal_with_stimulation_modes():
+	match stimulation_mode:
+		0: background.visible = false
+		1: background.visible = true
+		2: background.visible = true
 
 ## Called at game start and success. This function is the main loop of the game.
 func new_customer():
@@ -75,6 +84,7 @@ func generate_new_groceries():
 		for c in new_grocery_scene.get_children():
 			if c is MeshInstance3D:
 				c.set_surface_override_material(0, VERTEX_COLOR_SIMPLE)
+				c.scale = Vector3.ONE * 0.5
 		
 		grocery_node_3ds.append(new_grocery_scene)
 		i.add_child(new_grocery_scene)
