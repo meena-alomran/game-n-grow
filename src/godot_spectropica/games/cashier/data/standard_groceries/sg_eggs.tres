@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="GroceryEntry" format=3 uid="uid://cp58nnelsjl8l"]
+
+[ext_resource type="Script" uid="uid://qfongeufidyi" path="res://games/cashier/data/grocery_entry.gd" id="1_qhlw7"]
+[ext_resource type="PackedScene" uid="uid://bw58h2x2kxo3s" path="res://Arts/models/cashier_game/standard_groceries/gc_eggs.glb" id="2_qhlw7"]
+
+[resource]
+script = ExtResource("1_qhlw7")
+display_name = "Eggs"
+visual_scene = ExtResource("2_qhlw7")
+price = 7.0
+metadata/_custom_type_script = "uid://qfongeufidyi"

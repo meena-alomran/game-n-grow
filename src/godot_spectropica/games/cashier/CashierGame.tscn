@@ -1,0 +1,515 @@
+[gd_scene format=3 uid="uid://c40rma33tsayw"]
+
+[ext_resource type="Script" uid="uid://dqkcm8i6qw7qr" path="res://games/cashier/cashier_game.gd" id="1_gljsp"]
+[ext_resource type="Script" uid="uid://qfongeufidyi" path="res://games/cashier/data/grocery_entry.gd" id="2_u20e4"]
+[ext_resource type="PackedScene" uid="uid://coqiik2yq4ruu" path="res://games/cashier/animals/AnimalKat.tscn" id="2_xglb0"]
+[ext_resource type="Resource" uid="uid://c2yca8pby6tpx" path="res://games/cashier/data/standard_groceries/sg_pear.tres" id="3_j3bif"]
+[ext_resource type="PackedScene" uid="uid://cbbf3mkml7awp" path="res://Arts/models/cashier_game/cash_register.glb" id="3_pypkv"]
+[ext_resource type="Resource" uid="uid://cg83yo26elka7" path="res://games/cashier/data/standard_groceries/sg_apple.tres" id="4_f2t8j"]
+[ext_resource type="Material" uid="uid://cbv1i5ahbe5es" path="res://games/cashier/vertex_color_simple.tres" id="4_ms2fc"]
+[ext_resource type="PackedScene" uid="uid://hykyrasv2hgy" path="res://Arts/models/cashier_game/item_monitor.glb" id="5_cxpvc"]
+[ext_resource type="Resource" uid="uid://bywmgre1f7yr1" path="res://games/cashier/data/standard_groceries/sg_banana.tres" id="5_yr8pa"]
+[ext_resource type="Resource" uid="uid://j1h6h14i6kad" path="res://games/cashier/data/standard_groceries/sg_orange.tres" id="6_56ueb"]
+[ext_resource type="PackedScene" uid="uid://bpckhbipsvkk5" path="res://Arts/models/cashier_game/item_book.glb" id="6_dsn67"]
+[ext_resource type="Resource" uid="uid://cp58nnelsjl8l" path="res://games/cashier/data/standard_groceries/sg_eggs.tres" id="7_vclj0"]
+[ext_resource type="Resource" uid="uid://dctenlpbh0u5l" path="res://games/cashier/data/standard_groceries/sg_milk.tres" id="8_r7hc5"]
+[ext_resource type="Resource" uid="uid://b4jq56w5bpxhi" path="res://games/cashier/data/standard_groceries/sg_bread.tres" id="9_7o7am"]
+[ext_resource type="PackedScene" uid="uid://b4fy3sn11fx6u" path="res://games/cashier/monitor/cashier_monitor.tscn" id="10_f2t8j"]
+[ext_resource type="Resource" uid="uid://1yprdcbh0nuu" path="res://games/cashier/data/standard_groceries/sg_grapes.tres" id="10_g1rwb"]
+[ext_resource type="Script" uid="uid://uk1g8xnfm4sw" path="res://games/cashier/monitor/mouse_coordinate_area_3d.gd" id="10_yr8pa"]
+[ext_resource type="Resource" uid="uid://bqk1r6y50t0ws" path="res://games/cashier/data/standard_groceries/sg_cheese_wheel.tres" id="11_acbws"]
+[ext_resource type="PackedScene" uid="uid://du1auypdjsyul" path="res://games/cashier/item_book/cashier_list_page.tscn" id="11_j3bif"]
+[ext_resource type="Resource" uid="uid://cnujmbm8wkljl" path="res://games/cashier/data/standard_groceries/sg_orange_juice.tres" id="12_j4nyk"]
+[ext_resource type="PackedScene" uid="uid://bappfcvgvuwo6" path="res://Arts/models/cashier_game/bg_shore.glb" id="21_r7hc5"]
+[ext_resource type="Shader" uid="uid://c3kfaebgkfa1b" path="res://games/cashier/shoreline.gdshader" id="22_7o7am"]
+[ext_resource type="PackedScene" uid="uid://b5s4uldedu8xp" path="res://Arts/models/cashier_game/bg_palm.glb" id="23_g1rwb"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_g1rwb"]
+sky_top_color = Color(0.10379689, 0.45970267, 0.76512295, 1)
+sky_horizon_color = Color(0.36053798, 0.71850175, 0.89566594, 1)
+ground_bottom_color = Color(0.36053798, 0.71850175, 0.89566594, 1)
+ground_horizon_color = Color(0.36053798, 0.71850175, 0.89566594, 1)
+
+[sub_resource type="Sky" id="Sky_7o7am"]
+sky_material = SubResource("ProceduralSkyMaterial_g1rwb")
+
+[sub_resource type="Environment" id="Environment_dsn67"]
+background_mode = 2
+background_color = Color(0.17366946, 0.48542655, 0.81382084, 1)
+sky = SubResource("Sky_7o7am")
+glow_enabled = true
+glow_bloom = 0.27
+fog_mode = 1
+fog_light_color = Color(0.25041717, 0.58326626, 0.7921491, 1)
+fog_density = 0.4591
+
+[sub_resource type="QuadMesh" id="QuadMesh_f2t8j"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_a0mmn"]
+viewport_path = NodePath("3D/cash_register/item_monitor/MonitorSubviewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yr8pa"]
+resource_local_to_scene = true
+shading_mode = 0
+albedo_texture = SubResource("ViewportTexture_a0mmn")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_yr8pa"]
+size = Vector3(1.0714111, 1, 0.001)
+
+[sub_resource type="QuadMesh" id="QuadMesh_ces25"]
+size = Vector2(2.5, 4.5)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_j3bif"]
+viewport_path = NodePath("3D/cash_register/item_book/ListPageL")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_j3bif"]
+resource_local_to_scene = true
+transparency = 2
+alpha_scissor_threshold = 0.5
+alpha_antialiasing_mode = 0
+shading_mode = 0
+albedo_texture = SubResource("ViewportTexture_j3bif")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_f2t8j"]
+viewport_path = NodePath("3D/cash_register/item_book/ListPageR")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_f2t8j"]
+resource_local_to_scene = true
+transparency = 2
+alpha_scissor_threshold = 0.5
+alpha_antialiasing_mode = 0
+shading_mode = 0
+albedo_texture = SubResource("ViewportTexture_f2t8j")
+
+[sub_resource type="Animation" id="Animation_lutu4"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("3D/NewCustomerTransform:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(5.482, 0, -1.26)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("3D/NewCustomerTransform:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 1.5707965, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("3D/OldCustomerTransform:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.49751902, 0, -1.6294477)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("3D/OldCustomerTransform:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 3.1956978, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("3D/GrocerySpots:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_dsn67"]
+resource_name = "switch_customer"
+length = 5.633333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("3D/NewCustomerTransform:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2.9666667, 4.633333),
+"transitions": PackedFloat32Array(1, 0.55478483, 1),
+"update": 0,
+"values": [Vector3(5.482, 0, -1.26), Vector3(5.482, 0, -1.26), Vector3(0.49751902, 0, -1.6294477)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("3D/NewCustomerTransform:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 4.366667, 5.366667),
+"transitions": PackedFloat32Array(1, -2, 1),
+"update": 0,
+"values": [Vector3(0, 1.5707965, 0), Vector3(0, 1.5707965, 0), Vector3(0, 3.1956978, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("3D/OldCustomerTransform:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1.6333333, 3),
+"transitions": PackedFloat32Array(1, 1.4142139, 1),
+"update": 0,
+"values": [Vector3(0.49751902, 0, -1.6294477), Vector3(0.49751902, 0, -1.6294477), Vector3(-4.8454328, 0, -1.0417655)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("3D/OldCustomerTransform:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 1, 1.6333333),
+"transitions": PackedFloat32Array(1, -2, 1),
+"update": 0,
+"values": [Vector3(0, 3.1956978, 0), Vector3(0, 3.1956978, 0), Vector3(0, 1.817032, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("3D/GrocerySpots:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 3.7666667, 5.4666667),
+"transitions": PackedFloat32Array(1, 0.48296815, 1),
+"update": 0,
+"values": [Vector3(2.415, 0, 0), Vector3(2.415, 0, 0), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_lutu4"]
+_data = {
+&"RESET": SubResource("Animation_lutu4"),
+&"switch_customer": SubResource("Animation_dsn67")
+}
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_g1rwb"]
+noise_type = 2
+frequency = 0.0316
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_7o7am"]
+width = 64
+height = 64
+noise = SubResource("FastNoiseLite_g1rwb")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_23q5m"]
+render_priority = 0
+shader = ExtResource("22_7o7am")
+shader_parameter/speed = 1.675
+shader_parameter/period = 24.04
+shader_parameter/noise_tex = SubResource("NoiseTexture2D_7o7am")
+shader_parameter/noise_strength = 0.205
+shader_parameter/noise_scale = Vector2(2.18, 1.17)
+shader_parameter/noise_speed = Vector2(0.1, 0)
+
+[sub_resource type="SphereMesh" id="SphereMesh_7o7am"]
+radial_segments = 24
+rings = 12
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_g1rwb"]
+shading_mode = 0
+
+[node name="CashierGame" type="Node" unique_id=1455885626 node_paths=PackedStringArray("customer_animation_player", "new_customer_transform", "old_customer_transform", "grocery_spots", "list_page_l", "list_page_r")]
+script = ExtResource("1_gljsp")
+customer_animation_player = NodePath("3D/CustomerAnimation")
+new_customer_transform = NodePath("3D/NewCustomerTransform")
+old_customer_transform = NodePath("3D/OldCustomerTransform")
+grocery_spots = NodePath("3D/GrocerySpots")
+list_page_l = NodePath("3D/cash_register/item_book/ListPageL")
+list_page_r = NodePath("3D/cash_register/item_book/ListPageR")
+grocery_list = Array[ExtResource("2_u20e4")]([ExtResource("3_j3bif"), ExtResource("4_f2t8j"), ExtResource("5_yr8pa"), ExtResource("6_56ueb"), ExtResource("7_vclj0"), ExtResource("8_r7hc5"), ExtResource("9_7o7am"), ExtResource("10_g1rwb"), ExtResource("11_acbws"), ExtResource("12_j4nyk")])
+
+[node name="3D" type="Node3D" parent="." unique_id=1551090245]
+
+[node name="FPSCashierCam" type="Camera3D" parent="3D" unique_id=909366256]
+transform = Transform3D(1, 0, 0, 0, 0.96980655, 0.24387565, 0, -0.24387565, 0.96980655, 0.60319656, 1.766412, 1.6264482)
+environment = SubResource("Environment_dsn67")
+current = true
+fov = 60.0
+
+[node name="cash_register" parent="3D" unique_id=1000357952 instance=ExtResource("3_pypkv")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, -0.22991264, 0)
+
+[node name="platform" parent="3D/cash_register" index="0" unique_id=1201561331]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.763063e-08, 0, -0.40334177)
+surface_material_override/0 = ExtResource("4_ms2fc")
+
+[node name="item_monitor" parent="3D/cash_register" unique_id=1574829930 instance=ExtResource("5_cxpvc")]
+transform = Transform3D(0.69656384, 0, 0.24051242, 0, 0.7369175, 0, -0.24051242, 0, 0.69656384, 0.27268818, 1.2585173, 0.5786688)
+
+[node name="monitor" parent="3D/cash_register/item_monitor" index="0" unique_id=1853687818]
+transform = Transform3D(0.9432221, 0, 1.7881393e-07, 0, 0.94322157, 0, -1.7881393e-07, 0, 0.9432221, -0.044266514, 0.02401936, -0.4660925)
+surface_material_override/0 = ExtResource("4_ms2fc")
+
+[node name="screen" type="MeshInstance3D" parent="3D/cash_register/item_monitor" unique_id=1285068151]
+transform = Transform3D(-4.122955e-08, -0.1637887, 0.92889255, 0, 0.9288919, 0.16378883, -0.9432222, 7.1594317e-09, -4.060318e-08, 0, 1, -0.465)
+mesh = SubResource("QuadMesh_f2t8j")
+surface_material_override/0 = SubResource("StandardMaterial3D_yr8pa")
+
+[node name="Area3D" type="Area3D" parent="3D/cash_register/item_monitor" unique_id=2093358834 node_paths=PackedStringArray("viewport")]
+transform = Transform3D(-4.122955e-08, -0.1637887, 0.92889255, 0, 0.9288919, 0.16378883, -0.9432222, 7.1594317e-09, -4.060318e-08, 0, 1, -0.465)
+script = ExtResource("10_yr8pa")
+viewport = NodePath("../MonitorSubviewport")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="3D/cash_register/item_monitor/Area3D" unique_id=2017480692]
+transform = Transform3D(0.99999994, 3.7252903e-09, -5.9604645e-08, 2.9802322e-08, 0.9999994, 0, -2.0861626e-07, -1.0430813e-07, 1.0000001, 0.035705566, -2.3841858e-07, -5.9604645e-08)
+shape = SubResource("BoxShape3D_yr8pa")
+
+[node name="MonitorSubviewport" type="SubViewport" parent="3D/cash_register/item_monitor" unique_id=539065276]
+handle_input_locally = false
+physics_object_picking = true
+
+[node name="CashierMonitor" parent="3D/cash_register/item_monitor/MonitorSubviewport" unique_id=1250500603 instance=ExtResource("10_f2t8j")]
+
+[node name="item_book" parent="3D/cash_register" unique_id=2133638104 instance=ExtResource("6_dsn67")]
+transform = Transform3D(0.31708297, 0.41656223, 0.22334926, -0.45288914, 0.34473464, 1.9796413e-08, -0.1352789, -0.17772032, 0.5235128, 0.47109777, 1.3969117, 0.2936413)
+
+[node name="book" parent="3D/cash_register/item_book" index="0" unique_id=88736562]
+transform = Transform3D(0.99999994, -2.9802322e-08, -1.4901161e-08, 5.9604645e-08, 1, 0, 1.4901161e-08, 0, 1, 0.08829379, 0.11599445, -0.34168643)
+surface_material_override/0 = ExtResource("4_ms2fc")
+
+[node name="ListPageL" parent="3D/cash_register/item_book" unique_id=182634760 instance=ExtResource("11_j3bif")]
+
+[node name="ListPageR" parent="3D/cash_register/item_book" unique_id=884246844 instance=ExtResource("11_j3bif")]
+
+[node name="page_mesh_l" type="MeshInstance3D" parent="3D/cash_register/item_book" unique_id=312966793]
+transform = Transform3D(-3.7252903e-09, -0.20011613, 7.450581e-09, 5.9604645e-08, -4.4703484e-08, 0.20011617, -0.20011614, 7.450581e-09, 1.8626451e-08, 0.085228615, 0.15401936, 6.036203e-08)
+mesh = SubResource("QuadMesh_ces25")
+surface_material_override/0 = SubResource("StandardMaterial3D_j3bif")
+
+[node name="page_mesh_r" type="MeshInstance3D" parent="3D/cash_register/item_book" unique_id=2071251473]
+transform = Transform3D(-3.7252903e-09, -0.20011613, 7.450581e-09, 5.9604645e-08, -4.4703484e-08, 0.20011617, -0.20011614, 7.450581e-09, 1.8626451e-08, 0.08522859, 0.15401958, -0.68810624)
+mesh = SubResource("QuadMesh_ces25")
+surface_material_override/0 = SubResource("StandardMaterial3D_f2t8j")
+
+[node name="OmniLight3D" type="DirectionalLight3D" parent="3D" unique_id=22138228]
+transform = Transform3D(1, 0, 0, 0, 0.7838858, 0.62090504, 0, -0.62090504, 0.7838858, 0, 4.033239, 2.22469)
+
+[node name="CustomerAnimation" type="AnimationPlayer" parent="3D" unique_id=1583006356]
+root_node = NodePath("../..")
+libraries/ = SubResource("AnimationLibrary_lutu4")
+
+[node name="NewCustomerTransform" type="Marker3D" parent="3D" unique_id=330066432]
+transform = Transform3D(-1.6292068e-07, 0, 1, 0, 1, 0, -1, 0, -1.6292068e-07, 5.482, 0, -1.26)
+
+[node name="AnimalKat2" parent="3D/NewCustomerTransform" unique_id=1099911432 instance=ExtResource("2_xglb0")]
+
+[node name="OldCustomerTransform" type="Marker3D" parent="3D" unique_id=193872808]
+transform = Transform3D(-0.9985354, 0, -0.05407867, 0, 1, 0, 0.05407867, 0, -0.9985354, 0.49751902, 0, -1.6294477)
+
+[node name="AnimalKat" parent="3D/OldCustomerTransform" unique_id=1100125556 instance=ExtResource("2_xglb0")]
+
+[node name="GrocerySpots" type="Node3D" parent="3D" unique_id=803196797]
+
+[node name="Marker3D" type="Marker3D" parent="3D/GrocerySpots" unique_id=1107115945]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.9660466, 0.7737292, -0.27861905)
+
+[node name="Marker3D2" type="Marker3D" parent="3D/GrocerySpots" unique_id=1131390915]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6889824, 0.7737291, -0.0493145)
+
+[node name="Marker3D3" type="Marker3D" parent="3D/GrocerySpots" unique_id=1211432288]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.9717082, 0.7737292, 0.20435321)
+
+[node name="Marker3D4" type="Marker3D" parent="3D/GrocerySpots" unique_id=782360819]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2321397, 0.7737292, -0.04196763)
+
+[node name="Marker3D5" type="Marker3D" parent="3D/GrocerySpots" unique_id=323267524]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5158553, 0.7737292, -0.3115015)
+
+[node name="Marker3D6" type="Marker3D" parent="3D/GrocerySpots" unique_id=1914268420]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5263315, 0.7737292, 0.21229255)
+
+[node name="Background" type="Node3D" parent="3D" unique_id=1949935635]
+unique_name_in_owner = true
+
+[node name="Shore" type="Node3D" parent="3D/Background" unique_id=1310528053]
+
+[node name="bg_shore" parent="3D/Background/Shore" unique_id=1788589331 instance=ExtResource("21_r7hc5")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0.110967286, 0.99382406, -4.850534e-09, 0.99382406, -0.110967286, -4.344143e-08, 6.6036804e-08, -0.6824677, -1.510746)
+
+[node name="Circle" parent="3D/Background/Shore/bg_shore" index="0" unique_id=1091623252]
+surface_material_override/0 = ExtResource("4_ms2fc")
+surface_material_override/1 = SubResource("ShaderMaterial_23q5m")
+
+[node name="cloudmesh" type="MeshInstance3D" parent="3D/Background/Shore" unique_id=40136641]
+transform = Transform3D(6.233, 0, 0, 0, 6.233, 0, 0, 0, 6.233, 15.337, 4.297, -42.276)
+mesh = SubResource("SphereMesh_7o7am")
+surface_material_override/0 = SubResource("StandardMaterial3D_g1rwb")
+
+[node name="cloudmesh3" type="MeshInstance3D" parent="3D/Background/Shore/cloudmesh" unique_id=100641296]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.657352, -0.20370078, 0.06318426)
+mesh = SubResource("SphereMesh_7o7am")
+surface_material_override/0 = SubResource("StandardMaterial3D_g1rwb")
+
+[node name="cloudmesh4" type="MeshInstance3D" parent="3D/Background/Shore/cloudmesh" unique_id=169623048]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.7172351, 0.1486466, 0.08256173)
+mesh = SubResource("SphereMesh_7o7am")
+surface_material_override/0 = SubResource("StandardMaterial3D_g1rwb")
+
+[node name="cloudmesh5" type="MeshInstance3D" parent="3D/Background/Shore/cloudmesh" unique_id=144982130]
+transform = Transform3D(0.93474084, 0, 0, 0, 0.93474084, 0, 0, 0, 0.93474084, 1.2917032, -0.34892476, 0.20710874)
+mesh = SubResource("SphereMesh_7o7am")
+surface_material_override/0 = SubResource("StandardMaterial3D_g1rwb")
+
+[node name="cloudmesh6" type="MeshInstance3D" parent="3D/Background/Shore/cloudmesh" unique_id=1113516693]
+transform = Transform3D(0.93474084, 0, 0, 0, 0.93474084, 0, 0, 0, 0.93474084, 2.0345402, -0.20605779, -0.008359671)
+mesh = SubResource("SphereMesh_7o7am")
+surface_material_override/0 = SubResource("StandardMaterial3D_g1rwb")
+
+[node name="cloudmesh2" type="MeshInstance3D" parent="3D/Background/Shore/cloudmesh" unique_id=1085533643]
+transform = Transform3D(1.5409566, 0, 0, 0, 1.5409566, 0, 0, 0, 1.5409566, 1.0779533, 0.39026093, -0.09553957)
+mesh = SubResource("SphereMesh_7o7am")
+surface_material_override/0 = SubResource("StandardMaterial3D_g1rwb")
+
+[node name="cloudmesh2" type="MeshInstance3D" parent="3D/Background/Shore" unique_id=2132571222]
+transform = Transform3D(-6.45002, 0, -6.120839, 0, 8.891987, 0, 6.120839, 0, -6.45002, -30.585758, 9.807943, -42.195744)
+mesh = SubResource("SphereMesh_7o7am")
+surface_material_override/0 = SubResource("StandardMaterial3D_g1rwb")
+
+[node name="cloudmesh3" type="MeshInstance3D" parent="3D/Background/Shore/cloudmesh2" unique_id=940777739]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.657352, -0.20370078, 0.06318426)
+mesh = SubResource("SphereMesh_7o7am")
+surface_material_override/0 = SubResource("StandardMaterial3D_g1rwb")
+
+[node name="cloudmesh4" type="MeshInstance3D" parent="3D/Background/Shore/cloudmesh2" unique_id=1150377234]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.7172351, 0.1486466, 0.08256173)
+mesh = SubResource("SphereMesh_7o7am")
+surface_material_override/0 = SubResource("StandardMaterial3D_g1rwb")
+
+[node name="cloudmesh5" type="MeshInstance3D" parent="3D/Background/Shore/cloudmesh2" unique_id=543264932]
+transform = Transform3D(0.93474084, 0, 0, 0, 0.93474084, 0, 0, 0, 0.93474084, 1.2917032, -0.34892476, 0.20710874)
+mesh = SubResource("SphereMesh_7o7am")
+surface_material_override/0 = SubResource("StandardMaterial3D_g1rwb")
+
+[node name="cloudmesh6" type="MeshInstance3D" parent="3D/Background/Shore/cloudmesh2" unique_id=769283271]
+transform = Transform3D(0.93474084, 0, 0, 0, 0.93474084, 0, 0, 0, 0.93474084, 2.0345402, -0.20605779, -0.008359671)
+mesh = SubResource("SphereMesh_7o7am")
+surface_material_override/0 = SubResource("StandardMaterial3D_g1rwb")
+
+[node name="cloudmesh2" type="MeshInstance3D" parent="3D/Background/Shore/cloudmesh2" unique_id=1990745309]
+transform = Transform3D(1.5409566, 0, 0, 0, 1.5409566, 0, 0, 0, 1.5409566, 1.0779533, 0.39026093, -0.09553957)
+mesh = SubResource("SphereMesh_7o7am")
+surface_material_override/0 = SubResource("StandardMaterial3D_g1rwb")
+
+[node name="cloudmesh3" type="MeshInstance3D" parent="3D/Background/Shore" unique_id=834532410]
+transform = Transform3D(-6.714083, 0.95750004, -2.5427015, 0.8954378, 7.179432, 0.33911273, 2.565215, 0, -6.773531, -14.229389, 6.405874, -81.66695)
+mesh = SubResource("SphereMesh_7o7am")
+surface_material_override/0 = SubResource("StandardMaterial3D_g1rwb")
+
+[node name="cloudmesh3" type="MeshInstance3D" parent="3D/Background/Shore/cloudmesh3" unique_id=1690959007]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.657352, -0.20370078, 0.06318426)
+mesh = SubResource("SphereMesh_7o7am")
+surface_material_override/0 = SubResource("StandardMaterial3D_g1rwb")
+
+[node name="cloudmesh4" type="MeshInstance3D" parent="3D/Background/Shore/cloudmesh3" unique_id=1834682661]
+transform = Transform3D(1.3773315, -2.9802322e-08, -2.9802322e-08, 2.2169038e-09, 1.7440628, -5.715817e-09, 1.1920929e-07, -7.450581e-09, 1.3448646, 0.7616191, 0.3753953, 0.3034525)
+mesh = SubResource("SphereMesh_7o7am")
+surface_material_override/0 = SubResource("StandardMaterial3D_g1rwb")
+
+[node name="cloudmesh5" type="MeshInstance3D" parent="3D/Background/Shore/cloudmesh3" unique_id=1455894195]
+transform = Transform3D(0.93474084, 0, 0, 0, 0.93474084, 0, 0, 0, 0.93474084, 1.2917032, -0.34892476, 0.20710874)
+mesh = SubResource("SphereMesh_7o7am")
+surface_material_override/0 = SubResource("StandardMaterial3D_g1rwb")
+
+[node name="cloudmesh6" type="MeshInstance3D" parent="3D/Background/Shore/cloudmesh3" unique_id=2040589660]
+transform = Transform3D(0.649051, 0, 0, 0, 0.6490511, 0, 0, 0, 0.649051, -0.26571465, 0.027692318, -0.63648415)
+mesh = SubResource("SphereMesh_7o7am")
+surface_material_override/0 = SubResource("StandardMaterial3D_g1rwb")
+
+[node name="cloudmesh7" type="MeshInstance3D" parent="3D/Background/Shore/cloudmesh3" unique_id=313510276]
+transform = Transform3D(0.5042464, 0, 2.9802322e-08, 0, 0.50424635, 0, -2.9802322e-08, 0, 0.5042464, -0.6038861, 0.16812569, -0.80619526)
+mesh = SubResource("SphereMesh_7o7am")
+surface_material_override/0 = SubResource("StandardMaterial3D_g1rwb")
+
+[node name="cloudmesh8" type="MeshInstance3D" parent="3D/Background/Shore/cloudmesh3" unique_id=1554626066]
+transform = Transform3D(0.5042465, 0, 2.9802322e-08, 0, 0.50424635, 0, -2.9802322e-08, 0, 0.5042465, 1.867867, -0.3348499, 0.58486557)
+mesh = SubResource("SphereMesh_7o7am")
+surface_material_override/0 = SubResource("StandardMaterial3D_g1rwb")
+
+[node name="cloudmesh4" type="MeshInstance3D" parent="3D/Background/Shore" unique_id=1008424692]
+transform = Transform3D(12.393475, -5.3695073, 1.8747886, 4.274261, 11.758846, 5.422627, -3.751951, -4.340802, 12.370323, 58.79345, 8.096014, -57.36042)
+mesh = SubResource("SphereMesh_7o7am")
+surface_material_override/0 = SubResource("StandardMaterial3D_g1rwb")
+
+[node name="cloudmesh3" type="MeshInstance3D" parent="3D/Background/Shore/cloudmesh4" unique_id=860088276]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.657352, -0.20370078, 0.06318426)
+mesh = SubResource("SphereMesh_7o7am")
+surface_material_override/0 = SubResource("StandardMaterial3D_g1rwb")
+
+[node name="cloudmesh4" type="MeshInstance3D" parent="3D/Background/Shore/cloudmesh4" unique_id=540766106]
+transform = Transform3D(1.6307436, 0, -2.9802322e-08, 7.4505806e-08, 1.192642, -5.9604645e-08, 5.9604645e-08, -5.9604645e-08, 1.3713135, 0.89777184, 0.4840511, 0.3857546)
+mesh = SubResource("SphereMesh_7o7am")
+surface_material_override/0 = SubResource("StandardMaterial3D_g1rwb")
+
+[node name="cloudmesh5" type="MeshInstance3D" parent="3D/Background/Shore/cloudmesh4" unique_id=484802734]
+transform = Transform3D(0.93474084, 0, 0, 0, 0.93474084, 0, 0, 0, 0.93474084, 1.2917032, -0.34892476, 0.20710874)
+mesh = SubResource("SphereMesh_7o7am")
+surface_material_override/0 = SubResource("StandardMaterial3D_g1rwb")
+
+[node name="cloudmesh6" type="MeshInstance3D" parent="3D/Background/Shore/cloudmesh4" unique_id=1823097458]
+transform = Transform3D(0.649051, 0, 0, 0, 0.6490511, 0, 0, 0, 0.649051, -0.26571465, 0.027692318, -0.63648415)
+mesh = SubResource("SphereMesh_7o7am")
+surface_material_override/0 = SubResource("StandardMaterial3D_g1rwb")
+
+[node name="cloudmesh7" type="MeshInstance3D" parent="3D/Background/Shore/cloudmesh4" unique_id=378945464]
+transform = Transform3D(0.5042464, -2.2351742e-08, 4.4703484e-08, 7.450581e-09, 0.50424635, -1.4901161e-08, -2.9802322e-08, -1.4901161e-08, 0.5042464, 0.4709854, 0.652066, -0.29663277)
+mesh = SubResource("SphereMesh_7o7am")
+surface_material_override/0 = SubResource("StandardMaterial3D_g1rwb")
+
+[node name="cloudmesh8" type="MeshInstance3D" parent="3D/Background/Shore/cloudmesh4" unique_id=312584114]
+transform = Transform3D(0.50424653, -2.2351742e-08, 2.9802322e-08, -3.7252903e-09, 0.50424635, -1.4901161e-08, -1.4901161e-08, -1.4901161e-08, 0.5042465, 1.4569836, -0.040432215, 0.5698471)
+mesh = SubResource("SphereMesh_7o7am")
+surface_material_override/0 = SubResource("StandardMaterial3D_g1rwb")
+
+[node name="bg_palm" parent="3D/Background/Shore" unique_id=1558373469 instance=ExtResource("23_g1rwb")]
+transform = Transform3D(-0.29915184, -0.17622443, -0.21145427, -0.034206152, 0.3336686, -0.22968419, 0.27312607, -0.15122801, -0.26036876, 7.156527, -1.0723705, -4.384033)
+
+[node name="Cylinder" parent="3D/Background/Shore/bg_palm" index="0" unique_id=1924088734]
+surface_material_override/0 = ExtResource("4_ms2fc")
+
+[node name="bg_palm2" parent="3D/Background/Shore" unique_id=35916010 instance=ExtResource("23_g1rwb")]
+transform = Transform3D(-0.28283936, -0.1319702, -0.020809278, -0.073305026, 0.19402893, -0.2341502, 0.11169383, -0.2068426, -0.2063682, 7.0074263, -0.9794569, -5.6499996)
+
+[node name="Cylinder" parent="3D/Background/Shore/bg_palm2" index="0" unique_id=1924088734]
+surface_material_override/0 = ExtResource("4_ms2fc")
+
+[connection signal="cash_button_pressed" from="3D/cash_register/item_monitor/MonitorSubviewport/CashierMonitor" to="." method="_on_cashier_monitor_cash_button_pressed"]
+[connection signal="key_pushed" from="3D/cash_register/item_monitor/MonitorSubviewport/CashierMonitor" to="." method="_on_cashier_monitor_key_pushed"]
+
+[editable path="3D/cash_register"]
+[editable path="3D/cash_register/item_monitor"]
+[editable path="3D/cash_register/item_book"]
+[editable path="3D/Background/Shore/bg_shore"]
+[editable path="3D/Background/Shore/bg_palm"]
+[editable path="3D/Background/Shore/bg_palm2"]

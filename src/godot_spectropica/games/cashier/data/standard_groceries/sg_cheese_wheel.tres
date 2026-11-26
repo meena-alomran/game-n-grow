@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="GroceryEntry" format=3 uid="uid://bqk1r6y50t0ws"]
+
+[ext_resource type="Script" uid="uid://qfongeufidyi" path="res://games/cashier/data/grocery_entry.gd" id="1_gv0st"]
+[ext_resource type="PackedScene" uid="uid://tfjxpde25nr6" path="res://Arts/models/cashier_game/standard_groceries/gc_cheesewheel.glb" id="2_gv0st"]
+
+[resource]
+script = ExtResource("1_gv0st")
+display_name = "Cheese"
+visual_scene = ExtResource("2_gv0st")
+price = 8.0
+metadata/_custom_type_script = "uid://qfongeufidyi"

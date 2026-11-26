@@ -136,11 +136,6 @@ size_flags_horizontal = 3
 mouse_default_cursor_shape = 2
 text = "Progress"
 
-[node name="SettingsDialog" type="AcceptDialog" parent="."]
-title = "Settings"
-dialog_text = "A Care Team Member manages game settings."
-ok_button_text = "Back"
-
 [node name="ProgressDialog" type="AcceptDialog" parent="."]
 title = "Progress"
 dialog_text = "Progress is unavailable in this prototype."

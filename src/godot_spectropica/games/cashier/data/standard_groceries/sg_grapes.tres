@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="GroceryEntry" format=3 uid="uid://1yprdcbh0nuu"]
+
+[ext_resource type="Script" uid="uid://qfongeufidyi" path="res://games/cashier/data/grocery_entry.gd" id="1_aaaku"]
+[ext_resource type="PackedScene" uid="uid://dmfnksme53mo4" path="res://Arts/models/cashier_game/standard_groceries/gc_grapes.glb" id="2_aaaku"]
+
+[resource]
+script = ExtResource("1_aaaku")
+display_name = "Grapes"
+visual_scene = ExtResource("2_aaaku")
+price = 5.0
+metadata/_custom_type_script = "uid://qfongeufidyi"
