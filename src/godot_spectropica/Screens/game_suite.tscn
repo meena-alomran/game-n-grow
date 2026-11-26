@@ -1,7 +1,6 @@
 [gd_scene format=3 uid="uid://dckwqtk6bndaw"]
 
 [ext_resource type="Script" uid="uid://5ycbij1aooj2" path="res://Screens/game_suite.gd" id="1_4ersa"]
-[ext_resource type="Texture2D" uid="uid://cp4ynrd8wqylu" path="res://Arts/Images/gold-coin.png" id="2_eokyj"]
 [ext_resource type="FontFile" uid="uid://dewgtcm8moxxi" path="res://Arts/Fonts/Ticketing.ttf" id="2_frca3"]
 [ext_resource type="Script" uid="uid://jm1j62kli3wd" path="res://Screens/meadow_paths.gd" id="2_pj0y4"]
 [ext_resource type="Script" uid="uid://cdyjik7fpab0k" path="res://Screens/background.gd" id="3_0w0sf"]
@@ -42,15 +41,6 @@ corner_radius_bottom_left = 25
 bg_color = Color(0.16078432, 0.2901961, 0.23137255, 1)
 corner_radius_bottom_right = 25
 corner_radius_bottom_left = 25
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0w0sf"]
-content_margin_left = 14.0
-content_margin_right = 14.0
-bg_color = Color(1, 0.94, 0.73, 1)
-corner_radius_top_left = 18
-corner_radius_top_right = 18
-corner_radius_bottom_right = 18
-corner_radius_bottom_left = 18
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m670r"]
 content_margin_left = 16.0
@@ -310,42 +300,17 @@ offset_bottom = 324.0
 texture = ExtResource("8_al0sy")
 expand_mode = 1
 
-[node name="Purse" type="PanelContainer" parent="." unique_id=522678225]
-layout_mode = 0
-offset_left = 993.0
-offset_top = 16.0
-offset_right = 1138.0
-offset_bottom = 56.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_0w0sf")
-
-[node name="Row" type="HBoxContainer" parent="Purse" unique_id=604901090]
-layout_mode = 2
-theme_override_constants/separation = 10
-
-[node name="Coin" type="TextureRect" parent="Purse/Row" unique_id=2130685334]
-texture_filter = 1
-custom_minimum_size = Vector2(40, 40)
-layout_mode = 2
-size_flags_vertical = 4
-mouse_filter = 2
-texture = ExtResource("2_eokyj")
-expand_mode = 1
-stretch_mode = 5
-
-[node name="Balance" type="Label" parent="Purse/Row" unique_id=1514273381]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_colors/font_color = Color(0.27, 0.21, 0.12, 1)
-theme_override_font_sizes/font_size = 20
-text = "0 coins"
-
 [node name="Shop" type="Button" parent="." unique_id=156187582]
 custom_minimum_size = Vector2(108, 52)
-layout_mode = 0
-offset_left = 1006.0
-offset_top = 70.0
-offset_right = 1122.0
-offset_bottom = 122.0
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -140.0
+offset_top = 25.0
+offset_right = -24.0
+offset_bottom = 77.0
+grow_horizontal = 0
 mouse_default_cursor_shape = 2
 theme_override_colors/font_color = Color(0.16, 0.29, 0.23, 1)
 theme_override_colors/font_focus_color = Color(0.16, 0.29, 0.23, 1)
