@@ -2,7 +2,7 @@ extends Control
 
 signal back_requested
 
-@export_file("*.tscn") var home_scene_path: String = "res://Screens/home_screen.tscn"
+@export_file("*.tscn") var game_suite_scene_path: String = "res://Screens/game_suite.tscn"
 @export var owned_item_material: ShaderMaterial
 
 # The first field is the save ID and matches the scene's button name.
@@ -100,7 +100,7 @@ func _on_back_pressed() -> void:
 	if self != get_tree().current_scene:
 		return
 
-	var destination := home_scene_path
-	if destination.is_empty() or not ResourceLoader.exists(destination):
-		destination = "res://Screens/game_suite.tscn"
+	var destination := game_suite_scene_path
+	#if destination.is_empty() or not ResourceLoader.exists(destination):
+		#destination = "res://Screens/game_suite.tscn"
 	get_tree().change_scene_to_file(destination)
