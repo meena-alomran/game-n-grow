@@ -1,6 +1,8 @@
 class_name CashierGame
 extends Node
 
+@export_file("*.tscn") var game_suite_path: String = "res://Screens/game_suite.tscn"
+
 @export_category("3D")
 @export var customer_animation_player: AnimationPlayer
 @export var new_customer_transform: Marker3D
@@ -166,7 +168,6 @@ func the_price_is_right():
 	
 	await get_tree().process_frame
 	new_customer()
-		
-func _physics_process(delta: float) -> void:
-	if Input.is_action_just_pressed("ui_accept"):
-		new_customer()
+
+func _on_return_button_pressed() -> void:
+	get_tree().change_scene_to_file(game_suite_path)
