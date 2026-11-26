@@ -1,0 +1,46 @@
+[gd_scene format=3 uid="uid://bmn1s7dw8hv4u"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wlky3"]
+bg_color = Color(0.92156863, 0.827451, 0.5803922, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+expand_margin_left = 8.0
+expand_margin_top = 8.0
+expand_margin_right = 8.0
+expand_margin_bottom = 8.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_wlky3"]
+font_size = 45
+font_color = Color(0.49019608, 0.40392157, 0.17254902, 1)
+outline_color = Color(0.83137256, 0.67058825, 0.24705882, 1)
+
+[node name="HomeScreen" type="Control" unique_id=760333438]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=775201936]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.74509805, 0.8980392, 0.96862745, 1)
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=1011281773]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_wlky3")
+
+[node name="Label" type="Label" parent="PanelContainer" unique_id=700356002]
+layout_mode = 2
+text = "Spectropica"
+label_settings = SubResource("LabelSettings_wlky3")
+horizontal_alignment = 1
