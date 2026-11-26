@@ -158,6 +158,12 @@ The Proof of Concept (PoC) will consist of a functional Godot application demons
 \medskip
 \noindent Risks:
 \begin{itemize}
+  \item The main risk is the full-stack implementation of the application may be too complex to complete, within the specific timeframe given the current team's skill profile. Even if completed, the full-stack system from asset generation to database read/write operations may be slow or buggy, resulting in a poor user experience.
+  
+  What we will demonstrate to convince ourselves we can overcome this risk is a functional cashier mini-game where the assets load, session results are saved locally and externally, and can be seen in the Care Team dashboard a few seconds later. Additionally, the Care Team member can customize the game for the user, and a few seconds later the customized changes appear in the game.
+
+  If our PoC demo fails regarding this, we may consider introducing less heavy assets, or trimming what is customizable and how granular the session details that are stored are.
+
   \item Users may find some games to be overly stimulating, or not stimulating enough, depending on their individual sensory preferences.
 
   What we will demonstrate to convince ourselves we can overcome this risk is implementing adjustable visual stimulation settings within the cashier mini-game. The background behind the customer will change depending on the selected stimulation level without interfering with the core gameplay functionality.
