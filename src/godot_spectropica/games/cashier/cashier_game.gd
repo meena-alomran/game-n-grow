@@ -129,11 +129,13 @@ func generate_list_book_page_text():
 		
 		
 func _on_cashier_monitor_cash_button_pressed(amount: float) -> void:
+	var correct := false
 	if str(amount) == str(correct_price): # Check the strings to avoid floating errors
 		the_price_is_right()
+		correct = true
 	
 	# Correctness is exactly what the game decides; the tracker only records it.
-	if _tracker.record_attempt(amount, str(amount) == str(correct_price)):
+	if _tracker.record_attempt(amount, correct):
 		_tracker.finish_order()
 		if _tracker.is_run_complete():
 			RunLog.save_run(_tracker.build_record(true))
@@ -161,6 +163,8 @@ func the_price_is_right():
 		g.queue_free()
 	grocery_node_3ds.clear()
 	
+	
+	await get_tree().process_frame
 	new_customer()
 		
 func _physics_process(delta: float) -> void:

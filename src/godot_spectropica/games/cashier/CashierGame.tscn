@@ -326,7 +326,7 @@ transform = Transform3D(-1.6292068e-07, 0, 1, 0, 1, 0, -1, 0, -1.6292068e-07, 5.
 [node name="AnimalKat2" parent="3D/NewCustomerTransform" unique_id=1099911432 instance=ExtResource("2_xglb0")]
 
 [node name="OldCustomerTransform" type="Marker3D" parent="3D" unique_id=193872808]
-transform = Transform3D(-0.99853534, 0, -0.054078665, 0, 1, 0, 0.054078665, 0, -0.99853534, 0.49751902, 0, -1.6294477)
+transform = Transform3D(-0.9985353, 0, -0.05407866, 0, 1, 0, 0.05407866, 0, -0.9985353, 0.49751902, 0, -1.6294477)
 
 [node name="AnimalKat" parent="3D/OldCustomerTransform" unique_id=1100125556 instance=ExtResource("2_xglb0")]
 

@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://bmn1s7dw8hv4u"]
+[gd_scene format=3 uid="uid://dckwqtk6bndaw"]
 
 [ext_resource type="Script" uid="uid://5ycbij1aooj2" path="res://Screens/game_suite.gd" id="1_4ersa"]
 [ext_resource type="Texture2D" uid="uid://cp4ynrd8wqylu" path="res://Arts/Images/gold-coin.png" id="2_eokyj"]
