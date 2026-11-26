@@ -133,7 +133,7 @@ func _on_cashier_monitor_cash_button_pressed(amount: float) -> void:
 		the_price_is_right()
 	
 	# Correctness is exactly what the game decides; the tracker only records it.
-	if _tracker.record_attempt(amount, amount == correct_price):
+	if _tracker.record_attempt(amount, str(amount) == str(correct_price)):
 		_tracker.finish_order()
 		if _tracker.is_run_complete():
 			RunLog.save_run(_tracker.build_record(true))
