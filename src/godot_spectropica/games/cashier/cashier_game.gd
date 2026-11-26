@@ -19,6 +19,8 @@ extends Node
 
 const VERTEX_COLOR_SIMPLE = preload("uid://cbv1i5ahbe5es")
 
+var _tracker := CashierRunTracker.new() ## records each run for RunLog
+
 var current_customer_groceries: Array[GroceryEntry]
 var grocery_node_3ds: Array[Node3D]
 var correct_price: float:
@@ -27,6 +29,9 @@ var correct_price: float:
 		print("Correct Price: ", correct_price)
 
 func _ready() -> void:
+	numerical_difficulty = GameSettings.difficulty
+	stimulation_mode = GameSettings.stimulation
+	_tracker.begin_run(numerical_difficulty, stimulation_mode)
 	deal_with_difficulty()
 	deal_with_stimulation_modes()
 	generate_list_book_page_text()
@@ -34,19 +39,13 @@ func _ready() -> void:
 	#DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
 	
 
+## Item names, which items are included and each item's price at the current difficulty
+## come straight from the caretaker's settings (GameSettings.grocery_items), so there is
+## no random price offset any more. The scene's exported grocery_list is the fallback.
 func deal_with_difficulty():
-	var new_list: Array[GroceryEntry]
-	for item in grocery_list:
-		var new_item = item.duplicate()
-		match numerical_difficulty:
-			0: new_item.price = item.price
-			1: new_item.price += 0.5 * randi_range(0, 1)
-			2: new_item.price += 0.25 * randi_range(0, 3)
-			3: new_item.price += 0.05 * randi_range(0, 19)
-			4: new_item.price += 0.01 * randi_range(0, 99)
-		new_list.append(new_item)
-		
-	grocery_list = new_list
+	var settings_list := GameSettings.get_grocery_entries()
+	if not settings_list.is_empty():
+		grocery_list = settings_list
 
 func deal_with_stimulation_modes():
 	match stimulation_mode:
@@ -92,7 +91,8 @@ func generate_new_groceries():
 		
 		
 	correct_price = calculate_total_price_of_list(current_customer_groceries)
-		
+	_tracker.start_order(current_customer_groceries.size(), correct_price)
+
 ## Brings a random grocery based on the preferences of the player
 ## Should make duplicates such that they can be modified
 func make_random_grocery() -> GroceryEntry:
@@ -126,8 +126,29 @@ func generate_list_book_page_text():
 		
 		
 func _on_cashier_monitor_cash_button_pressed(amount: float) -> void:
-	if amount == correct_price:
+	# Correctness is exactly what the game decides; the tracker only records it.
+	if _tracker.record_attempt(amount, amount == correct_price):
+		_tracker.finish_order()
+		if _tracker.is_run_complete():
+			RunLog.save_run(_tracker.build_record(true))
+			_tracker.begin_run(numerical_difficulty, stimulation_mode)
 		the_price_is_right()
+
+func _on_cashier_monitor_key_pushed() -> void:
+	_tracker.note_first_input()
+
+## Saves a partial run (completed = false) if the child quit mid-run.
+func _save_abandoned_run() -> void:
+	if _tracker.has_progress():
+		RunLog.save_run(_tracker.build_record(false))
+		_tracker.begin_run(numerical_difficulty, stimulation_mode) # avoid saving it twice
+
+func _exit_tree() -> void:
+	_save_abandoned_run()
+
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_WM_CLOSE_REQUEST:
+		_save_abandoned_run()
 		
 func the_price_is_right():
 	# move groceries to bag bug this just deletes them

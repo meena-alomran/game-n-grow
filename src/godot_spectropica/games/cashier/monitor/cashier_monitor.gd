@@ -2,6 +2,7 @@ extends Control
 class_name CashierMonitor
 
 signal cash_button_pressed(amount: float)
+signal key_pushed ## any keypad button; used to time the first input of an order
 
 @export var max_string_length := 5
 
@@ -16,6 +17,7 @@ func _ready() -> void:
 	current_string = ""
 
 func pushed_button(key: StringName):
+	key_pushed.emit()
 	if key == &"back":
 		current_string = current_string.left(-1)
 		return

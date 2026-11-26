@@ -19,6 +19,8 @@ config/icon="res://icon.svg"
 [autoload]
 
 Wallet="*uid://gi0hidm2j4w5"
+GameSettings="*res://GameSettings.gd"
+RunLog="*res://RunLog.gd"
 
 [display]
 
