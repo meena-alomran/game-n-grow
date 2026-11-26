@@ -1,6 +1,7 @@
 extends Control
 
 @export_file("*.tscn") var shop_scene_path: String = "res://Screens/shop.tscn"
+@export_file("*.tscn") var cashier_game_path: String = "res://games/cashier/CashierGame.tscn"
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -13,5 +14,5 @@ func _process(delta: float) -> void:
 
 
 func _on_rewards_pressed() -> void:
-	var destination := shop_scene_path
+	var destination := cashier_game_path
 	get_tree().change_scene_to_file(destination)
