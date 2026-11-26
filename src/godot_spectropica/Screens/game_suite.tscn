@@ -360,4 +360,4 @@ text = "> Shop
 "
 
 [connection signal="pressed" from="CashierGamePill/VBoxContainer/PlayButton" to="." method="_on_cashier_play_button_pressed"]
-[connection signal="pressed" from="Shop" to="." method="_on_rewards_pressed"]
+[connection signal="pressed" from="Shop" to="." method="_on_shop_pressed"]

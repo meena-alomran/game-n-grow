@@ -4,7 +4,7 @@ signal coins_changed(new_amount: int)
 
 const SAVE_PATH := "user://save.cfg"
 
-var coins: int = 0
+var coins: int = 70
 var _owned_cosmetics := PackedStringArray()
 
 
