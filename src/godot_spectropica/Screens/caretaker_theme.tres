@@ -1,0 +1,114 @@
+[gd_resource type="Theme" format=3 uid="uid://dm818nqt7ylyj"]
+
+[sub_resource type="StyleBoxFlat" id="Secondary"]
+content_margin_left = 14.0
+content_margin_right = 14.0
+bg_color = Color(0.86, 0.91, 0.86, 1)
+corner_radius_top_left = 14
+corner_radius_top_right = 14
+corner_radius_bottom_right = 14
+corner_radius_bottom_left = 14
+
+[sub_resource type="StyleBoxFlat" id="Focus"]
+draw_center = false
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.74, 0.43, 0.16, 1)
+corner_radius_top_left = 14
+corner_radius_top_right = 14
+corner_radius_bottom_right = 14
+corner_radius_bottom_left = 14
+
+[sub_resource type="StyleBoxFlat" id="SecondaryHover"]
+content_margin_left = 14.0
+content_margin_right = 14.0
+bg_color = Color(0.76, 0.85, 0.77, 1)
+corner_radius_top_left = 14
+corner_radius_top_right = 14
+corner_radius_bottom_right = 14
+corner_radius_bottom_left = 14
+
+[sub_resource type="StyleBoxFlat" id="PlayHover"]
+content_margin_left = 14.0
+content_margin_right = 14.0
+bg_color = Color(0.22, 0.42, 0.34, 1)
+corner_radius_top_left = 14
+corner_radius_top_right = 14
+corner_radius_bottom_right = 14
+corner_radius_bottom_left = 14
+
+[sub_resource type="StyleBoxFlat" id="Play"]
+content_margin_left = 14.0
+content_margin_right = 14.0
+bg_color = Color(0.17, 0.35, 0.28, 1)
+corner_radius_top_left = 14
+corner_radius_top_right = 14
+corner_radius_bottom_right = 14
+corner_radius_bottom_left = 14
+
+[sub_resource type="StyleBoxFlat" id="FieldFocus"]
+content_margin_left = 10.0
+content_margin_top = 6.0
+content_margin_right = 10.0
+content_margin_bottom = 6.0
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.74, 0.43, 0.16, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="Field"]
+content_margin_left = 10.0
+content_margin_top = 6.0
+content_margin_right = 10.0
+content_margin_bottom = 6.0
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.7, 0.78, 0.72, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[resource]
+default_font_size = 18
+Button/colors/font_color = Color(0.13, 0.24, 0.19, 1)
+Button/colors/font_disabled_color = Color(0.4, 0.5, 0.45, 1)
+Button/colors/font_focus_color = Color(0.13, 0.24, 0.19, 1)
+Button/colors/font_hover_color = Color(0.13, 0.24, 0.19, 1)
+Button/colors/font_hover_pressed_color = Color(1, 1, 1, 1)
+Button/colors/font_pressed_color = Color(1, 1, 1, 1)
+Button/styles/disabled = SubResource("Secondary")
+Button/styles/focus = SubResource("Focus")
+Button/styles/hover = SubResource("SecondaryHover")
+Button/styles/hover_pressed = SubResource("PlayHover")
+Button/styles/normal = SubResource("Secondary")
+Button/styles/pressed = SubResource("Play")
+Label/colors/font_color = Color(0.13, 0.24, 0.19, 1)
+LineEdit/colors/caret_color = Color(0.13, 0.24, 0.19, 1)
+LineEdit/colors/font_color = Color(0.13, 0.24, 0.19, 1)
+LineEdit/colors/font_placeholder_color = Color(0.5, 0.58, 0.53, 1)
+LineEdit/colors/font_selected_color = Color(1, 1, 1, 1)
+LineEdit/colors/selection_color = Color(0.17, 0.35, 0.28, 1)
+LineEdit/styles/focus = SubResource("FieldFocus")
+LineEdit/styles/normal = SubResource("Field")
+LineEdit/styles/read_only = SubResource("Field")
+OptionButton/colors/font_color = Color(0.13, 0.24, 0.19, 1)
+OptionButton/colors/font_focus_color = Color(0.13, 0.24, 0.19, 1)
+OptionButton/colors/font_hover_color = Color(0.13, 0.24, 0.19, 1)
+OptionButton/colors/font_pressed_color = Color(0.13, 0.24, 0.19, 1)
+OptionButton/styles/focus = SubResource("Focus")
+OptionButton/styles/hover = SubResource("SecondaryHover")
+OptionButton/styles/normal = SubResource("Secondary")
+OptionButton/styles/pressed = SubResource("SecondaryHover")
+RichTextLabel/colors/default_color = Color(0.13, 0.24, 0.19, 1)

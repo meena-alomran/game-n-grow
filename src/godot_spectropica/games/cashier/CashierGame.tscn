@@ -326,7 +326,7 @@ transform = Transform3D(-1.6292068e-07, 0, 1, 0, 1, 0, -1, 0, -1.6292068e-07, 5.
 [node name="AnimalKat2" parent="3D/NewCustomerTransform" unique_id=1099911432 instance=ExtResource("2_xglb0")]
 
 [node name="OldCustomerTransform" type="Marker3D" parent="3D" unique_id=193872808]
-transform = Transform3D(-0.9985355, 0, -0.054078676, 0, 1, 0, 0.054078676, 0, -0.9985355, 0.49751902, 0, -1.6294477)
+transform = Transform3D(-0.9985354, 0, -0.05407867, 0, 1, 0, 0.05407867, 0, -0.9985354, 0.49751902, 0, -1.6294477)
 
 [node name="AnimalKat" parent="3D/OldCustomerTransform" unique_id=1100125556 instance=ExtResource("2_xglb0")]
 
@@ -505,6 +505,7 @@ transform = Transform3D(-0.28283936, -0.1319702, -0.020809278, -0.073305026, 0.1
 surface_material_override/0 = ExtResource("4_ms2fc")
 
 [connection signal="cash_button_pressed" from="3D/cash_register/item_monitor/MonitorSubviewport/CashierMonitor" to="." method="_on_cashier_monitor_cash_button_pressed"]
+[connection signal="key_pushed" from="3D/cash_register/item_monitor/MonitorSubviewport/CashierMonitor" to="." method="_on_cashier_monitor_key_pushed"]
 
 [editable path="3D/cash_register"]
 [editable path="3D/cash_register/item_monitor"]
