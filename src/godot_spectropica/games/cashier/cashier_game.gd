@@ -36,6 +36,8 @@ func _ready() -> void:
 	deal_with_stimulation_modes()
 	generate_list_book_page_text()
 	new_customer()
+	
+	customer_animation_player.seek(3.0)
 	#DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
 	
 
@@ -61,6 +63,7 @@ func new_customer():
 ## Visual animation for customers moving
 func new_customer_animation():
 	customer_animation_player.play("switch_customer")
+
 
 ## Creates a list of groceries based on the player's preferences
 func generate_new_groceries():
@@ -126,13 +129,15 @@ func generate_list_book_page_text():
 		
 		
 func _on_cashier_monitor_cash_button_pressed(amount: float) -> void:
+	if str(amount) == str(correct_price): # Check the strings to avoid floating errors
+		the_price_is_right()
+	
 	# Correctness is exactly what the game decides; the tracker only records it.
 	if _tracker.record_attempt(amount, amount == correct_price):
 		_tracker.finish_order()
 		if _tracker.is_run_complete():
 			RunLog.save_run(_tracker.build_record(true))
 			_tracker.begin_run(numerical_difficulty, stimulation_mode)
-		the_price_is_right()
 
 func _on_cashier_monitor_key_pushed() -> void:
 	_tracker.note_first_input()

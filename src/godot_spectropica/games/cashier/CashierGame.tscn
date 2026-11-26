@@ -261,14 +261,14 @@ fov = 60.0
 [node name="cash_register" parent="3D" unique_id=1000357952 instance=ExtResource("3_pypkv")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, -0.22991264, 0)
 
-[node name="platform" parent="3D/cash_register" index="0" unique_id=1863781108]
+[node name="platform" parent="3D/cash_register" index="0" unique_id=1201561331]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.763063e-08, 0, -0.40334177)
 surface_material_override/0 = ExtResource("4_ms2fc")
 
 [node name="item_monitor" parent="3D/cash_register" unique_id=1574829930 instance=ExtResource("5_cxpvc")]
 transform = Transform3D(0.69656384, 0, 0.24051242, 0, 0.7369175, 0, -0.24051242, 0, 0.69656384, 0.27268818, 1.2585173, 0.5786688)
 
-[node name="monitor" parent="3D/cash_register/item_monitor" index="0" unique_id=501566376]
+[node name="monitor" parent="3D/cash_register/item_monitor" index="0" unique_id=1853687818]
 transform = Transform3D(0.9432221, 0, 1.7881393e-07, 0, 0.94322157, 0, -1.7881393e-07, 0, 0.9432221, -0.044266514, 0.02401936, -0.4660925)
 surface_material_override/0 = ExtResource("4_ms2fc")
 
@@ -295,7 +295,7 @@ physics_object_picking = true
 [node name="item_book" parent="3D/cash_register" unique_id=2133638104 instance=ExtResource("6_dsn67")]
 transform = Transform3D(0.31708297, 0.41656223, 0.22334926, -0.45288914, 0.34473464, 1.9796413e-08, -0.1352789, -0.17772032, 0.5235128, 0.47109777, 1.3969117, 0.2936413)
 
-[node name="book" parent="3D/cash_register/item_book" index="0" unique_id=424379435]
+[node name="book" parent="3D/cash_register/item_book" index="0" unique_id=88736562]
 transform = Transform3D(0.99999994, -2.9802322e-08, -1.4901161e-08, 5.9604645e-08, 1, 0, 1.4901161e-08, 0, 1, 0.08829379, 0.11599445, -0.34168643)
 surface_material_override/0 = ExtResource("4_ms2fc")
 
@@ -326,7 +326,7 @@ transform = Transform3D(-1.6292068e-07, 0, 1, 0, 1, 0, -1, 0, -1.6292068e-07, 5.
 [node name="AnimalKat2" parent="3D/NewCustomerTransform" unique_id=1099911432 instance=ExtResource("2_xglb0")]
 
 [node name="OldCustomerTransform" type="Marker3D" parent="3D" unique_id=193872808]
-transform = Transform3D(-0.99853545, 0, -0.054078672, 0, 1, 0, 0.054078672, 0, -0.99853545, 0.49751902, 0, -1.6294477)
+transform = Transform3D(-0.9985354, 0, -0.05407867, 0, 1, 0, 0.05407867, 0, -0.9985354, 0.49751902, 0, -1.6294477)
 
 [node name="AnimalKat" parent="3D/OldCustomerTransform" unique_id=1100125556 instance=ExtResource("2_xglb0")]
 
@@ -358,7 +358,7 @@ unique_name_in_owner = true
 [node name="bg_shore" parent="3D/Background/Shore" unique_id=1788589331 instance=ExtResource("21_r7hc5")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0.110967286, 0.99382406, -4.850534e-09, 0.99382406, -0.110967286, -4.344143e-08, 6.6036804e-08, -0.6824677, -1.510746)
 
-[node name="Circle" parent="3D/Background/Shore/bg_shore" index="0" unique_id=1700915873]
+[node name="Circle" parent="3D/Background/Shore/bg_shore" index="0" unique_id=1091623252]
 surface_material_override/0 = ExtResource("4_ms2fc")
 surface_material_override/1 = SubResource("ShaderMaterial_23q5m")
 
@@ -495,13 +495,13 @@ surface_material_override/0 = SubResource("StandardMaterial3D_g1rwb")
 [node name="bg_palm" parent="3D/Background/Shore" unique_id=1558373469 instance=ExtResource("23_g1rwb")]
 transform = Transform3D(-0.29915184, -0.17622443, -0.21145427, -0.034206152, 0.3336686, -0.22968419, 0.27312607, -0.15122801, -0.26036876, 7.156527, -1.0723705, -4.384033)
 
-[node name="Cylinder" parent="3D/Background/Shore/bg_palm" index="0" unique_id=1392369602]
+[node name="Cylinder" parent="3D/Background/Shore/bg_palm" index="0" unique_id=1924088734]
 surface_material_override/0 = ExtResource("4_ms2fc")
 
 [node name="bg_palm2" parent="3D/Background/Shore" unique_id=35916010 instance=ExtResource("23_g1rwb")]
 transform = Transform3D(-0.28283936, -0.1319702, -0.020809278, -0.073305026, 0.19402893, -0.2341502, 0.11169383, -0.2068426, -0.2063682, 7.0074263, -0.9794569, -5.6499996)
 
-[node name="Cylinder" parent="3D/Background/Shore/bg_palm2" index="0" unique_id=1392369602]
+[node name="Cylinder" parent="3D/Background/Shore/bg_palm2" index="0" unique_id=1924088734]
 surface_material_override/0 = ExtResource("4_ms2fc")
 
 [connection signal="cash_button_pressed" from="3D/cash_register/item_monitor/MonitorSubviewport/CashierMonitor" to="." method="_on_cashier_monitor_cash_button_pressed"]
