@@ -2,25 +2,46 @@
 
 [ext_resource type="Script" uid="uid://5ycbij1aooj2" path="res://Screens/game_suite.gd" id="1_4ersa"]
 [ext_resource type="Texture2D" uid="uid://cp4ynrd8wqylu" path="res://Arts/Images/gold-coin.png" id="2_eokyj"]
+[ext_resource type="FontFile" uid="uid://dewgtcm8moxxi" path="res://Arts/Fonts/Ticketing.ttf" id="2_frca3"]
 [ext_resource type="Script" uid="uid://jm1j62kli3wd" path="res://Screens/meadow_paths.gd" id="2_pj0y4"]
 [ext_resource type="Script" uid="uid://cdyjik7fpab0k" path="res://Screens/background.gd" id="3_0w0sf"]
+[ext_resource type="Texture2D" uid="uid://qsloxyrn7pnk" path="res://Arts/Images/math.jpg" id="6_1xdg6"]
+[ext_resource type="Texture2D" uid="uid://cd0nq0kaxt68m" path="res://Arts/Images/cashier_game.png" id="6_lhc3r"]
+[ext_resource type="Texture2D" uid="uid://bob51ccm3ro18" path="res://Arts/Images/spell.jpg" id="7_pjsrb"]
+[ext_resource type="Texture2D" uid="uid://bajtcpakn7trt" path="res://Arts/Images/pattern.png" id="8_al0sy"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_wlky3"]
-font_size = 91
+font = ExtResource("2_frca3")
+font_size = 100
 font_color = Color(0.8117647, 0.64705884, 0, 1)
 outline_color = Color(0.83137256, 0.67058825, 0.24705882, 1)
+shadow_size = 8
+shadow_color = Color(0.59, 0.47200003, 0, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yivg4"]
-bg_color = Color(1, 0.9529412, 0.6901961, 1)
-corner_radius_top_left = 40
-corner_radius_top_right = 40
-corner_radius_bottom_right = 40
-corner_radius_bottom_left = 40
+bg_color = Color(0.9490196, 0.9882353, 1, 1)
+corner_radius_top_left = 25
+corner_radius_top_right = 25
+corner_radius_bottom_right = 25
+corner_radius_bottom_left = 25
+shadow_color = Color(0.16078432, 0.4, 0.5803922, 0.38039216)
+shadow_size = 4
+shadow_offset = Vector2(0, 3)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7tvv2"]
-bg_color = Color(0.6901961, 0.5882353, 0, 0.9647059)
-corner_radius_top_right = 40
-corner_radius_bottom_right = 40
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7sdol"]
+bg_color = Color(0.24313726, 0.4392157, 0.34901962, 1)
+corner_radius_bottom_right = 25
+corner_radius_bottom_left = 25
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cipjt"]
+bg_color = Color(0.16078432, 0.2901961, 0.23137255, 1)
+corner_radius_bottom_right = 25
+corner_radius_bottom_left = 25
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lhc3r"]
+bg_color = Color(0.16078432, 0.2901961, 0.23137255, 1)
+corner_radius_bottom_right = 25
+corner_radius_bottom_left = 25
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0w0sf"]
 content_margin_left = 14.0
@@ -80,10 +101,10 @@ layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -298.5
-offset_top = 39.0
-offset_right = 298.5
-offset_bottom = 164.0
+offset_left = -298.0
+offset_top = 35.0
+offset_right = 299.0
+offset_bottom = 160.0
 grow_horizontal = 2
 text = "SPECTROPICA"
 label_settings = SubResource("LabelSettings_wlky3")
@@ -108,117 +129,186 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("3_0w0sf")
 
-[node name="BeachGamePill" type="PanelContainer" parent="." unique_id=1813231157]
-visible = false
+[node name="CashierGamePill" type="PanelContainer" parent="." unique_id=1813231157]
 layout_mode = 0
-offset_left = 176.0
-offset_top = 251.0
-offset_right = 587.0
-offset_bottom = 387.0
+offset_left = 23.0
+offset_top = 171.0
+offset_right = 258.0
+offset_bottom = 380.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_yivg4")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="BeachGamePill" unique_id=703680708]
+[node name="VBoxContainer" type="VBoxContainer" parent="CashierGamePill" unique_id=1946178518]
 layout_mode = 2
+alignment = 2
 
-[node name="BeachGameTitle" type="Label" parent="BeachGamePill/HBoxContainer" unique_id=2134101286]
+[node name="PlayButton" type="Button" parent="CashierGamePill/VBoxContainer" unique_id=947245025]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("2_frca3")
+theme_override_font_sizes/font_size = 31
+theme_override_styles/normal = SubResource("StyleBoxFlat_7sdol")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_cipjt")
+theme_override_styles/hover = SubResource("StyleBoxFlat_lhc3r")
+text = "PLAY"
+icon_alignment = 1
+vertical_icon_alignment = 2
+
+[node name="CashierGameTitle" type="Label" parent="." unique_id=2134101286]
+layout_mode = 0
+offset_left = 22.0
+offset_top = 173.0
+offset_right = 263.0
+offset_bottom = 223.0
 size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0.6117647, 0.5254902, 0.08627451, 1)
-theme_override_font_sizes/font_size = 30
-text = "Beach Game"
+theme_override_colors/font_color = Color(0.16078432, 0.2901961, 0.23137255, 1)
+theme_override_fonts/font = ExtResource("2_frca3")
+theme_override_font_sizes/font_size = 36
+text = "Cashier Cat"
 horizontal_alignment = 1
 
-[node name="BeachGamePlay" type="Button" parent="BeachGamePill/HBoxContainer" unique_id=1774607708]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/font_size = 30
-theme_override_styles/normal = SubResource("StyleBoxFlat_7tvv2")
-text = "Play"
-
-[node name="MathGamePill2" type="PanelContainer" parent="." unique_id=813620782]
-visible = false
+[node name="MathGamePill" type="PanelContainer" parent="." unique_id=1390929064]
 layout_mode = 0
-offset_left = 631.0
-offset_top = 202.0
-offset_right = 1042.0
-offset_bottom = 338.0
+offset_left = 317.0
+offset_top = 159.0
+offset_right = 562.0
+offset_bottom = 371.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_yivg4")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MathGamePill2" unique_id=1551043773]
+[node name="VBoxContainer" type="VBoxContainer" parent="MathGamePill" unique_id=1300986389]
 layout_mode = 2
+alignment = 2
 
-[node name="MathGameTitle" type="Label" parent="MathGamePill2/HBoxContainer" unique_id=451289165]
+[node name="PlayButton" type="Button" parent="MathGamePill/VBoxContainer" unique_id=468280685]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("2_frca3")
+theme_override_font_sizes/font_size = 31
+theme_override_styles/normal = SubResource("StyleBoxFlat_7sdol")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_cipjt")
+theme_override_styles/hover = SubResource("StyleBoxFlat_lhc3r")
+text = "PLAY"
+icon_alignment = 1
+vertical_icon_alignment = 2
+
+[node name="MathGameTitle2" type="Label" parent="." unique_id=1829192592]
+layout_mode = 0
+offset_left = 309.0
+offset_top = 162.0
+offset_right = 574.0
+offset_bottom = 202.0
 size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0.6117647, 0.5254902, 0.08627451, 1)
-theme_override_font_sizes/font_size = 30
+theme_override_colors/font_color = Color(0.16078432, 0.2901961, 0.23137255, 1)
+theme_override_fonts/font = ExtResource("2_frca3")
+theme_override_font_sizes/font_size = 36
 text = "Math Game"
 horizontal_alignment = 1
 
-[node name="MathGamePlay" type="Button" parent="MathGamePill2/HBoxContainer" unique_id=1939943960]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/font_size = 30
-theme_override_styles/normal = SubResource("StyleBoxFlat_7tvv2")
-text = "Play"
-
-[node name="SpellingGamePill3" type="PanelContainer" parent="." unique_id=2032230838]
-visible = false
+[node name="SpellingGamePill2" type="PanelContainer" parent="." unique_id=664418826]
 layout_mode = 0
-offset_left = 155.0
-offset_top = 458.0
-offset_right = 566.0
-offset_bottom = 594.0
+offset_left = 587.0
+offset_top = 153.0
+offset_right = 827.0
+offset_bottom = 359.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_yivg4")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="SpellingGamePill3" unique_id=645362200]
+[node name="VBoxContainer" type="VBoxContainer" parent="SpellingGamePill2" unique_id=991407016]
 layout_mode = 2
+alignment = 2
 
-[node name="SpellingGameTitle" type="Label" parent="SpellingGamePill3/HBoxContainer" unique_id=1427768852]
+[node name="PlayButton" type="Button" parent="SpellingGamePill2/VBoxContainer" unique_id=486686428]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("2_frca3")
+theme_override_font_sizes/font_size = 31
+theme_override_styles/normal = SubResource("StyleBoxFlat_7sdol")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_cipjt")
+theme_override_styles/hover = SubResource("StyleBoxFlat_lhc3r")
+text = "PLAY"
+icon_alignment = 1
+vertical_icon_alignment = 2
+
+[node name="MathGameTitle3" type="Label" parent="." unique_id=1796569509]
+layout_mode = 0
+offset_left = 578.0
+offset_top = 155.0
+offset_right = 843.0
+offset_bottom = 195.0
 size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0.6117647, 0.5254902, 0.08627451, 1)
-theme_override_font_sizes/font_size = 30
+theme_override_colors/font_color = Color(0.16078432, 0.2901961, 0.23137255, 1)
+theme_override_fonts/font = ExtResource("2_frca3")
+theme_override_font_sizes/font_size = 36
 text = "Spelling Game"
 horizontal_alignment = 1
 
-[node name="SpellingGamePlay" type="Button" parent="SpellingGamePill3/HBoxContainer" unique_id=679555254]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/font_size = 30
-theme_override_styles/normal = SubResource("StyleBoxFlat_7tvv2")
-text = "Play"
-
-[node name="PatternGamePill4" type="PanelContainer" parent="." unique_id=181031275]
-visible = false
+[node name="PatternGamePill3" type="PanelContainer" parent="." unique_id=1786954917]
 layout_mode = 0
-offset_left = 578.0
-offset_top = 393.0
-offset_right = 989.0
-offset_bottom = 529.0
+offset_left = 873.0
+offset_top = 174.0
+offset_right = 1124.0
+offset_bottom = 390.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_yivg4")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="PatternGamePill4" unique_id=662731094]
+[node name="VBoxContainer" type="VBoxContainer" parent="PatternGamePill3" unique_id=558382440]
 layout_mode = 2
+alignment = 2
 
-[node name="PatternGameTitle" type="Label" parent="PatternGamePill4/HBoxContainer" unique_id=1247505031]
+[node name="PlayButton" type="Button" parent="PatternGamePill3/VBoxContainer" unique_id=764566108]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("2_frca3")
+theme_override_font_sizes/font_size = 31
+theme_override_styles/normal = SubResource("StyleBoxFlat_7sdol")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_cipjt")
+theme_override_styles/hover = SubResource("StyleBoxFlat_lhc3r")
+text = "PLAY"
+icon_alignment = 1
+vertical_icon_alignment = 2
+
+[node name="PatternGameTitle4" type="Label" parent="." unique_id=1732059760]
+layout_mode = 0
+offset_left = 871.0
+offset_top = 176.0
+offset_right = 1136.0
+offset_bottom = 216.0
 size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0.6117647, 0.5254902, 0.08627451, 1)
-theme_override_font_sizes/font_size = 30
+theme_override_colors/font_color = Color(0.16078432, 0.2901961, 0.23137255, 1)
+theme_override_fonts/font = ExtResource("2_frca3")
+theme_override_font_sizes/font_size = 36
 text = "Pattern Game"
 horizontal_alignment = 1
 
-[node name="PatternGamePlay" type="Button" parent="PatternGamePill4/HBoxContainer" unique_id=1570042768]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/font_size = 30
-theme_override_styles/normal = SubResource("StyleBoxFlat_7tvv2")
-text = "Play"
+[node name="cashiercat" type="TextureRect" parent="." unique_id=234944840]
+layout_mode = 0
+offset_left = 90.0
+offset_top = 213.0
+offset_right = 216.0
+offset_bottom = 315.0
+texture = ExtResource("6_lhc3r")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="math" type="TextureRect" parent="." unique_id=1507880612]
+layout_mode = 0
+offset_left = 391.0
+offset_top = 204.0
+offset_right = 497.0
+offset_bottom = 301.0
+texture = ExtResource("6_1xdg6")
+expand_mode = 1
+
+[node name="spell" type="TextureRect" parent="." unique_id=2105187032]
+layout_mode = 0
+offset_left = 647.0
+offset_top = 195.0
+offset_right = 766.0
+offset_bottom = 295.0
+texture = ExtResource("7_pjsrb")
+expand_mode = 1
+
+[node name="pattern" type="TextureRect" parent="." unique_id=557852233]
+layout_mode = 0
+offset_left = 943.0
+offset_top = 220.0
+offset_right = 1049.0
+offset_bottom = 324.0
+texture = ExtResource("8_al0sy")
+expand_mode = 1
 
 [node name="Purse" type="PanelContainer" parent="." unique_id=522678225]
 layout_mode = 0
@@ -269,4 +359,5 @@ text = "> Shop
 
 "
 
+[connection signal="pressed" from="CashierGamePill/VBoxContainer/PlayButton" to="." method="_on_cashier_play_button_pressed"]
 [connection signal="pressed" from="Shop" to="." method="_on_rewards_pressed"]

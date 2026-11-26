@@ -13,6 +13,11 @@ func _process(delta: float) -> void:
 	pass
 
 
-func _on_rewards_pressed() -> void:
+func _on_shop_pressed() -> void:
 	var destination := shop_scene_path
+	get_tree().change_scene_to_file(destination)
+
+
+func _on_cashier_play_button_pressed() -> void:
+	var destination := cashier_game_path
 	get_tree().change_scene_to_file(destination)
