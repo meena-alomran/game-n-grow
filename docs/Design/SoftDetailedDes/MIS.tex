@@ -31,6 +31,8 @@ urlcolor=cyan          % color of external links
 
 \usepackage{array}
 
+\newcommand{\Mref}[1]{Section~\ref{#1}}
+
 \externaldocument{../../SRS/SRS}
 
 \input{../../Comments.text}
@@ -53,8 +55,7 @@ urlcolor=cyan          % color of external links
 \begin{tabularx}{\textwidth}{p{3cm}p{2cm}X}
 \toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
 \midrule
-Date 1 & 1.0 & Notes\\
-Date 2 & 1.1 & Notes\\
+Nov 17th 2026 & 1.0 & All members contributed\\
 \bottomrule
 \end{tabularx}
 
@@ -62,10 +63,25 @@ Date 2 & 1.1 & Notes\\
 
 \section{Symbols, Abbreviations and Acronyms}
 
-See SRS Documentation at \wss{give url}
+See SRS Documentation at \url{https://github.com/meena-alomran/game-n-grow/blob/main/pdfs/SRS-IEEE/SRS.pdf}.\\
+See MG Documentation at \url{https://github.com/meena-alomran/game-n-grow/blob/main/pdfs/Design/SoftArchitecture/MG.pdf}.\\
 
-\wss{Also add any additional symbols, abbreviations or acronyms}
-
+\renewcommand{\arraystretch}{1.2}
+\begin{tabularx}{\textwidth}{p{3cm} X}
+  \toprule		
+  \textbf{symbol} & \textbf{description}\\
+  \midrule 
+  M & Module \\
+  MG & Module Guide \\
+  SRS & Software Requirements Specification\\
+  \progname & A gamified learning experience for children with autism; the software this documentation is concerned with\\
+  FR & Functional Requirement defined in SRS (section 6)\\
+  SR & Safety Requirement defined in SRS (section 6)\\
+  NFR & Nonfunctional Requirement defined in SRS (section 8)\\
+  Learner & Primary player of the games that the care team is aiming to develop the skills and track the progress of.\\
+  CTM & Care Team Member. A caregiver, parent, educator or any other figure that is responsible for the learning path of a learner.\\
+  \bottomrule
+\end{tabularx}\\
 \newpage
 
 \tableofcontents
@@ -76,17 +92,37 @@ See SRS Documentation at \wss{give url}
 
 \section{Introduction}
 
-The following document details the Module Interface Specifications for
-\wss{Fill in your project name and description}
+This document presents the Module Interface Specification (MIS) for
+Spectropica, a customizable educational game suite designed to support
+autistic Learners through activities focused on routine sequencing,
+functional communication, and short-term memory. Care Team Members (CTMs),
+including parents, caregivers, and educators, can personalize gameplay
+and review recorded performance. Spectropica provides educational practice.
+Its performance records describe outcomes within Games rather than clinical
+assessments or broader developmental conclusions.
 
-Complementary documents include the System Requirement Specifications
-and Module Guide.  The full documentation and implementation can be
-found at \url{...}.  \wss{provide the url for your repo}
+The MIS defines the interfaces and expected behaviour of Spectropica's
+software modules. Section~\ref{SecModuleDecomposition} presents the module
+decomposition, followed by individual specifications that cover dependencies,
+exported constants and access programs, input and output types, exceptions,
+and relevant state and environment variables. Access routine semantics
+specify observable outputs and state changes without prescribing unnecessary
+implementation details. These specifications support implementation,
+integration, testing, and maintenance.
+
+This document complements the
+\href{https://github.com/meena-alomran/game-n-grow/blob/main/pdfs/SRS-IEEE/SRS.pdf}
+  {Software Requirements Specification (SRS)}, which defines the system's
+requirements, and the
+\href{https://github.com/meena-alomran/game-n-grow/blob/main/pdfs/Design/SoftArchitecture/MG.pdf}
+  {Module Guide (MG)}, which describes the modular architecture and its
+design rationale. Module names, identifiers, responsibilities, and
+dependencies must remain consistent between the MG and MIS.
+
+The complete project documentation and implementation are maintained at
+\url{https://github.com/meena-alomran/game-n-grow}.
 
 \section{Notation}
-
-\wss{You should describe your notation.  You can use what is below as
-  a starting point.}
 
 The structure of the MIS for modules comes from \citet{HoffmanAndStrooper1995},
 with the addition that template modules have been adapted from
@@ -95,21 +131,22 @@ with the addition that template modules have been adapted from
 multiple assignment statement and conditional rules follow the form $(c_1
 \Rightarrow r_1 | c_2 \Rightarrow r_2 | ... | c_n \Rightarrow r_n )$.
 
-The following table summarizes the primitive data types used by \progname. 
+The following table summarizes the primitive data types used by \progname.
 
 \begin{center}
 \renewcommand{\arraystretch}{1.2}
-\noindent 
-\begin{tabular}{l l p{7.5cm}} 
-\toprule 
-\textbf{Data Type} & \textbf{Notation} & \textbf{Description}\\ 
-\midrule
-character & char & a single symbol or digit\\
-integer & $\mathbb{Z}$ & a number without a fractional component in (-$\infty$, $\infty$) \\
-natural number & $\mathbb{N}$ & a number without a fractional component in [1, $\infty$) \\
-real & $\mathbb{R}$ & any number in (-$\infty$, $\infty$)\\
-\bottomrule
-\end{tabular} 
+\begin{tabular}{p{3cm} p{10cm}}
+\hline
+\textbf{Type} & \textbf{Description} \\
+\hline
+boolean ($\mathbb{B}$) & true or false \\
+natural ($\mathbb{N}$) & a non-negative integer \\
+real ($\mathbb{R}$) & a real number \\
+string & a sequence of characters \\
+UUID & a unique identifier \\
+DateTime & a date and time of day \\
+\hline
+\end{tabular}
 \end{center}
 
 \noindent
@@ -120,7 +157,28 @@ different types. In addition, \progname \ uses functions, which
 are defined by the data types of their inputs and outputs. Local functions are
 described by giving their type signature followed by their specification.
 
+The following named types are project-specific types derived from the primitive
+types and SRS entities:
+
+\begin{center}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{p{4cm} p{9cm}}
+\hline
+\textbf{Type} & \textbf{Description} \\
+\hline
+ctmIdT, learnerIdT, gameIdT, templateIdT, deviceIdT, itemIdT, sessionIdT & unique identifiers (UUIDs) for the matching entity in the SRS Data Dictionary (SRS Section 7.2) \\
+ctmT, learnerT, deviceT, membershipT, gameT, sessionT, configT, templateT, itemT, inventoryT, accessCodeT & a record of the matching entity in the SRS Data Dictionary (SRS Section 7.2) \\
+settingsT & a tuple of personalized game settings (stimulation level, reward, prompt level, volume levels, celebration intensity, colour palette, guide allowed, play again allowed) \\
+contentT & the game content that a template can add, change or remove \\
+difficultyT & a difficulty level of a game \\
+permissionT & \{viewData, personalize, assignTemplates, hideItems, abortGame\} \\
+fileT & alias for string; text contents written to or read from a file \\
+\hline
+\end{tabular}
+\end{center}
+
 \section{Module Decomposition}
+\label{SecModuleDecomposition}
 
 The following table is taken directly from the Module Guide document for this project.
 
@@ -134,18 +192,25 @@ The following table is taken directly from the Module Guide document for this pr
 {Hardware-Hiding} & ~ \\
 \midrule
 
-\multirow{7}{0.3\textwidth}{Behaviour-Hiding} & Input Parameters\\
-& Output Format\\
-& Output Verification\\
-& Temperature ODEs\\
-& Energy Equations\\ 
-& Control Module\\
-& Specification Parameters Module\\
+\multirow{7}{0.3\textwidth}{Behaviour-Hiding Module}
+& CTM Account Module\\
+& Learner Profile Module\\
+& Device Pairing Module\\
+& Care Team Module\\
+& Game Personalization Module\\
+& Template Module\\ 
+& Game Suite Module\\
+& Game Session Module\\
+& Rewards \& Cosmetics Module\\
+& Dashboard Module\\
 \midrule
 
-\multirow{3}{0.3\textwidth}{Software Decision} & {Sequence Data Structure}\\
-& ODE Solver\\
-& Plotting\\
+\multirow{3}{0.3\textwidth}{Software Decision Module}
+& Database Module\\
+& Security Module\\
+& File Import/Export Module\\
+& External Communication Module\\
+& Charting Module\\
 \bottomrule
 
 \end{tabular}
@@ -156,32 +221,44 @@ The following table is taken directly from the Module Guide document for this pr
 \newpage
 ~\newpage
 
-\section{MIS of \wss{Module Name}} \label{Module} \wss{Use labels for
-  cross-referencing}
-
-\wss{You can reference SRS labels, such as R\ref{R_Inputs}.}
-
-\wss{It is also possible to use \LaTeX for hypperlinks to external documents.}
+% =====================================================================
+\section{MIS of CTM Account Module} \label{mis:CTMAccount}
+% =====================================================================
 
 \subsection{Module}
 
-\wss{Short name for the module}
+CTMAccount
 
 \subsection{Uses}
 
+Template (\Mref{mis:Template}), Dashboard (\Mref{mis:Dashboard}),
+Security (\Mref{mis:Security}), Database (\Mref{mis:Database})
 
 \subsection{Syntax}
 
 \subsubsection{Exported Constants}
 
+MIN\_PASSWORD\_LENGTH := 12 \\
+GRACE\_PERIOD := 30 days
+
 \subsubsection{Exported Access Programs}
 
 \begin{center}
-\begin{tabular}{p{2cm} p{4cm} p{4cm} p{2cm}}
+\small
+\begin{tabular}{p{3.3cm} p{4.7cm} p{2.6cm} p{2.8cm}}
 \hline
 \textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
 \hline
-\wss{accessProg} & - & - & - \\
+registrationErrors & name: string, email: string, password: string, retyped: string, termsAccepted: $\mathbb{B}$ & seq of string & - \\
+register & name: string, email: string, password: string, retyped: string, termsAccepted: $\mathbb{B}$ & - & invalidRegistration \\
+verifyEmail & token: string & - & badToken \\
+resendVerification & email: string & - & alreadyVerified \\
+credentialsValid & email: string, password: string & $\mathbb{B}$ & - \\
+login & email: string, password: string & - & badCredentials, notVerified \\
+logout & - & - & - \\
+getAccount & c: ctmIdT & ctmT & notFound \\
+deleteAccount & c: ctmIdT, password: string & - & badPassword, alreadyScheduled \\
+restoreAccount & c: ctmIdT & - & notScheduled \\
 \hline
 \end{tabular}
 \end{center}
@@ -190,42 +267,1092 @@ The following table is taken directly from the Module Guide document for this pr
 
 \subsubsection{State Variables}
 
-\wss{Not all modules will have state variables.  State variables give the module
-  a memory.}
+accounts: set of ctmT \# every registered CTM account, including those
+scheduled for deletion
 
 \subsubsection{Environment Variables}
 
-\wss{This section is not necessary for all modules.  Its purpose is to capture
-  when the module has external interaction with the environment, such as for a
-  device driver, screen interface, keyboard, file, etc.}
+None
 
 \subsubsection{Assumptions}
 
-\wss{Try to minimize assumptions and anticipate programmer errors via
-  exceptions, but for practical purposes assumptions are sometimes appropriate.}
+\begin{itemize}
+\item registrationErrors is called before register, so register only raises
+  invalidRegistration when the caller skipped this check. A user typing a weak
+  password or an email already in use is not an exception; it is returned as a
+  reason by registrationErrors (FR-CTM-2).
+\item credentialsValid is called before login for the same reason. login raises
+  badCredentials only when the check was skipped, and notVerified when the
+  account's email has not been verified yet.
+\item badToken is raised when the verification token is unknown or has expired.
+  The CTM can ask for a new one through resendVerification.
+\item deleteAccount raises badPassword when the re-entered password is wrong
+  (SR-3) and alreadyScheduled if the account is already scheduled for deletion.
+  restoreAccount raises notScheduled if there is nothing to restore.
+\item notFound is raised when no account has the given identifier.
+\end{itemize}
 
 \subsubsection{Access Routine Semantics}
 
-\noindent \wss{accessProg}():
+\subsubsection{Local Functions}
+
+\newpage
+
+% =====================================================================
+\section{MIS of Learner Profile Module} \label{mis:LearnerProfile}
+% =====================================================================
+
+\subsection{Module}
+
+LearnerProfile
+
+\subsection{Uses}
+
+Device Pairing (\Mref{mis:DevicePairing}), Dashboard
+(\Mref{mis:Dashboard}), Game Personalization
+(\Mref{mis:GamePersonalization}), Database (\Mref{mis:Database})
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+
+GRACE\_PERIOD := 30 days
+
+\subsubsection{Exported Access Programs}
+
+\begin{center}
+\small
+\begin{tabular}{p{3.3cm} p{4.7cm} p{2.6cm} p{2.8cm}}
+\hline
+\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+\hline
+createLearner & c: ctmIdT, name: string, guardianConfirmed: $\mathbb{B}$ & learnerIdT & notConfirmed \\
+updateLearner & l: learnerIdT, name: string & - & notFound \\
+getLearner & l: learnerIdT & learnerT & notFound \\
+isActive & l: learnerIdT & $\mathbb{B}$ & - \\
+exportLearnerData & l: learnerIdT & fileT & notFound \\
+deleteLearner & c: ctmIdT, l: learnerIdT, password: string & - & notPrimary, badPassword, alreadyScheduled \\
+restoreLearner & c: ctmIdT, l: learnerIdT & - & notPrimary, notScheduled \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+
+learners: set of learnerT \# every Learner profile, including those scheduled
+for deletion
+
+\subsubsection{Environment Variables}
+
+None
+
+\subsubsection{Assumptions}
+
 \begin{itemize}
-\item transition: \wss{if appropriate} 
-\item output: \wss{if appropriate} 
-\item exception: \wss{if appropriate} 
+\item createLearner raises notConfirmed if the CTM has not confirmed they are
+  the Learner's legal guardian or have the guardian's permission (SRS
+  Section 7.3).
+\item deleteLearner and restoreLearner raise notPrimary when the CTM is not the
+  Learner's Primary CTM (FR-LRN-4, FR-LRN-7). deleteLearner also raises
+  badPassword if the re-entered password is wrong (SR-3).
+\item alreadyScheduled and notScheduled are raised when deleting a profile that
+  is already scheduled for deletion, or restoring one that is not.
+\item isActive returns false for a profile that is scheduled for deletion, so a
+  paired device can refuse to open it (FR-LRN-8). It is used to avoid notFound.
+\item exportLearnerData is called before deletion when the CTM accepts the offer
+  to export (FR-LRN-5).
 \end{itemize}
 
-\wss{A module without environment variables or state variables is unlikely to
-  have a state transition.  In this case a state transition can only occur if
-  the module is changing the state of another module.}
-
-\wss{Modules rarely have both a transition and an output.  In most cases you
-  will have one or the other.}
+\subsubsection{Access Routine Semantics}
 
 \subsubsection{Local Functions}
 
-\wss{As appropriate} \wss{These functions are for the purpose of specification.
-  They are not necessarily something that is going to be implemented
-  explicitly.  Even if they are implemented, they are not exported; they only
-  have local scope.}
+\newpage
+
+% =====================================================================
+\section{MIS of Device Pairing Module} \label{mis:DevicePairing}
+% =====================================================================
+
+\subsection{Module}
+
+DevicePairing
+
+\subsection{Uses}
+
+Database (\Mref{mis:Database})
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+
+PAIRING\_RETRY\_LIMIT := 5 \\
+PAIRING\_LOCKOUT\_DURATION := 15 minutes
+
+\subsubsection{Exported Access Programs}
+
+\begin{center}
+\small
+\begin{tabular}{p{3.3cm} p{4.7cm} p{2.6cm} p{2.8cm}}
+\hline
+\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+\hline
+generateCode & c: ctmIdT, l: learnerIdT & string & - \\
+isLockedOut & d: deviceIdT & $\mathbb{B}$ & - \\
+attemptPairing & code: string, d: deviceIdT, deviceName: string & - & lockedOut \\
+isPaired & d: deviceIdT & $\mathbb{B}$ & - \\
+pairedLearner & d: deviceIdT & learnerIdT & notPaired \\
+devicesOf & l: learnerIdT & seq of deviceT & - \\
+unlinkDevice & d: deviceIdT & - & notPaired \\
+unlinkAll & l: learnerIdT & - & - \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+
+codes: set of accessCodeT \# pairing codes only (codeType = device pairing) \\
+devices: set of deviceT
+
+\subsubsection{Environment Variables}
+
+None
+
+\subsubsection{Assumptions}
+
+\begin{itemize}
+\item Generating a new code for a Learner cancels any older active pairing code
+  for that Learner (FR-DEV-3).
+\item An incorrect code is not an exception. attemptPairing records it as a
+  failed attempt. Once PAIRING\_RETRY\_LIMIT is reached the code is nullified
+  and the device is locked out for PAIRING\_LOCKOUT\_DURATION (FR-DEV-4,
+  FR-DEV-5).
+\item lockedOut is raised only if attemptPairing is called while the device is
+  locked out. Callers use isLockedOut to avoid it.
+\item notPaired is raised when the device is not paired to any Learner. Callers
+  use isPaired to avoid it.
+\item This module owns only pairing codes. Invite codes are owned by the Care
+  Team module.
+\end{itemize}
+
+\subsubsection{Access Routine Semantics}
+
+\subsubsection{Local Functions}
+
+\newpage
+
+% =====================================================================
+\section{MIS of Care Team Module} \label{mis:CareTeam}
+% =====================================================================
+
+\subsection{Module}
+
+CareTeam
+
+\subsection{Uses}
+
+Security (\Mref{mis:Security}), External Communication
+(\Mref{mis:ExtComm}), Database (\Mref{mis:Database})
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+
+INVITE\_EXPIRY := 48 hours \\
+INVITE\_RETRY\_LIMIT := 5 \\
+INVITE\_LOCKOUT\_DURATION := 15 minutes
+
+\subsubsection{Exported Access Programs}
+
+\begin{center}
+\small
+\begin{tabular}{p{3.3cm} p{4.7cm} p{2.6cm} p{2.8cm}}
+\hline
+\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+\hline
+addPrimary & c: ctmIdT, l: learnerIdT & - & alreadyHasPrimary \\
+createInvite & c: ctmIdT, l: learnerIdT, p: set of permissionT & string & notPrimary \\
+cancelInvite & c: ctmIdT, code: string & - & notPrimary, inviteNotActive \\
+isLockedOut & c: ctmIdT & $\mathbb{B}$ & - \\
+attemptJoin & c: ctmIdT, code: string & - & lockedOut \\
+setPermissions & primary: ctmIdT, c: ctmIdT, l: learnerIdT, p: set of permissionT & - & notPrimary, notMember \\
+removeMember & primary: ctmIdT, c: ctmIdT, l: learnerIdT, password: string & - & notPrimary, notMember, badPassword \\
+requestTransfer & c: ctmIdT, l: learnerIdT & - & notMember \\
+respondTransfer & primary: ctmIdT, l: learnerIdT, accept: $\mathbb{B}$, password: string & - & notPrimary, noRequest, badPassword \\
+isPrimary & c: ctmIdT, l: learnerIdT & $\mathbb{B}$ & - \\
+hasPermission & c: ctmIdT, l: learnerIdT, p: permissionT & $\mathbb{B}$ & - \\
+membersOf & l: learnerIdT & seq of membershipT & - \\
+learnersOf & c: ctmIdT & seq of learnerIdT & - \\
+logChange & c: ctmIdT, l: learnerIdT, description: string & - & notMember \\
+changeLog & l: learnerIdT & seq of (ctmIdT, DateTime, string) & - \\
+removeCTM & c: ctmIdT & - & - \\
+removeLearner & l: learnerIdT & - & - \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+
+memberships: set of membershipT \\
+invites: set of accessCodeT \# invite codes only (codeType = care team invite) \\
+transferRequests: set of (ctmIdT, learnerIdT) \\
+log: seq of (ctmIdT, learnerIdT, DateTime, string)
+
+\subsubsection{Environment Variables}
+
+None
+
+\subsubsection{Assumptions}
+
+\begin{itemize}
+\item notPrimary is raised when an action only the Primary CTM may do is
+  attempted by another CTM (FR-TEAM-1 to FR-TEAM-5). Callers can use isPrimary
+  to avoid it.
+\item notMember is raised when the CTM is not part of the Learner's care team.
+\item An incorrect, expired, cancelled or used invite code is not an exception.
+  attemptJoin records a failed attempt, and once INVITE\_RETRY\_LIMIT is reached
+  the CTM is locked out for INVITE\_LOCKOUT\_DURATION. lockedOut is raised only
+  if attemptJoin is called during a lockout; callers use isLockedOut to avoid it.
+\item badPassword is raised when the re-entered password is wrong before
+  removing a CTM or transferring ownership (SR-3).
+\item alreadyHasPrimary is raised if addPrimary is called for a Learner that
+  already has a Primary CTM. Every Learner always has exactly one Primary CTM,
+  including after a transfer.
+\item hasPermission is how other modules confirm that a CTM may perform an
+  action (FR-TEAM-7). The Primary CTM has every permission.
+\item removeCTM and removeLearner are called when an account or a Learner
+  profile is deleted, and remove all of its memberships.
+\end{itemize}
+
+\subsubsection{Access Routine Semantics}
+
+\subsubsection{Local Functions}
+
+\newpage
+
+% =====================================================================
+\section{MIS of Game Personalization Module} \label{mis:GamePersonalization}
+% =====================================================================
+
+\subsection{Module}
+
+GamePersonalization
+
+\subsection{Uses}
+
+Database (\Mref{mis:Database})
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+
+DEFAULT\_SETTINGS: settingsT \# low stimulation level, volume levels and
+celebration intensity (SR-4)
+
+\subsubsection{Exported Access Programs}
+
+\begin{center}
+\small
+\begin{tabular}{p{3.3cm} p{4.7cm} p{2.6cm} p{2.8cm}}
+\hline
+\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+\hline
+setAuthorized & c: ctmIdT, l: learnerIdT, g: gameIdT, on: $\mathbb{B}$ & - & - \\
+isAuthorized & l: learnerIdT, g: gameIdT & $\mathbb{B}$ & - \\
+setDifficulties & c: ctmIdT, l: learnerIdT, g: gameIdT, d: set of difficultyT & - & unknownDifficulty, notAuthorized \\
+difficultiesOf & l: learnerIdT, g: gameIdT & set of difficultyT & notAuthorized \\
+settingsValid & s: settingsT & $\mathbb{B}$ & - \\
+setSettings & c: ctmIdT, l: learnerIdT, g: gameIdT, s: settingsT & - & invalidSettings, notAuthorized, saveFailed \\
+getSettings & l: learnerIdT, g: gameIdT & settingsT & notAuthorized \\
+assignTemplate & l: learnerIdT, g: gameIdT, t: templateIdT & - & notAuthorized \\
+unassignTemplate & l: learnerIdT, g: gameIdT & - & noTemplate \\
+hasTemplate & l: learnerIdT, g: gameIdT & $\mathbb{B}$ & - \\
+assignedTemplate & l: learnerIdT, g: gameIdT & templateIdT & noTemplate \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+
+configs: set of configT \# one Learner Game Configuration for each Learner and
+game
+
+\subsubsection{Environment Variables}
+
+None
+
+\subsubsection{Assumptions}
+
+\begin{itemize}
+\item The caller has already confirmed that the CTM has permission to change
+  this Learner's settings.
+\item A new configuration starts with DEFAULT\_SETTINGS until a CTM changes
+  them (SR-4).
+\item notAuthorized is raised when the game is not authorized for the Learner.
+  Callers use isAuthorized to avoid it.
+\item unknownDifficulty is raised when a difficulty does not exist for the game,
+  and invalidSettings when settingsValid(s) is false.
+\item saveFailed is raised when the save cannot be verified. The previous
+  settings are kept (SR-13).
+\item noTemplate is raised when no template is assigned. Callers use
+  hasTemplate to avoid it. When a template is assigned, it is used instead of
+  the personalized settings (FR-PERS-4); unassigning it restores them
+  (FR-TMPL-7).
+\end{itemize}
+
+\subsubsection{Access Routine Semantics}
+
+\subsubsection{Local Functions}
+
+\newpage
+
+% =====================================================================
+\section{MIS of Template Module} \label{mis:Template}
+% =====================================================================
+
+\subsection{Module}
+
+Template
+
+\subsection{Uses}
+
+Game Personalization (\Mref{mis:GamePersonalization}), File
+Import/Export (\Mref{mis:FileIO}), Database (\Mref{mis:Database})
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+
+None
+
+\subsubsection{Exported Access Programs}
+
+\begin{center}
+\small
+\begin{tabular}{p{3.3cm} p{4.7cm} p{2.6cm} p{2.8cm}}
+\hline
+\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+\hline
+createTemplate & c: ctmIdT, g: gameIdT, name: string & templateIdT & nameTaken \\
+getTemplate & t: templateIdT & templateT & notFound \\
+templatesOf & c: ctmIdT & seq of templateT & - \\
+setContent & t: templateIdT, content: contentT & - & notFound, saveFailed \\
+setSettings & t: templateIdT, s: settingsT & - & notFound, saveFailed \\
+setDifficulty & t: templateIdT, d: difficultyT & - & notFound, unknownDifficulty \\
+createFolder & c: ctmIdT, name: string & - & nameTaken \\
+moveToFolder & t: templateIdT, folder: string & - & notFound \\
+affectedLearners & t: templateIdT, ls: seq of learnerIdT & seq of (learnerIdT, templateIdT) & notFound \\
+assign & t: templateIdT, ls: seq of learnerIdT & - & notFound \\
+unassign & t: templateIdT, ls: seq of learnerIdT & - & notFound \\
+deleteTemplate & t: templateIdT & - & notFound \\
+exportTemplate & t: templateIdT & fileT & notFound \\
+importTemplate & c: ctmIdT, f: fileT & templateIdT & badFile \\
+removeAllOf & c: ctmIdT & - & - \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+
+templates: set of templateT \\
+folders: set of (ctmIdT, string)
+
+\subsubsection{Environment Variables}
+
+None
+
+\subsubsection{Assumptions}
+
+\begin{itemize}
+\item The caller has already confirmed that the CTM has permission to assign
+  templates to these Learners.
+\item affectedLearners is called before assign, unassign and deleteTemplate. It
+  returns each Learner that will be affected and the template being replaced,
+  so the caller can show a preview and ask for confirmation (SR-14).
+\item notFound is raised when no template has the given identifier. nameTaken is
+  raised when the CTM already has a template or folder with that name.
+\item saveFailed is raised when the save cannot be verified. The previous values
+  are kept (SR-13).
+\item badFile is raised when an imported file is malformed or incomplete.
+  Imported files are never executed (SR-15).
+\item Deleting a template unassigns it from every Learner first (FR-TMPL-8).
+  removeAllOf is called when a CTM deletes their account (FR-CTM-5).
+\end{itemize}
+
+\subsubsection{Access Routine Semantics}
+
+\subsubsection{Local Functions}
+
+\newpage
+
+% =====================================================================
+\section{MIS of Game Suite Module} \label{mis:GameSuite}
+% =====================================================================
+
+\subsection{Module}
+
+GameSuite
+
+\subsection{Uses}
+
+Game Session (\Mref{mis:GameSession}), Game Personalization
+(\Mref{mis:GamePersonalization}), Security
+(\Mref{mis:Security})
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+
+None
+
+\subsubsection{Exported Access Programs}
+
+\begin{center}
+\small
+\begin{tabular}{p{3.3cm} p{4.7cm} p{2.6cm} p{2.8cm}}
+\hline
+\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+\hline
+availableGames & l: learnerIdT & seq of gameIdT & - \\
+showSuite & l: learnerIdT & - & - \\
+select & l: learnerIdT, g: gameIdT & - & - \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+
+None
+
+\subsubsection{Environment Variables}
+
+win: 2D sequence of pixels displayed on the device screen \\
+input: touch and mouse events from the device
+
+\subsubsection{Assumptions}
+
+\begin{itemize}
+\item This module is only used on a device paired to Learner l.
+\item The game suite only shows games the Learner is authorized to play
+  (FR-PLAY-1). If there are none, it shows a short, calm message instead
+  (SR-7).
+\item select has no exception for a game that is no longer authorized. If a CTM
+  removes a game while the suite is open, Game Session handles it when it loads
+  the game.
+\item Game Session returns the Learner to the game suite after a game ends, is
+  aborted, or fails to load (FR-PLAY-10).
+\end{itemize}
+
+\subsubsection{Access Routine Semantics}
+
+\subsubsection{Local Functions}
+
+\newpage
+
+% =====================================================================
+\section{MIS of Game Session Module} \label{mis:GameSession}
+% =====================================================================
+
+\subsection{Module}
+
+GameSession
+
+\subsection{Uses}
+
+Rewards \& Cosmetics (\Mref{mis:Rewards}), Game Personalization
+(\Mref{mis:GamePersonalization}), Template (\Mref{mis:Template}),
+Database (\Mref{mis:Database})
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+
+None
+
+\subsubsection{Exported Access Programs}
+
+\begin{center}
+\small
+\begin{tabular}{p{3.3cm} p{4.7cm} p{2.6cm} p{2.8cm}}
+\hline
+\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+\hline
+getState & - & stateT & - \\
+guideAvailable & - & $\mathbb{B}$ & - \\
+start & l: learnerIdT, g: gameIdT & - & sessionActive \\
+cueStart & - & - & wrongState \\
+respond & a: responseT & - & wrongState \\
+pause & - & - & wrongState \\
+resume & - & - & wrongState \\
+restart & - & - & wrongState \\
+abort & by: actorT & - & wrongState \\
+openGuide & - & - & wrongState, guideNotPermitted \\
+closeGuide & - & - & wrongState \\
+claimReward & - & - & wrongState \\
+playAgain & - & - & wrongState, replayNotPermitted \\
+exit & - & - & - \\
+recoverInterrupted & - & - & - \\
+\hline
+\end{tabular}
+\end{center}
+
+\noindent where \\
+stateT = \{idle, loading, loadError, ready, playing, paused, reward\} \\
+outcomeT = \{completed, restarted, incomplete\} \\
+actorT = \{Learner, CTM\} \\
+responseT = the Learner's answer or action for the current task \\
+taskT = a game-specific task presented to the Learner
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+
+state: stateT \# starts as idle \\
+learner: learnerIdT \\
+game: gameIdT \\
+settings: settingsT \# personalized settings, or the assigned template's \\
+tasks: seq of taskT \\
+current: $\mathbb{N}$ \# index of the current task \\
+scores: seq of $\mathbb{R}$ \\
+startedAt: DateTime
+
+\subsubsection{Environment Variables}
+
+win: 2D sequence of pixels displayed on the device screen \\
+audio: the device's audio output \\
+input: touch and mouse events from the device
+
+\subsubsection{Assumptions}
+
+\begin{itemize}
+\item start is only called by Game Suite with a game it listed for the Learner.
+\item A game that fails to load, or that is no longer authorized, is not an
+  exception. The state moves to loadError and a short, calm message with a
+  single action to return to the game suite is shown (SR-7).
+\item wrongState is raised when an access program is called in a state where it
+  does not apply, for example respond while paused. Callers use getState to
+  avoid it.
+\item sessionActive is raised if start is called when the state is not idle.
+\item guideNotPermitted and replayNotPermitted are raised when the CTM has not
+  allowed the guide or playing again (FR-PLAY-4, FR-PLAY-9). Callers use
+  guideAvailable to avoid the first.
+\item No audio or animation plays before cueStart (SR-5), and the pause, restart
+  and exit controls are always shown while playing or paused (SR-11).
+\item The next task is only presented once the current task is completed
+  (FR-PLAY-3).
+\item Every session is saved with an outcome. Sessions ended by abort, a crash
+  or a lost connection are saved as incomplete (SR-8). recoverInterrupted is
+  called when the application opens to save any session that was cut off.
+\end{itemize}
+
+\subsubsection{Access Routine Semantics}
+
+\subsubsection{Local Functions}
+
+\newpage
+
+% =====================================================================
+\section{MIS of Rewards \& Cosmetics Module} \label{mis:Rewards}
+% =====================================================================
+
+\subsection{Module}
+
+Rewards
+
+\subsection{Uses}
+
+Database (\Mref{mis:Database})
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+
+None
+
+\subsubsection{Exported Access Programs}
+
+\begin{center}
+\small
+\begin{tabular}{p{3.3cm} p{4.7cm} p{2.6cm} p{2.8cm}}
+\hline
+\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+\hline
+hasRewardLeft & l: learnerIdT, g: gameIdT & $\mathbb{B}$ & - \\
+grantReward & l: learnerIdT, g: gameIdT & - & noRewardLeft \\
+visibleItems & l: learnerIdT & seq of itemT & - \\
+inventoryOf & l: learnerIdT & seq of inventoryT & - \\
+balance & l: learnerIdT & $\mathbb{N}$ & - \\
+canUnlock & l: learnerIdT, i: itemIdT & $\mathbb{B}$ & - \\
+unlockReason & l: learnerIdT, i: itemIdT & string & - \\
+alternatives & l: learnerIdT, i: itemIdT & seq of itemIdT & - \\
+unlock & l: learnerIdT, i: itemIdT & - & cannotUnlock, hiddenItem \\
+equip & l: learnerIdT, i: itemIdT & - & notOwned, hiddenItem, saveFailed \\
+setHidden & c: ctmIdT, l: learnerIdT, i: itemIdT, hidden: $\mathbb{B}$ & - & - \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+
+items: set of itemT \\
+inventories: set of inventoryT \\
+balances: learnerIdT $\rightarrow \mathbb{N}$ \\
+hidden: learnerIdT $\rightarrow$ set of itemIdT \# items hidden by a CTM
+
+\subsubsection{Environment Variables}
+
+None
+
+\subsubsection{Assumptions}
+
+\begin{itemize}
+\item Rewards never include an item the Learner already owns (FR-RWD-2).
+  noRewardLeft is raised when the Learner owns every item in the game's reward
+  pool. Callers use hasRewardLeft to avoid it.
+\item cannotUnlock is raised when the Learner does not meet the item's
+  conditions. Callers use canUnlock first, and show unlockReason and
+  alternatives instead (FR-RWD-6, FR-RWD-7).
+\item hiddenItem is raised when the item is hidden by a CTM. Hidden items are
+  never in visibleItems and cannot be bought or equipped (SR-12).
+\item notOwned is raised when equipping an item the Learner does not own.
+\item saveFailed is raised when the save cannot be verified. The previously
+  equipped item is kept (SR-13).
+\item The caller has already confirmed that the CTM has permission to hide items.
+\end{itemize}
+
+\subsubsection{Access Routine Semantics}
+
+\subsubsection{Local Functions}
+
+\newpage
+
+% =====================================================================
+\section{MIS of Dashboard Module} \label{mis:Dashboard}
+% =====================================================================
+
+\subsection{Module}
+
+Dashboard
+
+\subsection{Uses}
+
+Charting (\Mref{mis:Charting}), File Import/Export
+(\Mref{mis:FileIO}), Database (\Mref{mis:Database})
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+
+None
+
+\subsubsection{Exported Access Programs}
+
+\begin{center}
+\small
+\begin{tabular}{p{3.3cm} p{4.7cm} p{2.6cm} p{2.8cm}}
+\hline
+\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+\hline
+recentSessions & l: learnerIdT & seq of sessionT & - \\
+history & l: learnerIdT, from: DateTime, to: DateTime & seq of sessionT & badRange \\
+averages & l: learnerIdT & seq of (gameIdT, $\mathbb{R}$) & - \\
+gameHistory & l: learnerIdT, g: gameIdT, from: DateTime, to: DateTime & seq of sessionT & badRange \\
+recordCount & l: learnerIdT, g: gameIdT, from: DateTime, to: DateTime & $\mathbb{N}$ & badRange \\
+showGameData & l: learnerIdT, g: gameIdT, from: DateTime, to: DateTime, r: reprT, region: regionT & - & badRange, unsupportedRepr \\
+exportData & l: learnerIdT, g: gameIdT, from: DateTime, to: DateTime & fileT & badRange \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+
+None
+
+\subsubsection{Environment Variables}
+
+win: 2D sequence of pixels displayed on the device screen
+
+\subsubsection{Assumptions}
+
+\begin{itemize}
+\item The caller has already confirmed that the CTM has permission to view this
+  Learner's data (FR-DATA-1).
+\item badRange is raised when from is later than to.
+\item unsupportedRepr is raised when the representation cannot show this data.
+  Callers use Charting's representations to avoid it.
+\item Incomplete sessions are listed in the history but are not counted in
+  averages or statistics (SR-8).
+\item exportData contains exactly the records counted by recordCount for the
+  same selection (SR-16). The export before deleting a Learner uses this
+  access program.
+\item A Learner with no sessions is not an exception; the sequences are empty.
+\end{itemize}
+
+\subsubsection{Access Routine Semantics}
+
+\subsubsection{Local Functions}
+
+\newpage
+
+% =====================================================================
+\section{MIS of Database Module} \label{mis:Database}
+% =====================================================================
+
+\subsection{Module}
+
+Database
+
+\subsection{Uses}
+
+Security (\Mref{mis:Security})
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+
+None
+
+\subsubsection{Exported Access Programs}
+
+\begin{center}
+\small
+\begin{tabular}{p{3.3cm} p{4.7cm} p{2.6cm} p{2.8cm}}
+\hline
+\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+\hline
+write & t: tableT, r: recordT & - & writeFailed \\
+exists & t: tableT, k: keyT & $\mathbb{B}$ & - \\
+read & t: tableT, k: keyT & recordT & notFound, unavailableOffline \\
+query & t: tableT, p: recordT $\rightarrow \mathbb{B}$ & seq of recordT & unavailableOffline \\
+delete & t: tableT, k: keyT & - & notFound, writeFailed \\
+saveSession & r: sessionT & - & - \\
+sync & - & - & - \\
+purgeExpired & now: DateTime & - & - \\
+backup & - & - & - \\
+restore & b: backupIdT & - & notFound \\
+\hline
+\end{tabular}
+\end{center}
+
+\noindent where \\
+tableT = \{CTM, Learner, Device, CareTeamMembership, Game, GameSession,
+LearnerGameConfiguration, Template, CosmeticItem, LearnerInventory,
+AccessCode\} \\
+keyT = UUID \\
+backupIdT = UUID \\
+recordT = a record of one of the tables in the SRS Data Dictionary (SRS Section 7.2)
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+
+cache: tableT $\rightarrow$ set of recordT \# records kept on the device \\
+queue: seq of sessionT \# sessions waiting to be uploaded
+
+\subsubsection{Environment Variables}
+
+serverStore: the database on the central server \\
+deviceStore: protected app storage on the paired device \\
+connected: $\mathbb{B}$ \# whether the device has a stable connection to the
+server
+
+\subsubsection{Assumptions}
+
+\begin{itemize}
+\item The device only keeps Learner Game Configurations, Learner Inventory and
+  queued sessions (follows from Privacy and Data Retention practices outlined in SRS Section 7.3).
+\item The caller has already checked permissions before calling write or delete.
+\item writeFailed is raised when there is no connection or the write cannot be
+  verified. Nothing is changed when this happens, so the previous values are
+  kept (SR-13).
+\item notFound is raised when no record has the given key. Callers use exists to
+  avoid it.
+\item unavailableOffline is raised when reading a table that is not kept on the
+  device while there is no connection.
+\item saveSession never raises an exception. If there is no connection, the
+  session is queued on the device and uploaded by sync once the connection
+  returns, then removed from the device (FR-DATA-8, SR-9).
+\item purgeExpired permanently removes records whose deletion time has passed,
+  including from backups (FR-LRN-6, SR-18). backup and restore support SR-17.
+\item All data is encrypted in transit and at rest through the Security module.
+\end{itemize}
+
+\subsubsection{Access Routine Semantics}
+
+\subsubsection{Local Functions}
+
+\newpage
+
+% =====================================================================
+\section{MIS of Security Module} \label{mis:Security}
+% =====================================================================
+
+\subsection{Module}
+
+Security
+
+\subsection{Uses}
+
+None
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+
+INACTIVITY\_TIMEOUT := 30 minutes
+
+\subsubsection{Exported Access Programs}
+
+\begin{center}
+\small
+\begin{tabular}{p{3.3cm} p{4.7cm} p{2.6cm} p{2.8cm}}
+\hline
+\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+\hline
+hashPassword & p: string & string & - \\
+checkPassword & p: string, hash: string & $\mathbb{B}$ & - \\
+startSession & c: ctmIdT & sessionIdT & - \\
+sessionValid & s: sessionIdT & $\mathbb{B}$ & - \\
+recordActivity & s: sessionIdT & - & sessionExpired \\
+endSession & s: sessionIdT & - & - \\
+encrypt & r: recordT & recordT & - \\
+decrypt & r: recordT & recordT & badData \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+
+sessions: sessionIdT $\rightarrow$ (ctmIdT, DateTime) \# the CTM and the time
+of their last activity
+
+\subsubsection{Environment Variables}
+
+None
+
+\subsubsection{Assumptions}
+
+\begin{itemize}
+\item A session ends when there has been no activity for INACTIVITY\_TIMEOUT
+  (SR-2). sessionExpired is raised if recordActivity is called for a session
+  that has already ended. Callers use sessionValid to avoid it.
+\item checkPassword is used both for logging in and for re-entering a password
+  before a sensitive action (SR-3).
+\item badData is raised when data cannot be decrypted, for example if it was
+  changed or corrupted.
+\item Passwords are never stored in a readable form (follows from Privacy and Data Retention practices outlined in SRS Section 7.3).
+\end{itemize}
+
+\subsubsection{Access Routine Semantics}
+
+\subsubsection{Local Functions}
+
+\newpage
+
+% =====================================================================
+\section{MIS of File Import/Export Module} \label{mis:FileIO}
+% =====================================================================
+
+\subsection{Module}
+
+FileIO
+
+\subsection{Uses}
+
+None
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+
+None
+
+\subsubsection{Exported Access Programs}
+
+\begin{center}
+\small
+\begin{tabular}{p{3.3cm} p{4.7cm} p{2.6cm} p{2.8cm}}
+\hline
+\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+\hline
+templateToFile & t: templateT & fileT & - \\
+isValidTemplateFile & f: fileT & $\mathbb{B}$ & - \\
+fileToTemplate & f: fileT & templateT & badFile \\
+sessionsToFile & s: seq of sessionT & fileT & - \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+
+None
+
+\subsubsection{Environment Variables}
+
+file: a file on the device's file system
+
+\subsubsection{Assumptions}
+
+\begin{itemize}
+\item Every imported file is treated as untrusted data and is never executed
+  (SR-15).
+\item badFile is raised when the file is malformed, incomplete or contains
+  values that are not allowed. Callers use isValidTemplateFile to avoid it.
+\item sessionsToFile writes every session it is given and includes the number of
+  records in the file (SR-16).
+\end{itemize}
+
+\subsubsection{Access Routine Semantics}
+
+\subsubsection{Local Functions}
+
+\newpage
+
+% =====================================================================
+\section{MIS of External Communication Module} \label{mis:ExtComm}
+% =====================================================================
+
+\subsection{Module}
+
+ExtComm
+
+\subsection{Uses}
+
+None
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+
+None
+
+\subsubsection{Exported Access Programs}
+
+\begin{center}
+\small
+\begin{tabular}{p{3.3cm} p{4.7cm} p{2.6cm} p{2.8cm}}
+\hline
+\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+\hline
+sendVerification & email: string, token: string & - & deliveryRejected \\
+sendConfirmation & email: string, message: string & - & deliveryRejected \\
+notify & c: ctmIdT, message: string & - & - \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+
+None
+
+\subsubsection{Environment Variables}
+
+emailService: the external email-delivery service \\
+notifications: the in-app notifications shown to each CTM
+
+\subsubsection{Assumptions}
+
+\begin{itemize}
+\item deliveryRejected is raised when the email-delivery service does not accept
+  the message, for example because the address is not valid.
+\item notify is used for care team changes (joining, permission changes,
+  removal) and deletion confirmations.
+\item No specific email provider is assumed (follows from System Context defined in SRS Section 2.3).
+\end{itemize}
+
+\subsubsection{Access Routine Semantics}
+
+\subsubsection{Local Functions}
+
+\newpage
+
+% =====================================================================
+\section{MIS of Charting Module} \label{mis:Charting}
+% =====================================================================
+
+\subsection{Module}
+
+Charting
+
+\subsection{Uses}
+
+None
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+
+None
+
+\subsubsection{Exported Access Programs}
+
+\begin{center}
+\small
+\begin{tabular}{p{3.3cm} p{4.7cm} p{2.6cm} p{2.8cm}}
+\hline
+\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+\hline
+representations & d: dataT & set of reprT & - \\
+draw & d: dataT, r: reprT, region: regionT & - & unsupportedRepr \\
+\hline
+\end{tabular}
+\end{center}
+
+\noindent where \\
+reprT = \{table, lineChart, barChart\} \\
+pointT = (x: DateTime $|$ string, y: $\mathbb{R}$) \\
+dataT = (title: string, xLabel: string, yLabel: string, points: seq of pointT) \\
+regionT = (left: $\mathbb{N}$, top: $\mathbb{N}$, width: $\mathbb{N}$, height:
+$\mathbb{N}$)
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+
+None
+
+\subsubsection{Environment Variables}
+
+win: 2D sequence of pixels displayed on the device screen
+
+\subsubsection{Assumptions}
+
+\begin{itemize}
+\item region lies within win, and draw only changes pixels inside region.
+\item unsupportedRepr is raised when r is not in representations(d). For
+  example, a line chart needs dates on the x-axis.
+\item Data with no points is not an exception; draw shows the title and a
+  message that there is no data for this selection.
+\item draw only changes how the values look, never the values themselves, so
+  every representation shows the same data (FR-DATA-5).
+\item Filtering, such as by date or leaving out incomplete sessions, is done by
+  the caller before the data is passed in.
+\end{itemize}
+
+\subsubsection{Access Routine Semantics}
+
+\subsubsection{Local Functions}
 
 \newpage
 
@@ -238,76 +1365,39 @@ The following table is taken directly from the Module Guide document for this pr
 
 \section{Appendix --- Generative AI Use Disclosure}
 
-\wss{ChatGPT (version 5) was used to brainstorm ideas for the template for this disclose section.}
+This appendix describes how the team used generative AI to prepare the Module
+Interface Specification (MIS) and how the team checked the resulting changes.
 
 \subsection{AI Tools Used}
 
-\wss{Give the name of the AI tool(s) used and the version.}
+The team used ChatGPT (OpenAI GPT-6) and GPT-6 Luna in Visual Studio Code.
 
 \subsection{How and Where Used}
 
-\wss{Explain what the tool(s) were used for.  Examples include: brainstorming,
-explaining a technical concept, reviewing the document, generating or modifying
-text, generating or modifying diagrams, identifying errors or omissions or
-inconsistencies.}
-
-\wss{For each of the uses, identify which parts of the document were affected.}
-
-\wss{You do not need to report every interaction, but you should disclose the 
-uses that materially contributed to your work}
+The team used AI to format \LaTeX{}, create and check references, and review
+grammar and spelling throughout the MIS. In the module specifications, AI
+assisted with formatting interface tables, checking mathematical notation
+and \LaTeX{} structure, and creating hyperlinks and cross-references to
+modules and sections.
 
 \subsection{Verification of AI-Generated Content}
 
-\wss{\begin{itemize}
-    \item Describe how the team checked AI-generated or AI-assisted material
-    before including it in the document.
-    \item In particular, verify factual claims, technical assertions,
-    requirements, calculations, references, and other information for which an
-    AI system may produce incorrect or fabricated results.
-    \item \textbf{The team is responsible for the accuracy, completeness,
-consistency, and appropriateness of the submitted document, regardless of
-whether material was generated by a human or an AI system.}
-\end{itemize}}
+The team inspected the \LaTeX{} source and compiled PDF to verify the layout
+of tables, the mathematical notation, and the document formatting. The team
+tested hyperlinks and cross-references to confirm that they led to the
+intended modules and sections. The team checked module names and technical
+references against the Module Guide (MG) and Software Requirements
+Specification (SRS).
+
+The team reviewed grammar and spelling corrections to verify that they
+preserved the intended technical meaning and module specifications. The team
+remains responsible for the accuracy, completeness, and consistency of the
+final document.
 
 \newpage{}
 
 \section{Appendix --- Reflection}
 
-\wss{Not required for CAS 741 projects}
-
-The information in this section will be used to evaluate the team members on the
-graduate attribute of Problem Analysis and Design.
-
-\input{../../Reflection.text}
-
-\begin{enumerate}
-  \item What went well while writing this deliverable? 
-  \item What pain points did you experience during this deliverable, and how
-    did you resolve them?
-  \item Which of your design decisions stemmed from speaking to your client(s)
-  or a proxy (e.g. your peers, stakeholders, potential users)? For those that
-  were not, why, and where did they come from?
-  \item While creating the design doc, what parts of your other documents (e.g.
-  requirements, hazard analysis, etc), it any, needed to be changed, and why?
-  \item What are the limitations of your solution?  Put another way, given
-  unlimited resources, what could you do to make the project better? (LO\_ProbSolutions)
-  \item Give a brief overview of other design solutions you considered.  What
-  are the benefits and tradeoffs of those other designs compared with the chosen
-  design?  From all the potential options, why did you select the documented design?
-  (LO\_Explores)
-  \item (After you have implemented another team's module, which means this
-  isn't filled in until after the original deadline). What did you learn by
-  implementing another team's module? Were all the details you needed in the
-  documentation, or did you need to make assumptions, or ask the other team
-  questions?  If your team also had another team implement one of your modules,
-  what was this experience like?  Are there things in your documentation you
-  could have changed to make the process go more smoothly for when an
-  ``outsider'' completes some of the implementation?
-
-  Your reflection should be about concepts learned in your SE education, such as modular decomposition, cohesion, coupling, information hiding, etc.  You should critique the quality and utility of the specification you received.
-
-  You should create a PR for your implemented module.  A link to the PR should be part of your reflection.
-
-\end{enumerate}
+The reflection is not applicable to the DD-1 submission.
 
 \end{document}

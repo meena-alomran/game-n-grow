@@ -26,6 +26,9 @@
 
 ## Exception: committed, CI-generated PDFs kept here for TA review
 !/pdfs/**/*.pdf
+# Source attachments required to build the interview report
+!/docs/CDs/Interviews/P1-Email-Exchange.pdf
+!/docs/CDs/Interviews/P2-Educational-Assistant-Transcript.pdf
 
 ## Bibliography auxiliary files (bibtex/biblatex/biber):
 *.bbl

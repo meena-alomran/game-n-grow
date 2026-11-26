@@ -84,10 +84,13 @@ jobs:
       # forked widely and the job has contents: write.
       # texlive-full is avoided deliberately; it is far larger than needed.
       # pandoc drives the Markdown -> PDF rule in the Makefile.
+      - name: Refresh apt package indexes
+        run: sudo apt-get update
+      
       - name: Install TeX Live and pandoc
         uses: awalsh128/cache-apt-pkgs-action@553a35bb8ebd9fcabcb1c9451aa4c98e1b4ca8a9 # v1.6.3
         with:
-          packages: texlive-latex-extra texlive-science texlive-fonts-extra texlive-fonts-recommended texlive-latex-recommended lmodern pandoc
+          packages: texlive-base texlive-binaries texlive-latex-base texlive-latex-extra texlive-science texlive-fonts-extra texlive-fonts-recommended texlive-latex-recommended lmodern pandoc
           version: 1.1
       - name: Verify the TeX toolchain is usable
         run: |
@@ -103,8 +106,17 @@ jobs:
           # pdflatex finds lmodern.sty but not the fonts it maps to, failing
           # with "Font rm-lmr7 at 600 not found".
           sudo updmap-sys >/dev/null
+          # Restoring cached package files also skips the postinst that builds
+          # the pdflatex format. Generate it system-wide so non-root builds
+          # (including pandoc's temporary build directory) can find it.
+          sudo fmtutil-sys --byfmt pdflatex
+
+          # The apt cache restore can skip texlive-binaries' alternatives setup,
+          # leaving bibtex.original installed without the `bibtex` command.
+          sudo update-alternatives --install /usr/bin/bibtex bibtex /usr/bin/bibtex.original 1
 
           pdflatex --version | head -1
+          bibtex --version | head -1
           pandoc --version | head -1
           kpsewhich article.cls
           kpsewhich amsmath.sty
