@@ -153,38 +153,43 @@ will continue to be populated.
 
 \section{Proof of Concept Demonstration Plan}
 
+The Proof of Concept (PoC) will consist of a functional Godot application demonstrating a vertical slice of Spectropica through a cashier mini-game. The learner will interact with customers, use a price reference book to determine the prices of randomly generated grocery products, calculate the total cost, and submit an answer. The demonstration will also include adjustable difficulty and stimulation settings, a gameplay statistics view for the caregiver, and a currency system integrated with a cosmetics shop. These components will be demonstrated within a single application to establish the feasibility of the proposed system.
+
+\medskip
 \noindent Risks:
 \begin{itemize}
-  \item Different users may find some perspectives not conducive to learning or engaging; for example, being overwhelmed by the nature of 3D perspectives.
+  \item Users may find some games to be overly stimulating, or not stimulating enough, depending on their individual sensory preferences.
 
-  What we will demonstrate to convince ourselves we can overcome this risk is designing multiple perspective modes for suitable games (e.g., 2D, first-person 3D, third-person 3D) to alleviate any user issues pertaining to perspective.
+  What we will demonstrate to convince ourselves we can overcome this risk is implementing adjustable visual stimulation settings within the cashier mini-game. The background behind the customer will change depending on the selected stimulation level without interfering with the core gameplay functionality.
 
-  If our PoC demo fails regarding this, we may work around this risk by supplanting the 3D ideas with 2.5D rendering instead, replicating games such as Overcooked.
-
-  \item Users may find some games to be overly stimulating, or not stimulating enough; for example, the noise level in a grocery shopping mini-game.
-
-  What we will demonstrate to convince ourselves we can overcome this risk is adding adjustable settings to each game to pinpoint the most suitable level of stimulation for the user.
-
-  If our PoC demo fails regarding this, we may simplify the simulation levels to a binary option, or assume low stimulation as the default, since overstimulation is a larger risk.
+  If our PoC demo fails regarding this, we may simplify the stimulation levels or assume low stimulation as the default, limiting the degree of sensory customization available to the user.
 
   \item Some games may be considered too easy or too difficult depending on the user, missing the goal of learning and progress tracking.
 
-  What we will demonstrate to convince ourselves we can overcome this risk is implementing difficulty levels for each game. This enables users to play at a difficulty ideal for their skills and needs.
+  What we will demonstrate to convince ourselves we can overcome this risk is implementing difficulty levels within the cashier mini-game. The numerical complexity of grocery prices will vary depending on the selected difficulty level, including the use of whole-number and decimal values. This will demonstrate the feasibility of accommodating different learning abilities within the same game implementation.
 
-  If our PoC demo fails regarding this, we may implement a binary option regarding difficulties that solely shortens the maximum time given to complete a task within the game, or the game as a whole.
-
-  \item The caregiver may not have sufficient flexibility or freedom to tailor games to each user; the games not being personable per user.
-  
-  What we will demonstrate to convince ourselves we can overcome this risk is implementing a template system for the caregiver to create their own games from pre-existing baseline games. For example, the caregiver may create a vocabulary-based mini-game for the user's specific information such as their favorite grocery items.
-
-  If our PoC demo fails regarding this, we may create a text-based form per game for the caregiver to input the customized vocabulary, rather than a full template system with pictures, colors et cetera.
+  If our PoC demo fails regarding this, we may implement a binary difficulty option distinguishing between whole-number and decimal-based calculations, reducing the granularity of difficulty customization.
 
   \item The caregiver may have difficulty interpreting the data collected from the games, and thus be unable to derive useful information for the user.
-  
-  What we will demonstrate to convince ourselves we can overcome this risk is creating multiple views of the data for the caregiver such as graphical views, table views and summarized bullet point views. 
 
-  If our PoC demo fails regarding this, we may instead offer a method for the caregiver to export the data to a CSV file, and analyze it themselves in a program such as Excel.
+  What we will demonstrate to convince ourselves we can overcome this risk is collecting gameplay performance data from the cashier mini-game and presenting it through a caregiver-facing statistics view. Rather than solely displaying an overall score, the view will provide information that may help the caregiver identify specific areas where the user requires additional practice.
+
+  If our PoC demo fails regarding this, we may reconsider the types of data collected, simplify the presentation of the data, or offer a method for the caregiver to export the data to a CSV file and analyze it themselves in a program such as Excel.
+
+  \item Maintaining consistent currency balances and cosmetic ownership across different components of the application may introduce challenges related to shared state management and data persistence.
+
+  What we will demonstrate to convince ourselves we can overcome this risk is implementing a centralized currency system integrated with a cosmetics shop. The user will be able to purchase cosmetic accessories using their available currency, with the system correctly deducting currency, preventing invalid or duplicate purchases, and retaining ownership across application sessions.
+
+  If our PoC demo fails regarding this, we may temporarily maintain currency and cosmetic ownership within the active application session while investigating alternative storage mechanisms. This would limit the user's ability to retain rewards between sessions.
+
+  \item The chosen software architecture and game development framework may introduce difficulties when integrating gameplay, customization, progress tracking, and reward management within a single application.
+
+  What we will demonstrate to convince ourselves we can overcome this risk is integrating the cashier mini-game, customization settings, cosmetics shop, and gameplay statistics view within a single Godot application. The demonstration will involve navigating between these components and completing their respective functionalities without disrupting the operation of the system.
+
+  If our PoC demo fails regarding this, we may reconsider the software architecture or simplify the interactions between components before expanding the application to include additional educational games.
 \end{itemize}
+
+Multiple gameplay perspective modes and the comprehensive caregiver-facing game template system will be explored during subsequent development milestones. These features remain within the intended project scope but are outside the scope of the current PoC demonstration.
 
 \par\medskip
 
