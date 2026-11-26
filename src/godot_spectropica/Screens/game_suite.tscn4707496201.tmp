@@ -1,0 +1,257 @@
+[gd_scene format=3 uid="uid://bmn1s7dw8hv4u"]
+
+[ext_resource type="Script" uid="uid://5ycbij1aooj2" path="res://Screens/game_suite.gd" id="1_4ersa"]
+[ext_resource type="Script" uid="uid://dnr83d8m8hybp" path="res://Screens/draw_suite_background.gd" id="2_0w0sf"]
+[ext_resource type="Texture2D" uid="uid://cp4ynrd8wqylu" path="res://Arts/Images/gold-coin.png" id="2_eokyj"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_wlky3"]
+font_size = 91
+font_color = Color(0.8117647, 0.64705884, 0, 1)
+outline_color = Color(0.83137256, 0.67058825, 0.24705882, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yivg4"]
+bg_color = Color(1, 0.9529412, 0.6901961, 1)
+corner_radius_top_left = 40
+corner_radius_top_right = 40
+corner_radius_bottom_right = 40
+corner_radius_bottom_left = 40
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7tvv2"]
+bg_color = Color(0.6901961, 0.5882353, 0, 0.9647059)
+corner_radius_top_right = 40
+corner_radius_bottom_right = 40
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0w0sf"]
+content_margin_left = 14.0
+content_margin_right = 14.0
+bg_color = Color(1, 0.94, 0.73, 1)
+corner_radius_top_left = 18
+corner_radius_top_right = 18
+corner_radius_bottom_right = 18
+corner_radius_bottom_left = 18
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m670r"]
+content_margin_left = 16.0
+content_margin_right = 16.0
+bg_color = Color(0.95, 0.99, 1, 1)
+corner_radius_top_left = 18
+corner_radius_top_right = 18
+corner_radius_bottom_right = 18
+corner_radius_bottom_left = 18
+shadow_color = Color(0.16, 0.4, 0.58, 0.38)
+shadow_size = 3
+shadow_offset = Vector2(0, 3)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4ersa"]
+content_margin_left = 16.0
+content_margin_right = 16.0
+bg_color = Color(0.83, 0.95, 1, 1)
+corner_radius_top_left = 18
+corner_radius_top_right = 18
+corner_radius_bottom_right = 18
+corner_radius_bottom_left = 18
+shadow_color = Color(0.16, 0.4, 0.58, 0.38)
+shadow_size = 3
+shadow_offset = Vector2(0, 3)
+
+[node name="GameSuite" type="Control" unique_id=760333438]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_4ersa")
+
+[node name="Background" type="ColorRect" parent="." unique_id=775201936]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 2.0
+offset_bottom = 2.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.6509804, 0.9019608, 1, 1)
+
+[node name="Control" type="Control" parent="." unique_id=1654107841]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_0w0sf")
+
+[node name="Title (Spectropica)" type="Label" parent="." unique_id=700356002]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -298.5
+offset_top = 47.0
+offset_right = 298.5
+offset_bottom = 172.0
+grow_horizontal = 2
+text = "SPECTROPICA"
+label_settings = SubResource("LabelSettings_wlky3")
+horizontal_alignment = 1
+
+[node name="BeachGamePill" type="PanelContainer" parent="." unique_id=1813231157]
+layout_mode = 0
+offset_left = 84.0
+offset_top = 233.0
+offset_right = 495.0
+offset_bottom = 369.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_yivg4")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BeachGamePill" unique_id=703680708]
+layout_mode = 2
+
+[node name="BeachGameTitle" type="Label" parent="BeachGamePill/HBoxContainer" unique_id=2134101286]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.6117647, 0.5254902, 0.08627451, 1)
+theme_override_font_sizes/font_size = 30
+text = "Beach Game"
+horizontal_alignment = 1
+
+[node name="BeachGamePlay" type="Button" parent="BeachGamePill/HBoxContainer" unique_id=1774607708]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxFlat_7tvv2")
+text = "Play"
+
+[node name="MathGamePill2" type="PanelContainer" parent="." unique_id=813620782]
+layout_mode = 0
+offset_left = 583.0
+offset_top = 233.0
+offset_right = 994.0
+offset_bottom = 369.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_yivg4")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MathGamePill2" unique_id=1551043773]
+layout_mode = 2
+
+[node name="MathGameTitle" type="Label" parent="MathGamePill2/HBoxContainer" unique_id=451289165]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.6117647, 0.5254902, 0.08627451, 1)
+theme_override_font_sizes/font_size = 30
+text = "Math Game"
+horizontal_alignment = 1
+
+[node name="MathGamePlay" type="Button" parent="MathGamePill2/HBoxContainer" unique_id=1939943960]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxFlat_7tvv2")
+text = "Play"
+
+[node name="SpellingGamePill3" type="PanelContainer" parent="." unique_id=2032230838]
+layout_mode = 0
+offset_left = 100.0
+offset_top = 414.0
+offset_right = 511.0
+offset_bottom = 550.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_yivg4")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="SpellingGamePill3" unique_id=645362200]
+layout_mode = 2
+
+[node name="SpellingGameTitle" type="Label" parent="SpellingGamePill3/HBoxContainer" unique_id=1427768852]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.6117647, 0.5254902, 0.08627451, 1)
+theme_override_font_sizes/font_size = 30
+text = "Spelling Game"
+horizontal_alignment = 1
+
+[node name="SpellingGamePlay" type="Button" parent="SpellingGamePill3/HBoxContainer" unique_id=679555254]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxFlat_7tvv2")
+text = "Play"
+
+[node name="PatternGamePill4" type="PanelContainer" parent="." unique_id=181031275]
+layout_mode = 0
+offset_left = 587.0
+offset_top = 409.0
+offset_right = 998.0
+offset_bottom = 545.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_yivg4")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PatternGamePill4" unique_id=662731094]
+layout_mode = 2
+
+[node name="PatternGameTitle" type="Label" parent="PatternGamePill4/HBoxContainer" unique_id=1247505031]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.6117647, 0.5254902, 0.08627451, 1)
+theme_override_font_sizes/font_size = 30
+text = "Pattern Game"
+horizontal_alignment = 1
+
+[node name="PatternGamePlay" type="Button" parent="PatternGamePill4/HBoxContainer" unique_id=1570042768]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxFlat_7tvv2")
+text = "Play"
+
+[node name="Purse" type="PanelContainer" parent="." unique_id=522678225]
+layout_mode = 0
+offset_left = 993.0
+offset_top = 16.0
+offset_right = 1138.0
+offset_bottom = 56.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_0w0sf")
+
+[node name="Row" type="HBoxContainer" parent="Purse" unique_id=604901090]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Coin" type="TextureRect" parent="Purse/Row" unique_id=2130685334]
+texture_filter = 1
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+texture = ExtResource("2_eokyj")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Balance" type="Label" parent="Purse/Row" unique_id=1514273381]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.27, 0.21, 0.12, 1)
+theme_override_font_sizes/font_size = 20
+text = "0 coins"
+
+[node name="Shop" type="Button" parent="." unique_id=156187582]
+custom_minimum_size = Vector2(108, 52)
+layout_mode = 0
+offset_left = 1009.0
+offset_top = 71.0
+offset_right = 1125.0
+offset_bottom = 123.0
+mouse_default_cursor_shape = 2
+theme_override_colors/font_color = Color(0.16, 0.29, 0.23, 1)
+theme_override_colors/font_focus_color = Color(0.16, 0.29, 0.23, 1)
+theme_override_colors/font_pressed_color = Color(0.16, 0.29, 0.23, 1)
+theme_override_colors/font_hover_color = Color(0.16, 0.29, 0.23, 1)
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_m670r")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_4ersa")
+theme_override_styles/hover = SubResource("StyleBoxFlat_4ersa")
+text = "Shop
+
+"
+
+[connection signal="pressed" from="Shop" to="." method="_on_rewards_pressed"]

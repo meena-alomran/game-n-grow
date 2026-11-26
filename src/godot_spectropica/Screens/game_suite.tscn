@@ -2,6 +2,8 @@
 
 [ext_resource type="Script" uid="uid://5ycbij1aooj2" path="res://Screens/game_suite.gd" id="1_4ersa"]
 [ext_resource type="Texture2D" uid="uid://cp4ynrd8wqylu" path="res://Arts/Images/gold-coin.png" id="2_eokyj"]
+[ext_resource type="Script" uid="uid://jm1j62kli3wd" path="res://Screens/meadow_paths.gd" id="2_pj0y4"]
+[ext_resource type="Script" uid="uid://cdyjik7fpab0k" path="res://Screens/background.gd" id="3_0w0sf"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_wlky3"]
 font_size = 91
@@ -71,7 +73,7 @@ offset_top = 2.0
 offset_bottom = 2.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.6509804, 0.9019608, 1, 1)
+color = Color(0.4, 0.83137256, 1, 1)
 
 [node name="Title (Spectropica)" type="Label" parent="." unique_id=700356002]
 layout_mode = 1
@@ -79,20 +81,40 @@ anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -298.5
-offset_top = 47.0
+offset_top = 39.0
 offset_right = 298.5
-offset_bottom = 172.0
+offset_bottom = 164.0
 grow_horizontal = 2
 text = "SPECTROPICA"
 label_settings = SubResource("LabelSettings_wlky3")
 horizontal_alignment = 1
 
+[node name="Control2" type="Control" parent="." unique_id=591866404]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_pj0y4")
+
+[node name="Control" type="Control" parent="." unique_id=360578638]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("3_0w0sf")
+
 [node name="BeachGamePill" type="PanelContainer" parent="." unique_id=1813231157]
+visible = false
 layout_mode = 0
-offset_left = 84.0
-offset_top = 233.0
-offset_right = 495.0
-offset_bottom = 369.0
+offset_left = 176.0
+offset_top = 251.0
+offset_right = 587.0
+offset_bottom = 387.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_yivg4")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="BeachGamePill" unique_id=703680708]
@@ -115,11 +137,12 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_7tvv2")
 text = "Play"
 
 [node name="MathGamePill2" type="PanelContainer" parent="." unique_id=813620782]
+visible = false
 layout_mode = 0
-offset_left = 583.0
-offset_top = 233.0
-offset_right = 994.0
-offset_bottom = 369.0
+offset_left = 631.0
+offset_top = 202.0
+offset_right = 1042.0
+offset_bottom = 338.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_yivg4")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MathGamePill2" unique_id=1551043773]
@@ -142,11 +165,12 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_7tvv2")
 text = "Play"
 
 [node name="SpellingGamePill3" type="PanelContainer" parent="." unique_id=2032230838]
+visible = false
 layout_mode = 0
-offset_left = 100.0
-offset_top = 414.0
-offset_right = 511.0
-offset_bottom = 550.0
+offset_left = 155.0
+offset_top = 458.0
+offset_right = 566.0
+offset_bottom = 594.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_yivg4")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="SpellingGamePill3" unique_id=645362200]
@@ -169,11 +193,12 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_7tvv2")
 text = "Play"
 
 [node name="PatternGamePill4" type="PanelContainer" parent="." unique_id=181031275]
+visible = false
 layout_mode = 0
-offset_left = 587.0
-offset_top = 409.0
-offset_right = 998.0
-offset_bottom = 545.0
+offset_left = 578.0
+offset_top = 393.0
+offset_right = 989.0
+offset_bottom = 529.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_yivg4")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="PatternGamePill4" unique_id=662731094]
@@ -227,10 +252,10 @@ text = "0 coins"
 [node name="Shop" type="Button" parent="." unique_id=156187582]
 custom_minimum_size = Vector2(108, 52)
 layout_mode = 0
-offset_left = 1009.0
-offset_top = 71.0
-offset_right = 1125.0
-offset_bottom = 123.0
+offset_left = 1006.0
+offset_top = 70.0
+offset_right = 1122.0
+offset_bottom = 122.0
 mouse_default_cursor_shape = 2
 theme_override_colors/font_color = Color(0.16, 0.29, 0.23, 1)
 theme_override_colors/font_focus_color = Color(0.16, 0.29, 0.23, 1)
@@ -240,7 +265,7 @@ theme_override_font_sizes/font_size = 20
 theme_override_styles/normal = SubResource("StyleBoxFlat_m670r")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_4ersa")
 theme_override_styles/hover = SubResource("StyleBoxFlat_4ersa")
-text = "Shop
+text = "> Shop
 
 "
 

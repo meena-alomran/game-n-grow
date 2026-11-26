@@ -14,5 +14,5 @@ func _process(delta: float) -> void:
 
 
 func _on_rewards_pressed() -> void:
-	var destination := cashier_game_path
+	var destination := shop_scene_path
 	get_tree().change_scene_to_file(destination)
