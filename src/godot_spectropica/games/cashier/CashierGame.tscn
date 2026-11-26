@@ -23,8 +23,6 @@
 [ext_resource type="PackedScene" uid="uid://bappfcvgvuwo6" path="res://Arts/models/cashier_game/bg_shore.glb" id="21_r7hc5"]
 [ext_resource type="Shader" uid="uid://c3kfaebgkfa1b" path="res://games/cashier/shoreline.gdshader" id="22_7o7am"]
 [ext_resource type="PackedScene" uid="uid://b5s4uldedu8xp" path="res://Arts/models/cashier_game/bg_palm.glb" id="23_g1rwb"]
-[ext_resource type="FontFile" uid="uid://dewgtcm8moxxi" path="res://Arts/Fonts/Ticketing.ttf" id="24_acbws"]
-[ext_resource type="Texture2D" uid="uid://dnivdh7ak6241" path="res://Arts/icons/chevron_left.png" id="25_j4nyk"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_g1rwb"]
 sky_top_color = Color(0.10379689, 0.45970267, 0.76512295, 1)
@@ -242,26 +240,29 @@ rings = 12
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_g1rwb"]
 shading_mode = 0
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j4nyk"]
-bg_color = Color(0.47, 0.47, 0.47, 1)
-corner_radius_top_left = 25
-corner_radius_top_right = 25
-corner_radius_bottom_right = 25
-corner_radius_bottom_left = 25
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g1rwb"]
+content_margin_left = 16.0
+content_margin_right = 16.0
+bg_color = Color(0.95, 0.99, 1, 1)
+corner_radius_top_left = 18
+corner_radius_top_right = 18
+corner_radius_bottom_right = 18
+corner_radius_bottom_left = 18
+shadow_color = Color(0.16, 0.4, 0.58, 0.38)
+shadow_size = 3
+shadow_offset = Vector2(0, 3)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qauuu"]
-bg_color = Color(0.29, 0.29, 0.29, 1)
-corner_radius_top_left = 25
-corner_radius_top_right = 25
-corner_radius_bottom_right = 25
-corner_radius_bottom_left = 25
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o0jrq"]
-bg_color = Color(0.29, 0.29, 0.29, 1)
-corner_radius_top_left = 25
-corner_radius_top_right = 25
-corner_radius_bottom_right = 25
-corner_radius_bottom_left = 25
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_acbws"]
+content_margin_left = 16.0
+content_margin_right = 16.0
+bg_color = Color(0.83, 0.95, 1, 1)
+corner_radius_top_left = 18
+corner_radius_top_right = 18
+corner_radius_bottom_right = 18
+corner_radius_bottom_left = 18
+shadow_color = Color(0.16, 0.4, 0.58, 0.38)
+shadow_size = 3
+shadow_offset = Vector2(0, 3)
 
 [node name="CashierGame" type="Node" unique_id=1455885626 node_paths=PackedStringArray("customer_animation_player", "new_customer_transform", "old_customer_transform", "grocery_spots", "list_page_l", "list_page_r")]
 script = ExtResource("1_gljsp")
@@ -349,7 +350,7 @@ transform = Transform3D(-1.6292068e-07, 0, 1, 0, 1, 0, -1, 0, -1.6292068e-07, 5.
 [node name="AnimalKat2" parent="3D/NewCustomerTransform" unique_id=1099911432 instance=ExtResource("2_xglb0")]
 
 [node name="OldCustomerTransform" type="Marker3D" parent="3D" unique_id=193872808]
-transform = Transform3D(-0.9985353, 0, -0.05407866, 0, 1, 0, 0.05407866, 0, -0.9985353, 0.49751902, 0, -1.6294477)
+transform = Transform3D(-0.9985352, 0, -0.054078657, 0, 1, 0, 0.054078657, 0, -0.9985352, 0.49751902, 0, -1.6294477)
 
 [node name="AnimalKat" parent="3D/OldCustomerTransform" unique_id=1100125556 instance=ExtResource("2_xglb0")]
 
@@ -529,31 +530,30 @@ surface_material_override/0 = ExtResource("4_ms2fc")
 
 [node name="HUD" type="CanvasLayer" parent="." unique_id=1483447614]
 
-[node name="ReturnButton" type="Button" parent="HUD" unique_id=1666859931]
-anchors_preset = 3
+[node name="Back" type="Button" parent="HUD" unique_id=1024000268]
+custom_minimum_size = Vector2(108, 52)
+anchors_preset = 1
 anchor_left = 1.0
-anchor_top = 1.0
 anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -134.0
-offset_top = -80.0
-offset_right = -25.0
-offset_bottom = -26.0
+offset_left = -122.0
+offset_top = 11.0
+offset_right = -14.0
+offset_bottom = 63.0
 grow_horizontal = 0
-grow_vertical = 0
-theme_override_fonts/font = ExtResource("24_acbws")
-theme_override_font_sizes/font_size = 31
-theme_override_styles/normal = SubResource("StyleBoxFlat_j4nyk")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_qauuu")
-theme_override_styles/hover = SubResource("StyleBoxFlat_o0jrq")
-icon = ExtResource("25_j4nyk")
-icon_alignment = 1
-vertical_icon_alignment = 2
-expand_icon = true
+mouse_default_cursor_shape = 2
+theme_override_colors/font_color = Color(0.16, 0.29, 0.23, 1)
+theme_override_colors/font_focus_color = Color(0.16, 0.29, 0.23, 1)
+theme_override_colors/font_pressed_color = Color(0.16, 0.29, 0.23, 1)
+theme_override_colors/font_hover_color = Color(0.16, 0.29, 0.23, 1)
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_g1rwb")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_acbws")
+theme_override_styles/hover = SubResource("StyleBoxFlat_acbws")
+text = "‹  Back"
 
 [connection signal="cash_button_pressed" from="3D/cash_register/item_monitor/MonitorSubviewport/CashierMonitor" to="." method="_on_cashier_monitor_cash_button_pressed"]
 [connection signal="key_pushed" from="3D/cash_register/item_monitor/MonitorSubviewport/CashierMonitor" to="." method="_on_cashier_monitor_key_pushed"]
-[connection signal="pressed" from="HUD/ReturnButton" to="." method="_on_return_button_pressed"]
+[connection signal="pressed" from="HUD/Back" to="." method="_on_return_button_pressed"]
 
 [editable path="3D/cash_register"]
 [editable path="3D/cash_register/item_monitor"]
